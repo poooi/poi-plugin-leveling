@@ -1,0 +1,45 @@
+{
+  "name": "poi-plugin-leveling",
+  "version": "0.0.1",
+  "description": "Ship leveling planner",
+  "main": "index.es",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Javran/poi-plugin-leveling.git"
+  },
+  "keywords": [
+    "kancolle"
+  ],
+  "author": {
+    "name": "Javran",
+    "url": "https://github.com/Javran"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Javran/poi-plugin-leveling/issues"
+  },
+  "homepage": "https://github.com/Javran/poi-plugin-leveling#readme",
+  "poiPlugin": {
+    "title": "Leveling",
+    "priority": 10,
+    "icon": "angle-double-up"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015-node6": "^0.4.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^7.0.0",
+    "mocha": "^3.3.0",
+    "path-extra": "^4.1.0"
+  }
+}
