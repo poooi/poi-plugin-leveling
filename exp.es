@@ -28,6 +28,24 @@ const verifyData = assert => {
     [100,0,0], [155,240000,4470000])
 }
 
+const totalExpTable = (() => {
+  const table = new Array(1+155);
+
+  [...rawTable1, ...rawTable2].reduce(
+    (curTotal,[lvl,diff]) => {
+      const newTotal = curTotal+diff
+      table[lvl] = newTotal
+      return newTotal
+    }, 0)
+
+  return table
+})()
+
+// total experience required for a ship to reach certain level
+const totalExp = lvl => totalExpTable[lvl]
+
 export {
   verifyData,
+
+  totalExp,
 }
