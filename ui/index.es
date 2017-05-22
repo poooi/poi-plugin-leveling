@@ -11,6 +11,7 @@ import {
 } from 'views/utils/selectors'
 
 import { ShipPicker } from './ship-picker'
+import { GoalList } from './goal-list'
 
 const { $ } = window
 
@@ -55,6 +56,7 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <GoalList />
         <ShipPicker ships={this.props.ships} />
       </div>
     )
