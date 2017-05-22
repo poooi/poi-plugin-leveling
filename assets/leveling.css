@@ -1,3 +1,15 @@
 #content-root {
     margin: 10px;
 }
+
+.fleet-id-indicator {
+    font-weight: bolder;
+    color: white;
+    font-family: serif;
+    text-shadow:
+    -1px -1px 0 lightseagreen,
+    1px -1px 0 lightseagreen,
+    -1px 1px 0 lightseagreen,
+    1px 1px 0 lightseagreen;
+    -webkit-font-smoothing: antialiased;
+}

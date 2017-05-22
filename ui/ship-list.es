@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Table } from 'react-bootstrap'
-
+import { Table, Button } from 'react-bootstrap'
+const { FontAwesome } = window
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
@@ -14,6 +14,8 @@ class ShipList extends Component {
 
   render() {
     const { ships } = this.props
+    const sortedShips = [...ships]
+    sortedShips.sort( (x,y) => y.level - x.level )
     const mkRow = ship => {
       return (
         <tr key={ship.rstId}>
@@ -24,13 +26,14 @@ class ShipList extends Component {
           <td>{ship.evasion}</td>
           <td>{ship.asw}</td>
           <td>{ship.los}</td>
-          <td>{ship.fleet}</td>
-          <td>{""+ship.locked}</td>
-          <td>Add</td>
+          <td className="fleet-id-indicator" style={{textAlign: "center"}}>{ship.fleet}</td>
+          <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
+          <td>
+            <Button style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
+          </td>
         </tr>
       )
     }
-    console.log( ships)
     return (
       <Table striped bordered condensed hover>
         <thead>
@@ -41,7 +44,7 @@ class ShipList extends Component {
           </tr>
         </thead>
         <tbody>
-          { ships.map( mkRow ) }
+          { sortedShips.map( mkRow ) }
         </tbody>
       </Table>
     )
