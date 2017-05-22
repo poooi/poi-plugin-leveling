@@ -10,7 +10,7 @@ import {
   fleetsSelector,
 } from 'views/utils/selectors'
 
-import { ShipList } from './ship-list'
+import { ShipPicker } from './ship-picker'
 
 const { $ } = window
 
@@ -54,7 +54,9 @@ const shipsInfoSelector = createSelector(
 class Main extends Component {
   render() {
     return (
-      <ShipList ships={this.props.ships} />
+      <div>
+        <ShipPicker ships={this.props.ships} />
+      </div>
     )
   }
 }
