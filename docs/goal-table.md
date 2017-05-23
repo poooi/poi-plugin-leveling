@@ -1,4 +1,4 @@
-This module defines "GoalTable",
+This document defines "GoalTable",
 which is responsible for keeping track of all user's leveling goals
 and configuration of each individual goal.
 
@@ -27,7 +27,7 @@ and configuration of each individual goal.
 - We will try to design structures in a way that a `type` field should give you sufficient
   info so that no `typeof` check is needed.
 
-## GoalTable structure
+## `GoalTable` structure
 
 - an Array of `Goal`s
 
@@ -36,7 +36,7 @@ and configuration of each individual goal.
 - array is implicitly indexed by roster id - which means `Goal` is unique given a `rosterId`.
   with admiral id being one part of file name, this should eliminate any ambiguity.
 
-## Goal structure
+## `Goal` structure
 
 - an Object of the following shape:
 
@@ -48,9 +48,9 @@ and configuration of each individual goal.
     }
     ```
 
-## Method structure
+## `Method` structure
 
-- an Object that guaranteed to have a `type' field.
+- an Object that guaranteed to have a `type` field.
 
 - when `type` is `sortie`
 
@@ -76,9 +76,9 @@ and configuration of each individual goal.
     }
     ```
 
-## BaseExp structure
+## `BaseExp` structure
 
-- an Object that guaranteed to have a `type' field.
+- an Object that guaranteed to have a `type` field.
 
 - when `type` is `standard`
 
@@ -98,9 +98,9 @@ and configuration of each individual goal.
     }
     ```
 
-## ExpValue structure
+## `ExpValue` structure
 
-- an Object that guaranteed to have a `type' field.
+- an Object that guaranteed to have a `type` field.
 
 - when `type` is `single`
 
