@@ -1,6 +1,6 @@
 const { config } = window
 
-export const windowURL = `file://${__dirname}/index.html`
+const windowURL = `file://${__dirname}/index.html`
 
 const bounds = config.get('plugin.Leveling.bounds') || {
   x: config.get("poi.window.x", 0),
@@ -9,9 +9,16 @@ const bounds = config.get('plugin.Leveling.bounds') || {
   height: 600,
 }
 
-export const windowOptions = {
+const windowOptions = {
   ...bounds,
 }
 
+const useEnv = true
+
 export const realClose = true
-export const useEnv = true
+
+export {
+  windowOptions,
+  windowURL,
+  useEnv,
+}

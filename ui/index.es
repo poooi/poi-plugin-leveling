@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom'
 import { connect, Provider } from 'react-redux'
 import { createSelector } from 'reselect'
 
-import { store } from 'views/create-store'
+import { store, extendReducer } from 'views/create-store'
 import {
   shipsSelector,
   constSelector,
   fleetsSelector,
+  basicSelector,
 } from 'views/utils/selectors'
 
 import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
+import { reducer, mapDispatchToProps } from '../reducer'
 
 const { $ } = window
 
@@ -52,7 +54,18 @@ const shipsInfoSelector = createSelector(
     })
   })
 
+const admiralIdSelector = createSelector(
+  basicSelector,
+  d => parseInt(d.api_member_id,10))
+
 class Main extends Component {
+
+  componentWillMount() {
+    const { onInitialize, admiralId } = this.props
+    console.log(admiralId)
+    onInitialize(admiralId)
+  }
+
   render() {
     return (
       <div>
@@ -66,9 +79,13 @@ class Main extends Component {
 const MainInst = connect(
   state => {
     const ships = shipsInfoSelector(state)
-    return { ships }
-  }
+    const admiralId = admiralIdSelector(state)
+    return { ships, admiralId }
+  },
+  mapDispatchToProps,
 )(Main)
+
+extendReducer('poi-plugin-leveling', reducer)
 
 ReactDOM.render(
   <Provider store={store}>
