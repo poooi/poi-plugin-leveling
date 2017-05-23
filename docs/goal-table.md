@@ -29,12 +29,7 @@ and configuration of each individual goal.
 
 ## `GoalTable` structure
 
-- an Array of `Goal`s
-
-- each object is a `Goal` structure
-
-- array is implicitly indexed by roster id - which means `Goal` is unique given a `rosterId`.
-  with admiral id being one part of file name, this should eliminate any ambiguity.
+- an Object whose keys are roster ids and values `Goal`s
 
 ## `Goal` structure
 
@@ -85,9 +80,12 @@ and configuration of each individual goal.
     ```
     {
       type: "standard",
-      mapId: <map id>,
+      map: <see note above>,
     }
     ```
+
+    Note: `map` refers to one key of `/assets/map_exp.json`,
+    which is also a map naming convention among game players.
 
 - when `type` is `custom`
 
