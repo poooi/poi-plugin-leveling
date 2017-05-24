@@ -17,6 +17,7 @@ const shipsInfoSelector = createSelector(
     return Object.keys(rawShips).map( rstIdStr => {
       const rstId = parseInt(rstIdStr,10)
       const ship = rawShips[rstIdStr]
+      const totalExp = ship.api_exp[0]
       const expToNext = ship.api_exp[1]
       const mstId = ship.api_ship_id
       const $ship = $ships[mstId]
@@ -38,6 +39,7 @@ const shipsInfoSelector = createSelector(
         los,
         locked,
         expToNext,
+        totalExp,
       }
     })
   })

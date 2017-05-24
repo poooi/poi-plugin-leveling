@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { ListGroupItem, Button } from 'react-bootstrap'
 
 import { ThreeRows } from './three-rows'
+import { totalExp } from '../../exp'
+import { computeExpRange } from '../../map-exp'
+
+const { _, FontAwesome } = window
 
 class GoalBox extends Component {
   render() {
@@ -35,6 +39,21 @@ class GoalBox extends Component {
       return [`${showExpValue(method.exp)} Exp/sortie`,""]
     })()
 
+    const remainingExp = totalExp(goal.goalLevel) - ship.totalExp
+    const goalAchieved = remainingExp <= 0
+    const remainingExpText = goalAchieved
+      ? "+Exp. 0"
+      : `+Exp. ${remainingExp}`
+
+    const computeResultText = () => {
+      const expRange = computeExpRange(goal.method)
+      const remainingSorties =
+        _.uniq(expRange.map( exp => Math.ceil(remainingExp / exp)))
+      return remainingSorties.length === 1
+        ? String(remainingSorties[0])
+        : `${remainingSorties[1]} ~ ${remainingSorties[0]}`
+    }
+
     return (
       <ListGroupItem>
         <div className="goal-box" style={{display: "flex", alignItems: "center"}}>
@@ -54,7 +73,7 @@ class GoalBox extends Component {
               style={{flex: 2}}
               first="Goal"
               second={goal.goalLevel}
-              third="+Exp. 4470000"
+              third={remainingExpText}
               />
           <ThreeRows
               style={{flex: 5}}
@@ -62,23 +81,16 @@ class GoalBox extends Component {
               second={methodSecond}
               third={methodThird}
               />
-          {
-            /*
-               Method column 3 rows:
-               - standard mode: Method, Sortie: 3-2, FS+MVP+Rank
-               - custom sortie mode: Method, Sortie: xxx~yyy base exp, FS+MVP+Rank
-               - custom exp mode: Custom: xxx~yyy exp, <empty>
-             */
-
-          }
           <ThreeRows
               style={{flex: 3}}
               first="Result"
-              second="114 ~ 514"
+              second={goalAchieved ? "-" : computeResultText()}
               third="Battles"
               />
           <div style={{width: "8%", display: "flex", flexDirection: "column"}}>
-            <Button>Edit</Button>
+            <Button>
+              <FontAwesome name="pencil" />
+            </Button>
           </div>
         </div>
       </ListGroupItem>
