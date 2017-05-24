@@ -18,7 +18,7 @@ module.exports = {
   'parser': 'babel-eslint',
   'rules': {
     'semi': ['error', 'never'],
-    'import/no-unresolved': [2, { 'ignore': ['views/.*', 'reselect', 'react-*'] }],
+    'import/no-unresolved': [2, { 'ignore': ['views/.*', 'reselect', 'react-*', 'prop-types'] }],
     'react/jsx-filename-extension': 'off',
     'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
     'import/extensions': ['error', { 'es': 'never' }],

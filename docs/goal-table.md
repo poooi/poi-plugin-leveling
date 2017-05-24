@@ -67,7 +67,7 @@ and configuration of each individual goal.
     ```
     {
       type: "custom",
-      baseExp: <BaseExp>,
+      exp: <ExpValue>,
     }
     ```
 

@@ -10,7 +10,9 @@ class ShipPicker extends Component {
     return (
       <div>
         <ShipFilter />
-        <ShipList ships={this.props.ships} />
+        <ShipList
+            onModifyGoalTable={this.props.onModifyGoalTable}
+            ships={this.props.ships} />
       </div>
     )
   }

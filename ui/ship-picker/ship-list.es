@@ -12,6 +12,29 @@ class ShipList extends Component {
     "Fleet", "Lock", "Control",
   ]
 
+
+  handleAddToGoalTable = rstId => () => {
+    const { onModifyGoalTable } = this.props
+    onModifyGoalTable( gt => {
+      // TODO: most of the values are placeholders
+      const newGoal = {
+        rosterId: rstId,
+        goalLevel: 155,
+        method: {
+          type: "sortie",
+          flagship: true,
+          mvp: "yes",
+          rank: ["S","A"],
+          baseExp: {
+            type: "standard",
+            map: "3-2",
+          },
+        },
+      }
+      return {...gt, [rstId]: newGoal}
+    })
+  }
+
   render() {
     const { ships } = this.props
     const sortedShips = [...ships]
@@ -29,7 +52,9 @@ class ShipList extends Component {
           <td className="fleet-id-indicator" style={{textAlign: "center"}}>{ship.fleet}</td>
           <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
           <td>
-            <Button style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
+            <Button
+                onClick={this.handleAddToGoalTable(ship.rstId)}
+                style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
           </td>
         </tr>
       )

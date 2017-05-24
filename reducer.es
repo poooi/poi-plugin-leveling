@@ -11,7 +11,7 @@ const initState = {
 const reducer = (state = initState, action) => {
   if (action.type === '@poi-plugin-leveling@Init') {
     const { admiralId } = action
-    const { goalTable } = loadGoalTable(admiralId)
+    const goalTable = loadGoalTable(admiralId)
 
     return {
       ...state,

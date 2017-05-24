@@ -13,3 +13,30 @@
     1px 1px 0 lightseagreen;
     -webkit-font-smoothing: antialiased;
 }
+
+.goal-list > .list-group-item {
+    padding: 0;
+}
+
+.three-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.three-rows > .second-row {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.three-rows > .third-row {
+    font-size: 10px;
+}
+
+.three-rows > .second-row,
+.three-rows > .third-row {
+    padding-left: 5px;
+}
+
+.goal-box .first-row {
+    font-size: 12px;
+}
