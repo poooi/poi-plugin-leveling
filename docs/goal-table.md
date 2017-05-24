@@ -15,7 +15,7 @@ and configuration of each individual goal.
 
 # Directory Structure
 
-- planned to occupy `~/.poi/config/leveling/` (the `~/.poi/config/` part varies depending on OS)
+- occupies `${APPDATA_PATH}/leveling/` directory
 - a single file `goal-table-<admiral id>.json` for storing all goals for a particular player
 
 # Data Structures
