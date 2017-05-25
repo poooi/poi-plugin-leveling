@@ -16,7 +16,7 @@ class GoalBox extends Component {
   handleStartEdit = () =>
     this.setState({editing: true})
 
-  handleCancelEdit = () =>
+  handleFinishEdit = () =>
     this.setState({editing: false})
 
   render() {
@@ -25,13 +25,14 @@ class GoalBox extends Component {
         <GoalBoxView
             editing={this.state.editing}
             onStartEdit={this.handleStartEdit}
-            onCancelEdit={this.handleCancelEdit}
+            onFinishEdit={this.handleFinishEdit}
             ship={this.props.ship}
             goal={this.props.goal}
         />
         <Collapse in={this.state.editing}>
           <div>
             <GoalBoxEdit
+                onFinishEdit={this.handleFinishEdit}
                 onModifyGoalTable={this.props.onModifyGoalTable}
                 ship={this.props.ship}
                 goal={this.props.goal}

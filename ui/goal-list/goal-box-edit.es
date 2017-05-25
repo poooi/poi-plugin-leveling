@@ -108,13 +108,22 @@ const stateToMethod = state => {
 }
 
 class GoalBoxEdit extends Component {
+  static prepareState = props => {
+    const { goal } = props
+    return {
+      goalLevel: goal.goalLevel,
+      methodType: goal.method.type,
+      ...fillStates(goal.method),
+    }
+  }
+
   constructor(props) {
     super(props)
-    this.state = {
-      goalLevel: props.goal.goalLevel,
-      methodType: props.goal.method.type,
-      ...fillStates(props.goal.method),
-    }
+    this.state = GoalBoxEdit.prepareState(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(GoalBoxEdit.prepareState(nextProps))
   }
 
   handleGoalLevelChange = e => {
@@ -133,7 +142,7 @@ class GoalBoxEdit extends Component {
   }
 
   handleSaveGoal = () => {
-    const { onModifyGoalTable, ship } = this.props
+    const { onModifyGoalTable, onFinishEdit, ship } = this.props
     const method = stateToMethod( this.state )
     const goal = {
       rosterId: ship.rstId,
@@ -142,10 +151,11 @@ class GoalBoxEdit extends Component {
     }
 
     onModifyGoalTable(gt => ({...gt, [ship.rstId]: goal}))
+    onFinishEdit()
   }
 
   handleRemoveGoal = () => {
-    const { onModifyGoalTable, ship } = this.props
+    const { onModifyGoalTable, ship, onFinishEdit } = this.props
     onModifyGoalTable(gt => {
       const newGt = {...gt}
       delete newGt[ship.rstId]

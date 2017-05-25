@@ -9,7 +9,7 @@ const { _, FontAwesome } = window
 
 class GoalBoxView extends Component {
   render() {
-    const { ship, goal, onStartEdit, onCancelEdit, editing } = this.props
+    const { ship, goal, onStartEdit, onFinishEdit, editing } = this.props
 
     const [methodSecond, methodThird] = (() => {
       const { method } = goal
@@ -87,7 +87,7 @@ class GoalBoxView extends Component {
             third="Battles"
         />
         <div style={{width: "8%", display: "flex", flexDirection: "column"}}>
-          <Button onClick={editing ? onCancelEdit : onStartEdit} >
+          <Button onClick={editing ? onFinishEdit : onStartEdit} >
             <FontAwesome name={editing ? "undo" : "pencil"} />
           </Button>
         </div>
