@@ -1,68 +1,88 @@
 import React, { Component } from 'react'
-import { Table, Button, DropdownButton, MenuItem } from 'react-bootstrap'
+import { Table, Button, DropdownButton, MenuItem, ButtonGroup } from 'react-bootstrap'
 
 class ShipFilter extends Component {
-  static filters = [
-    {
-      titlePrefix: "Type",
-      id: "type",
-      options: ["All", "typ1", "typ2"],
-    },
-    {
-      titlePrefix: "Level",
-      id: "level",
-      options: [
-        "All",
-        "Lv. >= 100",
-        "Lv. < 100",
-        "Under next remodel Level",
-        "Under final remodel Level",
-      ],
-    },
-    {
-      titlePrefix: "Fleet",
-      id: "fleet",
-      options: [
-        "All",
-        "Fleet 1",
-        "Fleet 2",
-        "Fleet 3",
-        "Fleet 4",
-      ],
-    },
-    {
-      titlePrefix: "Lock",
-      id: "lock",
-      options: [
-        "All",
-        "Locked",
-        "Unlocked",
-      ],
-    },
-  ]
+  handleSelectFilter = key => value => {
+    const { onModifyFilters } = this.props
+    onModifyFilters(filters => ({
+      ...filters,
+      [key]: value,
+    }))
+  }
 
   render() {
-    const mkDropdown = filterInfo => {
-      const { titlePrefix, id, options } = filterInfo
-      return (
-        <DropdownButton
-            title={`${titlePrefix}: All`}
-            id={`ship-filter-${id}`}
-            key={`ship-filter-${id}`}>
-          {
-            options.map( (x,ind) => (
-              <MenuItem key={`s-f-i-${x}`} eventKey={ind}>
-                {x}
-              </MenuItem>
-            ))
-          }
-        </DropdownButton>
-      )
-    }
-
+    const { filters, stypes, stypeInfo } = this.props
     return (
-      <div>
-        { ShipFilter.filters.map( mkDropdown ) }
+      <div className="filter-group">
+        <ButtonGroup justified>
+          <DropdownButton
+              onSelect={this.handleSelectFilter('type')}
+              id="ship-filter-type"
+              title={`Type: ${filters.type}`}>
+            <MenuItem
+                key="all" eventKey="all">
+              All
+            </MenuItem>
+            {
+              (stypeInfo || []).map( ([stypeId, sName]) =>
+                stypes.indexOf(stypeId) !== -1 && (
+                  <MenuItem
+                      key={stypeId} eventKey={stypeId}>
+                    {`${stypeId}: ${sName}`}
+                  </MenuItem>
+                ))
+            }
+          </DropdownButton>
+        </ButtonGroup>
+        <ButtonGroup justified>
+          <DropdownButton
+              onSelect={this.handleSelectFilter('level')}
+              id="ship-filter-level"
+              title={`Level: ${filters.level}`}>
+            <MenuItem key="all" eventKey="all">
+              All
+            </MenuItem>
+            <MenuItem key="ge-100" eventKey="ge-100">
+              Lv. ≥ 100
+            </MenuItem>
+            <MenuItem key="lt-99" eventKey="lt-99">
+              {"Lv. < 99"}
+            </MenuItem>
+          </DropdownButton>
+        </ButtonGroup>
+        <ButtonGroup justified>
+          <DropdownButton
+              onSelect={this.handleSelectFilter('fleet')}
+              id="ship-filter-fleet"
+              title={`Fleet: ${filters.fleet}`}>
+            <MenuItem key="all" eventKey="all">
+              All
+            </MenuItem>
+            {
+              [1,2,3,4].map( fleet => (
+                <MenuItem key={fleet} eventKey={fleet}>
+                  {`Fleet ${fleet}`}
+                </MenuItem>
+              ))
+            }
+          </DropdownButton>
+        </ButtonGroup>
+        <ButtonGroup justified>
+          <DropdownButton
+              onSelect={this.handleSelectFilter('lock')}
+              id="ship-filter-lock"
+              title={`Lock: ${filters.lock}`}>
+            <MenuItem key="all" eventKey="all">
+              All
+            </MenuItem>
+            <MenuItem key={true} eventKey={true}>
+              Locked
+            </MenuItem>
+            <MenuItem key={false} eventKey={false}>
+              Unlocked
+            </MenuItem>
+          </DropdownButton>
+        </ButtonGroup>
       </div>
     )
   }

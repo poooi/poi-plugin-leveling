@@ -37,8 +37,6 @@ class ShipList extends Component {
 
   render() {
     const { ships } = this.props
-    const sortedShips = [...ships]
-    sortedShips.sort( (x,y) => y.level - x.level )
     const mkRow = ship => {
       return (
         <tr key={ship.rstId}>
@@ -69,7 +67,7 @@ class ShipList extends Component {
           </tr>
         </thead>
         <tbody>
-          { sortedShips.map( mkRow ) }
+          { ships.map( mkRow ) }
         </tbody>
       </Table>
     )

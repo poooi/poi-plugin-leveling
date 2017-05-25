@@ -8,8 +8,7 @@ class GoalBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // TODO: true for debugging
-      editing: true,
+      editing: false,
     }
   }
 

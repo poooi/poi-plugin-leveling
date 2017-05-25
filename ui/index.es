@@ -30,6 +30,7 @@ class Main extends Component {
             goalPairs={this.props.goalPairs} />
         <ShipPicker
             onModifyGoalTable={this.props.onModifyGoalTable}
+            stypeInfo={this.props.stypeInfo}
             ships={this.props.ships} />
       </div>
     )

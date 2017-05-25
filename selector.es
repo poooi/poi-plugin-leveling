@@ -21,8 +21,10 @@ const shipsInfoSelector = createSelector(
       const expToNext = ship.api_exp[1]
       const mstId = ship.api_ship_id
       const $ship = $ships[mstId]
+      const sortNo = $ship.api_sortno
       const name = $ship.api_name
       const typeName = $shipTypes[$ship.api_stype].api_name
+      const stype = $ship.api_stype
       const level = ship.api_lv
       const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]
       const locked = ship.api_locked !== 0
@@ -31,6 +33,7 @@ const shipsInfoSelector = createSelector(
       return {
         rstId,
         typeName,
+        stype,
         name,
         level,
         fleet,
@@ -40,6 +43,7 @@ const shipsInfoSelector = createSelector(
         locked,
         expToNext,
         totalExp,
+        sortNo,
       }
     })
   })
@@ -52,11 +56,24 @@ const goalTableSelector = createSelector(
   extensionSelectorFactory('poi-plugin-leveling'),
   s => s.goalTable)
 
+const shipTypeInfoSelector = createSelector(
+  constSelector,
+  constData => {
+    const { $shipTypes } = constData
+    const result = Object.keys($shipTypes).map( k => {
+      const info = $shipTypes[k]
+      return [info.api_id, info.api_name]
+    })
+
+    return result.sort((a,b) => a[0]-b[0])
+  })
+
 const mainUISelector = createSelector(
   shipsInfoSelector,
   admiralIdSelector,
   goalTableSelector,
-  (ships, admiralId, goalTable) => {
+  shipTypeInfoSelector,
+  (ships, admiralId, goalTable, stypeInfo) => {
     if (goalTable === null)
       return { ships, admiralId, goalPairs: [] }
     // const goalIds = Object.keys(goalTable).map(x => parseInt(x,10))
@@ -74,6 +91,7 @@ const mainUISelector = createSelector(
       ships: shipsWithoutGoal,
       admiralId,
       goalPairs,
+      stypeInfo,
     }
   }
 )
