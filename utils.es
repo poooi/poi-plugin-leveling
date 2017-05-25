@@ -56,6 +56,9 @@ const mkErrorRecorder = () => {
   }
 }
 
+const saturate = (min,max) => v =>
+  v < min ? min : (v > max ? max : v)
+
 export {
   enumFromTo,
   konst,
@@ -68,4 +71,6 @@ export {
 
   modifyArray,
   mkErrorRecorder,
+
+  saturate,
 }

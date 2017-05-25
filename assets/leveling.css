@@ -15,7 +15,7 @@
 }
 
 .goal-list > .list-group-item {
-    padding: 0;
+    padding: 6px;
 }
 
 .three-rows {
@@ -37,6 +37,69 @@
     padding-left: 5px;
 }
 
-.goal-box .first-row {
+.goal-box-view .first-row {
     font-size: 12px;
 }
+
+.goal-box-edit .edit-control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.goal-box-edit .edit-control button {
+    width: 8%;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.goal-box-edit .panels {
+    margin-top: 5px;
+    display: flex;
+}
+
+.goal-box-edit .panels > .panel {
+    margin: 5px;
+}
+
+.goal-box-edit .panels > .panel.lvl-goal {
+    flex: 1;
+}
+
+.goal-box-edit .panels > .panel.lvl-method {
+    flex: 3;
+}
+
+.goal-box-edit .panels > .panel .panel-heading {
+    padding: 2px 5px;
+}
+
+.goal-box-edit .panels > .panel.lvl-goal .lvl-goal-input {
+}
+
+.goal-box-edit .panels .lvl-method-input {
+    display: flex;
+}
+
+.checkbox {
+    user-select: none;
+}
+
+.goal-box-edit .exp-value-edit {
+    padding-left: 5px;
+    padding-right: 5px;
+    align-items: center;
+}
+
+.goal-box-edit .exp-value-edit > * {
+    margin: 5px;
+}
+
+.goal-box-edit .custom-edit {
+    height: 100%;
+}
+
+.goal-box-edit .custom-edit > .exp-value-edit {
+    height: 100%;
+}
+

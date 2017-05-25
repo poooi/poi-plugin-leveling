@@ -85,6 +85,7 @@ const computeExpRange = method =>
 
 export {
   getMapExpInfo,
+  expValueFromBaseExp,
   computeExp,
   computePossibleExps,
   computeExpRange,

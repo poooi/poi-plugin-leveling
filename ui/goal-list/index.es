@@ -11,7 +11,7 @@ class GoalList extends Component {
       <ListGroup className="goal-list">
         {
           goalPairs.map(([ship,goal]) => (
-            <GoalBox goal={goal} ship={ship} />
+            <GoalBox key={ship.rstId} goal={goal} ship={ship} />
           ))
         }
       </ListGroup>

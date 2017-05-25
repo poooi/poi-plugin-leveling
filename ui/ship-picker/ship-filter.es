@@ -45,10 +45,13 @@ class ShipFilter extends Component {
     const mkDropdown = filterInfo => {
       const { titlePrefix, id, options } = filterInfo
       return (
-        <DropdownButton title={`${titlePrefix}: All`} id={`ship-filter-${id}`}>
+        <DropdownButton
+            title={`${titlePrefix}: All`}
+            id={`ship-filter-${id}`}
+            key={`ship-filter-${id}`}>
           {
             options.map( (x,ind) => (
-              <MenuItem eventKey={ind}>
+              <MenuItem key={`s-f-i-${x}`} eventKey={ind}>
                 {x}
               </MenuItem>
             ))
