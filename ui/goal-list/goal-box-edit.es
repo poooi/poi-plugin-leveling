@@ -26,7 +26,9 @@ const fillStates = method => {
         flagship,
         mvp,
         rank,
-        baseExp,
+        baseExpType: baseExp.type,
+        expMap: baseExp.type === 'standard' ? baseExp.map : '1-1',
+        expValue: expValueFromBaseExp(baseExp),
       },
       customInput:
         expRange.length === 1
@@ -40,7 +42,9 @@ const fillStates = method => {
       flagship: true,
       mvp: 'yes',
       rank: ['S'],
-      baseExp: method.exp,
+      baseExpType: 'custom',
+      expMap: '1-1',
+      expValue: method.exp,
     }
     return {
       sortieInput,
@@ -55,6 +59,53 @@ const toValidLevel = inp =>
     inp < 1 ? 1
   : inp > 155 ? 155
   : Math.floor(inp)
+
+const normalizeExpValue = expValue => {
+  if (expValue.type === 'single') {
+    const { type, value } = expValue
+    return { type, value }
+  }
+
+  if (expValue.type === 'range') {
+    const [a,b] = [expValue.min,expValue.max]
+    const [min,max] = a <= b ? [a,b] : [b,a]
+    return min === max
+      ? { type: 'single', value: min }
+      : { type: 'range', min, max }
+  }
+}
+
+const stateToMethod = state => {
+  const { methodType } = state
+  if (methodType === 'sortie') {
+    const { sortieInput } = state
+    const { flagship, mvp, rank, baseExpType } = sortieInput
+    const baseExp =
+        baseExpType === 'standard'
+      ? { type: 'standard', map: sortieInput.expMap }
+      : baseExpType === 'custom'
+      ? { type: 'custom', value: normalizeExpValue( sortieInput.expValue ) }
+      : console.error(`Invalid baseExpType: ${baseExpType}`)
+
+    return {
+      type: 'sortie',
+      flagship,
+      rank,
+      mvp,
+      baseExp,
+    }
+  }
+
+  if (methodType === 'custom') {
+    const { customInput } = state
+    return {
+      type: 'custom',
+      exp: normalizeExpValue(customInput),
+    }
+  }
+
+  console.error(`Invalid methodType: ${methodType}`)
+}
 
 class GoalBoxEdit extends Component {
   constructor(props) {
@@ -74,8 +125,32 @@ class GoalBoxEdit extends Component {
     this.setState({methodType: e})
   }
 
+  handleSortieInputChange = newValue =>
+    this.setState({sortieInput: newValue})
+
   handleCustomInputChange = newValue => {
     this.setState({customInput: newValue})
+  }
+
+  handleSaveGoal = () => {
+    const { onModifyGoalTable, ship } = this.props
+    const method = stateToMethod( this.state )
+    const goal = {
+      rosterId: ship.rstId,
+      goalLevel: this.state.goalLevel,
+      method,
+    }
+
+    onModifyGoalTable(gt => ({...gt, [ship.rstId]: goal}))
+  }
+
+  handleRemoveGoal = () => {
+    const { onModifyGoalTable, ship } = this.props
+    onModifyGoalTable(gt => {
+      const newGt = {...gt}
+      delete newGt[ship.rstId]
+      return newGt
+    })
   }
 
   render() {
@@ -103,6 +178,7 @@ class GoalBoxEdit extends Component {
               <div style={{flex: 1}}>
                 <MethodSortieEdit
                     sortieInput={this.state.sortieInput}
+                    onSortieInputChange={this.handleSortieInputChange}
                     visible={this.state.methodType === 'sortie'} />
                 <MethodCustomEdit
                     customInput={this.state.customInput}
@@ -113,10 +189,10 @@ class GoalBoxEdit extends Component {
           </Panel>
         </div>
         <div className="edit-control">
-          <Button>
+          <Button onClick={this.handleRemoveGoal}>
             <FontAwesome name="trash" />
           </Button>
-          <Button >
+          <Button onClick={this.handleSaveGoal} >
             <FontAwesome name="save" />
           </Button>
         </div>

@@ -25,7 +25,9 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <GoalList goalPairs={this.props.goalPairs} />
+        <GoalList
+            onModifyGoalTable={this.props.onModifyGoalTable}
+            goalPairs={this.props.goalPairs} />
         <ShipPicker
             onModifyGoalTable={this.props.onModifyGoalTable}
             ships={this.props.ships} />

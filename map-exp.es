@@ -6,6 +6,14 @@ const _ = require('lodash')
 const mapExpTable = readJsonSync(join(__dirname, 'assets', 'map_exp.json'))
 const getMapExpInfo = map => mapExpTable[map]
 
+const sortedMapKeys = (() => {
+  const ret = Object.keys(mapExpTable)
+  const norm = x => parseInt(x.replace(/-/g, ""),10)
+
+  ret.sort( (x,y) => norm(x) - norm(y))
+  return Object.freeze(ret)
+})()
+
 const expValueFromBaseExp = baseExp => {
   if (baseExp.type === 'standard')
     return getMapExpInfo(baseExp.map).baseExp
@@ -89,4 +97,5 @@ export {
   computeExp,
   computePossibleExps,
   computeExpRange,
+  sortedMapKeys,
 }

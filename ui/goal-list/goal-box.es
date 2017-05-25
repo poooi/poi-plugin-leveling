@@ -32,6 +32,7 @@ class GoalBox extends Component {
         <Collapse in={this.state.editing}>
           <div>
             <GoalBoxEdit
+                onModifyGoalTable={this.props.onModifyGoalTable}
                 ship={this.props.ship}
                 goal={this.props.goal}
             />
