@@ -7,6 +7,8 @@ your ship girl leveling plans.
 
 ### Current
 
+- Newly added goal will take ship's next remodel level into account.
+
 - Allow uncertain value on flagship setting.
 
     Because of this, old plugin data needs to be updated, which

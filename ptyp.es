@@ -36,6 +36,7 @@ const Ship = PropTypes.shape({
   }),
   // could be null, therefore not required
   fleet: PropTypes.number,
+  nextRemodelLevel: PropTypes.number,
 })
 
 const ExpValueAlts = {

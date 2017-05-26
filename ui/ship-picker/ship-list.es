@@ -20,13 +20,19 @@ class ShipList extends Component {
     onModifyGoalTable: PTyp.func.isRequired,
   }
 
-  handleAddToGoalTable = rstId => () => {
+  handleAddToGoalTable = ship => () => {
     const { onModifyGoalTable } = this.props
+    const { rstId } = ship
+    const goalLevel =
+        ship.nextRemodelLevel !== null ? ship.nextRemodelLevel
+      : ship.level < 99 ? 99
+      : 155
+
     onModifyGoalTable( gt => {
       // TODO: most of the values are placeholders
       const newGoal = {
         rosterId: rstId,
-        goalLevel: 99,
+        goalLevel,
         method: {
           type: "sortie",
           flagship: "yes",
@@ -57,7 +63,7 @@ class ShipList extends Component {
         <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
         <td>
           <Button
-              onClick={this.handleAddToGoalTable(ship.rstId)}
+              onClick={this.handleAddToGoalTable(ship)}
               style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
         </td>
       </tr>

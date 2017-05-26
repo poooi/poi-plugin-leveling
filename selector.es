@@ -8,6 +8,8 @@ import {
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 
+import { computeNextRemodelLevel } from './remodel'
+
 const shipsInfoSelector = createSelector(
   shipsSelector,
   constSelector,
@@ -32,18 +34,12 @@ const shipsInfoSelector = createSelector(
       const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
       return {
         rstId,
-        typeName,
-        stype,
-        name,
-        level,
+        typeName, stype, sortNo,
+        name, level,
         fleet,
-        evasion,
-        asw,
-        los,
-        locked,
-        expToNext,
-        totalExp,
-        sortNo,
+        evasion, asw, los, locked,
+        expToNext, totalExp,
+        nextRemodelLevel: computeNextRemodelLevel($ships,mstId,level),
       }
     })
   })
