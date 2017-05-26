@@ -4,7 +4,23 @@ import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
 import { ExpValueEdit } from './exp-value-edit'
 import { sortedMapKeys, getMapExpInfo } from '../../map-exp'
 
+import { PTyp } from '../../ptyp'
+
 class MethodSortieEdit extends Component {
+  static propTypes = {
+    visible: PTyp.bool.isRequired,
+    sortieInput: PTyp.shape(PTyp.allRequired({
+      flagship: PTyp.ternary,
+      mvp: PTyp.ternary,
+      rank: PTyp.Rank,
+      baseExpType: PTyp.oneOf(['standard','custom']),
+      expMap: PTyp.KCMapString,
+      expValue: PTyp.ExpValue,
+    })).isRequired,
+
+    onSortieInputChange: PTyp.func.isRequired,
+  }
+
   handleFlagshipChange = e => {
     const { sortieInput, onSortieInputChange } = this.props
     onSortieInputChange({

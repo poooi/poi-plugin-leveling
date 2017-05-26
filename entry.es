@@ -5,6 +5,9 @@ import path from 'path-extra'
 import { remote } from 'electron'
 import { debounce } from 'lodash'
 
+const { config } = window
+
+// eslint-disable-next-line new-cap
 const i18n = new i18n2({
   locales: ['en-US', 'ja-JP', 'zh-CN', 'zh-TW', 'ko-KR'],
   defaultLocale: 'zh-CN',
@@ -25,10 +28,11 @@ if (i18n.resources.translate == null) {
   i18n.resources.translate = (locale, str) => str
 }
 if (i18n.resources.setLocale == null) {
-  i18n.resources.setLocale = str => {}
+  i18n.resources.setLocale = () => {}
 }
 window.i18n = i18n
 try {
+  // eslint-disable-next-line global-require
   require('poi-plugin-translator').pluginDidLoad()
 } catch (error) {
   console.info("failed to load poi-plugin-translator")
@@ -41,7 +45,7 @@ window.__r = i18n.resources.__.bind(i18n.resources)
 const zoomLevel = config.get('poi.zoomLevel', 1)
 const additionalStyle = document.createElement('style')
 
-remote.getCurrentWindow().webContents.on('dom-ready', (e) => {
+remote.getCurrentWindow().webContents.on('dom-ready', () => {
   document.body.appendChild(additionalStyle)
 })
 

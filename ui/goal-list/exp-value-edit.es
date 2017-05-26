@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import { Checkbox, FormControl } from 'react-bootstrap'
-import PropTypes from 'prop-types'
 
 import { saturate } from '../../utils'
+import { PTyp } from '../../ptyp'
 
 // note that this component does not guarantee to always return valid ExpValue
 class ExpValueEdit extends Component {
   static propTypes = {
-    expValue: PropTypes.shape({
-      type: PropTypes.oneOf(['range','single']).isRequired,
-      min: PropTypes.number,
-      max: PropTypes.number,
-      value: PropTypes.number,
-    }).isRequired,
-
-    onValueChange: PropTypes.func.isRequired,
+    expValue: PTyp.ExpValue.isRequired,
+    onValueChange: PTyp.func.isRequired,
   }
 
   isRanged = () =>

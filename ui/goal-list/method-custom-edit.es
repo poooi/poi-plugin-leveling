@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, FormControl } from 'react-bootstrap'
 
-import { saturate } from '../../utils'
 import { ExpValueEdit } from './exp-value-edit'
+import { PTyp } from '../../ptyp'
 
 class MethodCustomEdit extends Component {
+  static propTypes = {
+    visible: PTyp.bool.isRequired,
+    customInput: PTyp.ExpValue.isRequired,
+
+    onCustomInputChange: PTyp.func.isRequired,
+  }
+
   handleValueChange = newValue => {
     this.props.onCustomInputChange(newValue)
   }

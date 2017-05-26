@@ -62,10 +62,9 @@ const shipTypeInfoSelector = createSelector(
     const { $shipTypes } = constData
     const result = Object.keys($shipTypes).map( k => {
       const info = $shipTypes[k]
-      return [info.api_id, info.api_name]
+      return {id: info.api_id, name: info.api_name}
     })
-
-    return result.sort((a,b) => a[0]-b[0])
+    return result.sort((a,b) => a.id-b.id)
   })
 
 const mainUISelector = createSelector(
@@ -75,8 +74,7 @@ const mainUISelector = createSelector(
   shipTypeInfoSelector,
   (ships, admiralId, goalTable, stypeInfo) => {
     if (goalTable === null)
-      return { ships, admiralId, goalPairs: [] }
-    // const goalIds = Object.keys(goalTable).map(x => parseInt(x,10))
+      return { ships, admiralId, goalPairs: [], stypeInfo }
     const shipsWithoutGoal = []
     const goalPairs = []
     ships.map(s => {
@@ -84,7 +82,7 @@ const mainUISelector = createSelector(
       if (typeof goal === 'undefined') {
         shipsWithoutGoal.push(s)
       } else {
-        goalPairs.push([s,goal])
+        goalPairs.push({ship: s, goal})
       }
     })
     return {

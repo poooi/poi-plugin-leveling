@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
-import { ListGroupItem, Button, Collapse } from 'react-bootstrap'
+import { ListGroupItem, Collapse } from 'react-bootstrap'
 
 import { GoalBoxView } from './goal-box-view'
 import { GoalBoxEdit } from './goal-box-edit'
 
+import { PTyp } from '../../ptyp'
+
 class GoalBox extends Component {
+  static propTypes = {
+    ship: PTyp.Ship.isRequired,
+    goal: PTyp.Goal.isRequired,
+
+    onModifyGoalTable: PTyp.func.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {

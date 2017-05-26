@@ -1,5 +1,3 @@
-import { just, nothing, maybe } from './maybe'
-
 // enumFromTo(x,y) = [x,x+1,x+2...y]
 // only guarantee to work on increasing sequences
 const enumFromTo = (frm,to,succ=(x => x+1)) => {

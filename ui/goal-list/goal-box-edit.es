@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import {
   Panel,
-  ListGroupItem,
   Button,
   FormControl,
-  FormGroup,
-  ControlLabel,
   Nav, NavItem,
 } from 'react-bootstrap'
 
@@ -13,7 +10,9 @@ import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
 import { expValueFromBaseExp, computeExpRange } from '../../map-exp'
 
-const { _, FontAwesome } = window
+import { PTyp } from '../../ptyp'
+
+const { FontAwesome } = window
 
 // to generate sensible initial values
 // we use one method as a source to guess another
@@ -108,6 +107,14 @@ const stateToMethod = state => {
 }
 
 class GoalBoxEdit extends Component {
+  static propTypes = {
+    goal: PTyp.Goal.isRequired,
+    ship: PTyp.Ship.isRequired,
+
+    onModifyGoalTable: PTyp.func.isRequired,
+    onFinishEdit: PTyp.func.isRequired,
+  }
+
   static prepareState = props => {
     const { goal } = props
     return {
@@ -155,7 +162,7 @@ class GoalBoxEdit extends Component {
   }
 
   handleRemoveGoal = () => {
-    const { onModifyGoalTable, ship, onFinishEdit } = this.props
+    const { onModifyGoalTable, ship } = this.props
     onModifyGoalTable(gt => {
       const newGt = {...gt}
       delete newGt[ship.rstId]

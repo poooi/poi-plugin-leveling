@@ -4,6 +4,7 @@ import { ShipList } from './ship-list'
 import { ShipFilter } from './ship-filter'
 
 import { identity } from '../../utils'
+import { PTyp } from '../../ptyp'
 
 const { _ } = window
 
@@ -40,6 +41,12 @@ const prepareFilter = filters => {
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
 class ShipPicker extends Component {
+  static propTypes = {
+    ships: PTyp.arrayOf(PTyp.Ship).isRequired,
+    stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    onModifyGoalTable: PTyp.func.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {

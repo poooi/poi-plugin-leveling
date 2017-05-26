@@ -1,7 +1,21 @@
 import React, { Component } from 'react'
-import { Table, Button, DropdownButton, MenuItem, ButtonGroup } from 'react-bootstrap'
+import {
+  DropdownButton,
+  MenuItem,
+  ButtonGroup,
+} from 'react-bootstrap'
+
+import { PTyp } from '../../ptyp'
 
 class ShipFilter extends Component {
+  static propTypes = {
+    stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    stypes: PTyp.arrayOf(PTyp.number).isRequired,
+    filters: PTyp.ShipFilters.isRequired,
+
+    onModifyFilters: PTyp.func.isRequired,
+  }
+
   handleSelectFilter = key => value => {
     const { onModifyFilters } = this.props
     onModifyFilters(filters => ({
@@ -24,11 +38,11 @@ class ShipFilter extends Component {
               All
             </MenuItem>
             {
-              (stypeInfo || []).map( ([stypeId, sName]) =>
-                stypes.indexOf(stypeId) !== -1 && (
+              (stypeInfo || []).map( ({id, name}) =>
+                stypes.indexOf(id) !== -1 && (
                   <MenuItem
-                      key={stypeId} eventKey={stypeId}>
-                    {`${stypeId}: ${sName}`}
+                      key={id} eventKey={id}>
+                    {`${id}: ${name}`}
                   </MenuItem>
                 ))
             }

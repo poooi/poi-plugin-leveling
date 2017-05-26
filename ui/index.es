@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect, Provider } from 'react-redux'
-
 import { store, extendReducer } from 'views/create-store'
-import { mainUISelector } from '../selector'
 
 import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
+
 import { reducer, mapDispatchToProps } from '../reducer'
+import { mainUISelector } from '../selector'
+
+import { PTyp } from '../ptyp'
 
 const { $ } = window
 
@@ -17,6 +19,23 @@ $('#fontawesome-css')
   .setAttribute('href', require.resolve('font-awesome/css/font-awesome.css'))
 
 class Main extends Component {
+  static propTypes = {
+    // admiral Id, could be null during initialization
+    admiralId: PTyp.number,
+    ships: PTyp.arrayOf(PTyp.Ship).isRequired,
+    goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
+    stypeInfo: PTyp.ShipTypeInfo.isRequired,
+
+    // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
+    onInitialize: PTyp.func.isRequired,
+    // onModifyGoalTable(<modifier>) where modifier :: GoalTable -> GoalTable
+    onModifyGoalTable: PTyp.func.isRequired,
+  }
+
+  static defaultProps = {
+    admiralId: null,
+  }
+
   componentWillMount() {
     const { onInitialize, admiralId } = this.props
     onInitialize(admiralId)

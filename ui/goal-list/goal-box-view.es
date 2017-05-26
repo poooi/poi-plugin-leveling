@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
-import { ListGroupItem, Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 import { ThreeRows } from './three-rows'
 import { totalExp } from '../../exp'
 import { computeExpRange } from '../../map-exp'
 
+import { PTyp } from '../../ptyp'
+
 const { _, FontAwesome } = window
 
 class GoalBoxView extends Component {
+  static propTypes = {
+    ship: PTyp.Ship.isRequired,
+    goal: PTyp.Goal.isRequired,
+    editing: PTyp.bool.isRequired,
+
+    onFinishEdit: PTyp.func.isRequired,
+    onStartEdit: PTyp.func.isRequired,
+  }
   render() {
     const { ship, goal, onStartEdit, onFinishEdit, editing } = this.props
 
