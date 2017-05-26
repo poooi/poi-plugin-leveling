@@ -7,7 +7,7 @@ import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
 
 import { reducer, mapDispatchToProps } from '../reducer'
-import { mainUISelector } from '../selector'
+import { mainUISelector, recommendedGoalsSelector } from '../selector'
 
 import { PTyp } from '../ptyp'
 
@@ -17,6 +17,8 @@ window.store = store
 
 $('#fontawesome-css')
   .setAttribute('href', require.resolve('font-awesome/css/font-awesome.css'))
+
+const GoalListInst = connect(recommendedGoalsSelector)(GoalList)
 
 class Main extends Component {
   static propTypes = {
@@ -44,7 +46,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <GoalList
+        <GoalListInst
             onModifyGoalTable={this.props.onModifyGoalTable}
             goalPairs={this.props.goalPairs} />
         <ShipPicker

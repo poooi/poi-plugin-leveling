@@ -8,7 +8,11 @@ import {
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 
-import { computeNextRemodelLevel } from './remodel'
+import {
+  computeNextRemodelLevel,
+  computeAllRemodelsFromMstId,
+  remodelToRGoal,
+} from './remodel'
 
 const shipsInfoSelector = createSelector(
   shipsSelector,
@@ -90,9 +94,46 @@ const mainUISelector = createSelector(
   }
 )
 
+const rGoalMaxUnmarried = {
+  goalLevel: 99,
+  reason: { type: 'max-unmarried' },
+}
+
+const rGoalMaxMarried = {
+  goalLevel: 155,
+  reason: { type: 'max-married' },
+}
+
+const recommendedGoalsSelector = createSelector(
+  constSelector,
+  shipsSelector,
+  goalTableSelector,
+  (rawConst, ships, goalTable) => {
+    const { $ships, $shipTypes } = rawConst
+    const remodelToRGoalF = remodelToRGoal($ships,$shipTypes)
+    const rmdGoals = {}
+    Object.keys(goalTable).map(rstIdStr => {
+      const ship = ships[rstIdStr]
+      const mstId = ship.api_ship_id
+      // without taking into account levels
+      const remodelRGoals = computeAllRemodelsFromMstId($ships,mstId)
+        .map(remodelToRGoalF)
+      // include all goals, filter through and sort.
+      const rGoals = [...remodelRGoals, rGoalMaxUnmarried, rGoalMaxMarried]
+        .filter( g => g.goalLevel > ship.api_lv )
+        .sort( (x,y) => x.goalLevel - y.goalLevel)
+
+      rmdGoals[rstIdStr] = rGoals
+    })
+
+    return {
+      rmdGoals,
+    }
+  }
+)
+
 export {
-  shipsInfoSelector,
-  admiralIdSelector,
   goalTableSelector,
   mainUISelector,
+  recommendedGoalsSelector,
 }

@@ -158,10 +158,36 @@ const ShipFilters = PropTypes.shape(allRequired({
   lock: ShipFilterTyps.lock,
 }))
 
+const ReasonAlts = {
+  Remodel: PropTypes.shape(allRequired({
+    type: PropTypes.oneOf(['remodel']),
+    name: PropTypes.string,
+    typeName: PropTypes.string,
+  })),
+  MaxUnmarried: PropTypes.shape(allRequired({
+    type: PropTypes.oneOf(['max-unmarried']),
+  })),
+  MaxMarried: PropTypes.shape(allRequired({
+    type: PropTypes.oneOf(['max-married']),
+  })),
+}
+
+const Reason = PropTypes.oneOfType([
+  ReasonAlts.Remodel,
+  ReasonAlts.MaxUnmarried,
+  ReasonAlts.MaxMarried,
+])
+
+const RGoalLevel = PropTypes.shape(allRequired({
+  goalLevel: PropTypes.number,
+  reason: Reason,
+}))
+
 const PTyp = {
   ...PropTypes,
   allRequired,
   ternary,
+
   Ship,
   Goal,
   GoalPair,
@@ -173,6 +199,9 @@ const PTyp = {
   ShipTypeInfo,
   ShipFilterTyps,
   ShipFilters,
+
+  Reason,
+  RGoalLevel,
 }
 
 export { PTyp }

@@ -8,19 +8,22 @@ import { PTyp } from '../../ptyp'
 class GoalList extends Component {
   static propTypes = {
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
+    rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
   }
 
   render() {
-    const { goalPairs, onModifyGoalTable } = this.props
+    const { goalPairs, onModifyGoalTable, rmdGoals } = this.props
     return (
       <ListGroup className="goal-list">
         {
           goalPairs.map(({ship,goal}) => (
             <GoalBox
                 onModifyGoalTable={onModifyGoalTable}
-                key={ship.rstId} goal={goal} ship={ship} />
+                key={ship.rstId}
+                rGoals={rmdGoals[ship.rstId]}
+                goal={goal} ship={ship} />
           ))
         }
       </ListGroup>

@@ -6,11 +6,12 @@ import {
   Nav, NavItem,
 } from 'react-bootstrap'
 
+import { expValueFromBaseExp, computeExpRange } from '../../map-exp'
+import { PTyp } from '../../ptyp'
+
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
-import { expValueFromBaseExp, computeExpRange } from '../../map-exp'
-
-import { PTyp } from '../../ptyp'
+import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
 const { FontAwesome } = window
 
@@ -110,6 +111,7 @@ class GoalBoxEdit extends Component {
   static propTypes = {
     goal: PTyp.Goal.isRequired,
     ship: PTyp.Ship.isRequired,
+    rGoals: PTyp.arrayOf(PTyp.RGoalLevel).isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
@@ -136,6 +138,9 @@ class GoalBoxEdit extends Component {
   handleGoalLevelChange = e => {
     this.setState({goalLevel: toValidLevel(e.target.value)})
   }
+
+  handleRGoalLevelClick = newValue => () =>
+    this.setState({goalLevel: newValue})
 
   handleMethodTypeSelect = e => {
     this.setState({methodType: e})
@@ -176,12 +181,23 @@ class GoalBoxEdit extends Component {
         <div className="panels">
           <Panel className="lvl-goal" header="Leveling Goal">
             <div className="lvl-goal-input">
-              <div>Goal</div>
-              <FormControl
-                  type="number"
-                  value={this.state.goalLevel}
-                  onChange={this.handleGoalLevelChange}
-              />
+              <div className="goal-inp-row">
+                <div>Goal:</div>
+                <FormControl
+                    type="number"
+                    value={this.state.goalLevel}
+                    onChange={this.handleGoalLevelChange}
+                />
+              </div>
+              {
+                this.props.rGoals.length > 0 && (
+                  <QuickGoalLevelEdit
+                      onRGoalLevelClick={this.handleRGoalLevelClick}
+                      goalLevel={this.state.goalLevel}
+                      rGoals={this.props.rGoals}
+                  />
+                )
+              }
             </div>
           </Panel>
           <Panel className="lvl-method" header="Leveling Method">

@@ -1,4 +1,4 @@
-This document defines "GoalTable",
+This document defines `GoalTable`,
 which is responsible for keeping track of all user's leveling goals
 and configuration of each individual goal.
 
