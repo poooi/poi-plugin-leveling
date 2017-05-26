@@ -55,6 +55,11 @@ const computeExp = (base,flagship,mvpFlag,rank) => {
 const computePossibleExps = method => {
   if (method.type === 'sortie') {
     const { flagship, mvp } = method
+    const flagshipFlags =
+        flagship === 'yes' ? [true]
+      : flagship === 'no' ? [false]
+      : flagship === 'maybe' ? [false, true]
+      : console.error(`Invalid flagship value: ${flagship}`)
     const ranks = method.rank
     const baseExps = expValueToArray(expValueFromBaseExp(method.baseExp))
     const mvpFlags =
@@ -66,9 +71,10 @@ const computePossibleExps = method => {
     return _.uniq(
       _.flatMap(baseExps, baseExpNum =>
         _.flatMap(mvpFlags, mvpFlag =>
-          _.flatMap(ranks, rank =>
-            computeExp(baseExpNum,flagship,mvpFlag,rank))))
-       .sort((x,y) => x-y))
+          _.flatMap(flagshipFlags, flagshipFlag =>
+            _.flatMap(ranks, rank =>
+              computeExp(baseExpNum,flagshipFlag,mvpFlag,rank)))))
+         .sort((x,y) => x-y))
   }
 
   if (method.type === 'custom') {

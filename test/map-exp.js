@@ -51,7 +51,7 @@ describe('mapExp', () => {
     describe('standard method', () => {
       const testMethod1 = {
         type: 'sortie',
-        flagship: true,
+        flagship: 'yes',
         rank: ['S','A','B'],
         mvp: 'maybe',
         baseExp: {
@@ -62,7 +62,7 @@ describe('mapExp', () => {
 
       const testMethod2 = {
         type: 'sortie',
-        flagship: true,
+        flagship: 'yes',
         rank: ['S','A','B','C','D','E'],
         mvp: 'maybe',
         baseExp: {
@@ -75,6 +75,13 @@ describe('mapExp', () => {
         assert.deepEqual(
           computePossibleExps(testMethod1),
           [480, 576, 960, 1152])
+
+        assert.deepEqual(
+          computePossibleExps({
+            ...testMethod1,
+            flagship: 'maybe',
+          }),
+          [320, 384, 480, 576, 640, 768, 960, 1152])
 
         assert.deepEqual(
           computePossibleExps(testMethod2),

@@ -9,7 +9,7 @@ class MethodSortieEdit extends Component {
     const { sortieInput, onSortieInputChange } = this.props
     onSortieInputChange({
       ...sortieInput,
-      flagship: e.target.checked,
+      flagship: e.target.checked ? "yes" : "no", // TODO
     })
   }
 
@@ -100,7 +100,7 @@ class MethodSortieEdit extends Component {
           <Checkbox
               onChange={this.handleFlagshipChange}
               style={{flex: 1}}
-              checked={sortieInput.flagship}>
+              checked={sortieInput.flagship === 'yes'}>
             Flagship
           </Checkbox>
           <FormControl

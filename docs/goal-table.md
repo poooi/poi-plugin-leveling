@@ -52,7 +52,7 @@ and configuration of each individual goal.
     ```
     {
       type: "sortie",
-      flagship: <boolean>,
+      flagship: "yes" / "no" / "maybe",
       rank: <see note above>,
       mvp: "yes" / "no" / "maybe",
       baseExp: <BaseExp>,
@@ -61,6 +61,10 @@ and configuration of each individual goal.
 
     Note: field `rank` contains a non-empty array whose every element
     must be one of "S","A","B","C","D","E", without duplication.
+
+    Note 2: in first version `flagship` is simply a boolean value,
+    but I think it makes sense to say flagship is undetermined - for examples
+    when you are cruising 1-5 and rotate flagship for morale control.
 
 - when `type` is `custom`
 

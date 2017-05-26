@@ -19,10 +19,10 @@ class ShipList extends Component {
       // TODO: most of the values are placeholders
       const newGoal = {
         rosterId: rstId,
-        goalLevel: 155,
+        goalLevel: 99,
         method: {
           type: "sortie",
-          flagship: true,
+          flagship: "yes",
           mvp: "yes",
           rank: ["S","A"],
           baseExp: {

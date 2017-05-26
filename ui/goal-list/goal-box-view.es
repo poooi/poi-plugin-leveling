@@ -24,7 +24,12 @@ class GoalBoxView extends Component {
           : baseExp.type === "custom" ? `Base Exp: ${showExpValue(baseExp.value)}`
           : (console.error("unknown baseExp type",baseExp.type) || "?")
 
-        const strFS = method.flagship ? "✓" : "❌"
+        const strFS =
+            method.flagship === "yes" ? "✓"
+          : method.flagship === "no" ? "❌"
+          : method.flagship === "maybe" ? "✓/❌"
+          : (console.error("unknown flagship value",method.flagship) || "?")
+
         const strMVP =
             method.mvp === "yes" ? "✓"
           : method.mvp === "no" ? "❌"

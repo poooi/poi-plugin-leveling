@@ -39,7 +39,7 @@ const fillStates = method => {
 
   if (method.type === 'custom') {
     const sortieInput = {
-      flagship: true,
+      flagship: 'yes',
       mvp: 'yes',
       rank: ['S'],
       baseExpType: 'custom',
