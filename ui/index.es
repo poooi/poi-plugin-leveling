@@ -7,9 +7,11 @@ import { Nav, NavItem } from 'react-bootstrap'
 import { reducer, mapDispatchToProps } from '../reducer'
 import {
   goalAreaUISelector,
+  methodTemplateUISelector,
 } from '../selector'
 
 import { GoalArea } from './goal-area'
+import { MethodTemplateArea } from './method-template-area'
 
 const { $ } = window
 
@@ -22,6 +24,11 @@ const GoalAreaInst = connect(
   goalAreaUISelector,
   mapDispatchToProps,
 )(GoalArea)
+
+const MethodTemplateAreaInst = connect(
+  methodTemplateUISelector,
+  mapDispatchToProps,
+)(MethodTemplateArea)
 
 class LevelingMain extends Component {
   constructor(props) {
@@ -47,6 +54,7 @@ class LevelingMain extends Component {
           <NavItem eventKey="method">Method Template</NavItem>
         </Nav>
         <GoalAreaInst visible={activeTab === 'goal'} />
+        <MethodTemplateAreaInst visible={activeTab === 'method'} />
       </div>
     )
   }
