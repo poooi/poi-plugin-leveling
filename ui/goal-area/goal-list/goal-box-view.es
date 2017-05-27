@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
 import { ThreeRows } from './three-rows'
+import { MethodView } from './method-view'
 
 import { PTyp } from '../../../ptyp'
 
@@ -18,39 +19,7 @@ class GoalBoxView extends Component {
   render() {
     const { eGoalPair, onStartEdit, onFinishEdit, editing } = this.props
     const { ship, goal, extra } = eGoalPair
-
-    const [methodSecond, methodThird] = (() => {
-      const { method } = goal
-      const showExpValue = expValue =>
-        expValue.type === "single"
-        ? `${expValue.value}`
-        : `${expValue.min} ~ ${expValue.max}`
-      if (method.type === 'sortie') {
-        const { baseExp } = method
-        const secondRow =
-            baseExp.type === "standard" ? `Sortie ${baseExp.map}`
-          : baseExp.type === "custom" ? `Base Exp: ${showExpValue(baseExp.value)}`
-          : (console.error("unknown baseExp type",baseExp.type) || "?")
-
-        const strFS =
-            method.flagship === "yes" ? "✓"
-          : method.flagship === "no" ? "❌"
-          : method.flagship === "maybe" ? "✓/❌"
-          : (console.error("unknown flagship value",method.flagship) || "?")
-
-        const strMVP =
-            method.mvp === "yes" ? "✓"
-          : method.mvp === "no" ? "❌"
-          : method.mvp === "maybe" ? "✓/❌"
-          : (console.error("unknown MVP value",method.mvp) || "?")
-        const strRank = method.rank.join("/")
-        const thirdRow = `Flagship: ${strFS} MVP: ${strMVP} Rank: ${strRank}`
-        return [secondRow, thirdRow]
-      }
-
-      // otherwise method.type === custom
-      return [`${showExpValue(method.exp)} Exp/sortie`,""]
-    })()
+    const { method } = goal
 
     const remainingExp = extra.remainingExp
     const goalAchieved = remainingExp <= 0
@@ -85,12 +54,10 @@ class GoalBoxView extends Component {
             second={goal.goalLevel}
             third={remainingExpText}
         />
-        <ThreeRows
+        <MethodView
             style={{flex: 5}}
-            first="Method"
-            second={methodSecond}
-            third={methodThird}
-        />
+            method={method}
+            />
         <ThreeRows
             style={{flex: 3}}
             first="Result"

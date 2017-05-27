@@ -141,7 +141,8 @@ const recommendedGoalsSelector = createSelector(
 const methodTemplateUISelector = createSelector(
   shipTypeInfoSelector,
   levelingConfigSelector,
-  (stypeInfo,config) => ({ stypeInfo, config })
+  goalTableSelector,
+  (stypeInfo,config,goalTable) => ({ stypeInfo, config, goalTable })
 )
 
 export {

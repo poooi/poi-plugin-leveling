@@ -14,7 +14,8 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.goal-list > .list-group-item {
+.goal-list > .list-group-item,
+.template-list > .list-group-item {
     padding: 6px;
 }
 
@@ -191,4 +192,60 @@
 
 .main-nav {
     margin-bottom: 10px;
+}
+
+.template-box .template-view .template-controls button {
+    margin-top: 0;
+}
+
+.template-box .template-view .template-controls > *:not(:last-child) {
+    margin-right: 1%;
+}
+
+.template-box .template-view .template-controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.template-box .template-view .template-controls .dropdown-apply-to.btn-group-justified {
+    display: block;
+}
+
+.template-box .template-view .template-info-view {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.template-box .template-view .template-info-view > .stype-col {
+    flex: 6;
+}
+
+.template-box .template-view .template-info-view > .method-col {
+    flex: 3;
+}
+
+.template-box .template-view .template-info-view > .method-col .main {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.template-box .template-view .template-info-view > .method-col .second {
+    font-size: 14px;
+}
+
+.template-box .template-view .template-info-view > * > .content {
+    margin-left: 5px;
+}
+
+.template-box .template-view .template-info-view > * > .header {
+    font-size: 14px;
+}
+
+.template-box .template-view .template-info-view .stype-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.template-box .template-view .template-info-view .stype-content > .stype-element {
+    width: 18%;
 }

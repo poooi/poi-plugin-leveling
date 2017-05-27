@@ -208,9 +208,30 @@ const GoalListSorter = PropTypes.shape(allRequired({
   reversed: PropTypes.bool,
 }))
 
+const TemplateAlts = {
+  Main: PropTypes.shape(allRequired({
+    type: PropTypes.oneOf(['main']),
+    method: Method,
+  })),
+  Custom: PropTypes.shape(allRequired({
+    type: PropTypes.oneOf(['custom']),
+    enabled: PropTypes.bool,
+    stypes: PropTypes.arrayOf(PropTypes.number),
+    method: Method,
+  })),
+}
+
+const Template = PropTypes.oneOfType([
+  TemplateAlts.Main,
+  TemplateAlts.Custom,
+])
+
+const style = PropTypes.object
+
 const PTyp = {
   ...PropTypes,
   allRequired,
+  style,
   ternary,
 
   Ship,
@@ -231,6 +252,8 @@ const PTyp = {
 
   Reason,
   RGoalLevel,
+
+  Template,
 
   ShipPickerSorter,
   GoalListSorter,

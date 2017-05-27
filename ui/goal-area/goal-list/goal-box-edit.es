@@ -12,6 +12,7 @@ import {
 } from '../../../map-exp'
 import { PTyp } from '../../../ptyp'
 
+import { LevelingMethodPanel } from './leveling-method-panel'
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
@@ -204,26 +205,14 @@ class GoalBoxEdit extends Component {
               }
             </div>
           </Panel>
-          <Panel className="lvl-method" header="Leveling Method">
-            <div className="lvl-method-input">
-              <Nav
-                  onSelect={this.handleMethodTypeSelect}
-                  bsStyle="tabs" stacked activeKey={this.state.methodType}>
-                <NavItem eventKey={'sortie'}>Sortie</NavItem>
-                <NavItem eventKey={'custom'}>Custom</NavItem>
-              </Nav>
-              <div style={{flex: 1}}>
-                <MethodSortieEdit
-                    sortieInput={this.state.sortieInput}
-                    onSortieInputChange={this.handleSortieInputChange}
-                    visible={this.state.methodType === 'sortie'} />
-                <MethodCustomEdit
-                    customInput={this.state.customInput}
-                    onCustomInputChange={this.handleCustomInputChange}
-                    visible={this.state.methodType === 'custom'} />
-              </div>
-            </div>
-          </Panel>
+          <LevelingMethodPanel
+              methodType={this.state.methodType}
+              sortieInput={this.state.sortieInput}
+              customInput={this.state.customInput}
+              onMethodTypeSelect={this.handleMethodTypeSelect}
+              onSortieInputChange={this.handleSortieInputChange}
+              onCustomInputChange={this.handleCustomInputChange}
+          />
         </div>
         <div className="edit-control">
           <Button onClick={this.handleRemoveGoal}>

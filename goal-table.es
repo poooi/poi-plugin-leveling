@@ -53,7 +53,6 @@ const loadGoalTable = admiralId => {
   return {}
 }
 
-
 const saveGoalTable = (admiralId,gt) => {
   try {
     const filePath = getGoalTablePath(admiralId)
