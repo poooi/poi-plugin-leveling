@@ -114,6 +114,8 @@ const recommendedGoalsSelector = createSelector(
     const rmdGoals = {}
     Object.keys(goalTable).map(rstIdStr => {
       const ship = ships[rstIdStr]
+      if (typeof ship === 'undefined')
+        return
       const mstId = ship.api_ship_id
       // without taking into account levels
       const remodelRGoals = computeAllRemodelsFromMstId($ships,mstId)

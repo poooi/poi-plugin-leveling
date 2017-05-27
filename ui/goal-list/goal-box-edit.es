@@ -192,6 +192,7 @@ class GoalBoxEdit extends Component {
               {
                 this.props.rGoals.length > 0 && (
                   <QuickGoalLevelEdit
+                      rstId={this.props.ship.rstId}
                       onRGoalLevelClick={this.handleRGoalLevelClick}
                       goalLevel={this.state.goalLevel}
                       rGoals={this.props.rGoals}
