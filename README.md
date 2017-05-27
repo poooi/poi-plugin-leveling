@@ -7,6 +7,12 @@ your ship girl leveling plans.
 
 ### Current
 
+- Ship filter is now more properly interpreted.
+
+- Ship filter: new level filter that shows only those under their final remodel levels
+
+- Added few common leveling goals on editing panel
+
 - Newly added goal will take ship's next remodel level into account.
 
 - Allow uncertain value on flagship setting.

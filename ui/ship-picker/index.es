@@ -26,6 +26,7 @@ const prepareFilter = filters => {
       level === 'all' ? identity
     : level === 'ge-100' ? mkFilter(ship => ship.level >= 100)
     : level === 'lt-99' ? mkFilter(ship => ship.level < 99)
+    : level === 'under-final' ? mkFilter(ship => ship.nextRemodelLevel !== null)
     : console.error(`Invalid level filter: ${level}`)
 
   const lockFilter =
@@ -53,7 +54,7 @@ class ShipPicker extends Component {
       filters: {
         fleet: 'all', // or 1,2,3,4 (number)
         type: 'all', // or stype (number)
-        level: 'all', // or 'ge-100', 'lt-99'
+        level: 'all', // or 'ge-100', 'lt-99', 'under-final'
         lock: 'all', // or true / false
       },
     }

@@ -141,9 +141,8 @@ const ShipFilterTyps = {
     PropTypes.oneOf(['all']),
     PropTypes.number,
   ]),
-  level: PropTypes.oneOfType([
-    PropTypes.oneOf(['all']),
-    PropTypes.number,
+  level: PropTypes.oneOf([
+    'all','ge-100','lt-99','under-final',
   ]),
   lock: PropTypes.oneOfType([
     PropTypes.oneOf(['all']),

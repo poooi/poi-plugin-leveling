@@ -147,7 +147,7 @@
 
 .filter-group > * {
     margin-right: 8px;
-    width: 16%;
+    width: 20%;
 }
 
 .lvl-goal.panel .goal-inp-row {
@@ -172,4 +172,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.ship-filter-bg-level .dropdown-menu {
+    min-width: 200px;
 }
