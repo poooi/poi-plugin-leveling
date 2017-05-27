@@ -7,6 +7,8 @@ your ship girl leveling plans.
 
 ### Current
 
+- Implemented ship sorting in ship picker
+
 - Ship filter is now more properly interpreted.
 
 - Ship filter: new level filter that shows only those under their final remodel levels

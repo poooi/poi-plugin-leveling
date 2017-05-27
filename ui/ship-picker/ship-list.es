@@ -8,10 +8,23 @@ const { FontAwesome } = window
 // for showing ship-related info in detail
 // TODO: ShipList => ShipTableArea after done
 class ShipList extends Component {
-  static headers = [
-    "Id", "Type", "Name", "Level",
-    "Evasion", "ASW", "LoS",
-    "Fleet", "Lock", "Control",
+  static defineSortableHeader =
+    (name, method, asc = true /* whether it's ascending by default */) => ({
+      name, method, asc,
+    })
+
+  static headerSpecs = [
+    ShipList.defineSortableHeader('Id','rid'),
+    ShipList.defineSortableHeader('Type','stype'),
+    ShipList.defineSortableHeader('Name','name'),
+    ShipList.defineSortableHeader('Level','level',false),
+    ShipList.defineSortableHeader('Evasion', 'evasion'),
+    ShipList.defineSortableHeader('ASW','asw'),
+    ShipList.defineSortableHeader('LoS','los'),
+    ShipList.defineSortableHeader('Fleet','fleet'),
+    ShipList.defineSortableHeader('Lock','lock'),
+    // unsortable header don't have method and asc fields
+    { name: 'Control' },
   ]
 
   static propTypes = {
@@ -50,8 +63,24 @@ class ShipList extends Component {
     })
   }
 
+  handleClickHeader = method => () => {
+    const { onModifySorter } = this.props
+    onModifySorter( sorter => {
+      if (sorter.method === method)
+        return {
+          ...sorter,
+          reversed: !sorter.reversed,
+        }
+      else
+        return {
+          method,
+          reversed: false,
+        }
+    })
+  }
+
   render() {
-    const { ships } = this.props
+    const { ships, sorter } = this.props
     const mkRow = ship => (
       <tr key={ship.rstId}>
         <td>{ship.rstId}</td>
@@ -76,7 +105,30 @@ class ShipList extends Component {
         <thead>
           <tr>
             {
-              ShipList.headers.map( x => (<th key={x}>{x}</th>))
+              ShipList.headerSpecs.map( ({name, method, asc}) => {
+                const sortable =
+                  typeof method === 'string' &&
+                  typeof asc === 'boolean'
+                const isActive = sorter.method === method
+                // using name instead of method, as some doesn't have the latter
+                const key = name
+                let content
+                if (isActive) {
+                  const dir = sorter.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
+                  content = `${name} ${dir}`
+                } else {
+                  content = name
+                }
+
+                return (
+                  <th
+                      className={isActive ? "text-primary" : ""}
+                      key={key}
+                      onClick={sortable ? this.handleClickHeader(method) : null}>
+                    {content}
+                  </th>
+                )
+              })
             }
           </tr>
         </thead>
