@@ -3,7 +3,6 @@ import {
   Panel,
   Button,
   FormControl,
-  Nav, NavItem,
 } from 'react-bootstrap'
 
 import {
@@ -13,8 +12,6 @@ import {
 import { PTyp } from '../../../ptyp'
 
 import { LevelingMethodPanel } from './leveling-method-panel'
-import { MethodSortieEdit } from './method-sortie-edit'
-import { MethodCustomEdit } from './method-custom-edit'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
 const { FontAwesome } = window
@@ -227,4 +224,4 @@ class GoalBoxEdit extends Component {
   }
 }
 
-export { GoalBoxEdit }
+export { GoalBoxEdit, fillStates }

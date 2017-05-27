@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {
   ListGroup,
-  ListGroupItem,
 } from 'react-bootstrap'
 
-import { PTyp } from '../ptyp'
+import { PTyp } from '../../ptyp'
 import { TemplateBox } from './template-box'
-import { sortedMapKeys } from '../map-exp'
+import { sortedMapKeys } from '../../map-exp'
 
 const getRandomArbitrary = (min, max) =>
   Math.floor(Math.random() * (max - min)) + min
