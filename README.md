@@ -5,15 +5,18 @@ your ship girl leveling plans.
 
 ## Changelog
 
-### Current
+### 0.1.0
 
-- Implemented goal sorting
+- Implemented sorting
 
-- Implemented ship sorting in ship picker
+    - Ships can be sorted by clicking on ship picker headers.
+    - Current goal list can be sorted by clicking on top buttons.
+    - Unlike ship picker, your goal list sorting method is remembered.
 
-- Ship filter is now more properly interpreted.
+- Improved Ship filter
 
-- Ship filter: new level filter that shows only those under their final remodel levels
+    - Added new level filter that shows only those under their final remodel levels.
+    - Ship filter names are now more properly interpreted.
 
 - Added few common leveling goals on editing panel
 
