@@ -81,7 +81,7 @@
     display: flex;
 }
 
-.checkbox {
+.checkbox, .table th {
     user-select: none;
 }
 

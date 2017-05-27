@@ -7,7 +7,11 @@ import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
 
 import { reducer, mapDispatchToProps } from '../reducer'
-import { mainUISelector, recommendedGoalsSelector } from '../selector'
+import {
+  mainUISelector,
+  recommendedGoalsSelector,
+  levelingConfigSelector,
+} from '../selector'
 
 import { PTyp } from '../ptyp'
 
@@ -18,7 +22,13 @@ window.store = store
 $('#fontawesome-css')
   .setAttribute('href', require.resolve('font-awesome/css/font-awesome.css'))
 
-const GoalListInst = connect(recommendedGoalsSelector)(GoalList)
+const GoalListInst = connect(
+  state => ({
+    ...recommendedGoalsSelector(state),
+    ...levelingConfigSelector(state),
+  }),
+  mapDispatchToProps,
+)(GoalList)
 
 class Main extends Component {
   static propTypes = {

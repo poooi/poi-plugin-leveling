@@ -56,6 +56,10 @@ const goalTableSelector = createSelector(
   extensionSelectorFactory('poi-plugin-leveling'),
   s => s.goalTable)
 
+const levelingConfigSelector = createSelector(
+  extensionSelectorFactory('poi-plugin-leveling'),
+  s => s.config)
+
 const shipTypeInfoSelector = createSelector(
   constSelector,
   constData => {
@@ -138,4 +142,5 @@ export {
   goalTableSelector,
   mainUISelector,
   recommendedGoalsSelector,
+  levelingConfigSelector,
 }

@@ -85,41 +85,28 @@ class GoalList extends Component {
   static propTypes = {
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
+    goalSorter: PTyp.GoalListSorter.isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
+    onModifyConfig: PTyp.func.isRequired,
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      sorter: {
-        // sorting methods:
-        // - rid
-        // - stype
-        // - level, descending
-        // - remaining-exp
-        // - remaining-battles-lb (lb for lower bound)
-        method: 'stype',
-        reversed: false,
-      },
-    }
-  }
-
-  handleModifySorter = modifier =>
-    this.setState( state => ({
-      ...state,
-      sorter: modifier(state.sorter),
+  handleModifySorter = modifier => {
+    const { onModifyConfig } = this.props
+    onModifyConfig( config => ({
+      ...config,
+      goalSorter: modifier(config.goalSorter),
     }))
+  }
 
   render() {
-    const { goalPairs, onModifyGoalTable, rmdGoals } = this.props
-    const sorter = prepareSorter(this.state.sorter)
+    const { goalPairs, onModifyGoalTable, rmdGoals, goalSorter } = this.props
+    const sorter = prepareSorter(goalSorter)
     const eGoalPairs = sorter(goalPairs.map(extendGoalPair))
-
     return (
       <div>
         <GoalSorterRow
-            sorter={this.state.sorter}
+            sorter={goalSorter}
             onModifySorter={this.handleModifySorter}
             />
         <ListGroup className="goal-list">

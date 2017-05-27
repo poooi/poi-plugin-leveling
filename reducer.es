@@ -3,12 +3,18 @@ import {
   saveGoalTable,
 } from './goal-table'
 
-const initState = {
+import {
+  loadConfig,
+  saveConfig,
+} from './config'
+
+const makeInitState = () => ({
   admiralId: null,
   goalTable: null,
-}
+  config: loadConfig(),
+})
 
-const reducer = (state = initState, action) => {
+const reducer = (state = makeInitState(), action) => {
   if (action.type === '@poi-plugin-leveling@Init') {
     const { admiralId } = action
     const goalTable = loadGoalTable(admiralId)
@@ -35,6 +41,18 @@ const reducer = (state = initState, action) => {
     }
   }
 
+  if (action.type === '@poi-plugin-leveling@ModifyConfig') {
+    const { config } = state
+    const { modifier } = action
+    const newConfig = modifier(config)
+    saveConfig(newConfig)
+    return {
+      ...state,
+      config: newConfig,
+    }
+  }
+
+
   return state
 }
 
@@ -51,6 +69,11 @@ const mapDispatchToProps = dispatch => ({
   onModifyGoalTable: modifier =>
     dispatch({
       type: '@poi-plugin-leveling@ModifyGoalTable',
+      modifier,
+    }),
+  onModifyConfig: modifier =>
+    dispatch({
+      type: '@poi-plugin-leveling@ModifyConfig',
       modifier,
     }),
 })
