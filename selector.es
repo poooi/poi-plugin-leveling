@@ -71,7 +71,7 @@ const shipTypeInfoSelector = createSelector(
     return result.sort((a,b) => a.id-b.id)
   })
 
-const mainUISelector = createSelector(
+const goalAreaUISelector = createSelector(
   shipsInfoSelector,
   admiralIdSelector,
   goalTableSelector,
@@ -140,7 +140,7 @@ const recommendedGoalsSelector = createSelector(
 
 export {
   goalTableSelector,
-  mainUISelector,
+  goalAreaUISelector,
   recommendedGoalsSelector,
   levelingConfigSelector,
 }

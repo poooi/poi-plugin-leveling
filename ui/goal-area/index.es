@@ -26,6 +26,7 @@ class GoalArea extends Component {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    visible: PTyp.bool.isRequired,
 
     // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
     onInitialize: PTyp.func.isRequired,
@@ -43,15 +44,25 @@ class GoalArea extends Component {
   }
 
   render() {
+    const {
+      visible,
+      goalPairs,
+      stypeInfo,
+      ships,
+      onModifyGoalTable,
+    } = this.props
     return (
-      <div>
+      <div
+          className="goal-area"
+          style={{display: visible ? 'initial' : 'none'}}
+      >
         <GoalListInst
-            onModifyGoalTable={this.props.onModifyGoalTable}
-            goalPairs={this.props.goalPairs} />
+            onModifyGoalTable={onModifyGoalTable}
+            goalPairs={goalPairs} />
         <ShipPicker
-            onModifyGoalTable={this.props.onModifyGoalTable}
-            stypeInfo={this.props.stypeInfo}
-            ships={this.props.ships} />
+            onModifyGoalTable={onModifyGoalTable}
+            stypeInfo={stypeInfo}
+            ships={ships} />
       </div>
     )
   }
