@@ -11,15 +11,15 @@ const { _, FontAwesome } = window
 
 class GoalBoxView extends Component {
   static propTypes = {
-    ship: PTyp.Ship.isRequired,
-    goal: PTyp.Goal.isRequired,
+    eGoalPair: PTyp.EGoalPair.isRequired,
     editing: PTyp.bool.isRequired,
 
     onFinishEdit: PTyp.func.isRequired,
     onStartEdit: PTyp.func.isRequired,
   }
   render() {
-    const { ship, goal, onStartEdit, onFinishEdit, editing } = this.props
+    const { eGoalPair, onStartEdit, onFinishEdit, editing } = this.props
+    const { ship, goal, extra } = eGoalPair
 
     const [methodSecond, methodThird] = (() => {
       const { method } = goal
@@ -54,19 +54,17 @@ class GoalBoxView extends Component {
       return [`${showExpValue(method.exp)} Exp/sortie`,""]
     })()
 
-    const remainingExp = totalExp(goal.goalLevel) - ship.totalExp
+    const remainingExp = extra.remainingExp
     const goalAchieved = remainingExp <= 0
     const remainingExpText = goalAchieved
       ? "+Exp. 0"
       : `+Exp. ${remainingExp}`
 
     const computeResultText = () => {
-      const expRange = computeExpRange(goal.method)
-      const remainingSorties =
-        _.uniq(expRange.map( exp => Math.ceil(remainingExp / exp)))
+      const remainingSorties = extra.remainingSorties
       return remainingSorties.length === 1
         ? String(remainingSorties[0])
-        : `${remainingSorties[1]} ~ ${remainingSorties[0]}`
+        : `${remainingSorties[0]} ~ ${remainingSorties[1]}`
     }
 
     return (

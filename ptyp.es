@@ -129,6 +129,17 @@ const GoalPair = PropTypes.shape({
   ship: Ship.isRequired,
 })
 
+const GoalPairExtra = PropTypes.shape({
+  remainingExp: PropTypes.number.isRequired,
+  remainingSorties: PropTypes.arrayOf(PropTypes.number).isRequired,
+})
+
+const EGoalPair = PropTypes.shape({
+  goal: Goal.isRequired,
+  ship: Ship.isRequired,
+  extra: GoalPairExtra.isRequired,
+})
+
 const ShipTypeInfo = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -197,6 +208,10 @@ const PTyp = {
   Ship,
   Goal,
   GoalPair,
+
+  GoalPairExtra,
+  EGoalPair,
+
   Rank,
   Method,
   KCMapString,

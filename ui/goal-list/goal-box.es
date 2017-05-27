@@ -8,8 +8,7 @@ import { PTyp } from '../../ptyp'
 
 class GoalBox extends Component {
   static propTypes = {
-    ship: PTyp.Ship.isRequired,
-    goal: PTyp.Goal.isRequired,
+    eGoalPair: PTyp.EGoalPair.isRequired,
     rGoals: PTyp.arrayOf(PTyp.RGoalLevel).isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
@@ -29,15 +28,15 @@ class GoalBox extends Component {
     this.setState({editing: false})
 
   render() {
-    const { ship, goal, rGoals, onModifyGoalTable } = this.props
+    const { eGoalPair, rGoals, onModifyGoalTable } = this.props
+    const { ship, goal } = eGoalPair
     return (
       <ListGroupItem className="goal-box">
         <GoalBoxView
             editing={this.state.editing}
             onStartEdit={this.handleStartEdit}
             onFinishEdit={this.handleFinishEdit}
-            ship={ship}
-            goal={goal}
+            eGoalPair={eGoalPair}
         />
         <Collapse in={this.state.editing}>
           <div>
