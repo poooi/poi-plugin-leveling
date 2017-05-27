@@ -177,3 +177,13 @@
 .ship-filter-bg-level .dropdown-menu {
     min-width: 200px;
 }
+
+.goal-sorter-row {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.goal-sorter-row > * {
+    margin-right: 5px;
+    min-width: 10%;
+}

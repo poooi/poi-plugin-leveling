@@ -7,6 +7,8 @@ your ship girl leveling plans.
 
 ### Current
 
+- Implemented goal sorting
+
 - Implemented ship sorting in ship picker
 
 - Ship filter is now more properly interpreted.

@@ -61,10 +61,10 @@ class GoalBoxView extends Component {
       : `+Exp. ${remainingExp}`
 
     const computeResultText = () => {
-      const remainingSorties = extra.remainingSorties
-      return remainingSorties.length === 1
-        ? String(remainingSorties[0])
-        : `${remainingSorties[0]} ~ ${remainingSorties[1]}`
+      const remainingBattles = extra.remainingBattles
+      return remainingBattles.length === 1
+        ? String(remainingBattles[0])
+        : `${remainingBattles[0]} ~ ${remainingBattles[1]}`
     }
 
     return (

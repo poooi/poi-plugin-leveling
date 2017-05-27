@@ -131,7 +131,7 @@ const GoalPair = PropTypes.shape({
 
 const GoalPairExtra = PropTypes.shape({
   remainingExp: PropTypes.number.isRequired,
-  remainingSorties: PropTypes.arrayOf(PropTypes.number).isRequired,
+  remainingBattles: PropTypes.arrayOf(PropTypes.number).isRequired,
 })
 
 const EGoalPair = PropTypes.shape({
@@ -200,6 +200,14 @@ const ShipPickerSorter = PropTypes.shape(allRequired({
   reversed: PropTypes.bool,
 }))
 
+const GoalListSorter = PropTypes.shape(allRequired({
+  method: PropTypes.oneOf([
+    'rid','stype','level',
+    'remaining-exp','remaining-battles-lb',
+  ]),
+  reversed: PropTypes.bool,
+}))
+
 const PTyp = {
   ...PropTypes,
   allRequired,
@@ -225,6 +233,7 @@ const PTyp = {
   RGoalLevel,
 
   ShipPickerSorter,
+  GoalListSorter,
 }
 
 export { PTyp }
