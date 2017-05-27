@@ -11,19 +11,36 @@ import { enumFromTo } from '../../utils'
 
 import { prepareMethodText } from '../goal-area/goal-list/method-view'
 
-const { FontAwesome } = window
+const { _, FontAwesome } = window
 
 class TemplateBoxView extends Component {
   static propTypes = {
     template: PTyp.Template.isRequired,
     upEnabled: PTyp.bool.isRequired,
     downEnabled: PTyp.bool.isRequired,
+    stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     editing: PTyp.bool.isRequired,
     index: PTyp.number.isRequired,
 
     onStartEdit: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
+  }
+
+  static defaultProps = {
+    stypes: [],
+  }
+
+  // get list of **sorted** ship types depending on the situation:
+  // - when we are looking at the main template, the full ship type is returned
+  // - otherwise we show either template settings, or template editing the state.
+  getSTypes = () => {
+    const { stypeInfo, editing, template, stypes } = this.props
+    if (template.type === 'main')
+      return stypeInfo.map(({id}) => id)
+
+    const currentSTypes = editing ? stypes : template.stypes
+    return _.uniq(currentSTypes).sort((x,y) => x-y)
   }
 
   interpretSType = stype => {
@@ -50,8 +67,7 @@ class TemplateBoxView extends Component {
             <div className="header">Types</div>
             <div className="stype-content content">
               {
-                (template.type === 'main' ? enumFromTo(1,22) : template.stypes)
-                  .map(this.interpretSType)
+                this.getSTypes().map(this.interpretSType)
               }
             </div>
           </div>

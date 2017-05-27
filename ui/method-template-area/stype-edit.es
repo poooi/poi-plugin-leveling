@@ -77,6 +77,7 @@ class STypeEdit extends Component {
         <ButtonGroup justified>
           <DropdownButton
               id={`tb-edit-dd-add-${index}`}
+              onSelect={this.handleAddOrRemoveSType('add')}
               disabled={disabled || stypeInfoMissing.length === 0}
               title="Add Type">
             {
@@ -91,6 +92,7 @@ class STypeEdit extends Component {
         <ButtonGroup justified>
           <DropdownButton
               id={`tb-edit-dd-rm-${index}`}
+              onSelect={this.handleAddOrRemoveSType('remove')}
               disabled={disabled || stypeInfoIncluded.length === 0}
               title="Remove Type">
             {

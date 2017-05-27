@@ -92,7 +92,7 @@ class TemplateBoxEdit extends Component {
           />
         </div>
         <div className="edit-control">
-          <Button>
+          <Button disabled={isMainTemplate}>
             <FontAwesome name="trash" />
           </Button>
           <Button>

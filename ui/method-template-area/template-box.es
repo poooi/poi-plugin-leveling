@@ -34,7 +34,10 @@ class TemplateBox extends Component {
   }
 
   handleStartEdit = () =>
-    this.setState({editing: true})
+    this.setState({
+      editing: true,
+      stypes: getSTypes(this.props.template),
+    })
 
   handleFinishEdit = () =>
     this.setState({editing: false})
@@ -49,6 +52,7 @@ class TemplateBox extends Component {
     return (
       <ListGroupItem className="template-box">
         <TemplateBoxView
+            stypes={this.state.stypes}
             onStartEdit={this.handleStartEdit}
             onFinishEdit={this.handleFinishEdit}
             editing={this.state.editing}
