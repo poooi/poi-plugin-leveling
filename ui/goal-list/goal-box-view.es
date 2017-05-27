@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
 import { ThreeRows } from './three-rows'
-import { totalExp } from '../../exp'
-import { computeExpRange } from '../../map-exp'
 
 import { PTyp } from '../../ptyp'
 
-const { _, FontAwesome } = window
+const { FontAwesome } = window
 
 class GoalBoxView extends Component {
   static propTypes = {
