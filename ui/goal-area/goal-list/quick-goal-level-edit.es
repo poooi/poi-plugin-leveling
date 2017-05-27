@@ -3,7 +3,7 @@ import {
   ListGroup, ListGroupItem, Button,
 } from 'react-bootstrap'
 
-import { PTyp } from '../../ptyp'
+import { PTyp } from '../../../ptyp'
 
 const { FontAwesome } = window
 

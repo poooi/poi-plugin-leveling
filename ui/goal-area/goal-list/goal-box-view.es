@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 
 import { ThreeRows } from './three-rows'
 
-import { PTyp } from '../../ptyp'
+import { PTyp } from '../../../ptyp'
 
 const { FontAwesome } = window
 

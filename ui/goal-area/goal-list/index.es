@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { ListGroup } from 'react-bootstrap'
 
-import { PTyp } from '../../ptyp'
-import { totalExp } from '../../exp'
-import { computeExpRange } from '../../map-exp'
-import { identity } from '../../utils'
+import { PTyp } from '../../../ptyp'
+import { totalExp } from '../../../exp'
+import { computeExpRange } from '../../../map-exp'
+import { identity } from '../../../utils'
 
 import { GoalBox } from './goal-box'
 import { GoalSorterRow } from './goal-sorter-row'

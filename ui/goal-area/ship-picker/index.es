@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import { ShipList } from './ship-list'
 import { ShipFilter } from './ship-filter'
 
-import { identity } from '../../utils'
-import { PTyp } from '../../ptyp'
+import { identity } from '../../../utils'
+import { PTyp } from '../../../ptyp'
 
 const { _ } = window
 

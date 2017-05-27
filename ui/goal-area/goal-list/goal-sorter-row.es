@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
 
-import { PTyp } from '../../ptyp'
+import { PTyp } from '../../../ptyp'
 
 class GoalSorterRow extends Component {
   static makeSorterSpec = (name,method,asc=true) =>

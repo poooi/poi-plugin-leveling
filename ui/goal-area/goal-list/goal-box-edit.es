@@ -6,8 +6,11 @@ import {
   Nav, NavItem,
 } from 'react-bootstrap'
 
-import { expValueFromBaseExp, computeExpRange } from '../../map-exp'
-import { PTyp } from '../../ptyp'
+import {
+  expValueFromBaseExp,
+  computeExpRange,
+} from '../../../map-exp'
+import { PTyp } from '../../../ptyp'
 
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'

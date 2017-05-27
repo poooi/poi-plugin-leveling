@@ -5,8 +5,7 @@ import {
   ButtonGroup,
 } from 'react-bootstrap'
 
-import { PTyp } from '../../ptyp'
-
+import { PTyp } from '../../../ptyp'
 
 class ShipFilter extends Component {
   static propTypes = {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Checkbox, FormControl } from 'react-bootstrap'
 
-import { saturate } from '../../utils'
-import { PTyp } from '../../ptyp'
+import { saturate } from '../../../utils'
+import { PTyp } from '../../../ptyp'
 
 // note that this component does not guarantee to always return valid ExpValue
 class ExpValueEdit extends Component {

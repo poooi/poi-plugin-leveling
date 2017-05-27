@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
 
 import { ExpValueEdit } from './exp-value-edit'
-import { sortedMapKeys, getMapExpInfo } from '../../map-exp'
+import { sortedMapKeys, getMapExpInfo } from '../../../map-exp'
 
-import { PTyp } from '../../ptyp'
+import { PTyp } from '../../../ptyp'
 
 class MethodSortieEdit extends Component {
   static propTypes = {

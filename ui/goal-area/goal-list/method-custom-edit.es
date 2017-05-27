@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { ExpValueEdit } from './exp-value-edit'
-import { PTyp } from '../../ptyp'
+import { PTyp } from '../../../ptyp'
 
 class MethodCustomEdit extends Component {
   static propTypes = {
