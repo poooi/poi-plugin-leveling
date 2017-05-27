@@ -16,8 +16,10 @@ class ShipList extends Component {
 
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
+    sorter: PTyp.ShipPickerSorter.isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
+    onModifySorter: PTyp.func.isRequired,
   }
 
   handleAddToGoalTable = ship => () => {
@@ -61,7 +63,7 @@ class ShipList extends Component {
         <td>{ship.los}</td>
         <td className="fleet-id-indicator" style={{textAlign: "center"}}>{ship.fleet}</td>
         <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
-        <td>
+        <td style={{textAlign: "center"}}>
           <Button
               onClick={this.handleAddToGoalTable(ship)}
               style={{width: "80%", height: "18px", padding: "0"}} >+</Button>

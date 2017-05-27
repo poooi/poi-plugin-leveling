@@ -182,6 +182,13 @@ const RGoalLevel = PropTypes.shape(allRequired({
   reason: Reason,
 }))
 
+const ShipPickerSorter = PropTypes.shape(allRequired({
+  method: PropTypes.oneOf([
+    'rid','stype','name','level','evasion','asw','los','fleet','lock',
+  ]),
+  reversed: PropTypes.bool,
+}))
+
 const PTyp = {
   ...PropTypes,
   allRequired,
@@ -201,6 +208,8 @@ const PTyp = {
 
   Reason,
   RGoalLevel,
+
+  ShipPickerSorter,
 }
 
 export { PTyp }
