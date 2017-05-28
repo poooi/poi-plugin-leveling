@@ -228,6 +228,11 @@ const Template = PropTypes.oneOfType([
 
 const style = PropTypes.object
 
+const Config = PropTypes.shape(allRequired({
+  goalSorter: GoalListSorter,
+  templates: PropTypes.arrayOf(Template),
+}))
+
 const PTyp = {
   ...PropTypes,
   allRequired,
@@ -257,6 +262,8 @@ const PTyp = {
 
   ShipPickerSorter,
   GoalListSorter,
+
+  Config,
 }
 
 export { PTyp }

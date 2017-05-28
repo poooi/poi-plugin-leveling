@@ -1,119 +1,56 @@
 import React, { Component } from 'react'
 import {
   ListGroup,
+  Modal,
+  Button,
 } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
 import { TemplateBox } from './template-box'
-import { sortedMapKeys } from '../../map-exp'
-
-const getRandomArbitrary = (min, max) =>
-  Math.floor(Math.random() * (max - min)) + min
-
-const getRandomInt = (minR, maxR) => {
-  const min = Math.ceil(minR)
-  const max = Math.floor(maxR)
-  return Math.floor(Math.random() * (max - min)) + min
-}
-
-const getOneOf = xs => xs[getRandomInt(0,xs.length)]
-const genMap = () => getOneOf(sortedMapKeys)
-const genTernary = () => getOneOf(['yes','no','maybe'])
-const genRank = () => {
-  const ret = [];
-  ['S','A','B','C','D','E'].map( x => {
-    if (getOneOf([true,false]))
-      ret.push(x)
-  })
-  return ret
-}
-const genExpValue = () => {
-  const type = getOneOf(['single','range'])
-  if (type === 'single')
-    return {
-      type,
-      value: getRandomArbitrary(1000,3000),
-    }
-  if (type === 'range') {
-    const min = getRandomArbitrary(1000,2000)
-    const max = getRandomArbitrary(min+100, 5000)
-    return { type, min, max }
-  }
-}
-const genBaseExp = () => {
-  const type = getOneOf(['standard','custom'])
-  if (type === 'standard') {
-    return {
-      type, map: genMap(),
-    }
-  }
-
-  if (type === 'custom') {
-    return {
-      type, value: genExpValue(),
-    }
-  }
-}
-
-const genMethod = () => {
-  const type = getOneOf(['sortie','custom'])
-  if (type === 'sortie') {
-    return {
-      type,
-      flagship: genTernary(),
-      mvp: genTernary(),
-      rank: genRank(),
-      baseExp: genBaseExp(),
-    }
-  }
-
-  if (type === 'custom') {
-    return {
-      type, exp: genExpValue(),
-    }
-  }
-}
-
-const genStypes = () => {
-  const ret = []
-  for (let i=1; i<=22; ++i)
-    if (getOneOf([true,false]))
-      ret.push(i)
-  return ret
-}
-
-const genTemplateList = () => {
-  const len = getRandomInt(5,10+1)
-  const tl = []
-  for (let i=0; i<len; ++i)
-    tl.push( {
-      type: 'custom',
-      method: genMethod(),
-      enabled: getOneOf([true,false]),
-      stypes: genStypes(),
-    })
-  tl.push( {
-    type: 'main',
-    method: genMethod(),
-  })
-  return tl
-}
-
-const fakedTemplateList = genTemplateList()
 
 class MethodTemplateArea extends Component {
   static propTypes = {
     visible: PTyp.bool.isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    config: PTyp.Config.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      showModal: false,
+    }
+  }
+
+  handleCloseResetDialog = () =>
+    this.setState({showModal: false})
+
+  handleOpenResetDialog = () =>
+    this.setState({showModal: true})
+
+  handleConfirmResetDialog = () => {
+    this.handleCloseResetDialog()
+    // TODO: reset
   }
 
   render() {
-    const { visible, stypeInfo } = this.props
+    const {
+      visible,
+      stypeInfo,
+      config,
+    } = this.props
+    const { templates } = config
     return (
       <div
           className="method-template-area"
           style={{display: visible?'initial':'none'}}
       >
+        <div className="template-top-btns">
+          <Button style={{flex: 1}} onClick={this.handleOpenResetDialog}>
+            Reset To Default
+          </Button>
+          <Button style={{flex: 3}}>New Template</Button>
+        </div>
         <ListGroup
             className="template-list"
         >
@@ -124,7 +61,7 @@ class MethodTemplateArea extends Component {
             // every template except indices - one can have multiple templates
             // that looks exactly the same, and there is nothing stopping users
             // from doing so.
-            fakedTemplateList.map( (template,ind) => {
+            templates.map( (template,ind) => {
               const isMainTemplate = template.type === 'main'
               return (
                 <TemplateBox
@@ -132,7 +69,7 @@ class MethodTemplateArea extends Component {
                   key={ind}
                   index={ind}
                   upEnabled={!isMainTemplate && ind > 0}
-                  downEnabled={!isMainTemplate && ind < fakedTemplateList.length-2}
+                  downEnabled={!isMainTemplate && ind < templates.length-2}
                   template={template} />
               )
             })
@@ -140,6 +77,18 @@ class MethodTemplateArea extends Component {
           }
 
         </ListGroup>
+        <Modal show={this.state.showModal} onHide={this.handleCloseResetDialog}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Reseting</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure to reset? All your templates will be overwritten.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleCloseResetDialog}>Cancel</Button>
+            <Button bsStyle="danger" onClick={this.handleConfirmResetDialog}>Confirm</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }
