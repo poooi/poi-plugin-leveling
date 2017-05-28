@@ -53,8 +53,8 @@ and configuration of each individual goal.
     {
       type: "sortie",
       flagship: "yes" / "no" / "maybe",
-      rank: <see note above>,
       mvp: "yes" / "no" / "maybe",
+      rank: <see note above>,
       baseExp: <BaseExp>,
     }
     ```

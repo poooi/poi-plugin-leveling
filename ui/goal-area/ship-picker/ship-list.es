@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { PTyp } from '../../../ptyp'
-import { matchTemplate } from '../../../config'
+import { Template } from '../../../structs'
 
 const { FontAwesome } = window
 // this part allows picking ships for leveling
@@ -45,7 +45,7 @@ class ShipList extends Component {
       : 155
 
     const templateInd =
-      templates.findIndex(template => matchTemplate(template)(stype))
+      templates.findIndex(template => Template.match(template)(stype))
     if (templateInd === -1)
       console.error(`Failed to find a matching template for type ${stype}`)
 

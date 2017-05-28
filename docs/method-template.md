@@ -49,6 +49,18 @@ in its `Method` part automatically by using a matching template.
     }
     ```
 
+- when `type` is `main`
+
+    ```
+    {
+      type: "main",
+      method: <Method>,
+    }
+    ```
+
+    Note: as the name has suggested, main template is always enabled,
+    and unconditionally matches every ship type.
+
 - when `type` is `custom`
 
     ```
@@ -63,15 +75,3 @@ in its `Method` part automatically by using a matching template.
     Note: every number in `stypes` represents a ship type,
     which should be consistent with data received from `api_start2`.
     Additionally, every element of it should be unique.
-
-- when `type` is `main`
-
-    ```
-    {
-      type: "main",
-      method: <Method>,
-    }
-    ```
-
-    Note: as the name has suggested, main template is always enabled,
-    and unconditionally matches every ship type.

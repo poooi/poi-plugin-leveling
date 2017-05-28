@@ -7,8 +7,9 @@ import {
 
 import { konst, modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
-import { loadDefaultTemplateList, matchTemplate } from '../../config'
+import { loadDefaultTemplateList } from '../../config'
 import { TemplateBox } from './template-box'
+import * as structs from '../../structs'
 
 const { _ } = window
 
@@ -191,7 +192,7 @@ class MethodTemplateArea extends Component {
                 !editing &&
                 ind < templates.length-2 &&
                 !this.state.editingStates[ind+1]
-              const match = matchTemplate(template)
+              const match = structs.Template.match(template)
               const applicableShips =
                 shipTargets
                   .filter(s => match(s.stype))
