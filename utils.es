@@ -15,14 +15,10 @@ function error(...args) {
   return console.error.apply(this, args)
 }
 
-// "const" function that simply ignores
-// its second list of arguments and returns the first argument.
-// the funny spell is due to the fact that "const" is a keyword.
-const konst = x => () => x
 
 // usage: "ignore(a,b,c)" to fool eslint to believe that "a", "b" and "c"
 // are somehow being used, it serves as an explicit annotation to say that they actually don't
-const ignore = konst
+const ignore = () => undefined
 
 const identity = x => x
 
@@ -59,7 +55,6 @@ const saturate = (min,max) => v =>
 
 export {
   enumFromTo,
-  konst,
   ignore,
   identity,
   not,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { PTyp } from '../../../ptyp'
-import { Template, TemplateList } from '../../../structs'
+import { TemplateList } from '../../../structs'
 
 const { FontAwesome } = window
 // this part allows picking ships for leveling

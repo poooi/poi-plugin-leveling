@@ -1,8 +1,6 @@
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
-import { konst } from './utils'
-
 const statsTable = readJsonSync(join(__dirname, 'assets', 'wctf_stats.json'))
 
 const estimateStat = statInfo => level => {
@@ -17,7 +15,7 @@ const estimateStat = statInfo => level => {
 const statsAtLevel = mstId => {
   const statEntity = statsTable[mstId]
   if (typeof statEntity === 'undefined')
-    return konst({ evasion: null, asw: null, los: null })
+    return () => ({ evasion: null, asw: null, los: null })
 
   return level => ['evasion','asw','los']
     .reduce((obj, statName) => ({

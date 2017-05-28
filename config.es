@@ -1,6 +1,5 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
-import { konst } from './utils'
 
 const { APPDATA_PATH } = window
 

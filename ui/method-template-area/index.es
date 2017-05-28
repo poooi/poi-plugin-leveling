@@ -5,7 +5,7 @@ import {
   Button,
 } from 'react-bootstrap'
 
-import { konst, modifyArray } from '../../utils'
+import { modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
 import { loadDefaultTemplateList } from '../../config'
 import { TemplateBox } from './template-box'
@@ -34,7 +34,7 @@ class MethodTemplateArea extends Component {
       // onModifyConfig or onModifyTemplateList, when there are changes
       // that affects array length, we need to ensure MethodTemplateArea can
       // be aware of the change and keep this array in sync.
-      editingStates: props.config.templates.map(konst(false)),
+      editingStates: props.config.templates.map(() => false),
     }
   }
 
@@ -61,7 +61,7 @@ class MethodTemplateArea extends Component {
     }))
 
     this.setState({
-      editingStates: defaultTemplateList.map(konst(false)),
+      editingStates: defaultTemplateList.map(() => false),
     })
   }
 
