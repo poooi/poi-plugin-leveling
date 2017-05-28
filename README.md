@@ -5,6 +5,20 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 0.2.0
+
+- Implemented Method Template
+
+    - User can define their own method templates, every method template contains
+      a method and a list of applicable ship types.
+    - Method Template forms a list, when adding a new ship for leveling,
+      templates are attempted in order, the first one with matching ship type
+      is applied to the ship.
+    - The last one in template list is the main template, which unconditionally
+      matches all ship types and cannot be removed.
+      Therefore template matching would never fail.
+    - Templates can also be manually applied by using "Apply to" dropdown button.
+
 ### 0.1.0
 
 - Implemented sorting
