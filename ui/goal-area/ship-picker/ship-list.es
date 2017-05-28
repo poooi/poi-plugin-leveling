@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { PTyp } from '../../../ptyp'
+import { matchTemplate } from '../../../config'
 
 const { FontAwesome } = window
 // this part allows picking ships for leveling
@@ -29,34 +30,45 @@ class ShipList extends Component {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     sorter: PTyp.ShipPickerSorter.isRequired,
+    templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
     onModifySorter: PTyp.func.isRequired,
   }
 
   handleAddToGoalTable = ship => () => {
-    const { onModifyGoalTable } = this.props
-    const { rstId } = ship
+    const { onModifyGoalTable, templates } = this.props
+    const { rstId, stype } = ship
     const goalLevel =
         ship.nextRemodelLevel !== null ? ship.nextRemodelLevel
       : ship.level < 99 ? 99
       : 155
 
+    const templateInd =
+      templates.findIndex(template => matchTemplate(template)(stype))
+    if (templateInd === -1)
+      console.error(`Failed to find a matching template for type ${stype}`)
+
+    const failbackMethod = {
+      type: "sortie",
+      flagship: "yes",
+      mvp: "yes",
+      rank: ["S","A"],
+      baseExp: {
+        type: "standard",
+        map: "3-2",
+      },
+    }
+
+    const method = templateInd === -1
+      ? failbackMethod
+      : templates[templateInd].method
+
     onModifyGoalTable( gt => {
-      // TODO: most of the values are placeholders
       const newGoal = {
         rosterId: rstId,
         goalLevel,
-        method: {
-          type: "sortie",
-          flagship: "yes",
-          mvp: "yes",
-          rank: ["S","A"],
-          baseExp: {
-            type: "standard",
-            map: "3-2",
-          },
-        },
+        method,
       }
       return {...gt, [rstId]: newGoal}
     })

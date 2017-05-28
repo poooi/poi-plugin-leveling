@@ -27,6 +27,7 @@ class GoalArea extends Component {
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     visible: PTyp.bool.isRequired,
+    templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
     // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
     onInitialize: PTyp.func.isRequired,
@@ -50,6 +51,7 @@ class GoalArea extends Component {
       stypeInfo,
       ships,
       onModifyGoalTable,
+      templates,
     } = this.props
     return (
       <div
@@ -62,6 +64,7 @@ class GoalArea extends Component {
         <ShipPicker
             onModifyGoalTable={onModifyGoalTable}
             stypeInfo={stypeInfo}
+            templates={templates}
             ships={ships} />
       </div>
     )

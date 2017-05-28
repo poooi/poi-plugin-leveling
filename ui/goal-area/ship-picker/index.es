@@ -97,6 +97,7 @@ class ShipPicker extends Component {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    templates: PTyp.arrayOf(PTyp.Template).isRequired,
     onModifyGoalTable: PTyp.func.isRequired,
   }
 
@@ -164,6 +165,7 @@ class ShipPicker extends Component {
         <ShipList
             onModifyGoalTable={this.props.onModifyGoalTable}
             onModifySorter={this.handleModifySorter}
+            templates={this.props.templates}
             sorter={this.state.sorter}
             ships={ships} />
       </div>

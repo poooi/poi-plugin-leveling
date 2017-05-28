@@ -102,15 +102,29 @@ const shipListSplitSelector = createSelector(
   }
 )
 
+const enabledTemplateListSelector = createSelector(
+  levelingConfigSelector,
+  ({templates}) => {
+    const isEnabled = template =>
+      template.type === 'main' ||
+      ( template.type === 'custom'
+        ? template.enabled
+        : console.error(`Unknown template type ${template.type}`))
+    return templates.filter(isEnabled)
+  }
+)
+
 const goalAreaUISelector = createSelector(
   admiralIdSelector,
   shipTypeInfoSelector,
   shipListSplitSelector,
-  (admiralId, stypeInfo, {shipsWithoutGoal, goalPairs}) => ({
+  enabledTemplateListSelector,
+  (admiralId, stypeInfo, {shipsWithoutGoal, goalPairs}, templates) => ({
     ships: shipsWithoutGoal,
     admiralId,
     stypeInfo,
     goalPairs,
+    templates,
   })
 )
 
