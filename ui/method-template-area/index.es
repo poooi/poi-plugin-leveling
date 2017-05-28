@@ -7,6 +7,7 @@ import {
 
 import { konst, modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
+import { loadDefaultTemplateList } from '../../config'
 import { TemplateBox } from './template-box'
 
 const { _ } = window
@@ -27,9 +28,9 @@ class MethodTemplateArea extends Component {
       // this array should always have the same length as props.config.templates,
       // which indicates whether the template under corresponding index
       // is being editted.
-      // TODO: while it is still okay to modify TemplateList by
+      // while it is still okay to modify TemplateList by
       // onModifyConfig or onModifyTemplateList, when there are changes
-      // that affects array length, we will need to ensure MethodTemplateArea can
+      // that affects array length, we need to ensure MethodTemplateArea can
       // be aware of the change and keep this array in sync.
       editingStates: props.config.templates.map(konst(false)),
     }
@@ -49,7 +50,17 @@ class MethodTemplateArea extends Component {
 
   handleConfirmResetDialog = () => {
     this.handleCloseResetDialog()
-    // TODO: reset
+
+    const { onModifyConfig } = this.props
+    const defaultTemplateList = loadDefaultTemplateList()
+    onModifyConfig(config => ({
+      ...config,
+      templates: defaultTemplateList,
+    }))
+
+    this.setState({
+      editingStates: defaultTemplateList.map(konst(false)),
+    })
   }
 
   // despite being the most flexible modifier function,

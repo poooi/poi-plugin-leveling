@@ -74,4 +74,5 @@ const saveConfig = config => {
 export {
   loadConfig,
   saveConfig,
+  loadDefaultTemplateList,
 }

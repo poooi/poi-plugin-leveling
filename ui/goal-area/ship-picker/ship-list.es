@@ -6,7 +6,6 @@ const { FontAwesome } = window
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
-// TODO: ShipList => ShipTableArea after done
 class ShipList extends Component {
   static defineSortableHeader =
     (name, method, asc = true /* whether it's ascending by default */) => ({
