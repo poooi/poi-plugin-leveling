@@ -3,7 +3,7 @@ import { join } from 'path-extra'
 
 const { APPDATA_PATH } = window
 
-const generateDefaultTemplateList = () => [{
+const genSimpleDefaultTemplateList = () => [{
   type: 'main',
   method: {
     type: 'sortie',
@@ -17,11 +17,20 @@ const generateDefaultTemplateList = () => [{
   },
 }]
 
+const loadDefaultTemplateList = () => {
+  try {
+    return readJsonSync(join(__dirname, 'assets', 'default-template-list.json'))
+  } catch (e) {
+    console.error(`error while loading default template list: ${e}`)
+    return genSimpleDefaultTemplateList()
+  }
+}
+
 const patchTemplates = config => {
   if (! Array.isArray(config.templates) || config.templates.length === 0) {
     return {
       ...config,
-      templates: generateDefaultTemplateList(),
+      templates: loadDefaultTemplateList(),
     }
   }
   return config
@@ -34,8 +43,15 @@ const getConfigFilePath = () => {
 }
 
 const loadConfig = () => {
+  let ret = {
+    goalSorter: {
+      method: 'rid',
+      reversed: false,
+    },
+  }
+
   try {
-    return patchTemplates(readJsonSync(getConfigFilePath()))
+    ret = readJsonSync(getConfigFilePath())
   } catch (err) {
     // ignore error when it's about not finding the file, which is fine,
     // otherwise this could be a problem and we print it in this case.
@@ -43,12 +59,8 @@ const loadConfig = () => {
       console.error('Error while loading goal table', err)
     }
   }
-  return {
-    goalSorter: {
-      method: 'rid',
-      reversed: false,
-    },
-  }
+
+  return patchTemplates(ret)
 }
 
 const saveConfig = config => {
