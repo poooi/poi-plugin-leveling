@@ -224,4 +224,4 @@ class GoalBoxEdit extends Component {
   }
 }
 
-export { GoalBoxEdit, fillStates }
+export { GoalBoxEdit, fillStates, stateToMethod }

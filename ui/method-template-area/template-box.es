@@ -16,12 +16,14 @@ const getSTypes = template =>
 class TemplateBox extends Component {
   static propTypes = {
     template: PTyp.Template.isRequired,
+    editing: PTyp.bool.isRequired,
+    onModifyTemplateListAtIndex: PTyp.func.isRequired,
+    onModifyEditingState: PTyp.func.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      editing: false,
       // template box maintains its own stypes array.
       // when editing, state.stypes is used, otherwise
       // we use stypes from props.template
@@ -33,14 +35,18 @@ class TemplateBox extends Component {
     this.setState({stypes: getSTypes(nextProps.template)})
   }
 
-  handleStartEdit = () =>
+  handleStartEdit = () => {
+    const { onModifyEditingState } = this.props
+    onModifyEditingState(() => true)
     this.setState({
-      editing: true,
       stypes: getSTypes(this.props.template),
     })
+  }
 
-  handleFinishEdit = () =>
-    this.setState({editing: false})
+  handleFinishEdit = () => {
+    const { onModifyEditingState } = this.props
+    onModifyEditingState(() => false)
+  }
 
   handleModifySTypes = modifier =>
     this.setState( state => ({
@@ -55,13 +61,15 @@ class TemplateBox extends Component {
             stypes={this.state.stypes}
             onStartEdit={this.handleStartEdit}
             onFinishEdit={this.handleFinishEdit}
-            editing={this.state.editing}
+            editing={this.props.editing}
             {...this.props}
         />
-        <Collapse in={this.state.editing}>
+        <Collapse in={this.props.editing}>
           <div>
             <TemplateBoxEdit
                 onModifySTypes={this.handleModifySTypes}
+                onModifyTemplateListAtIndex={this.props.onModifyTemplateListAtIndex}
+                onFinishEdit={this.handleFinishEdit}
                 stypes={this.state.stypes}
                 {...this.props}
             />

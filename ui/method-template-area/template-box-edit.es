@@ -4,10 +4,11 @@ import {
   Button,
 } from 'react-bootstrap'
 
+import { modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
 
 import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
-import { fillStates } from '../goal-area/goal-list/goal-box-edit'
+import { fillStates, stateToMethod } from '../goal-area/goal-list/goal-box-edit'
 import { STypeEdit } from './stype-edit'
 
 const { FontAwesome } = window
@@ -18,7 +19,11 @@ class TemplateBoxEdit extends Component {
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     index: PTyp.number.isRequired,
+
     onModifySTypes: PTyp.func.isRequired,
+    onModifyTemplateListAtIndex: PTyp.func.isRequired,
+    onRemoveTemplate: PTyp.func.isRequired,
+    onFinishEdit: PTyp.func.isRequired,
   }
 
   static defaultProps = {
@@ -28,12 +33,9 @@ class TemplateBoxEdit extends Component {
   static prepareState = props => {
     const { template } = props
     const { method } = template
-    const stypes = template.type === 'main' ? null : template.stypes
-
     return {
       methodType: method.type,
       ...fillStates(method),
-      stypes,
     }
   }
 
@@ -55,6 +57,47 @@ class TemplateBoxEdit extends Component {
 
   handleCustomInputChange = newValue => {
     this.setState({customInput: newValue})
+  }
+
+  handleSaveTemplate = () => {
+    const method = stateToMethod(this.state)
+    const {
+      index,
+      template,
+      onModifyTemplateListAtIndex,
+      onFinishEdit,
+    } = this.props
+
+    if (template.type === 'main') {
+      onModifyTemplateListAtIndex(index, tmpl => ({
+        ...tmpl,
+        method,
+      }))
+    } else if (template.type === 'custom') {
+      const { stypes } = this.props
+      onModifyTemplateListAtIndex(index, tmpl => ({
+        ...tmpl,
+        method,
+        stypes,
+      }))
+    } else {
+      console.error(`Unknown template type: ${template.type}`)
+    }
+    onFinishEdit()
+  }
+
+  handleRemoveTemplate = () => {
+    const {
+      index,
+      template,
+      onRemoveTemplate,
+    } = this.props
+
+    if (template.type === 'custom') {
+      onRemoveTemplate(index)
+    } else {
+      console.error(`Invalid operation on template type: ${template.type}`)
+    }
   }
 
   render() {
@@ -92,10 +135,12 @@ class TemplateBoxEdit extends Component {
           />
         </div>
         <div className="edit-control">
-          <Button disabled={isMainTemplate}>
+          <Button
+              onClick={this.handleRemoveTemplate}
+              disabled={isMainTemplate}>
             <FontAwesome name="trash" />
           </Button>
-          <Button>
+          <Button onClick={this.handleSaveTemplate} >
             <FontAwesome name="save" />
           </Button>
         </div>

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import {
-  ListGroupItem,
   Button,
   DropdownButton, MenuItem,
   ButtonGroup,
 } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
-import { enumFromTo } from '../../utils'
 
 import { prepareMethodText } from '../goal-area/goal-list/method-view'
 
@@ -25,6 +23,7 @@ class TemplateBoxView extends Component {
 
     onStartEdit: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
+    onModifyTemplateListAtIndex: PTyp.func.isRequired,
   }
 
   static defaultProps = {
@@ -47,6 +46,19 @@ class TemplateBoxView extends Component {
     const { stypeInfo } = this.props
     const name = stypeInfo.find(x => x.id === stype).name
     return (<div className="stype-element" key={stype}>{`${name} (${stype})`}</div>)
+  }
+
+  handleToggleTemplate = () => {
+    const { index, template, onModifyTemplateListAtIndex } = this.props
+    if (template.type === 'custom') {
+      onModifyTemplateListAtIndex(index, tmpl => ({
+        ...tmpl,
+        enabled: !tmpl.enabled,
+      }))
+      return
+    }
+
+    console.error(`Invalid operation on template of type ${template.type}`)
   }
 
   render() {
@@ -106,6 +118,7 @@ class TemplateBoxView extends Component {
           </ButtonGroup>
           <Button
               bsStyle={isEnabled ? "success" : "danger"}
+              onClick={this.handleToggleTemplate}
               disabled={isMainTemplate || editing}
               style={{flex: 2}}
           >
