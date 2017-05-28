@@ -51,10 +51,10 @@ class LevelingMain extends Component {
             onSelect={this.handleTabSwitch}
             justified className="main-nav">
           <NavItem eventKey="goal">Goals</NavItem>
-          <NavItem eventKey="method">Method Template</NavItem>
+          <NavItem eventKey="template">Templates</NavItem>
         </Nav>
         <GoalAreaInst visible={activeTab === 'goal'} />
-        <MethodTemplateAreaInst visible={activeTab === 'method'} />
+        <MethodTemplateAreaInst visible={activeTab === 'template'} />
       </div>
     )
   }

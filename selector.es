@@ -71,14 +71,20 @@ const shipTypeInfoSelector = createSelector(
     return result.sort((a,b) => a.id-b.id)
   })
 
-const goalAreaUISelector = createSelector(
+// split ship list into two parts:
+// 'shipsWithoutGoal' is the ship list for ships without goal
+// 'goalPairs' is the GoalPair list for ships that has a goal,
+//   in which every element has properly paired {goal,ship} together
+const shipListSplitSelector = createSelector(
   shipsInfoSelector,
   admiralIdSelector,
   goalTableSelector,
-  shipTypeInfoSelector,
-  (ships, admiralId, goalTable, stypeInfo) => {
+  (ships, admiralId, goalTable) => {
     if (goalTable === null)
-      return { ships, admiralId, goalPairs: [], stypeInfo }
+      return {
+        shipsWithoutGoal: [],
+        goalPairs: [],
+      }
     const shipsWithoutGoal = []
     const goalPairs = []
     ships.map(s => {
@@ -90,12 +96,22 @@ const goalAreaUISelector = createSelector(
       }
     })
     return {
-      ships: shipsWithoutGoal,
-      admiralId,
+      shipsWithoutGoal,
       goalPairs,
-      stypeInfo,
     }
   }
+)
+
+const goalAreaUISelector = createSelector(
+  admiralIdSelector,
+  shipTypeInfoSelector,
+  shipListSplitSelector,
+  (admiralId, stypeInfo, {shipsWithoutGoal, goalPairs}) => ({
+    ships: shipsWithoutGoal,
+    admiralId,
+    stypeInfo,
+    goalPairs,
+  })
 )
 
 const rGoalMaxUnmarried = {
@@ -141,8 +157,8 @@ const recommendedGoalsSelector = createSelector(
 const methodTemplateUISelector = createSelector(
   shipTypeInfoSelector,
   levelingConfigSelector,
-  goalTableSelector,
-  (stypeInfo,config,goalTable) => ({ stypeInfo, config, goalTable })
+  shipListSplitSelector,
+  (stypeInfo,config,{goalPairs}) => ({stypeInfo, config, goalPairs})
 )
 
 export {
@@ -151,4 +167,5 @@ export {
   recommendedGoalsSelector,
   levelingConfigSelector,
   methodTemplateUISelector,
+  shipListSplitSelector,
 }
