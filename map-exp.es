@@ -1,5 +1,6 @@
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
+import { Ternary, ExpValue, BaseExp, Method } from './structs'
 
 const _ = require('lodash')
 
@@ -14,23 +15,8 @@ const sortedMapKeys = (() => {
   return Object.freeze(ret)
 })()
 
-const expValueFromBaseExp = baseExp => {
-  if (baseExp.type === 'standard')
-    return getMapExpInfo(baseExp.map).baseExp
-  if (baseExp.type === 'custom')
-    return baseExp.value
-  console.error(`Invalid BaseExp type: ${baseExp.type}`)
-}
-
-// returns non-empty array
-const expValueToArray = expValue => {
-  if (expValue.type === 'single')
-    return [expValue.value]
-  if (expValue.type === 'range')
-    return [expValue.min, expValue.max]
-
-  console.error(`Invalid ExpValue type: ${expValue.type}`)
-}
+const expValueFromBaseExp =
+  BaseExp.toExpValueWithGetter(map => getMapExpInfo(map).baseExp)
 
 const rankTable = {
   S: 1.2,
@@ -52,22 +38,11 @@ const computeExp = (base,flagship,mvpFlag,rank) => {
 }
 
 // returns a sorted array of possible exp obtained from the specified leveling method
-const computePossibleExps = method => {
-  if (method.type === 'sortie') {
-    const { flagship, mvp } = method
-    const flagshipFlags =
-        flagship === 'yes' ? [true]
-      : flagship === 'no' ? [false]
-      : flagship === 'maybe' ? [false, true]
-      : console.error(`Invalid flagship value: ${flagship}`)
-    const ranks = method.rank
-    const baseExps = expValueToArray(expValueFromBaseExp(method.baseExp))
-    const mvpFlags =
-        mvp === 'yes' ? [true]
-      : mvp === 'no' ? [false]
-      : mvp === 'maybe' ? [false, true]
-      : console.error(`Invalid mvp value: ${mvp}`)
-
+const computePossibleExps = Method.destruct({
+  sortie: (flagship,mvp,ranks,baseExp) => {
+    const flagshipFlags = Ternary.toArray(flagship)
+    const baseExps = ExpValue.toArray(expValueFromBaseExp(baseExp))
+    const mvpFlags = Ternary.toArray(mvp)
     return _.uniq(
       _.flatMap(baseExps, baseExpNum =>
         _.flatMap(mvpFlags, mvpFlag =>
@@ -75,14 +50,9 @@ const computePossibleExps = method => {
             _.flatMap(ranks, rank =>
               computeExp(baseExpNum,flagshipFlag,mvpFlag,rank)))))
          .sort((x,y) => x-y))
-  }
-
-  if (method.type === 'custom') {
-    return expValueToArray( method.exp )
-  }
-
-  console.error(`Invalid method type: ${method.type}`)
-}
+  },
+  custom: exp => ExpValue.toArray(exp),
+})
 
 // purge a sorted non-empty array
 // - keeps singleton intact

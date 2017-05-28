@@ -3,28 +3,51 @@ import {
   reportTypeError,
 } from './common'
 
+class Ternary {
+  static destruct = ({yes,no,maybe}) => x =>
+      x === 'yes' ? yes(x)
+    : x === 'no' ? no(x)
+    : x === 'maybe' ? maybe(x)
+    : console.error(`Expecting one of 'yes' 'no' 'maybe' while getting ${x}`)
+  static toArray = Ternary.destruct({
+    yes: () => [true],
+    no: () => [false],
+    maybe: () => [false,true],
+  })
+}
+
 class ExpValue {
-  static destruct = (onSingle,onRange) => expectObject(obj =>
-      obj.type === 'single' ? onSingle(obj.value,obj)
-    : obj.type === 'range' ? onRange(obj.min,obj.max,obj)
+  static destruct = ({single,range}) => expectObject(obj =>
+      obj.type === 'single' ? single(obj.value,obj)
+    : obj.type === 'range' ? range(obj.min,obj.max,obj)
     : reportTypeError(ExpValue,obj.type))
+  static toArray = ExpValue.destruct({
+    single: value => [value],
+    range: (min,max) => [min,max],
+  })
 }
 
 class BaseExp {
-  static destruct = (onStandard,onCustom) => expectObject(obj =>
-      obj.type === 'standard' ? onStandard(obj.map,obj)
-    : obj.type === 'custom' ? onCustom(obj.value,obj)
+  static destruct = ({standard,custom}) => expectObject(obj =>
+      obj.type === 'standard' ? standard(obj.map,obj)
+    : obj.type === 'custom' ? custom(obj.value,obj)
     : reportTypeError(BaseExp,obj.type))
+  static toExpValueWithGetter = mapExpGetter =>
+    BaseExp.destruct({
+      standard: map => mapExpGetter(map),
+      custom: value => value,
+    })
 }
 
 class Method {
-  static destruct = (onSortie,onCustom) => expectObject(obj =>
-      obj.type === 'sortie' ? onSortie(obj.flagship,obj.mvp,obj.rank,obj.baseExp,obj)
-    : obj.type === 'custom' ? onCustom(obj.exp,obj)
+  static destruct = ({sortie,custom}) => expectObject(obj =>
+      obj.type === 'sortie' ? sortie(obj.flagship,obj.mvp,obj.rank,obj.baseExp,obj)
+    : obj.type === 'custom' ? custom(obj.exp,obj)
     : reportTypeError(Method,obj.type))
 }
 
 export {
+  Ternary,
   ExpValue,
   BaseExp,
   Method,

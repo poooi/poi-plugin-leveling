@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { ThreeRows } from './three-rows'
 
 import { PTyp } from '../../../ptyp'
+import {
+  ExpValue,
+  BaseExp,
+  Method,
+  Ternary,
+} from '../../../structs'
 
 const prepareMethodText = method => {
   const showExpValue = expValue =>

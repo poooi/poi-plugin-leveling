@@ -4,18 +4,17 @@ import {
 } from './common'
 
 class Template {
-  static destruct = (onMain,onCustom) => expectObject(obj =>
-      obj.type === 'main' ? onMain(obj.method,obj)
-    : obj.type === 'custom' ? onCustom(obj.method,obj.enabled,obj.stypes)
+  static destruct = ({main,custom}) => expectObject(obj =>
+      obj.type === 'main' ? main(obj.method,obj)
+    : obj.type === 'custom' ? custom(obj.method,obj.enabled,obj.stypes)
     : reportTypeError(Template,obj.type))
 
   // Template.match(<template>)(<ship type>) => bool
-  static match = Template.destruct(
-    // main template always matches
-    () => (/* stype (ignored) */) => true,
-    // custom template, need to check again stypes
-    (method,enabled,stypes) =>
-      stype => stypes.indexOf(stype) !== -1)
+  static match = Template.destruct({
+    main: () => (/* stype (ignored) */) => true,
+    custom: (method,enabled,stypes) =>
+      stype => stypes.indexOf(stype) !== -1,
+  })
 }
 
 class TemplateList {
