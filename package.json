@@ -41,6 +41,8 @@
     "eslint-plugin-react": "^7.0.0",
     "fs-extra": "^3.0.1",
     "mocha": "^3.3.0",
-    "path-extra": "^4.1.0"
+    "path-extra": "^4.1.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4"
   }
 }
