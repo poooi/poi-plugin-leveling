@@ -5,6 +5,13 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 0.2.1
+
+- Implemented ship stat estimation as you typing in goal levels
+
+    - Ship stat data is extracted
+      from [WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet)
+
 ### 0.2.0
 
 - Implemented Method Template

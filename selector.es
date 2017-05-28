@@ -38,7 +38,7 @@ const shipsInfoSelector = createSelector(
       const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
       return {
         rstId,
-        typeName, stype, sortNo,
+        typeName, stype, sortNo, mstId,
         name, level,
         fleet,
         evasion, asw, los, locked,

@@ -59,6 +59,10 @@
     width: 8%;
 }
 
+.goal-box-edit .edit-control .ship-stat-preview {
+    font-size: 15px;
+}
+
 .template-box-edit .edit-control button {
     width: 12%;
 }

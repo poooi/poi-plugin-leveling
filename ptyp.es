@@ -33,6 +33,7 @@ const Ship = PropTypes.shape({
     expToNext: PropTypes.number,
     totalExp: PropTypes.number,
     sortNo: PropTypes.number,
+    mstId: PropTypes.number,
   }),
   // could be null, therefore not required
   fleet: PropTypes.number,

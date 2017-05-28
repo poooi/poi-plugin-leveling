@@ -1,7 +1,7 @@
 {
   "name": "poi-plugin-leveling",
   "version": "0.2.0",
-  "description": "Ship leveling planner",
+  "description": "Ship Leveling Planner",
   "main": "index.es",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --recursive"
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Javran/poi-plugin-leveling#readme",
   "poiPlugin": {
     "title": "Leveling",
+    "description": "Ship Leveling Planner (ship stat info extracted from WhoCallsTheFleet)",
     "priority": 10,
     "icon": "angle-double-up"
   },

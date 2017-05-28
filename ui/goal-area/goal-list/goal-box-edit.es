@@ -10,6 +10,7 @@ import {
   computeExpRange,
 } from '../../../map-exp'
 import { PTyp } from '../../../ptyp'
+import { statsAtLevel } from '../../../ship-stat'
 
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
@@ -177,6 +178,13 @@ class GoalBoxEdit extends Component {
   }
 
   render() {
+    const statEst =
+      statsAtLevel(this.props.ship.mstId)(this.state.goalLevel)
+    const hasStatEst =
+      statEst.evasion !== null &&
+      statEst.asw !== null &&
+      statEst.los !== null
+
     return (
       <div className="goal-box-edit">
         <div className="panels">
@@ -212,6 +220,20 @@ class GoalBoxEdit extends Component {
           />
         </div>
         <div className="edit-control">
+          {
+            hasStatEst && (
+              <div className="ship-stat-preview" style={{flex: 1}}>
+                {
+                  [
+                    `Ship Stats at Lv. ${this.state.goalLevel}:`,
+                    `Evasion: ${statEst.evasion},`,
+                    `ASW: ${statEst.asw},`,
+                    `LoS: ${statEst.los}`,
+                  ].join(' ')
+                }
+              </div>
+            )
+          }
           <Button onClick={this.handleRemoveGoal}>
             <FontAwesome name="trash" />
           </Button>
