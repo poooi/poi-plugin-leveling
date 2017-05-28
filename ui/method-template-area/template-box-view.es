@@ -20,10 +20,12 @@ class TemplateBoxView extends Component {
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     editing: PTyp.bool.isRequired,
     index: PTyp.number.isRequired,
+    shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
 
     onStartEdit: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
     onModifyTemplateListElem: PTyp.func.isRequired,
+    onModifyGoalTable: PTyp.func.isRequired,
   }
 
   static defaultProps = {
@@ -63,11 +65,28 @@ class TemplateBoxView extends Component {
     console.error(`Invalid operation on template of type ${template.type}`)
   }
 
+  handleApplyTemplate = target => {
+    const { onModifyGoalTable, shipTargets, template } = this.props
+    const targets = target === 'all'
+      ? shipTargets.map(s => s.rstId)
+      : [target]
+
+    onModifyGoalTable(gt =>
+      targets.reduce((curGt,rstId) => {
+        const goal = curGt[rstId]
+        const newGoal = {
+          ...goal,
+          method: template.method,
+        }
+        return { ...curGt, [rstId]: newGoal }
+      }, gt))
+  }
+
   render() {
     const {
       template,
       upAction, downAction,
-      editing,
+      editing, shipTargets,
       index,
       onStartEdit, onFinishEdit,
     } = this.props
@@ -110,14 +129,22 @@ class TemplateBoxView extends Component {
               justified>
             <DropdownButton
                 id={`tb-view-dd-apply-${index}`}
-                disabled={editing}
+                disabled={editing || shipTargets.length === 0}
+                onSelect={this.handleApplyTemplate}
                 title="Apply to">
-              <MenuItem eventKey="1">All applicable current goals</MenuItem>
+              {
+                shipTargets.map( shipTarget => {
+                  const { name, rstId, level, goalLevel } = shipTarget
+                  const content = `${name} (${rstId}) Lv. ${level} ⇒ Lv.${goalLevel}`
+                  return (
+                    <MenuItem key={rstId} eventKey={rstId}>
+                      {content}
+                    </MenuItem>
+                  )
+                })
+              }
               <MenuItem divider />
-              <MenuItem eventKey="g-1">Goal 1</MenuItem>
-              <MenuItem eventKey="g-2">Goal 2</MenuItem>
-              <MenuItem eventKey="g-3">Goal 3</MenuItem>
-              <MenuItem eventKey="g-4">Goal 4</MenuItem>
+              <MenuItem key="all" eventKey="all">All Goals Above</MenuItem>
             </DropdownButton>
           </ButtonGroup>
           <Button

@@ -1,5 +1,6 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
+import { konst } from './utils'
 
 const { APPDATA_PATH } = window
 
@@ -71,8 +72,23 @@ const saveConfig = config => {
   }
 }
 
+// TODO: we need to find a consistent place for data structure that has been
+// specified by documents...
+// matchTemplate(<template>)(stype) => a boolean indicating whether current
+// template matches it.
+const matchTemplate = template => {
+  if (template.type === 'main')
+    return konst(true)
+
+  if (template.type === 'custom')
+    return stype => template.stypes.indexOf(stype) !== -1
+
+  console.error(`Unknown template type: ${template.type}`)
+}
+
 export {
   loadConfig,
   saveConfig,
   loadDefaultTemplateList,
+  matchTemplate,
 }

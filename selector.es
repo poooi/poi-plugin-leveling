@@ -158,7 +158,24 @@ const methodTemplateUISelector = createSelector(
   shipTypeInfoSelector,
   levelingConfigSelector,
   shipListSplitSelector,
-  (stypeInfo,config,{goalPairs}) => ({stypeInfo, config, goalPairs})
+  (stypeInfo,config,{goalPairs}) => {
+    const purgeGoalPair = ({goal,ship}) => ({
+      name: ship.name,
+      stype: ship.stype,
+      rstId: ship.rstId,
+      level: ship.level,
+      goalLevel: goal.goalLevel,
+    })
+    const shipTargets = goalPairs
+      .map(purgeGoalPair)
+      .filter(x => x.level < x.goalLevel)
+    return {
+      stypeInfo,
+      config,
+      // Ship targets to be applied to
+      shipTargets,
+    }
+  }
 )
 
 export {

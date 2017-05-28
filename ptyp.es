@@ -233,6 +233,14 @@ const Config = PropTypes.shape(allRequired({
   templates: PropTypes.arrayOf(Template),
 }))
 
+const TemplateAreaShipTarget = PropTypes.shape(allRequired({
+  name: PropTypes.string,
+  stype: PropTypes.number,
+  rstId: PropTypes.number,
+  level: PropTypes.number,
+  goalLevel: PropTypes.number,
+}))
+
 const PTyp = {
   ...PropTypes,
   allRequired,
@@ -262,6 +270,8 @@ const PTyp = {
 
   ShipPickerSorter,
   GoalListSorter,
+
+  TemplateAreaShipTarget,
 
   Config,
 }

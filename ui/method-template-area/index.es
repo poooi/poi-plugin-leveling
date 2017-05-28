@@ -7,7 +7,7 @@ import {
 
 import { konst, modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
-import { loadDefaultTemplateList } from '../../config'
+import { loadDefaultTemplateList, matchTemplate } from '../../config'
 import { TemplateBox } from './template-box'
 
 const { _ } = window
@@ -17,8 +17,9 @@ class MethodTemplateArea extends Component {
     visible: PTyp.bool.isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     config: PTyp.Config.isRequired,
-
+    shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
     onModifyConfig: PTyp.func.isRequired,
+    onModifyGoalTable: PTyp.func.isRequired,
   }
 
   constructor(props) {
@@ -141,7 +142,9 @@ class MethodTemplateArea extends Component {
     const {
       visible,
       stypeInfo,
+      shipTargets,
       config,
+      onModifyGoalTable,
     } = this.props
     const { templates } = config
     return (
@@ -188,14 +191,21 @@ class MethodTemplateArea extends Component {
                 !editing &&
                 ind < templates.length-2 &&
                 !this.state.editingStates[ind+1]
+              const match = matchTemplate(template)
+              const applicableShips =
+                shipTargets
+                  .filter(s => match(s.stype))
+                  .sort((x,y) => x.rstId - y.rstId)
               return (
                 <TemplateBox
                     stypeInfo={stypeInfo}
+                    shipTargets={applicableShips}
                     key={ind}
                     index={ind}
                     upAction={upEnabled ? this.handleSwapTemplate(ind,ind-1) : null}
                     downAction={downEnabled ? this.handleSwapTemplate(ind,ind+1) : null}
                     editing={editing}
+                    onModifyGoalTable={onModifyGoalTable}
                     onModifyTemplateListElem={this.handleModifyTemplateListElem(ind)}
                     onModifyEditingState={this.handleModifyEditingState(ind)}
                     onRemoveTemplate={this.handleRemoveTemplate}
