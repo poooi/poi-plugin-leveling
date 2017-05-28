@@ -7,3 +7,4 @@
 export * from './common'
 export * from './goal-table'
 export * from './method-template'
+export * from './recommendation'

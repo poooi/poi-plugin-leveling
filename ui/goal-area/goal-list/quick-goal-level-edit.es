@@ -4,19 +4,18 @@ import {
 } from 'react-bootstrap'
 
 import { PTyp } from '../../../ptyp'
+import { Reason } from '../../../structs'
 
 const { FontAwesome } = window
 
-const interpReason = reason => {
-  if (reason.type === 'remodel')
-    return `Possible to remodel to ${reason.name} (${reason.typeName})`
-  if (reason.type === 'max-unmarried')
-    return 'Maximum level that unmarried ship can reach'
-  if (reason.type === 'max-married')
-    return 'Maximum level that married ship can reach'
-
-  console.error(`Unknown reason type ${reason.type}`)
-}
+const interpReason = Reason.destruct({
+  remodel: (name,typeName) =>
+    `Possible to remodel to ${name} (${typeName})`,
+  maxUnmarried: () =>
+    'Maximum level that unmarried ship can reach',
+  maxMarried: () =>
+    'Maximum level that married ship can reach',
+})
 
 class QuickGoalLevelEdit extends Component {
   static propTypes = {

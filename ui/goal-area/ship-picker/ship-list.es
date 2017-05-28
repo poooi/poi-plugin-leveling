@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'react-bootstrap'
 import { PTyp } from '../../../ptyp'
-import { Template } from '../../../structs'
+import { Template, TemplateList } from '../../../structs'
 
 const { FontAwesome } = window
 // this part allows picking ships for leveling
@@ -44,25 +44,7 @@ class ShipList extends Component {
       : ship.level < 99 ? 99
       : 155
 
-    const templateInd =
-      templates.findIndex(template => Template.match(template)(stype))
-    if (templateInd === -1)
-      console.error(`Failed to find a matching template for type ${stype}`)
-
-    const failbackMethod = {
-      type: "sortie",
-      flagship: "yes",
-      mvp: "yes",
-      rank: ["S","A"],
-      baseExp: {
-        type: "standard",
-        map: "3-2",
-      },
-    }
-
-    const method = templateInd === -1
-      ? failbackMethod
-      : templates[templateInd].method
+    const method = TemplateList.findMethod(templates,false)(stype)
 
     onModifyGoalTable( gt => {
       const newGoal = {

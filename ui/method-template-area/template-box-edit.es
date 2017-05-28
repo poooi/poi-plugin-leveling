@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
+import { Template } from '../../structs'
 
 import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
 import { fillStates, stateToMethod } from '../goal-area/goal-list/goal-box-edit'
@@ -65,21 +66,21 @@ class TemplateBoxEdit extends Component {
       onFinishEdit,
     } = this.props
 
-    if (template.type === 'main') {
-      onModifyTemplateListElem(tmpl => ({
+    Template.destruct({
+      main: () => onModifyTemplateListElem(tmpl => ({
         ...tmpl,
         method,
-      }))
-    } else if (template.type === 'custom') {
-      const { stypes } = this.props
-      onModifyTemplateListElem(tmpl => ({
-        ...tmpl,
-        method,
-        stypes,
-      }))
-    } else {
-      console.error(`Unknown template type: ${template.type}`)
-    }
+      })),
+      custom: () => {
+        const { stypes } = this.props
+        onModifyTemplateListElem(tmpl => ({
+          ...tmpl,
+          method,
+          stypes,
+        }))
+      },
+    })(template)
+
     onFinishEdit()
   }
 
@@ -90,11 +91,10 @@ class TemplateBoxEdit extends Component {
       onRemoveTemplate,
     } = this.props
 
-    if (template.type === 'custom') {
-      onRemoveTemplate(index)
-    } else {
-      console.error(`Invalid operation on template type: ${template.type}`)
-    }
+    Template.destruct({
+      custom: () => onRemoveTemplate(index),
+      main: () => console.error('Main Template cannot be removed'),
+    })(template)
   }
 
   render() {

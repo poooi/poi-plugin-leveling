@@ -7,39 +7,23 @@ import {
   BaseExp,
   Method,
   Ternary,
+  Rank,
 } from '../../../structs'
 
-const prepareMethodText = method => {
-  const showExpValue = expValue =>
-      expValue.type === "single"
-    ? `${expValue.value}`
-    : `${expValue.min} ~ ${expValue.max}`
-  if (method.type === 'sortie') {
-    const { baseExp } = method
-    const secondRow =
-      baseExp.type === "standard" ? `Sortie ${baseExp.map}`
-      : baseExp.type === "custom" ? `Base Exp: ${showExpValue(baseExp.value)}`
-      : (console.error("unknown baseExp type",baseExp.type) || "?")
-
-    const strFS =
-      method.flagship === "yes" ? "✓"
-      : method.flagship === "no" ? "❌"
-      : method.flagship === "maybe" ? "✓/❌"
-      : (console.error("unknown flagship value",method.flagship) || "?")
-
-    const strMVP =
-      method.mvp === "yes" ? "✓"
-      : method.mvp === "no" ? "❌"
-      : method.mvp === "maybe" ? "✓/❌"
-      : (console.error("unknown MVP value",method.mvp) || "?")
-    const strRank = method.rank.join("/")
+const prepareMethodText = Method.destruct({
+  sortie: (flagship, mvp, rank, baseExp) => {
+    const secondRow = BaseExp.destruct({
+      standard: map => `Sortie ${map}`,
+      custom: value => `Base Exp: ${ExpValue.toString(value)}`,
+    })(baseExp)
+    const strFS = Ternary.toString(flagship)
+    const strMVP = Ternary.toString(mvp)
+    const strRank = Rank.normalize(rank).join("/")
     const thirdRow = `Flagship: ${strFS} MVP: ${strMVP} Rank: ${strRank}`
     return {main: secondRow, second: thirdRow}
-  }
-
-  // otherwise method.type === custom
-  return {main: `${showExpValue(method.exp)} Exp/sortie`, second: ""}
-}
+  },
+  custom: exp => ({main: `${ExpValue.toString(exp)} Exp/sortie`, second: ""}),
+})
 
 class MethodView extends Component {
   static propTypes = {

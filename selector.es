@@ -14,6 +14,10 @@ import {
   remodelToRGoal,
 } from './remodel'
 
+import {
+  Template,
+} from './structs'
+
 const shipsInfoSelector = createSelector(
   shipsSelector,
   constSelector,
@@ -104,14 +108,8 @@ const shipListSplitSelector = createSelector(
 
 const enabledTemplateListSelector = createSelector(
   levelingConfigSelector,
-  ({templates}) => {
-    const isEnabled = template =>
-      template.type === 'main' ||
-      ( template.type === 'custom'
-        ? template.enabled
-        : console.error(`Unknown template type ${template.type}`))
-    return templates.filter(isEnabled)
-  }
+  ({templates}) =>
+    templates.filter(Template.isEnabled),
 )
 
 const goalAreaUISelector = createSelector(

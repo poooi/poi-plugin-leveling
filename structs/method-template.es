@@ -15,6 +15,11 @@ class Template {
     custom: (method,enabled,stypes) =>
       stype => stypes.indexOf(stype) !== -1,
   })
+
+  static isEnabled = Template.destruct({
+    main: () => true,
+    custom: (method,enabled) => enabled,
+  })
 }
 
 class TemplateList {
@@ -52,6 +57,23 @@ class TemplateList {
     const customs = [...TemplateList]
     const main = customs.pop()
     return f(customs,main)
+  }
+
+  // TemplateList.findMethod(<template list>[,<whether to check enabled flag])(stype) -> Method
+  static findMethod = (allTemplates,checkEnabledFlag=true) => {
+    const templates = checkEnabledFlag
+      ? allTemplates.filter(Template.isEnabled)
+      : allTemplates
+
+    // transform into an array of matchers :: ShipType -> Bool
+    // for fast matching
+    const matchers = templates.map(Template.match)
+    return stype => {
+      const ind = matchers.findIndex(m => m(stype))
+      if (ind === -1)
+        console.error(`Failed to find a matching template for ship type ${stype}`)
+      return templates[ind].method
+    }
   }
 }
 

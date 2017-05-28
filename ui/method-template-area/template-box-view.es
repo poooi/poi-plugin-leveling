@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
+import { Template } from '../../structs'
 
 import { prepareMethodText } from '../goal-area/goal-list/method-view'
 
@@ -54,15 +55,15 @@ class TemplateBoxView extends Component {
 
   handleToggleTemplate = () => {
     const { template, onModifyTemplateListElem } = this.props
-    if (template.type === 'custom') {
-      onModifyTemplateListElem(tmpl => ({
-        ...tmpl,
-        enabled: !tmpl.enabled,
-      }))
-      return
-    }
-
-    console.error(`Invalid operation on template of type ${template.type}`)
+    Template.destruct({
+      custom: () =>
+        onModifyTemplateListElem(tmpl => ({
+          ...tmpl,
+          enabled: !tmpl.enabled,
+        })),
+      main: () =>
+        console.error('Main Template does not have an enabled field'),
+    })(template)
   }
 
   handleApplyTemplate = target => {

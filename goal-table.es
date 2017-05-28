@@ -1,5 +1,6 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
+import { Method } from './structs'
 
 const { APPDATA_PATH } = window
 
@@ -11,22 +12,16 @@ const getGoalTablePath = admiralId => {
 }
 
 const updateGoalTable = gt => {
-  const updateMethod = method => {
-    if (method.type === 'sortie') {
-      if (['yes','no','maybe'].indexOf(method.flagship) !== -1)
-        return method
-
-      return {
-        ...method,
-        flagship: method.flagship ? "yes" : "no",
-      }
-    }
-
-    if (method.type === 'custom') {
-      return method
-    }
-    console.error(`Invalid method type: ${method.type}`)
-  }
+  const updateMethod = Method.destruct({
+    sortie: (flagship,mvp,rank,baseExp,method) =>
+      (['yes','no','maybe'].indexOf(flagship) !== -1
+        ? method
+        : {
+          ...method,
+          flagship: method.flagship ? "yes" : "no",
+        }),
+    custom: (exp,method) => method,
+  })
 
   const updateGoal = goal => ({
     ...goal,

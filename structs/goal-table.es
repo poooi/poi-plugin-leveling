@@ -14,6 +14,12 @@ class Ternary {
     no: () => [false],
     maybe: () => [false,true],
   })
+
+  static toString = Ternary.destruct({
+    yes: () => '✓',
+    no: () => '❌',
+    maybe: () => '✓/❌',
+  })
 }
 
 class ExpValue {
@@ -24,6 +30,10 @@ class ExpValue {
   static toArray = ExpValue.destruct({
     single: value => [value],
     range: (min,max) => [min,max],
+  })
+  static toString = ExpValue.destruct({
+    single: value => `${value}`,
+    range: (min,max) => `${min} ~ ${max}`,
   })
 }
 
@@ -39,6 +49,12 @@ class BaseExp {
     })
 }
 
+class Rank {
+  static values = 'SABCDE'.split('')
+  static normalize = ranks =>
+    Rank.values.filter(r => ranks.indexOf(r) !== -1)
+}
+
 class Method {
   static destruct = ({sortie,custom}) => expectObject(obj =>
       obj.type === 'sortie' ? sortie(obj.flagship,obj.mvp,obj.rank,obj.baseExp,obj)
@@ -50,5 +66,6 @@ export {
   Ternary,
   ExpValue,
   BaseExp,
+  Rank,
   Method,
 }

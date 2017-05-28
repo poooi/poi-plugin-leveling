@@ -11,6 +11,7 @@ import {
 } from '../../../map-exp'
 import { PTyp } from '../../../ptyp'
 import { statsAtLevel } from '../../../ship-stat'
+import { Method } from '../../../structs'
 
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
@@ -19,9 +20,9 @@ const { FontAwesome } = window
 
 // to generate sensible initial values
 // we use one method as a source to guess another
-const fillStates = method => {
-  if (method.type === 'sortie') {
-    const { flagship, mvp, rank, baseExp } = method
+// TODO: perhaps with template list, we can use more sensible choices?
+const fillStates = Method.destruct({
+  sortie: (flagship,mvp,rank,baseExp,method) => {
     const expRange = computeExpRange(method)
     return {
       sortieInput: {
@@ -33,29 +34,26 @@ const fillStates = method => {
         expValue: expValueFromBaseExp(baseExp),
       },
       customInput:
-        expRange.length === 1
+          expRange.length === 1
         ? { type: 'single', value: expRange[0] }
         : { type: 'range', min: expRange[0], max: expRange[1] },
     }
-  }
-
-  if (method.type === 'custom') {
+  },
+  custom: exp => {
     const sortieInput = {
       flagship: 'yes',
       mvp: 'yes',
       rank: ['S'],
       baseExpType: 'custom',
       expMap: '1-1',
-      expValue: method.exp,
+      expValue: exp,
     }
     return {
       sortieInput,
-      customInput: method.exp,
+      customInput: exp,
     }
-  }
-
-  console.error(`Invalid method type: ${method.type}`)
-}
+  },
+})
 
 const toValidLevel = inp =>
     inp < 1 ? 1
