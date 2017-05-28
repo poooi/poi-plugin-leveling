@@ -14,8 +14,8 @@ const { _, FontAwesome } = window
 class TemplateBoxView extends Component {
   static propTypes = {
     template: PTyp.Template.isRequired,
-    upEnabled: PTyp.bool.isRequired,
-    downEnabled: PTyp.bool.isRequired,
+    upAction: PTyp.func,
+    downAction: PTyp.func,
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     editing: PTyp.bool.isRequired,
@@ -23,11 +23,13 @@ class TemplateBoxView extends Component {
 
     onStartEdit: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
-    onModifyTemplateListAtIndex: PTyp.func.isRequired,
+    onModifyTemplateListElem: PTyp.func.isRequired,
   }
 
   static defaultProps = {
     stypes: [],
+    upAction: null,
+    downAction: null,
   }
 
   // get list of **sorted** ship types depending on the situation:
@@ -49,9 +51,9 @@ class TemplateBoxView extends Component {
   }
 
   handleToggleTemplate = () => {
-    const { index, template, onModifyTemplateListAtIndex } = this.props
+    const { template, onModifyTemplateListElem } = this.props
     if (template.type === 'custom') {
-      onModifyTemplateListAtIndex(index, tmpl => ({
+      onModifyTemplateListElem(tmpl => ({
         ...tmpl,
         enabled: !tmpl.enabled,
       }))
@@ -64,7 +66,7 @@ class TemplateBoxView extends Component {
   render() {
     const {
       template,
-      upEnabled, downEnabled,
+      upAction, downAction,
       editing,
       index,
       onStartEdit, onFinishEdit,
@@ -91,12 +93,14 @@ class TemplateBoxView extends Component {
         </div>
         <ButtonGroup className="template-controls">
           <Button
-              disabled={!upEnabled}
+              disabled={typeof upAction !== 'function'}
+              onClick={upAction}
               style={{flex: 1}} >
             <FontAwesome name="angle-up" />
           </Button>
           <Button
-              disabled={!downEnabled}
+              disabled={typeof downAction !== 'function'}
+              onClick={downAction}
               style={{flex: 1}} >
             <FontAwesome name="angle-down" />
           </Button>

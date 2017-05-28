@@ -98,10 +98,31 @@ class MethodTemplateArea extends Component {
     })
   }
 
+  handleSwapTemplate = (i,j) => () => {
+    const l = this.props.config.templates.length
+    if (i === l-1 || j === l-1 ||
+        typeof this.state.editingStates[i] !== 'boolean' ||
+        this.state.editingStates[i] ||
+        typeof this.state.editingStates[j] !== 'boolean' ||
+        this.state.editingStates[j]) {
+      console.error(`index bound error, trying to swap elements at ${i} and ${j}`)
+      return
+    }
+
+    const swapElem = xs => {
+      const newXs = [...xs]
+      const [eI,eJ] = [xs[i],xs[j]]
+      newXs[i]=eJ
+      newXs[j]=eI
+      return newXs
+    }
+    this.handleModifyTemplateList(swapElem)
+  }
+
   // a limited version of handleModifyTemplateList
   // which makes it only possible to modify one of the elements
   // without changing the size of template list
-  handleModifyTemplateListAtIndex = (index,modifier) =>
+  handleModifyTemplateListElem = index => modifier =>
     this.handleModifyTemplateList(
       modifyArray(index,modifier))
 
@@ -161,10 +182,10 @@ class MethodTemplateArea extends Component {
                     stypeInfo={stypeInfo}
                     key={ind}
                     index={ind}
-                    upEnabled={upEnabled}
-                    downEnabled={downEnabled}
+                    upAction={upEnabled ? this.handleSwapTemplate(ind,ind-1) : null}
+                    downAction={downEnabled ? this.handleSwapTemplate(ind,ind+1) : null}
                     editing={editing}
-                    onModifyTemplateListAtIndex={this.handleModifyTemplateListAtIndex}
+                    onModifyTemplateListElem={this.handleModifyTemplateListElem(ind)}
                     onModifyEditingState={this.handleModifyEditingState(ind)}
                     onRemoveTemplate={this.handleRemoveTemplate}
                     template={template} />

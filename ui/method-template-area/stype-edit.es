@@ -8,11 +8,6 @@ import {
 
 import { PTyp } from '../../ptyp'
 
-import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
-import { fillStates } from '../goal-area/goal-list/goal-box-edit'
-
-const { FontAwesome } = window
-
 class STypeEdit extends Component {
   static propTypes = {
     disabled: PTyp.bool.isRequired,

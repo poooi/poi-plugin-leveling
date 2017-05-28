@@ -17,7 +17,7 @@ class TemplateBox extends Component {
   static propTypes = {
     template: PTyp.Template.isRequired,
     editing: PTyp.bool.isRequired,
-    onModifyTemplateListAtIndex: PTyp.func.isRequired,
+    onModifyTemplateListElem: PTyp.func.isRequired,
     onModifyEditingState: PTyp.func.isRequired,
   }
 
@@ -68,7 +68,7 @@ class TemplateBox extends Component {
           <div>
             <TemplateBoxEdit
                 onModifySTypes={this.handleModifySTypes}
-                onModifyTemplateListAtIndex={this.props.onModifyTemplateListAtIndex}
+                onModifyTemplateListElem={this.props.onModifyTemplateListElem}
                 onFinishEdit={this.handleFinishEdit}
                 stypes={this.state.stypes}
                 {...this.props}

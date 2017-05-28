@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import {
-  Panel,
   Button,
 } from 'react-bootstrap'
 
-import { modifyArray } from '../../utils'
 import { PTyp } from '../../ptyp'
 
 import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
@@ -21,7 +19,7 @@ class TemplateBoxEdit extends Component {
     index: PTyp.number.isRequired,
 
     onModifySTypes: PTyp.func.isRequired,
-    onModifyTemplateListAtIndex: PTyp.func.isRequired,
+    onModifyTemplateListElem: PTyp.func.isRequired,
     onRemoveTemplate: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
   }
@@ -62,20 +60,19 @@ class TemplateBoxEdit extends Component {
   handleSaveTemplate = () => {
     const method = stateToMethod(this.state)
     const {
-      index,
       template,
-      onModifyTemplateListAtIndex,
+      onModifyTemplateListElem,
       onFinishEdit,
     } = this.props
 
     if (template.type === 'main') {
-      onModifyTemplateListAtIndex(index, tmpl => ({
+      onModifyTemplateListElem(tmpl => ({
         ...tmpl,
         method,
       }))
     } else if (template.type === 'custom') {
       const { stypes } = this.props
-      onModifyTemplateListAtIndex(index, tmpl => ({
+      onModifyTemplateListElem(tmpl => ({
         ...tmpl,
         method,
         stypes,
