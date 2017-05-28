@@ -91,12 +91,12 @@ class TemplateBoxView extends Component {
         </div>
         <ButtonGroup className="template-controls">
           <Button
-              disabled={!upEnabled || editing}
+              disabled={!upEnabled}
               style={{flex: 1}} >
             <FontAwesome name="angle-up" />
           </Button>
           <Button
-              disabled={!downEnabled || editing}
+              disabled={!downEnabled}
               style={{flex: 1}} >
             <FontAwesome name="angle-down" />
           </Button>

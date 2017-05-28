@@ -141,14 +141,29 @@ class MethodTemplateArea extends Component {
             // from doing so.
             templates.map( (template,ind) => {
               const isMainTemplate = template.type === 'main'
+              const editing = this.state.editingStates[ind]
+              // INVARIANT: any template under editing state should never be moved around,
+              // nor be any other template allowed of replacing its position
+              // - main template is fixed at bottom and cannot be moved
+              // - editing template is not allowed to move
+              // - top template cannot move up, and second to last template cannot move down
+              const upEnabled =
+                !isMainTemplate &&
+                !editing && ind > 0 &&
+                !this.state.editingStates[ind-1]
+              const downEnabled =
+                !isMainTemplate &&
+                !editing &&
+                ind < templates.length-2 &&
+                !this.state.editingStates[ind+1]
               return (
                 <TemplateBox
                     stypeInfo={stypeInfo}
                     key={ind}
                     index={ind}
-                    upEnabled={!isMainTemplate && ind > 0}
-                    downEnabled={!isMainTemplate && ind < templates.length-2}
-                    editing={this.state.editingStates[ind]}
+                    upEnabled={upEnabled}
+                    downEnabled={downEnabled}
+                    editing={editing}
                     onModifyTemplateListAtIndex={this.handleModifyTemplateListAtIndex}
                     onModifyEditingState={this.handleModifyEditingState(ind)}
                     onRemoveTemplate={this.handleRemoveTemplate}
