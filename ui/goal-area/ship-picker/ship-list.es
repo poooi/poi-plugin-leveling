@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Table, Button } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
+
 import { PTyp } from '../../../ptyp'
 import { TemplateList } from '../../../structs'
+import { ShipListRow } from './ship-list-row'
 
-const { FontAwesome } = window
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
@@ -74,24 +75,6 @@ class ShipList extends Component {
 
   render() {
     const { ships, sorter } = this.props
-    const mkRow = ship => (
-      <tr key={ship.rstId}>
-        <td>{ship.rstId}</td>
-        <td>{ship.typeName}</td>
-        <td>{ship.name}</td>
-        <td>{ship.level}</td>
-        <td>{ship.evasion}</td>
-        <td>{ship.asw}</td>
-        <td>{ship.los}</td>
-        <td className="fleet-id-indicator" style={{textAlign: "center"}}>{ship.fleet}</td>
-        <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
-        <td style={{textAlign: "center"}}>
-          <Button
-              onClick={this.handleAddToGoalTable(ship)}
-              style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
-        </td>
-      </tr>
-    )
 
     return (
       <Table striped bordered condensed hover>
@@ -126,7 +109,15 @@ class ShipList extends Component {
           </tr>
         </thead>
         <tbody>
-          { ships.map( mkRow ) }
+          {
+            ships.map(ship => (
+              <ShipListRow
+                  key={ship.rstId}
+                  ship={ship}
+                  onAddToGoalTable={this.handleAddToGoalTable(ship)}
+              />
+            ))
+          }
         </tbody>
       </Table>
     )

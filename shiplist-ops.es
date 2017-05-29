@@ -102,9 +102,9 @@ const inGameShipTypeComparator =
 const prepareSorter = ({method,reversed}) => {
   const comparator =
       method === 'rid' ? rosterIdComparator
-    : method === 'stype' ? inGameLevelComparator
+    : method === 'stype' ? inGameShipTypeComparator
     : method === 'name' ? getter2Comparator(x => x.name)
-    : method === 'level' ? inGameShipTypeComparator
+    : method === 'level' ? inGameLevelComparator
     : method === 'evasion' ? getter2Comparator(x => x.evasion)
     : method === 'asw' ? getter2Comparator(x => x.asw)
     : method === 'los' ? getter2Comparator(x => x.los)
