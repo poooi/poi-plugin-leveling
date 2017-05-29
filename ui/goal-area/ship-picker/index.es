@@ -3,61 +3,8 @@ import React, { Component } from 'react'
 import { ShipList } from './ship-list'
 import { ShipFilter } from './ship-filter'
 
-import { identity } from '../../../utils'
 import { PTyp } from '../../../ptyp'
-import { prepareFilter } from '../../../shiplist-ops'
-
-// use first comparator, but if the first returns 0, use the second comparator instead
-const composeComparator = (cmp1,cmp2) => (x,y) => {
-  const result1 = cmp1(x,y)
-  return result1 !== 0 ? result1 : cmp2(x,y)
-}
-
-const flipComparator = cmp => (x,y) => cmp(y,x)
-
-// create a comparator assuming the getter projects a numeric value from elements
-const getter2Comparator = getter => (x,y) => getter(x)-getter(y)
-
-const prepareSorter = ({method,reversed}) => {
-  const rosterIdComparator = getter2Comparator(x => x.rstId)
-
-  const levelComparator =
-    composeComparator(
-      flipComparator(getter2Comparator(x => x.level)),
-      composeComparator(
-        getter2Comparator(x => x.sortNo),
-        rosterIdComparator))
-
-  const stypeComparator =
-    composeComparator(
-      flipComparator(getter2Comparator(x => x.stype)),
-      composeComparator(
-        getter2Comparator(x => x.sortNo),
-        composeComparator(
-          flipComparator(getter2Comparator(x => x.level)),
-          getter2Comparator(x => x.rstId))))
-
-  const comparator =
-      method === 'rid' ? rosterIdComparator
-    : method === 'stype' ? stypeComparator
-    : method === 'name' ? getter2Comparator(x => x.name)
-    : method === 'level' ? levelComparator
-    : method === 'evasion' ? getter2Comparator(x => x.evasion)
-    : method === 'asw' ? getter2Comparator(x => x.asw)
-    : method === 'los' ? getter2Comparator(x => x.los)
-    : method === 'fleet' ? getter2Comparator(x => x.fleet === null ? 0 : x.fleet)
-    : method === 'lock' ? getter2Comparator(x => x.lock ? 1 : 0)
-    : console.error(`Unknown sorting method: ${method}`)
-
-  // as every ship has a unique rosterId
-  // we use this as the final resolver if necessary
-  // so that the compare result is always non-zero unless we are comparing the same ship
-  const comparatorResolved = composeComparator(comparator,rosterIdComparator)
-  // we literally just reverse the array if necessary, rather than flipping the comparator.
-  const doReverse = reversed ? xs => [...xs].reverse() : identity
-
-  return xs => doReverse(xs.sort(comparatorResolved))
-}
+import { prepareFilter, prepareSorter } from '../../../shiplist-ops'
 
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
