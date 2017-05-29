@@ -33,8 +33,7 @@ class STypeEdit extends Component {
         onModifySTypes,
       } = props
 
-      const sortedSTypes =
-        stypes === [...(stypes || [])].sort((x,y) => x-y)
+      const sortedSTypes = stypes === null ? [] : [...stypes].sort((x,y) => x-y)
 
       return {
         disabled,

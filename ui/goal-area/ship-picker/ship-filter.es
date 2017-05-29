@@ -22,9 +22,7 @@ class ShipFilter extends Component {
   shouldComponentUpdate(nextProps) {
     const simplify = props => {
       const { stypeInfo, stypes, filters, onModifyFilters } = props
-      const sortedSTypes =
-        stypes === [...(stypes || [])].sort((x,y) => x-y)
-
+      const sortedSTypes = stypes === null ? [] : [...stypes].sort((x,y) => x-y)
       return {
         stypeInfoLen: stypeInfo.length,
         sortedSTypes,

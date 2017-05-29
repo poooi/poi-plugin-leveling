@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-import { PTyp } from '../../ptyp'
-import { Template } from '../../structs'
+import { PTyp } from '../../../ptyp'
+import { Template } from '../../../structs'
 
-import { prepareMethodText } from '../goal-area/goal-list/method-view'
-import { TemplateBoxViewButtons } from './template-box-view-buttons'
+import { ViewButtons } from './view-buttons'
+import { InfoView } from './info-view'
 
 const { _ } = window
 
@@ -43,12 +43,6 @@ class TemplateBoxView extends Component {
     return _.uniq(currentSTypes).sort((x,y) => x-y)
   }
 
-  interpretSType = stype => {
-    const { stypeInfo } = this.props
-    const name = stypeInfo.find(x => x.id === stype).name
-    return (<div className="stype-element" key={stype}>{`${name} (${stype})`}</div>)
-  }
-
   handleToggleTemplate = () => {
     const { template, onModifyTemplateListElem } = this.props
     Template.destruct({
@@ -84,33 +78,26 @@ class TemplateBoxView extends Component {
       template,
       upAction, downAction,
       editing, shipTargets,
-      index,
+      index, stypeInfo,
       onStartEdit, onFinishEdit,
     } = this.props
-    const methodText = prepareMethodText( template.method )
+    const isMainTemplate = template.type === 'main'
+    const isEnabled = Template.isEnabled(template)
     return (
       <div className="template-view">
-        <div className="template-info-view">
-          <div className="stype-col">
-            <div className="header">Types</div>
-            <div className="stype-content content">
-              {
-                this.getSTypes().map(this.interpretSType)
-              }
-            </div>
-          </div>
-          <div className="method-col">
-            <div className="header">Method</div>
-            <div className="content main">{methodText.main}</div>
-            <div className="content second">{methodText.second}</div>
-          </div>
-        </div>
-        <TemplateBoxViewButtons
+        <InfoView
+            method={template.method}
+            stypeInfo={stypeInfo}
+            stypes={this.getSTypes()}
+            />
+        <ViewButtons
             template={template}
             upAction={upAction} downAction={downAction}
             editing={editing}
             index={index}
             shipTargets={shipTargets}
+            isMainTemplate={isMainTemplate}
+            isEnabled={isEnabled}
             onStartEdit={onStartEdit} onFinishEdit={onFinishEdit}
             onToggleTemplate={this.handleToggleTemplate}
             onApplyTemplate={this.handleApplyTemplate}
