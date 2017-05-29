@@ -8,6 +8,8 @@ import {
 
 import { PTyp } from '../../ptyp'
 
+const { _ } = window
+
 class STypeEdit extends Component {
   static propTypes = {
     disabled: PTyp.bool.isRequired,
@@ -19,6 +21,40 @@ class STypeEdit extends Component {
 
   static defaultProps = {
     stypes: [],
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const simplify = props => {
+      const {
+        disabled,
+        stypes,
+        stypeInfo,
+        index,
+        onModifySTypes,
+      } = props
+
+      const sortedSTypes =
+        stypes === [...(stypes || [])].sort((x,y) => x-y)
+
+      return {
+        disabled,
+        // comes from api_start2,
+        // existing content is very unlikely to be changed
+        // so comparing on array length is good enough.
+        stypeInfoLen: stypeInfo.length,
+        // we have been carefully maintaining the uniqueness
+        // of every ship type in "stypes",
+        // so a quick comparison on sorted stypes
+        // should give us enough clue.
+        sortedSTypes,
+        index,
+        onModifySTypes,
+      }
+    }
+
+    return ! _.isEqual(
+      simplify(this.props),
+      simplify(nextProps))
   }
 
   splitSTypes = () => {
@@ -43,6 +79,7 @@ class STypeEdit extends Component {
       stypeInfoMissing,
     }
   }
+
 
   handleAddOrRemoveSType = addOrRemove => stype => {
     const { onModifySTypes } = this.props

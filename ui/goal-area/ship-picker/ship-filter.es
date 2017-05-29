@@ -8,6 +8,8 @@ import {
 import { PTyp } from '../../../ptyp'
 import { describeFilterWith } from '../../../shiplist-ops'
 
+const { _ } = window
+
 class ShipFilter extends Component {
   static propTypes = {
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
@@ -15,6 +17,25 @@ class ShipFilter extends Component {
     filters: PTyp.ShipFilters.isRequired,
 
     onModifyFilters: PTyp.func.isRequired,
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const simplify = props => {
+      const { stypeInfo, stypes, filters, onModifyFilters } = props
+      const sortedSTypes =
+        stypes === [...(stypes || [])].sort((x,y) => x-y)
+
+      return {
+        stypeInfoLen: stypeInfo.length,
+        sortedSTypes,
+        filters,
+        onModifyFilters,
+      }
+    }
+
+    return ! _.isEqual(
+      simplify(this.props),
+      simplify(nextProps))
   }
 
   handleSelectFilter = key => value => {

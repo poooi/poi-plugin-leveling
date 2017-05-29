@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import {
-  Button,
-  DropdownButton, MenuItem,
-  ButtonGroup,
-} from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
 import { Template } from '../../structs'
 
 import { prepareMethodText } from '../goal-area/goal-list/method-view'
+import { TemplateBoxViewButtons } from './template-box-view-buttons'
 
-const { _, FontAwesome } = window
+const { _ } = window
 
 class TemplateBoxView extends Component {
   static propTypes = {
@@ -91,8 +87,6 @@ class TemplateBoxView extends Component {
       index,
       onStartEdit, onFinishEdit,
     } = this.props
-    const isMainTemplate = template.type === 'main'
-    const isEnabled = isMainTemplate || template.enabled
     const methodText = prepareMethodText( template.method )
     return (
       <div className="template-view">
@@ -111,55 +105,16 @@ class TemplateBoxView extends Component {
             <div className="content second">{methodText.second}</div>
           </div>
         </div>
-        <ButtonGroup className="template-controls">
-          <Button
-              disabled={typeof upAction !== 'function'}
-              onClick={upAction}
-              style={{flex: 1}} >
-            <FontAwesome name="angle-up" />
-          </Button>
-          <Button
-              disabled={typeof downAction !== 'function'}
-              onClick={downAction}
-              style={{flex: 1}} >
-            <FontAwesome name="angle-down" />
-          </Button>
-          <ButtonGroup
-              className="dropdown-apply-to"
-              style={{flex: 4}}
-              justified>
-            <DropdownButton
-                id={`tb-view-dd-apply-${index}`}
-                disabled={editing || shipTargets.length === 0}
-                onSelect={this.handleApplyTemplate}
-                title="Apply to">
-              {
-                shipTargets.map( shipTarget => {
-                  const { name, rstId, level, goalLevel } = shipTarget
-                  const content = `${name} (${rstId}) Lv. ${level} ⇒ Lv.${goalLevel}`
-                  return (
-                    <MenuItem key={rstId} eventKey={rstId}>
-                      {content}
-                    </MenuItem>
-                  )
-                })
-              }
-              <MenuItem divider />
-              <MenuItem key="all" eventKey="all">All Goals Above</MenuItem>
-            </DropdownButton>
-          </ButtonGroup>
-          <Button
-              bsStyle={isEnabled ? "success" : "danger"}
-              onClick={this.handleToggleTemplate}
-              disabled={isMainTemplate || editing}
-              style={{flex: 2}}
-          >
-            <FontAwesome name={isEnabled ? "check-square-o" : "square-o"} />
-          </Button>
-          <Button onClick={editing ? onFinishEdit : onStartEdit} style={{flex: 1}}>
-            <FontAwesome name={editing ? "undo" : "pencil"} />
-          </Button>
-        </ButtonGroup>
+        <TemplateBoxViewButtons
+            template={template}
+            upAction={upAction} downAction={downAction}
+            editing={editing}
+            index={index}
+            shipTargets={shipTargets}
+            onStartEdit={onStartEdit} onFinishEdit={onFinishEdit}
+            onToggleTemplate={this.handleToggleTemplate}
+            onApplyTemplate={this.handleApplyTemplate}
+        />
       </div>
     )
   }
