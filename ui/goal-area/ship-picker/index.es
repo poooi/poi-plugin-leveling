@@ -5,39 +5,7 @@ import { ShipFilter } from './ship-filter'
 
 import { identity } from '../../../utils'
 import { PTyp } from '../../../ptyp'
-
-const { _ } = window
-
-const prepareFilter = filters => {
-  const { fleet, type, level, lock } = filters
-  const mkFilter = pred => ship => ship.filter(pred)
-
-  const fleetFilter =
-      fleet === 'all' ? identity
-    : (fleet >= 1 && fleet <= 4) ? mkFilter(ship => ship.fleet === fleet)
-    : console.error(`Invalid fleet filter: ${fleet}`)
-
-  const typeFilter =
-      type === 'all' ? identity
-    : typeof type === 'number' ? mkFilter(ship => ship.stype === type)
-    : console.error(`Invalid type filter: ${type}`)
-
-  const levelFilter =
-      level === 'all' ? identity
-    : level === 'ge-100' ? mkFilter(ship => ship.level >= 100)
-    : level === 'lt-99' ? mkFilter(ship => ship.level < 99)
-    : level === 'under-final' ? mkFilter(ship => ship.nextRemodelLevel !== null)
-    : console.error(`Invalid level filter: ${level}`)
-
-  const lockFilter =
-      lock === 'all' ? identity
-    : lock === true ? mkFilter(ship => ship.locked)
-    : lock === false ? mkFilter(ship => !ship.locked)
-    : console.error(`Invalid lock filter: ${lock}`)
-
-  // filter that potentially removes more items than others goes first
-  return _.flow([fleetFilter, typeFilter, levelFilter, lockFilter])
-}
+import { prepareFilter } from '../../../shiplist-ops'
 
 // use first comparator, but if the first returns 0, use the second comparator instead
 const composeComparator = (cmp1,cmp2) => (x,y) => {
