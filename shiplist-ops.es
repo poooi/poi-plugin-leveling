@@ -66,7 +66,7 @@ const describeFilterWith = stypeInfo => filterName => {
 // trying comparators from left to right, and return first non-zero value.
 // if no comparator is provided or all comparator has return 0
 // the resulting comparator returns 0 as well.
-const composeComparators = (...cmps) => (x,y) => {
+const chainComparators = (...cmps) => (x,y) => {
   for (let i=0; i<cmps.length; ++i) {
     const result = cmps[i](x,y)
     if (result !== 0)
@@ -84,13 +84,13 @@ const prepareSorter = ({method,reversed}) => {
   const rosterIdComparator = getter2Comparator(x => x.rstId)
 
   const levelComparator =
-    composeComparators(
+    chainComparators(
       flipComparator(getter2Comparator(x => x.level)),
       getter2Comparator(x => x.sortNo),
       rosterIdComparator)
 
   const stypeComparator =
-    composeComparators(
+    chainComparators(
       flipComparator(getter2Comparator(x => x.stype)),
       getter2Comparator(x => x.sortNo),
       flipComparator(getter2Comparator(x => x.level)),
@@ -111,7 +111,7 @@ const prepareSorter = ({method,reversed}) => {
   // as every ship has a unique rosterId
   // we use this as the final resolver if necessary
   // so that the compare result is always non-zero unless we are comparing the same ship
-  const comparatorResolved = composeComparators(comparator,rosterIdComparator)
+  const comparatorResolved = chainComparators(comparator,rosterIdComparator)
   // we literally just reverse the array if necessary, rather than flipping the comparator.
   const doReverse = reversed ? xs => [...xs].reverse() : identity
 
