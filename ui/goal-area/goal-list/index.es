@@ -9,7 +9,19 @@ import { identity } from '../../../utils'
 import { GoalBox } from './goal-box'
 import { GoalSorterRow } from './goal-sorter-row'
 
+import * as SC from '../../../shiplist-ops'
+
 const { _ } = window
+
+const {
+  chainComparators,
+  getter2Comparator,
+} = SC
+
+const on = cmp => prj => (x,y) => cmp(prj(x),prj(y))
+
+// wrap ship comparator to work on GoalPairs
+const wrapShipComparator = cmp => on(cmp)(x => x.ship)
 
 // adding "extra" field, which contains exp-related info, into GoalPair
 // we call this structure EGoalPair (E for Extended)
@@ -32,35 +44,13 @@ const extendGoalPair = ({ship, goal}) => {
   }
 }
 
-// TODO: merge with those in ShipPicker's
-// use first comparator, but if the first returns 0, use the second comparator instead
-const composeComparator = (cmp1,cmp2) => (x,y) => {
-  const result1 = cmp1(x,y)
-  return result1 !== 0 ? result1 : cmp2(x,y)
-}
-
-const flipComparator = cmp => (x,y) => cmp(y,x)
-
-// create a comparator assuming the getter projects a numeric value from elements
-const getter2Comparator = getter => (x,y) => getter(x)-getter(y)
-
 const prepareSorter = ({method, reversed}) => {
-  const rosterIdComparator = getter2Comparator(x => x.ship.rstId)
+  const rosterIdComparator = wrapShipComparator(SC.rosterIdComparator)
   const levelComparator =
-    composeComparator(
-      flipComparator(getter2Comparator(x => x.ship.level)),
-      composeComparator(
-        getter2Comparator(x => x.ship.sortNo),
-        rosterIdComparator))
+    wrapShipComparator(SC.inGameLevelComparator)
 
   const stypeComparator =
-    composeComparator(
-      flipComparator(getter2Comparator(x => x.ship.stype)),
-      composeComparator(
-        getter2Comparator(x => x.ship.sortNo),
-        composeComparator(
-          flipComparator(getter2Comparator(x => x.ship.level)),
-          getter2Comparator(x => x.ship.rstId))))
+    wrapShipComparator(SC.inGameShipTypeComparator)
 
   const comparator =
       method === 'rid' ? rosterIdComparator
@@ -73,7 +63,7 @@ const prepareSorter = ({method, reversed}) => {
   // as every ship has a unique rosterId
   // we use this as the final resolver if necessary
   // so that the compare result is always non-zero unless we are comparing the same ship
-  const comparatorResolved = composeComparator(comparator,rosterIdComparator)
+  const comparatorResolved = chainComparators(comparator,rosterIdComparator)
   // we literally just reverse the array if necessary, rather than flipping the comparator.
   const doReverse = reversed ? xs => [...xs].reverse() : identity
 

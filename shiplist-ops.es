@@ -80,27 +80,31 @@ const flipComparator = cmp => (x,y) => cmp(y,x)
 // create a comparator assuming the getter projects a numeric value from elements
 const getter2Comparator = getter => (x,y) => getter(x)-getter(y)
 
+const rosterIdComparator = getter2Comparator(x => x.rstId)
+
+// when supplied to sort function, the result will be like
+// sorting by ship levels in game.
+const inGameLevelComparator =
+  chainComparators(
+    flipComparator(getter2Comparator(x => x.level)),
+    getter2Comparator(x => x.sortNo),
+    rosterIdComparator)
+
+// when supplied to sort function, the result will be like
+// sorting by ship types in game.
+const inGameShipTypeComparator =
+  chainComparators(
+    flipComparator(getter2Comparator(x => x.stype)),
+    getter2Comparator(x => x.sortNo),
+    flipComparator(getter2Comparator(x => x.level)),
+    rosterIdComparator)
+
 const prepareSorter = ({method,reversed}) => {
-  const rosterIdComparator = getter2Comparator(x => x.rstId)
-
-  const levelComparator =
-    chainComparators(
-      flipComparator(getter2Comparator(x => x.level)),
-      getter2Comparator(x => x.sortNo),
-      rosterIdComparator)
-
-  const stypeComparator =
-    chainComparators(
-      flipComparator(getter2Comparator(x => x.stype)),
-      getter2Comparator(x => x.sortNo),
-      flipComparator(getter2Comparator(x => x.level)),
-      getter2Comparator(x => x.rstId))
-
   const comparator =
       method === 'rid' ? rosterIdComparator
-    : method === 'stype' ? stypeComparator
+    : method === 'stype' ? inGameLevelComparator
     : method === 'name' ? getter2Comparator(x => x.name)
-    : method === 'level' ? levelComparator
+    : method === 'level' ? inGameShipTypeComparator
     : method === 'evasion' ? getter2Comparator(x => x.evasion)
     : method === 'asw' ? getter2Comparator(x => x.asw)
     : method === 'los' ? getter2Comparator(x => x.los)
@@ -121,6 +125,14 @@ const prepareSorter = ({method,reversed}) => {
 export {
   prepareFilter,
   describeFilterWith,
+
+  chainComparators,
+  flipComparator,
+  getter2Comparator,
+
+  rosterIdComparator,
+  inGameLevelComparator,
+  inGameShipTypeComparator,
 
   prepareSorter,
 }
