@@ -44,7 +44,8 @@ class ApplyButton extends PureComponent {
           <MenuItem divider />
           <MenuItem key="all" eventKey="all">All Goals Above</MenuItem>
         </DropdownButton>
-      </ButtonGroup>)
+      </ButtonGroup>
+    )
   }
 }
 

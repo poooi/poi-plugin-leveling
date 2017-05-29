@@ -5,6 +5,11 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 0.2.2
+
+- Some optimization
+- Fix a problem that ranks appear out of order in methods
+
 ### 0.2.1
 
 - Implemented ship stat estimation as you typing in goal levels

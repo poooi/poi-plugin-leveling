@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import {
   Button,
-  DropdownButton, MenuItem,
   ButtonGroup,
 } from 'react-bootstrap'
 
