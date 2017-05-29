@@ -20,7 +20,6 @@ const { FontAwesome } = window
 
 // to generate sensible initial values
 // we use one method as a source to guess another
-// TODO: perhaps with template list, we can use more sensible choices?
 const fillStates = Method.destruct({
   sortie: (flagship,mvp,rank,baseExp,method) => {
     const expRange = computeExpRange(method)
