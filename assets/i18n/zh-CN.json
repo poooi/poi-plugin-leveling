@@ -43,5 +43,12 @@
     "Remodel": "可改造为: %s",
     "MaxUnmarried": "未婚舰最高等级",
     "MaxMarried": "婚舰最高等级"
+  },
+
+  "EditMethod": {
+    "Title": "练级方式",
+    "Custom": "定制",
+    "CustomBaseExp": "定制基础经验",
+    "Ranged": "范围值"
   }
 }

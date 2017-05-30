@@ -4,6 +4,8 @@ import { Checkbox, FormControl } from 'react-bootstrap'
 import { saturate } from '../../../utils'
 import { PTyp } from '../../../ptyp'
 
+const { __ } = window
+
 // note that this component does not guarantee to always return valid ExpValue
 class ExpValueEdit extends Component {
   static propTypes = {
@@ -64,7 +66,7 @@ class ExpValueEdit extends Component {
       <div className="exp-value-edit" style={{display: "flex"}}>
         <Checkbox
             onChange={this.handleRangeToggle}
-            checked={isRanged}>Ranged</Checkbox>
+            checked={isRanged}>{__('EditMethod.Ranged')}</Checkbox>
         <FormControl
             style={{flex: 1}}
             type="number"

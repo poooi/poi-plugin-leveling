@@ -25,7 +25,7 @@
     "Method": "Method",
     "Result": "Result",
     "ResultBattles": "Battles",
-    "ShipStatsAtLv": "Ship Stats at Lv. $s"
+    "ShipStatsAtLv": "Ship Stats at Lv. %s"
   },
 
   "Method": {
@@ -42,5 +42,12 @@
     "Remodel": "Possible to remodel to: %s",
     "MaxUnmarried": "Maximum level that unmarried ship can reach",
     "MaxMarried": "Maximum level that married ship can reach"
+  },
+
+  "EditMethod": {
+    "Title": "Leveling Method",
+    "Custom": "Custom",
+    "CustomBaseExp": "Custom Base Exp",
+    "Ranged": "Ranged"
   }
 }

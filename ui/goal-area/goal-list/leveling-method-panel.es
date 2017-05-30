@@ -9,6 +9,8 @@ import { PTyp } from '../../../ptyp'
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
 
+const { __ } = window
+
 class LevelingMethodPanel extends Component {
   // eslint fails to see that it's already been required.
   static propTypes = {
@@ -32,13 +34,15 @@ class LevelingMethodPanel extends Component {
       onCustomInputChange,
     } = this.props
     return (
-      <Panel className="lvl-method" header="Leveling Method">
+      <Panel
+          className="lvl-method"
+          header={__('EditMethod.Title')}>
         <div className="lvl-method-input">
           <Nav
               onSelect={onMethodTypeSelect}
               bsStyle="tabs" stacked activeKey={methodType}>
-            <NavItem eventKey="sortie">Sortie</NavItem>
-            <NavItem eventKey="custom">Custom</NavItem>
+            <NavItem eventKey="sortie">{__('Method.Sortie')}</NavItem>
+            <NavItem eventKey="custom">{__('EditMethod.Custom')}</NavItem>
           </Nav>
           <div style={{flex: 1}}>
             <MethodSortieEdit

@@ -6,6 +6,8 @@ import { sortedMapKeys, getMapExpInfo } from '../../../map-exp'
 
 import { PTyp } from '../../../ptyp'
 
+const { __ } = window
+
 class MethodSortieEdit extends Component {
   static propTypes = {
     visible: PTyp.bool.isRequired,
@@ -90,7 +92,7 @@ class MethodSortieEdit extends Component {
               style={{flex: 2}}
               onChange={this.handleBaseExpTypeToggle}
               checked={isCustomExp}>
-            Custom Base Exp
+            {__('EditMethod.CustomBaseExp')}
           </Checkbox>
           <FormControl
               onChange={this.handleExpMapChange}
@@ -118,9 +120,9 @@ class MethodSortieEdit extends Component {
               style={{flex: 1}}
               componentClass="select"
               value={sortieInput.flagship} >
-            <option value="maybe">Flagship: ✓/❌</option>
-            <option value="yes">Flagship: ✓</option>
-            <option value="no">Flagship: ❌</option>
+            <option value="maybe">{__('Method.Flagship')}: ✓/❌</option>
+            <option value="yes">{__('Method.Flagship')}: ✓</option>
+            <option value="no">{__('Method.Flagship')}: ❌</option>
           </FormControl>
           <FormControl
               onChange={this.handleMVPChange}
@@ -133,7 +135,7 @@ class MethodSortieEdit extends Component {
           </FormControl>
         </div>
         <div className="rank-row">
-          <div>Rank:</div>
+          <div>{__('Method.Rank')}:</div>
           <ButtonGroup className="bg-rank" style={{flex: 1}}>
             {
               ['S','A','B','C','D','E'].map( rank => {
