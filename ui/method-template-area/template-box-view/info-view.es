@@ -39,7 +39,7 @@ class InfoView extends Component {
           </div>
         </div>
         <div className="method-col">
-          <div className="header">Method</div>
+          <div className="header">{__('EditMethod.Title')}</div>
           <div className="content main">{methodText.main}</div>
           <div className="content second">{methodText.second}</div>
         </div>

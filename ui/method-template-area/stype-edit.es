@@ -104,7 +104,9 @@ class STypeEdit extends Component {
       stypeInfoMissing,
     } = this.splitSTypes()
     return (
-      <Panel className="stype" header="Types">
+      <Panel
+          className="stype"
+          header={__('Template.Types')}>
         <ButtonGroup justified>
           <DropdownButton
               id={`tb-edit-dd-add-${index}`}
