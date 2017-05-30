@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/Javran/poi-plugin-leveling#readme",
   "poiPlugin": {
-    "title": "Leveling",
-    "description": "Ship Leveling Planner (ship stat info extracted from [WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet))",
+    "title": "Plugin.Leveling",
+    "description": "Plugin.Desc",
     "priority": 10,
     "icon": "angle-double-up"
   },

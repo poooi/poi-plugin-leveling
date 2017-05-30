@@ -13,7 +13,7 @@ import {
 import { GoalArea } from './goal-area'
 import { MethodTemplateArea } from './method-template-area'
 
-const { $ } = window
+const { $, __ } = window
 
 window.store = store
 
@@ -50,8 +50,8 @@ class LevelingMain extends Component {
             activeKey={activeTab}
             onSelect={this.handleTabSwitch}
             justified className="main-nav">
-          <NavItem eventKey="goal">Goals</NavItem>
-          <NavItem eventKey="template">Templates</NavItem>
+          <NavItem eventKey="goal">{__('Top.Goals')}</NavItem>
+          <NavItem eventKey="template">{__('Top.Templates')}</NavItem>
         </Nav>
         <GoalAreaInst visible={activeTab === 'goal'} />
         <MethodTemplateAreaInst visible={activeTab === 'template'} />

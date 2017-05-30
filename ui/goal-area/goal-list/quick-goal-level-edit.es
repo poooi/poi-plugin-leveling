@@ -6,15 +6,15 @@ import {
 import { PTyp } from '../../../ptyp'
 import { Reason } from '../../../structs'
 
-const { FontAwesome } = window
+const { __, FontAwesome } = window
 
 const interpReason = Reason.destruct({
   remodel: (name,typeName) =>
-    `Possible to remodel to ${name} (${typeName})`,
+    __('EditLevel.Remodel',`${name} (${typeName})`),
   maxUnmarried: () =>
-    'Maximum level that unmarried ship can reach',
+    __('EditLevel.MaxUnmarried'),
   maxMarried: () =>
-    'Maximum level that married ship can reach',
+    __('EditLevel.MaxMarried'),
 })
 
 class QuickGoalLevelEdit extends Component {

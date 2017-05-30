@@ -16,7 +16,7 @@ import { Method } from '../../../structs'
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
-const { FontAwesome } = window
+const { FontAwesome, __ } = window
 
 // to generate sensible initial values
 // we use one method as a source to guess another
@@ -185,12 +185,15 @@ class GoalBoxEdit extends Component {
     return (
       <div className="goal-box-edit">
         <div className="panels">
-          <Panel className="lvl-goal" header="Leveling Goal">
+          <Panel
+              className="lvl-goal"
+              header={__('EditLevel.Title')}>
             <div className="lvl-goal-input">
               <div className="goal-inp-row">
-                <div>Goal:</div>
+                <div style={{flex: 1}}>{`${__('EditLevel.Goal')}:`}</div>
                 <FormControl
                     type="number"
+                    style={{flex: 4}}
                     value={this.state.goalLevel}
                     onChange={this.handleGoalLevelChange}
                 />
@@ -222,10 +225,10 @@ class GoalBoxEdit extends Component {
               <div className="ship-stat-preview" style={{flex: 1}}>
                 {
                   [
-                    `Ship Stats at Lv. ${this.state.goalLevel}:`,
-                    `Evasion: ${statEst.evasion},`,
-                    `ASW: ${statEst.asw},`,
-                    `LoS: ${statEst.los}`,
+                    `${__('GoalBox.ShipStatsAtLv',this.state.goalLevel)}:`,
+                    `${__('Sorter.Evasion')}: ${statEst.evasion},`,
+                    `${__('Sorter.ASW')}: ${statEst.asw},`,
+                    `${__('Sorter.LoS')}: ${statEst.los}`,
                   ].join(' ')
                 }
               </div>

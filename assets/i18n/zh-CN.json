@@ -1,0 +1,47 @@
+{
+  "Plugin": {
+    "Leveling": "舰步如飞",
+    "Desc": "舰娘练级规划管理（舰娘属性信息来自[是谁呼叫舰队](https://github.com/Diablohu/WhoCallsTheFleet)）"
+  },
+
+  "Top": {
+    "Goals": "目标",
+    "Templates": "模板"
+  },
+
+  "Sorter": {
+    "ID": "ID",
+    "Type": "舰种",
+    "Level": "等级",
+    "RemainingExp": "剩余经验",
+    "RemainingBattles": "剩余战斗数",
+    "Evasion": "回避",
+    "ASW": "对潜",
+    "LoS": "索敌"
+  },
+
+  "GoalBox": {
+    "Level": "当前等级",
+    "Goal": "目标等级",
+    "Method": "练级方式",
+    "Result": "计算结果",
+    "ResultBattles": "场战斗",
+    "ShipStatsAtLv": "舰娘 %s级 时的属性"
+  },
+
+  "Method": {
+    "Sortie": "出击",
+    "BaseExp": "基础经验",
+    "ExpPerSortie": "经验/场",
+    "Flagship": "旗舰",
+    "Rank": "评价"
+  },
+
+  "EditLevel": {
+    "Title": "目标等级",
+    "Goal": "目标",
+    "Remodel": "可改造为: %s",
+    "MaxUnmarried": "未婚舰最高等级",
+    "MaxMarried": "婚舰最高等级"
+  }
+}

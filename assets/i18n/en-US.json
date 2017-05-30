@@ -1,1 +1,46 @@
-{}
+{
+  "Plugin": {
+    "Leveling": "Leveling",
+    "Desc": "Ship Leveling Planner (ship stat info extracted from [WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet))"
+  },
+  "Top": {
+    "Goals": "Goals",
+    "Templates": "Templates"
+  },
+
+  "Sorter": {
+    "ID": "ID",
+    "Type": "Type",
+    "Level": "Level",
+    "RemainingExp": "Remaining Exp",
+    "RemainingBattles": "Remaining Battles",
+    "Evasion": "Evasion",
+    "ASW": "ASW",
+    "LoS": "LoS"
+  },
+
+  "GoalBox": {
+    "Level": "Level",
+    "Goal": "Goal",
+    "Method": "Method",
+    "Result": "Result",
+    "ResultBattles": "Battles",
+    "ShipStatsAtLv": "Ship Stats at Lv. $s"
+  },
+
+  "Method": {
+    "Sortie": "Sortie",
+    "BaseExp": "Base Exp",
+    "ExpPerSortie": "Exp/sortie",
+    "Flagship": "Flagship",
+    "Rank": "Rank"
+  },
+
+  "EditLevel": {
+    "Title": "Leveling Goal",
+    "Goal": "Goal",
+    "Remodel": "Possible to remodel to: %s",
+    "MaxUnmarried": "Maximum level that unmarried ship can reach",
+    "MaxMarried": "Maximum level that married ship can reach"
+  }
+}

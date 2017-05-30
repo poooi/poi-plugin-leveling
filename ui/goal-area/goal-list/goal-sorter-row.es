@@ -3,15 +3,17 @@ import { Button } from 'react-bootstrap'
 
 import { PTyp } from '../../../ptyp'
 
+const { __ } = window
+
 class GoalSorterRow extends Component {
   static makeSorterSpec = (name,method,asc=true) =>
     ({ name, method, asc })
   static sorterSpecs = [
-    GoalSorterRow.makeSorterSpec('Id','rid'),
-    GoalSorterRow.makeSorterSpec('Type','stype'),
-    GoalSorterRow.makeSorterSpec('Level','level',false),
-    GoalSorterRow.makeSorterSpec('Remaining Exp','remaining-exp'),
-    GoalSorterRow.makeSorterSpec('Remaining Battles','remaining-battles-lb'),
+    GoalSorterRow.makeSorterSpec(__('Sorter.ID'),'rid'),
+    GoalSorterRow.makeSorterSpec(__('Sorter.Type'),'stype'),
+    GoalSorterRow.makeSorterSpec(__('Sorter.Level'),'level',false),
+    GoalSorterRow.makeSorterSpec(__('Sorter.RemainingExp'),'remaining-exp'),
+    GoalSorterRow.makeSorterSpec(__('Sorter.RemainingBattles'),'remaining-battles-lb'),
   ]
 
   static propTypes = {

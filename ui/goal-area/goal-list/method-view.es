@@ -10,19 +10,28 @@ import {
   Rank,
 } from '../../../structs'
 
+const { __ } = window
+
 const prepareMethodText = Method.destruct({
   sortie: (flagship, mvp, rank, baseExp) => {
     const secondRow = BaseExp.destruct({
-      standard: map => `Sortie ${map}`,
-      custom: value => `Base Exp: ${ExpValue.toString(value)}`,
+      standard: map => `${__('Method.Sortie')} ${map}`,
+      custom: value => `${__('Method.BaseExp')}: ${ExpValue.toString(value)}`,
     })(baseExp)
     const strFS = Ternary.toString(flagship)
     const strMVP = Ternary.toString(mvp)
     const strRank = Rank.normalize(rank).join("/")
-    const thirdRow = `Flagship: ${strFS} MVP: ${strMVP} Rank: ${strRank}`
+    const thirdRow =
+      `${__('Method.Flagship')}: ${strFS} ` +
+      `MVP: ${strMVP} ` +
+      `${__('Method.Rank')}: ${strRank}`
     return {main: secondRow, second: thirdRow}
   },
-  custom: exp => ({main: `${ExpValue.toString(exp)} Exp/sortie`, second: ""}),
+  custom: exp => ({
+    main:
+      `${ExpValue.toString(exp)} `+
+      `${__('Method.ExpPerSortie')}`,
+    second: ""}),
 })
 
 class MethodView extends Component {
@@ -41,7 +50,7 @@ class MethodView extends Component {
     return (
       <ThreeRows
           style={{...style}}
-          first="Method"
+          first={__('GoalBox.Method')}
           second={methodText.main}
           third={methodText.second}
       />)

@@ -6,7 +6,7 @@ import { MethodView } from './method-view'
 
 import { PTyp } from '../../../ptyp'
 
-const { FontAwesome } = window
+const { __, FontAwesome } = window
 
 class GoalBoxView extends Component {
   static propTypes = {
@@ -16,6 +16,7 @@ class GoalBoxView extends Component {
     onFinishEdit: PTyp.func.isRequired,
     onStartEdit: PTyp.func.isRequired,
   }
+
   render() {
     const { eGoalPair, onStartEdit, onFinishEdit, editing } = this.props
     const { ship, goal, extra } = eGoalPair
@@ -44,13 +45,13 @@ class GoalBoxView extends Component {
         />
         <ThreeRows
             style={{flex: 2}}
-            first="Level"
+            first={__('GoalBox.Level')}
             second={ship.level}
             third={`Next: ${ship.expToNext}`}
         />
         <ThreeRows
             style={{flex: 2}}
-            first="Goal"
+            first={__('GoalBox.Goal')}
             second={goal.goalLevel}
             third={remainingExpText}
         />
@@ -60,9 +61,9 @@ class GoalBoxView extends Component {
             />
         <ThreeRows
             style={{flex: 3}}
-            first="Result"
+            first={__('GoalBox.Result')}
             second={goalAchieved ? "-" : computeResultText()}
-            third="Battles"
+            third={__('GoalBox.ResultBattles')}
         />
         <div style={{width: "8%", display: "flex", flexDirection: "column"}}>
           <Button onClick={editing ? onFinishEdit : onStartEdit} >
