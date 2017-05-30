@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Javran/poi-plugin-leveling.git"
+    "url": "git+https://github.com/poooi/poi-plugin-leveling.git"
   },
   "keywords": [
     "kancolle"
@@ -19,9 +19,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Javran/poi-plugin-leveling/issues"
+    "url": "https://github.com/poooi/poi-plugin-leveling/issues"
   },
-  "homepage": "https://github.com/Javran/poi-plugin-leveling#readme",
+  "homepage": "https://github.com/poooi/poi-plugin-leveling#readme",
   "poiPlugin": {
     "title": "Plugin.Leveling",
     "description": "Plugin.Desc",
