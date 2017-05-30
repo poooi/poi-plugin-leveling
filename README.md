@@ -3,6 +3,11 @@
 This is a [poi](https://github.com/poooi/poi) plugin that helps you keep track of
 your ship girl leveling plans.
 
+## User Manual
+
+- [User Manual (English)](https://github.com/Javran/poi-plugin-leveling/wiki/User-Manual-(English))
+- [用户手册 (简体中文)](https://github.com/Javran/poi-plugin-leveling/wiki/%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
+
 ## Changelog
 
 ### 0.3.0
