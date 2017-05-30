@@ -11,7 +11,7 @@ import { loadDefaultTemplateList } from '../../config'
 import { TemplateBox } from './template-box'
 import * as structs from '../../structs'
 
-const { _ } = window
+const { _, __ } = window
 
 class MethodTemplateArea extends Component {
   static propTypes = {
@@ -157,12 +157,12 @@ class MethodTemplateArea extends Component {
           <Button
               style={{flex: 1}}
               onClick={this.handleOpenResetDialog}>
-            Reset To Default
+            {__('Template.ResetToDefault')}
           </Button>
           <Button
               style={{flex: 3}}
               onClick={this.handleCreateNewTemplate}>
-            New Template
+            {__('Template.NewTemplate')}
           </Button>
         </div>
         <ListGroup
@@ -219,14 +219,18 @@ class MethodTemplateArea extends Component {
         </ListGroup>
         <Modal show={this.state.showModal} onHide={this.handleCloseResetDialog}>
           <Modal.Header closeButton>
-            <Modal.Title>Confirm Reseting</Modal.Title>
+            <Modal.Title>{__('Template.ConfirmResetting')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Are you sure to reset? All your templates will be overwritten.</p>
+            <p>{__('Template.AreYouSureContent')}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleCloseResetDialog}>Cancel</Button>
-            <Button bsStyle="danger" onClick={this.handleConfirmResetDialog}>Confirm</Button>
+            <Button onClick={this.handleCloseResetDialog}>
+              {__('Template.Cancel')}
+            </Button>
+            <Button bsStyle="danger" onClick={this.handleConfirmResetDialog}>
+              {__('Template.Confirm')}
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>

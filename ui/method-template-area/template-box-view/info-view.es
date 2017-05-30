@@ -4,7 +4,7 @@ import { PTyp } from '../../../ptyp'
 
 import { prepareMethodText } from '../../goal-area/goal-list/method-view'
 
-const { _ } = window
+const { _, __ } = window
 
 class InfoView extends Component {
   static propTypes = {
@@ -31,7 +31,7 @@ class InfoView extends Component {
     return (
       <div className="template-info-view">
         <div className="stype-col">
-          <div className="header">Types</div>
+          <div className="header">{__('Template.Types')}</div>
           <div className="stype-content content">
             {
               stypes.map(this.interpretSType)

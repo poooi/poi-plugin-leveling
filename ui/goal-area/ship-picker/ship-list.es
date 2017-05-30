@@ -5,6 +5,8 @@ import { PTyp } from '../../../ptyp'
 import { TemplateList } from '../../../structs'
 import { ShipListRow } from './ship-list-row'
 
+const { __ } = window
+
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
@@ -15,17 +17,17 @@ class ShipList extends Component {
     })
 
   static headerSpecs = [
-    ShipList.defineSortableHeader('Id','rid'),
-    ShipList.defineSortableHeader('Type','stype'),
-    ShipList.defineSortableHeader('Name','name'),
-    ShipList.defineSortableHeader('Level','level',false),
-    ShipList.defineSortableHeader('Evasion', 'evasion'),
-    ShipList.defineSortableHeader('ASW','asw'),
-    ShipList.defineSortableHeader('LoS','los'),
-    ShipList.defineSortableHeader('Fleet','fleet'),
-    ShipList.defineSortableHeader('Lock','lock'),
+    ShipList.defineSortableHeader(__('Sorter.ID'),'rid'),
+    ShipList.defineSortableHeader(__('Sorter.Type'),'stype'),
+    ShipList.defineSortableHeader(__('Sorter.Name'),'name'),
+    ShipList.defineSortableHeader(__('Sorter.Level'),'level',false),
+    ShipList.defineSortableHeader(__('Sorter.Evasion'), 'evasion'),
+    ShipList.defineSortableHeader(__('Sorter.ASW'),'asw'),
+    ShipList.defineSortableHeader(__('Sorter.LoS'),'los'),
+    ShipList.defineSortableHeader(__('Sorter.Fleet'),'fleet'),
+    ShipList.defineSortableHeader(__('Sorter.Lock'),'lock'),
     // unsortable header don't have method and asc fields
-    { name: 'Control' },
+    { name: __('Sorter.Control') },
   ]
 
   static propTypes = {

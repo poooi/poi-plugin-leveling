@@ -12,12 +12,25 @@
   "Sorter": {
     "ID": "ID",
     "Type": "舰种",
+    "Name": "舰名",
     "Level": "等级",
     "RemainingExp": "剩余经验",
     "RemainingBattles": "剩余战斗数",
     "Evasion": "回避",
     "ASW": "对潜",
-    "LoS": "索敌"
+    "LoS": "索敌",
+    "Fleet": "舰队",
+    "Lock": "锁定",
+    "Control": "控制"
+  },
+
+  "Filter": {
+    "All": "全部",
+    "UnderFinalRemodelLevel": "低于最终改造等级",
+    "UnderFinalRemodelLevelShort": "< 终改等级",
+    "FleetX": "第%s舰队",
+    "Locked": "已锁",
+    "Unlocked": "未锁"
   },
 
   "GoalBox": {
@@ -50,5 +63,19 @@
     "Custom": "定制",
     "CustomBaseExp": "定制基础经验",
     "Ranged": "范围值"
+  },
+
+  "Template": {
+    "ResetToDefault": "重置为默认",
+    "NewTemplate": "添加模板",
+    "ConfirmResetting": "确认重置",
+    "AreYouSureContent": "确定要重置为默认吗？您当前的所有模板都将被覆盖。",
+    "Cancel": "取消",
+    "Confirm": "确定",
+    "Types": "匹配舰种",
+    "AddType": "添加",
+    "RemoveType": "删除",
+    "ApplyTo": "应用到",
+    "AllGoalsAbove": "上述所有目标"
   }
 }

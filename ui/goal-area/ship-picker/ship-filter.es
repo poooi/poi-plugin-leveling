@@ -8,7 +8,7 @@ import {
 import { PTyp } from '../../../ptyp'
 import { describeFilterWith } from '../../../shiplist-ops'
 
-const { _ } = window
+const { _, __ } = window
 
 class ShipFilter extends Component {
   static propTypes = {
@@ -46,17 +46,17 @@ class ShipFilter extends Component {
 
   render() {
     const { filters, stypes, stypeInfo } = this.props
-    const describeFilter = describeFilterWith(stypeInfo)
+    const describeFilter = describeFilterWith(stypeInfo,__)
     return (
       <div className="filter-group">
         <ButtonGroup justified>
           <DropdownButton
               onSelect={this.handleSelectFilter('type')}
               id="ship-filter-type"
-              title={`Type: ${describeFilter('type')(filters.type)}`}>
+              title={`${__('Sorter.Type')}: ${describeFilter('type')(filters.type)}`}>
             <MenuItem
                 key="all" eventKey="all">
-              All
+              {__('Filter.All')}
             </MenuItem>
             {
               (stypeInfo || []).map( ({id, name}) =>
@@ -75,9 +75,9 @@ class ShipFilter extends Component {
           <DropdownButton
               onSelect={this.handleSelectFilter('level')}
               id="ship-filter-level"
-              title={`Level: ${describeFilter('level')(filters.level)}`}>
+              title={`${__('Sorter.Level')}: ${describeFilter('level')(filters.level)}`}>
             <MenuItem key="all" eventKey="all">
-              All
+              {__('Filter.All')}
             </MenuItem>
             <MenuItem key="ge-100" eventKey="ge-100">
               Lv. ≥ 100
@@ -86,7 +86,7 @@ class ShipFilter extends Component {
               {"Lv. < 99"}
             </MenuItem>
             <MenuItem key="under-final" eventKey="under-final">
-              {"Under Final Remodel Level"}
+              {__('Filter.UnderFinalRemodelLevel')}
             </MenuItem>
           </DropdownButton>
         </ButtonGroup>
@@ -94,14 +94,14 @@ class ShipFilter extends Component {
           <DropdownButton
               onSelect={this.handleSelectFilter('fleet')}
               id="ship-filter-fleet"
-              title={`Fleet: ${describeFilter('fleet')(filters.fleet)}`}>
+              title={`${__('Sorter.Fleet')}: ${describeFilter('fleet')(filters.fleet)}`}>
             <MenuItem key="all" eventKey="all">
-              All
+              {__('Filter.All')}
             </MenuItem>
             {
               [1,2,3,4].map( fleet => (
                 <MenuItem key={fleet} eventKey={fleet}>
-                  {`Fleet ${fleet}`}
+                  {__(`Filter.FleetX`,fleet)}
                 </MenuItem>
               ))
             }
@@ -111,15 +111,15 @@ class ShipFilter extends Component {
           <DropdownButton
               onSelect={this.handleSelectFilter('lock')}
               id="ship-filter-lock"
-              title={`Lock: ${describeFilter('lock')(filters.lock)}`}>
+              title={`${__('Sorter.Lock')}: ${describeFilter('lock')(filters.lock)}`}>
             <MenuItem key="all" eventKey="all">
-              All
+              {__('Filter.All')}
             </MenuItem>
             <MenuItem key={true} eventKey={true}>
-              Locked
+              {__('Filter.Locked')}
             </MenuItem>
             <MenuItem key={false} eventKey={false}>
-              Unlocked
+              {__('Filter.Unlocked')}
             </MenuItem>
           </DropdownButton>
         </ButtonGroup>

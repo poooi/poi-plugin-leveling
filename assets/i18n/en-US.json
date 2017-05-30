@@ -11,12 +11,25 @@
   "Sorter": {
     "ID": "ID",
     "Type": "Type",
+    "Name": "Name",
     "Level": "Level",
     "RemainingExp": "Remaining Exp",
     "RemainingBattles": "Remaining Battles",
     "Evasion": "Evasion",
     "ASW": "ASW",
-    "LoS": "LoS"
+    "LoS": "LoS",
+    "Fleet": "Fleet",
+    "Lock": "Lock",
+    "Control": "Control"
+  },
+
+  "Filter": {
+    "All": "All",
+    "UnderFinalRemodelLevel": "Under Final Remodel Level",
+    "UnderFinalRemodelLevelShort": "< F. Rmdl.",
+    "FleetX": "Fleet %s",
+    "Locked": "Locked",
+    "Unlocked": "Unlocked"
   },
 
   "GoalBox": {
@@ -49,5 +62,19 @@
     "Custom": "Custom",
     "CustomBaseExp": "Custom Base Exp",
     "Ranged": "Ranged"
+  },
+
+  "Template": {
+    "ResetToDefault": "Reset To Default",
+    "NewTemplate": "New Template",
+    "ConfirmResetting": "Confirm Resetting",
+    "AreYouSureContent": "Are you sure to reset? All your templates will be overwritten.",
+    "Cancel": "Cancel",
+    "Confirm": "Confirm",
+    "Types": "Types",
+    "AddType": "Add Type",
+    "RemoveType": "Remove Type",
+    "ApplyTo": "Apply to",
+    "AllGoalsAbove": "All Goals Above"
   }
 }

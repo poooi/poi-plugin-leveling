@@ -36,11 +36,12 @@ const prepareFilter = filters => {
   return _.flow([fleetFilter, typeFilter, levelFilter, lockFilter])
 }
 
-const describeFilterWith = stypeInfo => filterName => {
+const describeFilterWith = (stypeInfo,__) => filterName => {
+  const trAll = __('Filter.All')
   if (filterName === 'type')
     return tNum => {
       if (tNum === 'all')
-        return 'All'
+        return trAll
 
       const stInd = stypeInfo.findIndex( ({id}) => id === tNum )
       return stInd === -1 ? tNum : `${stypeInfo[stInd].name} (${tNum})`
@@ -48,17 +49,17 @@ const describeFilterWith = stypeInfo => filterName => {
 
   if (filterName === 'level')
     return l =>
-        l === 'all' ? 'All'
+        l === 'all' ? trAll
       : l === 'ge-100' ? '≥ 100'
       : l === 'lt-99' ? '< 99'
-      : l === 'under-final' ? '< F. Rmdl.'
+      : l === 'under-final' ? __('Filter.UnderFinalRemodelLevelShort')
       : l
 
   if (filterName === 'fleet')
-    return fNum => fNum === 'all' ? 'All' : `Fleet ${fNum}`
+    return fNum => fNum === 'all' ? trAll : __('Filter.FleetX',fNum)
 
   if (filterName === 'lock')
-    return v => v === 'all' ? 'All' : (v ? 'Locked' : 'Unlocked')
+    return v => v === 'all' ? trAll : (v ? __('Filter.Locked') : __('Filter.Unlocked'))
   return x => x
 }
 

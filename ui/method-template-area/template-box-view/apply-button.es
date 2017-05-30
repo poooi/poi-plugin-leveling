@@ -6,6 +6,8 @@ import {
 
 import { PTyp } from '../../../ptyp'
 
+const { __ } = window
+
 class ApplyButton extends PureComponent {
   static propTypes = {
     editing: PTyp.bool.isRequired,
@@ -29,7 +31,7 @@ class ApplyButton extends PureComponent {
             id={`tb-view-dd-apply-${index}`}
             disabled={editing || shipTargets.length === 0}
             onSelect={onApplyTemplate}
-            title="Apply to">
+            title={__('Template.ApplyTo')}>
           {
             shipTargets.map( shipTarget => {
               const { name, rstId, level, goalLevel } = shipTarget
@@ -42,7 +44,9 @@ class ApplyButton extends PureComponent {
             })
           }
           <MenuItem divider />
-          <MenuItem key="all" eventKey="all">All Goals Above</MenuItem>
+          <MenuItem key="all" eventKey="all">
+            {__('Template.AllGoalsAbove')}
+          </MenuItem>
         </DropdownButton>
       </ButtonGroup>
     )

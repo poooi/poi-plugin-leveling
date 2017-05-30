@@ -8,7 +8,7 @@ import {
 
 import { PTyp } from '../../ptyp'
 
-const { _ } = window
+const { _, __ } = window
 
 class STypeEdit extends Component {
   static propTypes = {
@@ -110,7 +110,7 @@ class STypeEdit extends Component {
               id={`tb-edit-dd-add-${index}`}
               onSelect={this.handleAddOrRemoveSType('add')}
               disabled={disabled || stypeInfoMissing.length === 0}
-              title="Add Type">
+              title={__('Template.AddType')}>
             {
               stypeInfoMissing.map( ({id,name}) => (
                 <MenuItem key={id} eventKey={id}>
@@ -125,7 +125,7 @@ class STypeEdit extends Component {
               id={`tb-edit-dd-rm-${index}`}
               onSelect={this.handleAddOrRemoveSType('remove')}
               disabled={disabled || stypeInfoIncluded.length === 0}
-              title="Remove Type">
+              title={__('Template.RemoveType')}>
             {
               stypeInfoIncluded.map( ({id,name}) => (
                 <MenuItem key={id} eventKey={id}>
