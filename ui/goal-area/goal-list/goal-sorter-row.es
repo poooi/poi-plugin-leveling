@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import { shell } from 'electron'
 
 import { PTyp } from '../../../ptyp'
 
@@ -37,6 +38,9 @@ class GoalSorterRow extends Component {
     })
   }
 
+  handleOpenUserManual = () =>
+    shell.openExternal(__('UserManual.Link'))
+
   render() {
     const { sorter } = this.props
     return (
@@ -59,6 +63,15 @@ class GoalSorterRow extends Component {
             )
           })
         }
+        <a
+            onClick={this.handleOpenUserManual}
+            style={{
+              marginLeft: 'auto',
+              fontSize: '1.2em',
+            }}
+        >
+          {__('UserManual.Desc')}
+        </a>
       </div>)
   }
 }

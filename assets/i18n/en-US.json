@@ -8,6 +8,11 @@
     "Templates": "Templates"
   },
 
+  "UserManual": {
+    "Desc": "User Manual",
+    "Link": "https://github.com/Javran/poi-plugin-leveling/wiki/User-Manual-(English)"
+  },
+
   "Sorter": {
     "ID": "ID",
     "Type": "Type",

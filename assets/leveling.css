@@ -206,6 +206,7 @@
 .goal-sorter-row {
     margin-bottom: 8px;
     display: flex;
+    align-items: center;
 }
 
 .goal-sorter-row > * {
