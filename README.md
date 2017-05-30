@@ -5,6 +5,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 0.3.0
+
+- i18n support: zh-CN & en-US
+
 ### 0.2.2
 
 - Some optimization
