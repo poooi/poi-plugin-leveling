@@ -1,0 +1,81 @@
+{
+  "Plugin": {
+    "Leveling": "艦步如飛",
+    "Desc": "艦娘練級規劃管理（艦娘屬性信息來自[是誰呼叫艦隊](https://github.com/Diablohu/WhoCallsTheFleet)）"
+  },
+
+  "Top": {
+    "Goals": "目標",
+    "Templates": "模板"
+  },
+
+  "Sorter": {
+    "ID": "ID",
+    "Type": "艦種",
+    "Name": "艦名",
+    "Level": "等級",
+    "RemainingExp": "剩餘經驗",
+    "RemainingBattles": "剩餘戰鬥數",
+    "Evasion": "迴避",
+    "ASW": "對潛",
+    "LoS": "索敵",
+    "Fleet": "艦隊",
+    "Lock": "鎖定",
+    "Control": "控制"
+  },
+
+  "Filter": {
+    "All": "全部",
+    "UnderFinalRemodelLevel": "低於最終改造等級",
+    "UnderFinalRemodelLevelShort": "< 終改等級",
+    "FleetX": "第%s艦隊",
+    "Locked": "已鎖",
+    "Unlocked": "未鎖"
+  },
+
+  "GoalBox": {
+    "Level": "當前等級",
+    "Goal": "目標等級",
+    "Method": "練級方式",
+    "Result": "計算結果",
+    "ResultBattles": "場戰鬥",
+    "ShipStatsAtLv": "艦娘 %s級 時的屬性"
+  },
+
+  "Method": {
+    "Sortie": "出擊",
+    "BaseExp": "基礎經驗",
+    "ExpPerSortie": "經驗/場",
+    "Flagship": "旗艦",
+    "Rank": "評價"
+  },
+
+  "EditLevel": {
+    "Title": "目標等級",
+    "Goal": "目標",
+    "Remodel": "可改造爲: %s",
+    "MaxUnmarried": "未婚艦最高等級",
+    "MaxMarried": "婚艦最高等級"
+  },
+
+  "EditMethod": {
+    "Title": "練級方式",
+    "Custom": "定製",
+    "CustomBaseExp": "定製基礎經驗",
+    "Ranged": "範圍值"
+  },
+
+  "Template": {
+    "ResetToDefault": "重置爲默認",
+    "NewTemplate": "添加模板",
+    "ConfirmResetting": "確認重置",
+    "AreYouSureContent": "確定要重置爲默認嗎？您當前的所有模板都將被覆蓋。",
+    "Cancel": "取消",
+    "Confirm": "確定",
+    "Types": "匹配艦種",
+    "AddType": "添加",
+    "RemoveType": "刪除",
+    "ApplyTo": "應用到",
+    "AllGoalsAbove": "上述所有目標"
+  }
+}
