@@ -1,1 +1,85 @@
-en-US.json
+{
+  "Plugin": {
+    "Leveling": "Leveling",
+    "Desc": "Ship Leveling Planner (ship stat info extracted from [WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet))"
+  },
+  "Top": {
+    "Goals": "Goals",
+    "Templates": "Templates"
+  },
+
+  "UserManual": {
+    "Desc": "User Manual",
+    "Link": "https://github.com/poooi/poi-plugin-leveling/wiki/User-Manual-(English)"
+  },
+
+  "Sorter": {
+    "ID": "ID",
+    "Type": "Type",
+    "Name": "Name",
+    "Level": "Level",
+    "RemainingExp": "Remaining Exp",
+    "RemainingBattles": "Remaining Battles",
+    "Evasion": "Evasion",
+    "ASW": "ASW",
+    "LoS": "LoS",
+    "Fleet": "Fleet",
+    "Lock": "Lock",
+    "Control": "Control"
+  },
+
+  "Filter": {
+    "All": "All",
+    "UnderFinalRemodelLevel": "Under Final Remodel Level",
+    "UnderFinalRemodelLevelShort": "< F. Rmdl.",
+    "FleetX": "Fleet %s",
+    "Locked": "Locked",
+    "Unlocked": "Unlocked"
+  },
+
+  "GoalBox": {
+    "Level": "Level",
+    "Goal": "Goal",
+    "Method": "Method",
+    "Result": "Result",
+    "ResultBattles": "Battles",
+    "ShipStatsAtLv": "Ship Stats at Lv. %s"
+  },
+
+  "Method": {
+    "Sortie": "Sortie",
+    "BaseExp": "Base Exp",
+    "ExpPerSortie": "Exp/sortie",
+    "Flagship": "Flagship",
+    "Rank": "Rank"
+  },
+
+  "EditLevel": {
+    "Title": "Leveling Goal",
+    "Goal": "Goal",
+    "Remodel": "Possible to remodel to: %s",
+    "MaxUnmarried": "Maximum level that unmarried ship can reach",
+    "MaxMarried": "Maximum level that married ship can reach"
+  },
+
+  "EditMethod": {
+    "Title": "Leveling Method",
+    "Custom": "Custom",
+    "CustomBaseExp": "Custom Base Exp",
+    "Ranged": "Ranged"
+  },
+
+  "Template": {
+    "ResetToDefault": "Reset To Default",
+    "NewTemplate": "New Template",
+    "ConfirmResetting": "Confirm Resetting",
+    "AreYouSureContent": "Are you sure to reset? All your templates will be overwritten.",
+    "Cancel": "Cancel",
+    "Confirm": "Confirm",
+    "Types": "Types",
+    "AddType": "Add Type",
+    "RemoveType": "Remove Type",
+    "ApplyTo": "Apply to",
+    "AllGoalsAbove": "All Goals Above"
+  }
+}
