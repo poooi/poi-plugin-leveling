@@ -10,6 +10,12 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.1.0
+
+- Fix some font problems
+
+- Added missed translation files for ja-JP ko-KR (both defaults to en-US)
+
 ### 1.0.0
 
 - Added User Manual
