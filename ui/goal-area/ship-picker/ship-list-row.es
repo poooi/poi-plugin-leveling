@@ -1,9 +1,9 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../../ptyp'
-
-const { FontAwesome, _ } = window
 
 class ShipListRow extends Component {
   static propTypes = {

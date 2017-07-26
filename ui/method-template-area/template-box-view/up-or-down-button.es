@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react'
-
 import {
   Button,
 } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../../ptyp'
-
-const { FontAwesome } = window
 
 class UpOrDownButton extends PureComponent {
   static propTypes = {

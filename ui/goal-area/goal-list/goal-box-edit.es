@@ -4,6 +4,7 @@ import {
   Button,
   FormControl,
 } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import {
   expValueFromBaseExp,
@@ -16,7 +17,7 @@ import { Method } from '../../../structs'
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
-const { FontAwesome, __ } = window
+const { __ } = window
 
 // to generate sensible initial values
 // we use one method as a source to guess another

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FontAwesome from 'react-fontawesome'
 import {
   ListGroup, ListGroupItem, Button,
 } from 'react-bootstrap'
@@ -6,7 +7,7 @@ import {
 import { PTyp } from '../../../ptyp'
 import { Reason } from '../../../structs'
 
-const { __, FontAwesome } = window
+const { __ } = window
 
 const interpReason = Reason.destruct({
   remodel: (name,typeName) =>

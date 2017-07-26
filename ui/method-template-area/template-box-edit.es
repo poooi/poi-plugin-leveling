@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   Button,
 } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../ptyp'
 import { Template } from '../../structs'
@@ -9,8 +10,6 @@ import { Template } from '../../structs'
 import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
 import { fillStates, stateToMethod } from '../goal-area/goal-list/goal-box-edit'
 import { STypeEdit } from './stype-edit'
-
-const { FontAwesome } = window
 
 class TemplateBoxEdit extends Component {
   static propTypes = {

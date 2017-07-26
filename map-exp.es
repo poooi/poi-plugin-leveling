@@ -1,8 +1,7 @@
+import _ from 'lodash'
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 import { Ternary, ExpValue, BaseExp, Method } from './structs'
-
-const _ = require('lodash')
 
 const mapExpTable = readJsonSync(join(__dirname, 'assets', 'map_exp.json'))
 const getMapExpInfo = map => mapExpTable[map]

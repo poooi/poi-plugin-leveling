@@ -46,5 +46,8 @@
     "react-addons-perf": "^15.4.2",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
+  },
+  "dependencies": {
+    "subtender": "^0.7.0"
   }
 }

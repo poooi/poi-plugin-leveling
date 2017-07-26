@@ -3,12 +3,10 @@ import {
   Button,
   ButtonGroup,
 } from 'react-bootstrap'
-
+import FontAwesome from 'react-fontawesome'
 import { PTyp } from '../../../ptyp'
 import { UpOrDownButton } from './up-or-down-button'
 import { ApplyButton } from './apply-button'
-
-const { FontAwesome } = window
 
 class ViewButtons extends PureComponent {
   static propTypes = {

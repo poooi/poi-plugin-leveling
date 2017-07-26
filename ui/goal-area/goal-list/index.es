@@ -1,17 +1,15 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { ListGroup } from 'react-bootstrap'
 
 import { PTyp } from '../../../ptyp'
 import { totalExp } from '../../../exp'
 import { computeExpRange } from '../../../map-exp'
-import { identity } from '../../../utils'
 
 import { GoalBox } from './goal-box'
 import { GoalSorterRow } from './goal-sorter-row'
 
 import * as SC from '../../../shiplist-ops'
-
-const { _ } = window
 
 const {
   chainComparators,
@@ -65,7 +63,7 @@ const prepareSorter = ({method, reversed}) => {
   // so that the compare result is always non-zero unless we are comparing the same ship
   const comparatorResolved = chainComparators(comparator,rosterIdComparator)
   // we literally just reverse the array if necessary, rather than flipping the comparator.
-  const doReverse = reversed ? xs => [...xs].reverse() : identity
+  const doReverse = reversed ? xs => [...xs].reverse() : _.identity
 
   return xs => doReverse(xs.sort(comparatorResolved))
 }

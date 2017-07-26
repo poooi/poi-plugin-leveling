@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 
 import { PTyp } from '../../../ptyp'
@@ -5,8 +6,6 @@ import { Template } from '../../../structs'
 
 import { ViewButtons } from './view-buttons'
 import { InfoView } from './info-view'
-
-const { _ } = window
 
 class TemplateBoxView extends Component {
   static propTypes = {

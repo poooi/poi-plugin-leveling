@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Checkbox, FormControl } from 'react-bootstrap'
 
-import { saturate } from '../../../utils'
+import { clamp } from 'subtender'
 import { PTyp } from '../../../ptyp'
 
 const { __ } = window
@@ -39,12 +39,12 @@ class ExpValueEdit extends Component {
     if (this.isRanged()) {
       onValueChange({
         ...this.props.expValue,
-        min: Math.floor(saturate(0,9999)(e.target.value)),
+        min: Math.floor(clamp(0,9999)(e.target.value)),
       })
     } else {
       onValueChange({
         ...this.props.expValue,
-        value: Math.floor(saturate(0,9999)(e.target.value)),
+        value: Math.floor(clamp(0,9999)(e.target.value)),
       })
     }
   }
@@ -55,7 +55,7 @@ class ExpValueEdit extends Component {
       onValueChange({
         ...this.props.expValue,
         max: Math.floor(
-          saturate(0,9999)(e.target.value)),
+          clamp(0,9999)(e.target.value)),
       })
     }
   }

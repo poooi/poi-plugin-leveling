@@ -5,7 +5,7 @@ import {
   Button,
 } from 'react-bootstrap'
 
-import { modifyArray } from '../../utils'
+import { modifyArray } from 'subtender'
 import { PTyp } from '../../ptyp'
 import { loadDefaultTemplateList } from '../../config'
 import { TemplateBox } from './template-box'

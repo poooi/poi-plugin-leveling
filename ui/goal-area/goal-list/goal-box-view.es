@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 import { ThreeRows } from './three-rows'
 import { MethodView } from './method-view'
 
 import { PTyp } from '../../../ptyp'
 
-const { __, FontAwesome } = window
+const { __ } = window
 
 class GoalBoxView extends Component {
   static propTypes = {
