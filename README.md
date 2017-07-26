@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.1.1
+
+- Update WhoCallsTheFleet ship database
+
 ### 1.1.0
 
 - Fix some font problems
