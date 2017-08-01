@@ -57,7 +57,7 @@ const fillStates = Method.destruct({
 
 const toValidLevel = inp =>
     inp < 1 ? 1
-  : inp > 155 ? 155
+  : inp > 165 ? 165
   : Math.floor(inp)
 
 const normalizeExpValue = expValue => {

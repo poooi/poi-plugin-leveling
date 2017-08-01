@@ -132,7 +132,7 @@ const rGoalMaxUnmarried = {
 }
 
 const rGoalMaxMarried = {
-  goalLevel: 155,
+  goalLevel: 165,
   reason: { type: 'max-married' },
 }
 

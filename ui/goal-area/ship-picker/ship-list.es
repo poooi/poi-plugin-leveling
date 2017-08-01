@@ -45,7 +45,7 @@ class ShipList extends Component {
     const goalLevel =
         ship.nextRemodelLevel !== null ? ship.nextRemodelLevel
       : ship.level < 99 ? 99
-      : 155
+      : 165
 
     const method = TemplateList.findMethod(templates,false)(stype)
 

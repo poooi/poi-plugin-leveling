@@ -20,5 +20,6 @@ describe('exp', () => {
     test(100,marriedDiff)
     test(147,2799000+marriedDiff)
     test(155,4470000+marriedDiff)
+    test(165,6820000+marriedDiff)
   })
 })

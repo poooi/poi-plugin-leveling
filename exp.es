@@ -2,10 +2,10 @@ import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
 const rawTable1 = readJsonSync(join(__dirname, 'assets', 'exp_1_99.json'))
-const rawTable2 = readJsonSync(join(__dirname, 'assets', 'exp_100_155.json'))
+const rawTable2 = readJsonSync(join(__dirname, 'assets', 'exp_100_max.json'))
 
 // verify that data is consistent in both rawTable1 and rawTable2
-// and properly sorted by level (Level 1~99 for rawTable1 and Level 100~155 for rawTable2)
+// and properly sorted by level (Level 1~99 for rawTable1 and Level 100~165 for rawTable2)
 const verifyData = assert => {
   const verifyRawTable = (rawTable,initRow,finalRow) => {
     assert( Array.isArray( rawTable ) && rawTable.length > 0, "type & length sanity check")
@@ -25,11 +25,11 @@ const verifyData = assert => {
     [1,0,0], [99,148500,1000000])
   verifyRawTable(
     rawTable2,
-    [100,0,0], [155,240000,4470000])
+    [100,0,0], [165,500000,6820000])
 }
 
 const totalExpTable = (() => {
-  const table = new Array(1+155);
+  const table = new Array(1+165);
 
   [...rawTable1, ...rawTable2].reduce(
     (curTotal,[lvl,diff]) => {
