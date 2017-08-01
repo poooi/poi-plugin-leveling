@@ -10,9 +10,13 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.2.0
+
+- Updated exp-related data to support current max level (Lv. 165)
+
 ### 1.1.1
 
-- Update WhoCallsTheFleet ship database
+- Updated WhoCallsTheFleet ship database
 
 ### 1.1.0
 
