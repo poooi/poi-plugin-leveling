@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.2.1
+
+- Update stats for new ships (thanks to WhoCallsTheFleet)
+
 ### 1.2.0
 
 - Updated exp-related data to support current max level (Lv. 165)
