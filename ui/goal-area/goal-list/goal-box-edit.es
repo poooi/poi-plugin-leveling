@@ -187,37 +187,42 @@ class GoalBoxEdit extends Component {
       <div className="goal-box-edit">
         <div className="panels">
           <Panel
-              className="lvl-goal"
-              header={__('EditLevel.Title')}>
-            <div className="lvl-goal-input">
-              <div className="goal-inp-row">
-                <div style={{flex: 1}}>{`${__('EditLevel.Goal')}:`}</div>
-                <FormControl
+            className="lvl-goal"
+          >
+            <Panel.Heading>
+              {__('EditLevel.Title')}
+            </Panel.Heading>
+            <Panel.Body>
+              <div className="lvl-goal-input">
+                <div className="goal-inp-row">
+                  <div style={{flex: 1}}>{`${__('EditLevel.Goal')}:`}</div>
+                  <FormControl
                     type="number"
                     style={{flex: 4}}
                     value={this.state.goalLevel}
                     onChange={this.handleGoalLevelChange}
-                />
-              </div>
-              {
-                this.props.rGoals.length > 0 && (
-                  <QuickGoalLevelEdit
+                  />
+                </div>
+                {
+                  this.props.rGoals.length > 0 && (
+                    <QuickGoalLevelEdit
                       rstId={this.props.ship.rstId}
                       onRGoalLevelClick={this.handleRGoalLevelClick}
                       goalLevel={this.state.goalLevel}
                       rGoals={this.props.rGoals}
-                  />
-                )
-              }
-            </div>
+                    />
+                  )
+                }
+              </div>
+            </Panel.Body>
           </Panel>
           <LevelingMethodPanel
-              methodType={this.state.methodType}
-              sortieInput={this.state.sortieInput}
-              customInput={this.state.customInput}
-              onMethodTypeSelect={this.handleMethodTypeSelect}
-              onSortieInputChange={this.handleSortieInputChange}
-              onCustomInputChange={this.handleCustomInputChange}
+            methodType={this.state.methodType}
+            sortieInput={this.state.sortieInput}
+            customInput={this.state.customInput}
+            onMethodTypeSelect={this.handleMethodTypeSelect}
+            onSortieInputChange={this.handleSortieInputChange}
+            onCustomInputChange={this.handleCustomInputChange}
           />
         </div>
         <div className="edit-control">

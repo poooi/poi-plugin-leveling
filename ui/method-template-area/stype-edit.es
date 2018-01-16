@@ -105,38 +105,43 @@ class STypeEdit extends Component {
     } = this.splitSTypes()
     return (
       <Panel
-          className="stype"
-          header={__('Template.Types')}>
-        <ButtonGroup justified>
-          <DropdownButton
+        className="stype"
+      >
+        <Panel.Heading>
+          {__('Template.Types')}
+        </Panel.Heading>
+        <Panel.Body>
+          <ButtonGroup justified>
+            <DropdownButton
               id={`tb-edit-dd-add-${index}`}
               onSelect={this.handleAddOrRemoveSType('add')}
               disabled={disabled || stypeInfoMissing.length === 0}
               title={__('Template.AddType')}>
-            {
-              stypeInfoMissing.map( ({id,name}) => (
-                <MenuItem key={id} eventKey={id}>
-                  {`${name} (${id})`}
-                </MenuItem>
-              ))
-            }
-          </DropdownButton>
-        </ButtonGroup>
-        <ButtonGroup justified>
-          <DropdownButton
+              {
+                stypeInfoMissing.map( ({id,name}) => (
+                  <MenuItem key={id} eventKey={id}>
+                    {`${name} (${id})`}
+                  </MenuItem>
+                ))
+              }
+            </DropdownButton>
+          </ButtonGroup>
+          <ButtonGroup justified>
+            <DropdownButton
               id={`tb-edit-dd-rm-${index}`}
               onSelect={this.handleAddOrRemoveSType('remove')}
               disabled={disabled || stypeInfoIncluded.length === 0}
               title={__('Template.RemoveType')}>
-            {
-              stypeInfoIncluded.map( ({id,name}) => (
-                <MenuItem key={id} eventKey={id}>
-                  {`${name} (${id})`}
-                </MenuItem>
-              ))
-            }
-          </DropdownButton>
-        </ButtonGroup>
+              {
+                stypeInfoIncluded.map( ({id,name}) => (
+                  <MenuItem key={id} eventKey={id}>
+                    {`${name} (${id})`}
+                  </MenuItem>
+                ))
+              }
+            </DropdownButton>
+          </ButtonGroup>
+        </Panel.Body>
       </Panel>
     )
   }

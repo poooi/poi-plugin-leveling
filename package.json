@@ -26,7 +26,10 @@
     "title": "Plugin.Leveling",
     "description": "Plugin.Desc",
     "priority": 10,
-    "icon": "angle-double-up"
+    "icon": "angle-double-up",
+    "apiVer": {
+      "8.1.0-beta.4": "1.2.1"
+    }
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

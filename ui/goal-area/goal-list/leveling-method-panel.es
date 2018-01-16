@@ -35,26 +35,31 @@ class LevelingMethodPanel extends Component {
     } = this.props
     return (
       <Panel
-          className="lvl-method"
-          header={__('EditMethod.Title')}>
-        <div className="lvl-method-input">
-          <Nav
+        className="lvl-method"
+      >
+        <Panel.Heading>
+          {__('EditMethod.Title')}
+        </Panel.Heading>
+        <Panel.Body>
+          <div className="lvl-method-input">
+            <Nav
               onSelect={onMethodTypeSelect}
               bsStyle="tabs" stacked activeKey={methodType}>
-            <NavItem eventKey="sortie">{__('Method.Sortie')}</NavItem>
-            <NavItem eventKey="custom">{__('EditMethod.Custom')}</NavItem>
-          </Nav>
-          <div style={{flex: 1}}>
-            <MethodSortieEdit
+              <NavItem eventKey="sortie">{__('Method.Sortie')}</NavItem>
+              <NavItem eventKey="custom">{__('EditMethod.Custom')}</NavItem>
+            </Nav>
+            <div style={{flex: 1}}>
+              <MethodSortieEdit
                 sortieInput={sortieInput}
                 onSortieInputChange={onSortieInputChange}
                 visible={methodType === 'sortie'} />
-            <MethodCustomEdit
+              <MethodCustomEdit
                 customInput={customInput}
                 onCustomInputChange={onCustomInputChange}
                 visible={methodType === 'custom'} />
+            </div>
           </div>
-        </div>
+        </Panel.Body>
       </Panel>
     )
   }
