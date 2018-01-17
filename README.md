@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.2.2
+
+- Panel Update for react-bootstrap
+
 ### 1.2.1
 
 - Update stats for new ships (thanks to WhoCallsTheFleet)
