@@ -100,9 +100,9 @@ class ShipList extends Component {
 
                 return (
                   <th
-                      className={isActive ? "text-primary" : ""}
-                      key={key}
-                      onClick={sortable ? this.handleClickHeader(method) : null}>
+                    className={isActive ? "text-primary" : ""}
+                    key={key}
+                    onClick={sortable ? this.handleClickHeader(method) : null}>
                     {content}
                   </th>
                 )
@@ -114,9 +114,9 @@ class ShipList extends Component {
           {
             ships.map(ship => (
               <ShipListRow
-                  key={ship.rstId}
-                  ship={ship}
-                  onAddToGoalTable={this.handleAddToGoalTable(ship)}
+                key={ship.rstId}
+                ship={ship}
+                onAddToGoalTable={this.handleAddToGoalTable(ship)}
               />
             ))
           }

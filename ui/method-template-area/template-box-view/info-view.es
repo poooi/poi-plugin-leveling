@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { PTyp } from '../../../ptyp'
-
 import { prepareMethodText } from '../../goal-area/goal-list/method-view'
 
 const { _, __ } = window
@@ -21,7 +20,7 @@ class InfoView extends Component {
 
   interpretSType = stype => {
     const { stypeInfo } = this.props
-    const name = stypeInfo.find(x => x.id === stype).name
+    const {name} = stypeInfo.find(x => x.id === stype)
     return (<div className="stype-element" key={stype}>{`${name} (${stype})`}</div>)
   }
 

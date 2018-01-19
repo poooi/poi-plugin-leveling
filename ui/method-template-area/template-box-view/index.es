@@ -34,7 +34,7 @@ class TemplateBoxView extends Component {
   // - when we are looking at the main template, the full ship type is returned
   // - otherwise we show either template settings, or template editing the state.
   getSTypes = () => {
-    const { stypeInfo, editing, template, stypes } = this.props
+    const {stypeInfo, editing, template, stypes} = this.props
     if (template.type === 'main')
       return stypeInfo.map(({id}) => id)
 
@@ -85,21 +85,21 @@ class TemplateBoxView extends Component {
     return (
       <div className="template-view">
         <InfoView
-            method={template.method}
-            stypeInfo={stypeInfo}
-            stypes={this.getSTypes()}
-            />
+          method={template.method}
+          stypeInfo={stypeInfo}
+          stypes={this.getSTypes()}
+        />
         <ViewButtons
-            template={template}
-            upAction={upAction} downAction={downAction}
-            editing={editing}
-            index={index}
-            shipTargets={shipTargets}
-            isMainTemplate={isMainTemplate}
-            isEnabled={isEnabled}
-            onStartEdit={onStartEdit} onFinishEdit={onFinishEdit}
-            onToggleTemplate={this.handleToggleTemplate}
-            onApplyTemplate={this.handleApplyTemplate}
+          template={template}
+          upAction={upAction} downAction={downAction}
+          editing={editing}
+          index={index}
+          shipTargets={shipTargets}
+          isMainTemplate={isMainTemplate}
+          isEnabled={isEnabled}
+          onStartEdit={onStartEdit} onFinishEdit={onFinishEdit}
+          onToggleTemplate={this.handleToggleTemplate}
+          onApplyTemplate={this.handleApplyTemplate}
         />
       </div>
     )

@@ -51,18 +51,18 @@ class ShipFilter extends Component {
       <div className="filter-group">
         <ButtonGroup justified>
           <DropdownButton
-              onSelect={this.handleSelectFilter('type')}
-              id="ship-filter-type"
-              title={`${__('Sorter.Type')}: ${describeFilter('type')(filters.type)}`}>
+            onSelect={this.handleSelectFilter('type')}
+            id="ship-filter-type"
+            title={`${__('Sorter.Type')}: ${describeFilter('type')(filters.type)}`}>
             <MenuItem
-                key="all" eventKey="all">
+              key="all" eventKey="all">
               {__('Filter.All')}
             </MenuItem>
             {
               (stypeInfo || []).map( ({id, name}) =>
                 stypes.indexOf(id) !== -1 && (
                   <MenuItem
-                      key={id} eventKey={id}>
+                    key={id} eventKey={id}>
                     {`${name} (${id})`}
                   </MenuItem>
                 ))
@@ -70,12 +70,12 @@ class ShipFilter extends Component {
           </DropdownButton>
         </ButtonGroup>
         <ButtonGroup
-            className="ship-filter-bg-level"
-            justified>
+          className="ship-filter-bg-level"
+          justified>
           <DropdownButton
-              onSelect={this.handleSelectFilter('level')}
-              id="ship-filter-level"
-              title={`${__('Sorter.Level')}: ${describeFilter('level')(filters.level)}`}>
+            onSelect={this.handleSelectFilter('level')}
+            id="ship-filter-level"
+            title={`${__('Sorter.Level')}: ${describeFilter('level')(filters.level)}`}>
             <MenuItem key="all" eventKey="all">
               {__('Filter.All')}
             </MenuItem>
@@ -92,9 +92,9 @@ class ShipFilter extends Component {
         </ButtonGroup>
         <ButtonGroup justified>
           <DropdownButton
-              onSelect={this.handleSelectFilter('fleet')}
-              id="ship-filter-fleet"
-              title={`${__('Sorter.Fleet')}: ${describeFilter('fleet')(filters.fleet)}`}>
+            onSelect={this.handleSelectFilter('fleet')}
+            id="ship-filter-fleet"
+            title={`${__('Sorter.Fleet')}: ${describeFilter('fleet')(filters.fleet)}`}>
             <MenuItem key="all" eventKey="all">
               {__('Filter.All')}
             </MenuItem>
@@ -109,9 +109,9 @@ class ShipFilter extends Component {
         </ButtonGroup>
         <ButtonGroup justified>
           <DropdownButton
-              onSelect={this.handleSelectFilter('lock')}
-              id="ship-filter-lock"
-              title={`${__('Sorter.Lock')}: ${describeFilter('lock')(filters.lock)}`}>
+            onSelect={this.handleSelectFilter('lock')}
+            id="ship-filter-lock"
+            title={`${__('Sorter.Lock')}: ${describeFilter('lock')(filters.lock)}`}>
             <MenuItem key="all" eventKey="all">
               {__('Filter.All')}
             </MenuItem>

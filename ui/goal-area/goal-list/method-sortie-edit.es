@@ -8,6 +8,9 @@ import { PTyp } from '../../../ptyp'
 
 const { __ } = window
 
+// TODO: have to disable this for now
+/* eslint-disable jsx-a11y/accessible-emoji */
+
 class MethodSortieEdit extends Component {
   static propTypes = {
     visible: PTyp.bool.isRequired,
@@ -44,9 +47,7 @@ class MethodSortieEdit extends Component {
     const rankArr = sortieInput.rank
 
     const afterRank =
-      selected
-      ? rankArr.filter(x => x !== rank)
-      : [...rankArr, rank]
+      selected ? rankArr.filter(x => x !== rank) : [...rankArr, rank]
 
     if (afterRank.length > 0) {
       onSortieInputChange({
@@ -83,22 +84,24 @@ class MethodSortieEdit extends Component {
   render() {
     const { visible, sortieInput } = this.props
     const isCustomExp = sortieInput.baseExpType === 'custom'
+    // const crossEmoji = (<span role="img" aria-label="cross">✓</span>)
+    // const checkEmoji = (<span role="img" aria-label="check">❌</span>)
     return (
       <div
-          className="sortie-edit"
-          style={{display: visible ? "flex" : "none"}}>
+        className="sortie-edit"
+        style={{display: visible ? "flex" : "none"}}>
         <div className="base-exp-row">
           <Checkbox
-              style={{flex: 2}}
-              onChange={this.handleBaseExpTypeToggle}
-              checked={isCustomExp}>
+            style={{flex: 2}}
+            onChange={this.handleBaseExpTypeToggle}
+            checked={isCustomExp}>
             {__('EditMethod.CustomBaseExp')}
           </Checkbox>
           <FormControl
-              onChange={this.handleExpMapChange}
-              style={{flex: 5, display: isCustomExp ? "none" : "initial" }}
-              componentClass="select"
-              value={sortieInput.expMap} >
+            onChange={this.handleExpMapChange}
+            style={{flex: 5, display: isCustomExp ? "none" : "initial" }}
+            componentClass="select"
+            value={sortieInput.expMap} >
             {
               sortedMapKeys.map( map => (
                 <option key={map} value={map}>
@@ -109,26 +112,26 @@ class MethodSortieEdit extends Component {
           </FormControl>
           <div style={{flex: 5, display: isCustomExp ? "initial" : "none" }}>
             <ExpValueEdit
-                expValue={sortieInput.expValue}
-                onValueChange={this.handleExpValueChange}
+              expValue={sortieInput.expValue}
+              onValueChange={this.handleExpValueChange}
             />
           </div>
         </div>
         <div className="sortie-misc">
           <FormControl
-              onChange={this.handleFlagshipChange}
-              style={{flex: 1}}
-              componentClass="select"
-              value={sortieInput.flagship} >
+            onChange={this.handleFlagshipChange}
+            style={{flex: 1}}
+            componentClass="select"
+            value={sortieInput.flagship} >
             <option value="maybe">{__('Method.Flagship')}: ✓/❌</option>
             <option value="yes">{__('Method.Flagship')}: ✓</option>
             <option value="no">{__('Method.Flagship')}: ❌</option>
           </FormControl>
           <FormControl
-              onChange={this.handleMVPChange}
-              style={{flex: 1}}
-              componentClass="select"
-              value={sortieInput.mvp} >
+            onChange={this.handleMVPChange}
+            style={{flex: 1}}
+            componentClass="select"
+            value={sortieInput.mvp} >
             <option value="maybe">MVP: ✓/❌</option>
             <option value="yes">MVP: ✓</option>
             <option value="no">MVP: ❌</option>
@@ -142,9 +145,11 @@ class MethodSortieEdit extends Component {
                 const selected = sortieInput.rank.indexOf(rank) !== -1
                 return (
                   <Button
-                      onClick={this.handleRankButtoToggle(rank,selected)}
-                      bsStyle={selected ? "primary" : "default"}
-                      key={rank}>{rank}</Button>
+                    onClick={this.handleRankButtoToggle(rank,selected)}
+                    bsStyle={selected ? "primary" : "default"}
+                    key={rank}>
+                    {rank}
+                  </Button>
                 )
               })
             }

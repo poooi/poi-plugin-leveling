@@ -20,9 +20,9 @@ class UpOrDownButton extends PureComponent {
     const { action, dir } = this.props
     return (
       <Button
-          disabled={typeof action !== 'function'}
-          onClick={action}
-          style={{flex: 1}} >
+        disabled={typeof action !== 'function'}
+        onClick={action}
+        style={{flex: 1}} >
         <FontAwesome name={`angle-${dir}`} />
       </Button>
     )

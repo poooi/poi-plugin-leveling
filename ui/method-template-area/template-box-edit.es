@@ -115,25 +115,25 @@ class TemplateBoxEdit extends Component {
       <div className="template-box-edit">
         <div className="panels">
           <STypeEdit
-              index={index}
-              stypeInfo={stypeInfo}
-              stypes={stypes}
-              disabled={isMainTemplate}
-              onModifySTypes={onModifySTypes}
+            index={index}
+            stypeInfo={stypeInfo}
+            stypes={stypes}
+            disabled={isMainTemplate}
+            onModifySTypes={onModifySTypes}
           />
           <LevelingMethodPanel
-              methodType={methodType}
-              sortieInput={sortieInput}
-              customInput={customInput}
-              onMethodTypeSelect={this.handleMethodTypeSelect}
-              onSortieInputChange={this.handleSortieInputChange}
-              onCustomInputChange={this.handleCustomInputChange}
+            methodType={methodType}
+            sortieInput={sortieInput}
+            customInput={customInput}
+            onMethodTypeSelect={this.handleMethodTypeSelect}
+            onSortieInputChange={this.handleSortieInputChange}
+            onCustomInputChange={this.handleCustomInputChange}
           />
         </div>
         <div className="edit-control">
           <Button
-              onClick={this.handleRemoveTemplate}
-              disabled={isMainTemplate}>
+            onClick={this.handleRemoveTemplate}
+            disabled={isMainTemplate}>
             <FontAwesome name="trash" />
           </Button>
           <Button onClick={this.handleSaveTemplate} >

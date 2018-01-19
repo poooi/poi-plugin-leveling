@@ -46,10 +46,10 @@ class LevelingMain extends Component {
     return (
       <div className="leveling-main">
         <Nav
-            bsStyle="tabs"
-            activeKey={activeTab}
-            onSelect={this.handleTabSwitch}
-            justified className="main-nav">
+          bsStyle="tabs"
+          activeKey={activeTab}
+          onSelect={this.handleTabSwitch}
+          justified className="main-nav">
           <NavItem eventKey="goal">{__('Top.Goals')}</NavItem>
           <NavItem eventKey="template">{__('Top.Templates')}</NavItem>
         </Nav>

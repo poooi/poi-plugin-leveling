@@ -73,16 +73,16 @@ class ShipPicker extends Component {
     return (
       <div>
         <ShipFilter
-            onModifyFilters={this.handleModifyFilters}
-            filters={this.state.filters}
-            stypeInfo={this.props.stypeInfo}
-            stypes={stypes} />
+          onModifyFilters={this.handleModifyFilters}
+          filters={this.state.filters}
+          stypeInfo={this.props.stypeInfo}
+          stypes={stypes} />
         <ShipList
-            onModifyGoalTable={this.props.onModifyGoalTable}
-            onModifySorter={this.handleModifySorter}
-            templates={this.props.templates}
-            sorter={this.state.sorter}
-            ships={ships} />
+          onModifyGoalTable={this.props.onModifyGoalTable}
+          onModifySorter={this.handleModifySorter}
+          templates={this.props.templates}
+          sorter={this.state.sorter}
+          ships={ships} />
       </div>
     )
   }

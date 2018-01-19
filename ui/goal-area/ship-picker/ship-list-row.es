@@ -45,8 +45,10 @@ class ShipListRow extends Component {
         <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
         <td style={{textAlign: "center"}}>
           <Button
-              onClick={onAddToGoalTable}
-              style={{width: "80%", height: "18px", padding: "0"}} >+</Button>
+            onClick={onAddToGoalTable}
+            style={{width: "80%", height: "18px", padding: "0"}} >
+            +
+          </Button>
         </td>
       </tr>
     )

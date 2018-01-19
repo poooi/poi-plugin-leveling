@@ -24,14 +24,14 @@ class ApplyButton extends PureComponent {
     } = this.props
     return (
       <ButtonGroup
-          className="dropdown-apply-to"
-          style={{flex: 4}}
-          justified>
+        className="dropdown-apply-to"
+        style={{flex: 4}}
+        justified>
         <DropdownButton
-            id={`tb-view-dd-apply-${index}`}
-            disabled={editing || shipTargets.length === 0}
-            onSelect={onApplyTemplate}
-            title={__('Template.ApplyTo')}>
+          id={`tb-view-dd-apply-${index}`}
+          disabled={editing || shipTargets.length === 0}
+          onSelect={onApplyTemplate}
+          title={__('Template.ApplyTo')}>
           {
             shipTargets.map( shipTarget => {
               const { name, rstId, level, goalLevel } = shipTarget

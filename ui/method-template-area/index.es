@@ -150,23 +150,23 @@ class MethodTemplateArea extends Component {
     const { templates } = config
     return (
       <div
-          className="method-template-area"
-          style={{display: visible?'initial':'none'}}
+        className="method-template-area"
+        style={{display: visible?'initial':'none'}}
       >
         <div className="template-top-btns">
           <Button
-              style={{flex: 1}}
-              onClick={this.handleOpenResetDialog}>
+            style={{flex: 1}}
+            onClick={this.handleOpenResetDialog}>
             {__('Template.ResetToDefault')}
           </Button>
           <Button
-              style={{flex: 3}}
-              onClick={this.handleCreateNewTemplate}>
+            style={{flex: 3}}
+            onClick={this.handleCreateNewTemplate}>
             {__('Template.NewTemplate')}
           </Button>
         </div>
         <ListGroup
-            className="template-list"
+          className="template-list"
         >
           {
             /* eslint-disable react/no-array-index-key */
@@ -199,18 +199,18 @@ class MethodTemplateArea extends Component {
                   .sort((x,y) => x.rstId - y.rstId)
               return (
                 <TemplateBox
-                    stypeInfo={stypeInfo}
-                    shipTargets={applicableShips}
-                    key={ind}
-                    index={ind}
-                    upAction={upEnabled ? this.handleSwapTemplate(ind,ind-1) : null}
-                    downAction={downEnabled ? this.handleSwapTemplate(ind,ind+1) : null}
-                    editing={editing}
-                    onModifyGoalTable={onModifyGoalTable}
-                    onModifyTemplateListElem={this.handleModifyTemplateListElem(ind)}
-                    onModifyEditingState={this.handleModifyEditingState(ind)}
-                    onRemoveTemplate={this.handleRemoveTemplate}
-                    template={template} />
+                  stypeInfo={stypeInfo}
+                  shipTargets={applicableShips}
+                  key={ind}
+                  index={ind}
+                  upAction={upEnabled ? this.handleSwapTemplate(ind,ind-1) : null}
+                  downAction={downEnabled ? this.handleSwapTemplate(ind,ind+1) : null}
+                  editing={editing}
+                  onModifyGoalTable={onModifyGoalTable}
+                  onModifyTemplateListElem={this.handleModifyTemplateListElem(ind)}
+                  onModifyEditingState={this.handleModifyEditingState(ind)}
+                  onRemoveTemplate={this.handleRemoveTemplate}
+                  template={template} />
               )
             })
             /* eslint-enable react/no-array-index-key */

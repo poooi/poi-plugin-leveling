@@ -55,17 +55,17 @@ class GoalArea extends Component {
     } = this.props
     return (
       <div
-          className="goal-area"
-          style={{display: visible ? 'initial' : 'none'}}
+        className="goal-area"
+        style={{display: visible ? 'initial' : 'none'}}
       >
         <GoalListInst
-            onModifyGoalTable={onModifyGoalTable}
-            goalPairs={goalPairs} />
+          onModifyGoalTable={onModifyGoalTable}
+          goalPairs={goalPairs} />
         <ShipPicker
-            onModifyGoalTable={onModifyGoalTable}
-            stypeInfo={stypeInfo}
-            templates={templates}
-            ships={ships} />
+          onModifyGoalTable={onModifyGoalTable}
+          stypeInfo={stypeInfo}
+          templates={templates}
+          ships={ships} />
       </div>
     )
   }

@@ -25,10 +25,10 @@ class ViewButtons extends PureComponent {
   }
 
   static defaultProps = {
-    stypes: [],
     upAction: null,
     downAction: null,
   }
+
   render() {
     const {
       // template,
@@ -42,22 +42,22 @@ class ViewButtons extends PureComponent {
     return (
       <ButtonGroup className="template-controls">
         <UpOrDownButton
-            action={upAction}
-            dir="up" />
+          action={upAction}
+          dir="up" />
         <UpOrDownButton
-            action={downAction}
-            dir="down" />
+          action={downAction}
+          dir="down" />
         <ApplyButton
-            editing={editing}
-            shipTargets={shipTargets}
-            index={index}
-            onApplyTemplate={onApplyTemplate}
-            />
+          editing={editing}
+          shipTargets={shipTargets}
+          index={index}
+          onApplyTemplate={onApplyTemplate}
+        />
         <Button
-            bsStyle={isEnabled ? "success" : "danger"}
-            onClick={onToggleTemplate}
-            disabled={isMainTemplate || editing}
-            style={{flex: 2}}
+          bsStyle={isEnabled ? "success" : "danger"}
+          onClick={onToggleTemplate}
+          disabled={isMainTemplate || editing}
+          style={{flex: 2}}
         >
           <FontAwesome name={isEnabled ? "check-square-o" : "square-o"} />
         </Button>

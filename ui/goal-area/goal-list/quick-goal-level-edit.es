@@ -32,20 +32,18 @@ class QuickGoalLevelEdit extends Component {
         {
           rGoals.map( rGoal => (
             <ListGroupItem
-                key={`${rGoal.goalLevel}-${rGoal.reason.type}`}>
+              key={`${rGoal.goalLevel}-${rGoal.reason.type}`}>
               <div className="qg-item">
                 <div style={{flex: 5}}>Lv. {rGoal.goalLevel}</div>
                 <Button
-                    title={interpReason(rGoal.reason)}
-                    style={{flex: 2}}
-                    onClick={onRGoalLevelClick(rGoal.goalLevel)}
+                  title={interpReason(rGoal.reason)}
+                  style={{flex: 2}}
+                  onClick={onRGoalLevelClick(rGoal.goalLevel)}
                 >
                   <FontAwesome
-                      name={
-                        rGoal.goalLevel === goalLevel
-                          ? "dot-circle-o"
-                          : "circle-o"
-                           }
+                    name={
+                      rGoal.goalLevel === goalLevel ? "dot-circle-o" : "circle-o"
+                    }
                   />
                 </Button>
               </div>

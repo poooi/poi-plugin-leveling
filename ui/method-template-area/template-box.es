@@ -10,8 +10,7 @@ import { TemplateBoxView } from './template-box-view'
 import { TemplateBoxEdit } from './template-box-edit'
 
 const getSTypes = template =>
-    template.type === 'main' ? null
-  : template.stypes
+  template.type === 'main' ? null : template.stypes
 
 class TemplateBox extends Component {
   static propTypes = {
@@ -58,20 +57,20 @@ class TemplateBox extends Component {
     return (
       <ListGroupItem className="template-box">
         <TemplateBoxView
-            stypes={this.state.stypes}
-            onStartEdit={this.handleStartEdit}
-            onFinishEdit={this.handleFinishEdit}
-            editing={this.props.editing}
-            {...this.props}
+          stypes={this.state.stypes}
+          onStartEdit={this.handleStartEdit}
+          onFinishEdit={this.handleFinishEdit}
+          editing={this.props.editing}
+          {...this.props}
         />
         <Collapse in={this.props.editing}>
           <div>
             <TemplateBoxEdit
-                onModifySTypes={this.handleModifySTypes}
-                onModifyTemplateListElem={this.props.onModifyTemplateListElem}
-                onFinishEdit={this.handleFinishEdit}
-                stypes={this.state.stypes}
-                {...this.props}
+              onModifySTypes={this.handleModifySTypes}
+              onModifyTemplateListElem={this.props.onModifyTemplateListElem}
+              onFinishEdit={this.handleFinishEdit}
+              stypes={this.state.stypes}
+              {...this.props}
             />
           </div>
         </Collapse>

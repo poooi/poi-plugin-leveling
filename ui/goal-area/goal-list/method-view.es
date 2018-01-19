@@ -49,10 +49,10 @@ class MethodView extends Component {
     const methodText = prepareMethodText(method)
     return (
       <ThreeRows
-          style={{...style}}
-          first={__('GoalBox.Method')}
-          second={methodText.main}
-          third={methodText.second}
+        style={{...style}}
+        first={__('GoalBox.Method')}
+        second={methodText.main}
+        third={methodText.second}
       />)
   }
 }

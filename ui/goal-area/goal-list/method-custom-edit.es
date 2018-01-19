@@ -19,8 +19,8 @@ class MethodCustomEdit extends Component {
     return (
       <div className="custom-edit" style={{display: visible ? "initial" : "none"}}>
         <ExpValueEdit
-            expValue={customInput}
-            onValueChange={this.handleValueChange}
+          expValue={customInput}
+          onValueChange={this.handleValueChange}
         />
       </div>
     )
