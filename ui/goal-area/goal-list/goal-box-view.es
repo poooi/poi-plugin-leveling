@@ -23,14 +23,14 @@ class GoalBoxView extends Component {
     const { ship, goal, extra } = eGoalPair
     const { method } = goal
 
-    const remainingExp = extra.remainingExp
+    const {remainingExp} = extra
     const goalAchieved = remainingExp <= 0
     const remainingExpText = goalAchieved
       ? "+Exp. 0"
       : `+Exp. ${remainingExp}`
 
     const computeResultText = () => {
-      const remainingBattles = extra.remainingBattles
+      const {remainingBattles} = extra
       return remainingBattles.length === 1
         ? String(remainingBattles[0])
         : `${remainingBattles[0]} ~ ${remainingBattles[1]}`

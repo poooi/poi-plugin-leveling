@@ -6,6 +6,10 @@ import { PTyp } from '../../../ptyp'
 
 const { __ } = window
 
+// TODO: some really unnecessary lints are disabled for now
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 class GoalSorterRow extends Component {
   static makeSorterSpec = (name,method,asc=true) =>
     ({ name, method, asc })

@@ -13,14 +13,14 @@ const getGoalTablePath = admiralId => {
 
 const updateGoalTable = gt => {
   const updateMethod = Method.destruct({
-    sortie: (flagship,mvp,rank,baseExp,method) =>
+    sortie: (flagship,_mvp,_rank,_baseExp,method) =>
       (['yes','no','maybe'].indexOf(flagship) !== -1
         ? method
         : {
           ...method,
           flagship: method.flagship ? "yes" : "no",
         }),
-    custom: (exp,method) => method,
+    custom: (_exp,method) => method,
   })
 
   const updateGoal = goal => ({

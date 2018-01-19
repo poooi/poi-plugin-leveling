@@ -25,7 +25,7 @@ if (i18n.resources.__ == null) {
   i18n.resources.__ = str => str
 }
 if (i18n.resources.translate == null) {
-  i18n.resources.translate = (locale, str) => str
+  i18n.resources.translate = (_locale, str) => str
 }
 if (i18n.resources.setLocale == null) {
   i18n.resources.setLocale = () => {}

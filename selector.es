@@ -83,7 +83,7 @@ const shipListSplitSelector = createSelector(
   shipsInfoSelector,
   admiralIdSelector,
   goalTableSelector,
-  (ships, admiralId, goalTable) => {
+  (ships, _admiralId, goalTable) => {
     if (goalTable === null)
       return {
         shipsWithoutGoal: [],
