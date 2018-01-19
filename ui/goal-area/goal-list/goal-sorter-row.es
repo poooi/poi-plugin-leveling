@@ -57,18 +57,19 @@ class GoalSorterRow extends Component {
             }
             return (
               <Button
-                  onClick={this.handleClickSorter(method)}
-                  bsStyle={isActive ? "primary" : "default"}
-                  key={method}>{content}</Button>
+                onClick={this.handleClickSorter(method)}
+                bsStyle={isActive ? "primary" : "default"}
+                key={method}>{content}
+              </Button>
             )
           })
         }
         <a
-            onClick={this.handleOpenUserManual}
-            style={{
-              marginLeft: 'auto',
-              fontSize: '1.2em',
-            }}
+          onClick={this.handleOpenUserManual}
+          style={{
+            marginLeft: 'auto',
+            fontSize: '1.2em',
+          }}
         >
           {__('UserManual.Desc')}
         </a>

@@ -94,19 +94,19 @@ class GoalList extends Component {
     return (
       <div>
         <GoalSorterRow
-            sorter={goalSorter}
-            onModifySorter={this.handleModifySorter}
-            />
+          sorter={goalSorter}
+          onModifySorter={this.handleModifySorter}
+        />
         <ListGroup className="goal-list">
           {
             eGoalPairs.map(eGoalPair => {
               const { ship } = eGoalPair
               return (
                 <GoalBox
-                    onModifyGoalTable={onModifyGoalTable}
-                    key={ship.rstId}
-                    rGoals={rmdGoals[ship.rstId]}
-                    eGoalPair={eGoalPair} />
+                  onModifyGoalTable={onModifyGoalTable}
+                  key={ship.rstId}
+                  rGoals={rmdGoals[ship.rstId]}
+                  eGoalPair={eGoalPair} />
               )
             })
           }

@@ -5,20 +5,20 @@ import {
 
 class Template {
   static destruct = ({main,custom}) => expectObject(obj =>
-      obj.type === 'main' ? main(obj.method,obj)
-    : obj.type === 'custom' ? custom(obj.method,obj.enabled,obj.stypes)
-    : reportTypeError(Template,obj.type))
+    obj.type === 'main' ? main(obj.method,obj) :
+    obj.type === 'custom' ? custom(obj.method,obj.enabled,obj.stypes) :
+    reportTypeError(Template,obj.type))
 
   // Template.match(<template>)(<ship type>) => bool
   static match = Template.destruct({
     main: () => (/* stype (ignored) */) => true,
-    custom: (method,enabled,stypes) =>
+    custom: (_method, _enabled, stypes) =>
       stype => stypes.indexOf(stype) !== -1,
   })
 
   static isEnabled = Template.destruct({
     main: () => true,
-    custom: (method,enabled) => enabled,
+    custom: (_method,enabled) => enabled,
   })
 }
 

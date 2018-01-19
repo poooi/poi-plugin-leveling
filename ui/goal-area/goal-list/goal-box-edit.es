@@ -34,9 +34,8 @@ const fillStates = Method.destruct({
         expValue: expValueFromBaseExp(baseExp),
       },
       customInput:
-          expRange.length === 1
-        ? { type: 'single', value: expRange[0] }
-        : { type: 'range', min: expRange[0], max: expRange[1] },
+        expRange.length === 1 ? { type: 'single', value: expRange[0] } :
+        { type: 'range', min: expRange[0], max: expRange[1] },
     }
   },
   custom: exp => {
@@ -56,9 +55,7 @@ const fillStates = Method.destruct({
 })
 
 const toValidLevel = inp =>
-    inp < 1 ? 1
-  : inp > 165 ? 165
-  : Math.floor(inp)
+  inp < 1 ? 1 : inp > 165 ? 165 : Math.floor(inp)
 
 const normalizeExpValue = expValue => {
   if (expValue.type === 'single') {
@@ -81,11 +78,12 @@ const stateToMethod = state => {
     const { sortieInput } = state
     const { flagship, mvp, rank, baseExpType } = sortieInput
     const baseExp =
-        baseExpType === 'standard'
-      ? { type: 'standard', map: sortieInput.expMap }
-      : baseExpType === 'custom'
-      ? { type: 'custom', value: normalizeExpValue( sortieInput.expValue ) }
-      : console.error(`Invalid baseExpType: ${baseExpType}`)
+      baseExpType === 'standard' ? { type: 'standard', map: sortieInput.expMap } :
+      baseExpType === 'custom' ? {
+        type: 'custom',
+        value: normalizeExpValue( sortieInput.expValue ),
+      } :
+      console.error(`Invalid baseExpType: ${baseExpType}`)
 
     return {
       type: 'sortie',

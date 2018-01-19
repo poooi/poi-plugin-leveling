@@ -47,11 +47,11 @@ const describeFilterWith = (stypeInfo,__) => filterName => {
 
   if (filterName === 'level')
     return l =>
-        l === 'all' ? trAll
-      : l === 'ge-100' ? '≥ 100'
-      : l === 'lt-99' ? '< 99'
-      : l === 'under-final' ? __('Filter.UnderFinalRemodelLevelShort')
-      : l
+      l === 'all' ? trAll :
+      l === 'ge-100' ? '≥ 100' :
+      l === 'lt-99' ? '< 99' :
+      l === 'under-final' ? __('Filter.UnderFinalRemodelLevelShort') :
+      l
 
   if (filterName === 'fleet')
     return fNum => fNum === 'all' ? trAll : __('Filter.FleetX',fNum)

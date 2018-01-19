@@ -48,7 +48,7 @@ const computePossibleExps = Method.destruct({
           _.flatMap(flagshipFlags, flagshipFlag =>
             _.flatMap(ranks, rank =>
               computeExp(baseExpNum,flagshipFlag,mvpFlag,rank)))))
-         .sort((x,y) => x-y))
+        .sort((x,y) => x-y))
   },
   custom: exp => ExpValue.toArray(exp),
 })

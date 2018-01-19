@@ -33,19 +33,19 @@ class GoalBox extends Component {
     return (
       <ListGroupItem className="goal-box">
         <GoalBoxView
-            editing={this.state.editing}
-            onStartEdit={this.handleStartEdit}
-            onFinishEdit={this.handleFinishEdit}
-            eGoalPair={eGoalPair}
+          editing={this.state.editing}
+          onStartEdit={this.handleStartEdit}
+          onFinishEdit={this.handleFinishEdit}
+          eGoalPair={eGoalPair}
         />
         <Collapse in={this.state.editing}>
           <div>
             <GoalBoxEdit
-                onFinishEdit={this.handleFinishEdit}
-                onModifyGoalTable={onModifyGoalTable}
-                ship={ship}
-                goal={goal}
-                rGoals={rGoals}
+              onFinishEdit={this.handleFinishEdit}
+              onModifyGoalTable={onModifyGoalTable}
+              ship={ship}
+              goal={goal}
+              rGoals={rGoals}
             />
           </div>
         </Collapse>

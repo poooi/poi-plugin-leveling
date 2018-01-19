@@ -39,32 +39,32 @@ class GoalBoxView extends Component {
     return (
       <div className="goal-box-view" style={{display: "flex", alignItems: "center"}}>
         <ThreeRows
-            style={{flex: 3}}
-            first={ship.typeName}
-            second={ship.name}
-            third={`Id: ${ship.rstId}`}
+          style={{flex: 3}}
+          first={ship.typeName}
+          second={ship.name}
+          third={`Id: ${ship.rstId}`}
         />
         <ThreeRows
-            style={{flex: 2}}
-            first={__('GoalBox.Level')}
-            second={ship.level}
-            third={`Next: ${ship.expToNext}`}
+          style={{flex: 2}}
+          first={__('GoalBox.Level')}
+          second={ship.level}
+          third={`Next: ${ship.expToNext}`}
         />
         <ThreeRows
-            style={{flex: 2}}
-            first={__('GoalBox.Goal')}
-            second={goal.goalLevel}
-            third={remainingExpText}
+          style={{flex: 2}}
+          first={__('GoalBox.Goal')}
+          second={goal.goalLevel}
+          third={remainingExpText}
         />
         <MethodView
-            style={{flex: 5}}
-            method={method}
-            />
+          style={{flex: 5}}
+          method={method}
+        />
         <ThreeRows
-            style={{flex: 3}}
-            first={__('GoalBox.Result')}
-            second={goalAchieved ? "-" : computeResultText()}
-            third={__('GoalBox.ResultBattles')}
+          style={{flex: 3}}
+          first={__('GoalBox.Result')}
+          second={goalAchieved ? "-" : computeResultText()}
+          third={__('GoalBox.ResultBattles')}
         />
         <div style={{width: "8%", display: "flex", flexDirection: "column"}}>
           <Button onClick={editing ? onFinishEdit : onStartEdit} >

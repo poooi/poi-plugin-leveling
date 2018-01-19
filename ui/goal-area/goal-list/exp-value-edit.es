@@ -65,29 +65,26 @@ class ExpValueEdit extends Component {
     return (
       <div className="exp-value-edit" style={{display: "flex"}}>
         <Checkbox
-            onChange={this.handleRangeToggle}
-            checked={isRanged}>{__('EditMethod.Ranged')}</Checkbox>
+          onChange={this.handleRangeToggle}
+          checked={isRanged}>{__('EditMethod.Ranged')}
+        </Checkbox>
         <FormControl
-            style={{flex: 1}}
-            type="number"
-            onChange={this.handleFirstValueChange}
-            value={
-              isRanged
-                 ? this.props.expValue.min
-                 : this.props.expValue.value
-            }
+          style={{flex: 1}}
+          type="number"
+          onChange={this.handleFirstValueChange}
+          value={
+            isRanged ? this.props.expValue.min : this.props.expValue.value
+          }
         />
         ~
         <FormControl
-            style={{flex: 1}}
-            type="number"
-            readOnly={!isRanged}
-            onChange={this.handleSecondValueChange}
-            value={
-              isRanged
-                 ? this.props.expValue.max
-                 : this.props.expValue.value
-            }
+          style={{flex: 1}}
+          type="number"
+          readOnly={!isRanged}
+          onChange={this.handleSecondValueChange}
+          value={
+            isRanged ? this.props.expValue.max : this.props.expValue.value
+          }
         />
       </div>
     )
