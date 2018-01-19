@@ -56,5 +56,3 @@ typings/
 
 # dotenv environment variables file
 .env
-/misc/ships.nedb
-/misc/wctf_stats.json
