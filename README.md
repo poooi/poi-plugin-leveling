@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 1.2.3
+
+- WhoCallsTheFleet data now comes from fcd
+
 ### 1.2.2
 
 - Panel Update for react-bootstrap
