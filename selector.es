@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { createSelector } from 'reselect'
 
 import {
@@ -6,6 +7,7 @@ import {
   fleetsSelector,
   basicSelector,
   extensionSelectorFactory,
+  wctfSelector,
 } from 'views/utils/selectors'
 
 import {
@@ -190,6 +192,32 @@ const methodTemplateUISelector = createSelector(
   }
 )
 
+const shipStatsAtLevelFuncSelector = createSelector(
+  wctfSelector,
+  wctf => _.memoize(mstId => {
+    const statInfo = _.get(wctf,['ships',mstId,'stat'])
+    if (!statInfo) {
+      return _level => ({evasion: null, asw: null, los: null})
+    } else {
+      return level =>
+        _.fromPairs(
+          ['evasion', 'asw', 'los'].map(statName => {
+            const stBase = statInfo[statName]
+            const stMax = statInfo[`${statName}_max`]
+            let statVal = null
+            if (
+              _.isInteger(stBase) && stBase >= 0 &&
+              _.isInteger(stMax) && stMax >= 0
+            ) {
+              statVal = stBase + Math.floor((stMax - stBase) * level / 99)
+            }
+            return [statName, statVal]
+          })
+        )
+    }
+  })
+)
+
 export {
   goalTableSelector,
   goalAreaUISelector,
@@ -197,4 +225,5 @@ export {
   levelingConfigSelector,
   methodTemplateUISelector,
   shipListSplitSelector,
+  shipStatsAtLevelFuncSelector,
 }

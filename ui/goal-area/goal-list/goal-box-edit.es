@@ -1,3 +1,4 @@
+import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
   Panel,
@@ -5,14 +6,15 @@ import {
   FormControl,
 } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
+import { connect } from 'react-redux'
 
 import {
   expValueFromBaseExp,
   computeExpRange,
 } from '../../../map-exp'
 import { PTyp } from '../../../ptyp'
-import { statsAtLevel } from '../../../ship-stat'
 import { Method } from '../../../structs'
+import { shipStatsAtLevelFuncSelector } from '../../../selector'
 
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
@@ -105,32 +107,34 @@ const stateToMethod = state => {
   console.error(`Invalid methodType: ${methodType}`)
 }
 
-class GoalBoxEdit extends Component {
+const prepareState = props => {
+  const { goal } = props
+  return {
+    goalLevel: goal.goalLevel,
+    methodType: goal.method.type,
+    ...fillStates(goal.method),
+  }
+}
+
+class GoalBoxEditImpl extends Component {
   static propTypes = {
-    goal: PTyp.Goal.isRequired,
+    // goal: PTyp.Goal.isRequired,
     ship: PTyp.Ship.isRequired,
     rGoals: PTyp.arrayOf(PTyp.RGoalLevel).isRequired,
+    shipStatsAtLevel: PTyp.func.isRequired,
 
     onModifyGoalTable: PTyp.func.isRequired,
     onFinishEdit: PTyp.func.isRequired,
   }
 
-  static prepareState = props => {
-    const { goal } = props
-    return {
-      goalLevel: goal.goalLevel,
-      methodType: goal.method.type,
-      ...fillStates(goal.method),
-    }
-  }
 
   constructor(props) {
     super(props)
-    this.state = GoalBoxEdit.prepareState(props)
+    this.state = prepareState(props)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(GoalBoxEdit.prepareState(nextProps))
+    this.setState(prepareState(nextProps))
   }
 
   handleGoalLevelChange = e => {
@@ -174,8 +178,9 @@ class GoalBoxEdit extends Component {
   }
 
   render() {
+    const {shipStatsAtLevel} = this.props
     const statEst =
-      statsAtLevel(this.props.ship.mstId)(this.state.goalLevel)
+      shipStatsAtLevel(this.props.ship.mstId)(this.state.goalLevel)
     const hasStatEst =
       statEst.evasion !== null &&
       statEst.asw !== null &&
@@ -249,5 +254,11 @@ class GoalBoxEdit extends Component {
     )
   }
 }
+
+const GoalBoxEdit = connect(
+  createStructuredSelector({
+    shipStatsAtLevel: shipStatsAtLevelFuncSelector,
+  })
+)(GoalBoxEditImpl)
 
 export { GoalBoxEdit, fillStates, stateToMethod }
