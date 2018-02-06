@@ -10,7 +10,7 @@ your ship girl leveling plans.
 
 ## Changelog
 
-### 1.3.0 (pending)
+### 2.0.0 (pending)
 
 ### 1.2.3
 

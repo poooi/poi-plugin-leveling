@@ -46,8 +46,12 @@ in its `Method` part automatically by using a matching template.
     {
       type: <string>,
       method: <Method>,
+      id: 'main' or <int>
     }
     ```
+
+    `id` must be `main` if type is `main`, otherwise, it must be an unique positive integer
+    among list members.
 
 - when `type` is `main`
 
