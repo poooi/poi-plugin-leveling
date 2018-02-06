@@ -15,6 +15,15 @@ import { MethodTemplateArea } from './method-template-area'
 
 const { $, __ } = window
 
+/*
+   TODO
+
+   - update config -> p-state, together with goal-table updates
+   - note that ships can be identified by rosterId, but templates aren't,
+     we might give it an id to make things easier
+
+ */
+
 window.store = store
 
 $('#fontawesome-css')
