@@ -66,4 +66,5 @@ ReactDOM.render(
   <Provider store={store}>
     <LevelingMain />
   </Provider>,
-  $("#content-root"))
+  $('#content-root')
+)
