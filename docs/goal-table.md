@@ -84,12 +84,11 @@ and configuration of each individual goal.
     ```
     {
       type: "standard",
-      map: <see note above>,
+      mapId: <number>,
     }
     ```
 
-    Note: `map` refers to one key of `/assets/map_exp.json`,
-    which is also a map naming convention among game players.
+    `mapId` must refer to one map defined in `/assets/map_exp.json`.
 
 - when `type` is `custom`
 

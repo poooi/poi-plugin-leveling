@@ -20,6 +20,8 @@ import {
   statSync,
   moveSync,
 } from 'fs-extra'
+import { modifyObject } from 'subtender'
+import { mapStrToId } from 'subtender/kc'
 
 const { APPDATA_PATH } = window
 
@@ -46,11 +48,34 @@ const fileExists = path => {
   }
 }
 
-// just need to insert a version number
-const migrateLegacyGoalTable = obj => ({
-  ...obj,
-  $version: '2.0.0',
-})
+const updateMethod = method => {
+  if (method.type === 'sortie') {
+    return modifyObject(
+      'baseExp',
+      be =>
+        (be.type === 'standard') ? ({
+          type: 'standard',
+          mapId: mapStrToId(be.map),
+        }) : be
+    )(method)
+  } else {
+    // must be type 'custom'
+    return method
+  }
+}
+
+const migrateLegacyGoalTable = goalTable => {
+  const newGoalTable = _.mapValues(
+    goalTable,
+    goal =>
+      modifyObject('method', updateMethod)(goal)
+  )
+
+  return {
+    ...newGoalTable,
+    $version: '2.0.0',
+  }
+}
 
 const migrateLegacyConfig = oldConf => {
   let {goalSorter, templates} = oldConf
@@ -64,7 +89,7 @@ const migrateLegacyConfig = oldConf => {
 
   if (!Array.isArray(templates) || templates.length === 0) {
     console.warn(`templates shouldn't be empty, using default value ...`)
-    // default template list (as of 2.0.0)
+    // default template list (**prior to** 2.0.0)
     templates = [{
       type: 'main',
       method: {
@@ -81,9 +106,10 @@ const migrateLegacyConfig = oldConf => {
   }
 
   const newTemplates = templates.map((template, ind) => {
+    const newTemplate = modifyObject('method', updateMethod)(template)
     const id = template.type === 'main' ? 'main' : ind+1
     return {
-      ...template,
+      ...newTemplate,
       id,
     }
   })

@@ -16,6 +16,7 @@ const genSimpleDefaultTemplateList = () => [{
       map: '5-4',
     },
   },
+  id: 'main',
 }]
 
 const initState = {
@@ -32,6 +33,15 @@ const initState = {
   },
   // <TemplateList>
   templates: genSimpleDefaultTemplateList(),
+  /*
+     now p-state keeps the following two parts:
+
+     - <store>.ui
+     - <store>.templates
+
+     and pReady indicates whether these two parts have been loaded properly.
+   */
+  pReady: false,
   /*
      for keeping info for a specific admiralId.
 
