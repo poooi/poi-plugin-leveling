@@ -4,7 +4,9 @@ import { connect, Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
 import { Nav, NavItem } from 'react-bootstrap'
 
-import { reducer, mapDispatchToProps } from '../reducer'
+// import { reducer, mapDispatchToProps } from '../reducer'
+import { reducer } from '../store'
+
 import {
   goalAreaUISelector,
   methodTemplateUISelector,
@@ -31,12 +33,12 @@ $('#fontawesome-css')
 
 const GoalAreaInst = connect(
   goalAreaUISelector,
-  mapDispatchToProps,
+  // mapDispatchToProps,
 )(GoalArea)
 
 const MethodTemplateAreaInst = connect(
   methodTemplateUISelector,
-  mapDispatchToProps,
+  // mapDispatchToProps,
 )(MethodTemplateArea)
 
 class LevelingMain extends Component {

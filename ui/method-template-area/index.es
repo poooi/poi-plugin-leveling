@@ -17,7 +17,7 @@ class MethodTemplateArea extends Component {
   static propTypes = {
     visible: PTyp.bool.isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    config: PTyp.Config.isRequired,
+    // config: PTyp.Config.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
     onModifyConfig: PTyp.func.isRequired,
     onModifyGoalTable: PTyp.func.isRequired,

@@ -57,4 +57,6 @@ const initState = {
   },
 }
 
-export { initState }
+const reducer = (state = initState, _action) => state
+
+export { initState, reducer }

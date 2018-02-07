@@ -30,7 +30,7 @@ class GoalArea extends Component {
     templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
     // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
-    onInitialize: PTyp.func.isRequired,
+    // onInitialize: PTyp.func.isRequired,
     // onModifyGoalTable(<modifier>) where modifier :: GoalTable -> GoalTable
     onModifyGoalTable: PTyp.func.isRequired,
   }
@@ -40,8 +40,8 @@ class GoalArea extends Component {
   }
 
   componentWillMount() {
-    const { onInitialize, admiralId } = this.props
-    onInitialize(admiralId)
+    // const { onInitialize, admiralId } = this.props
+    // onInitialize(admiralId)
   }
 
   render() {

@@ -1,5 +1,8 @@
 import _ from 'lodash'
-import { createSelector } from 'reselect'
+import {
+  createSelector,
+  createStructuredSelector,
+} from 'reselect'
 
 import {
   shipsSelector,
@@ -56,15 +59,13 @@ const shipsInfoSelector = createSelector(
 
 const admiralIdSelector = createSelector(
   basicSelector,
-  d => parseInt(d.api_member_id,10))
+  d => parseInt(d.api_member_id,10)
+)
 
 const goalTableSelector = createSelector(
   extensionSelectorFactory('poi-plugin-leveling'),
-  s => s.goalTable)
-
-const levelingConfigSelector = createSelector(
-  extensionSelectorFactory('poi-plugin-leveling'),
-  s => s.config)
+  ext => _.get(ext, ['goals', 'goalTable']) || {}
+)
 
 const shipTypeInfoSelector = createSelector(
   constSelector,
@@ -108,9 +109,14 @@ const shipListSplitSelector = createSelector(
   }
 )
 
+const templateListSelector = createSelector(
+  extensionSelectorFactory('poi-plugin-leveling'),
+  ext => _.get(ext, ['templates'])
+)
+
 const enabledTemplateListSelector = createSelector(
-  levelingConfigSelector,
-  ({templates}) =>
+  templateListSelector,
+  templates =>
     templates.filter(Template.isEnabled),
 )
 
@@ -168,9 +174,21 @@ const recommendedGoalsSelector = createSelector(
   }
 )
 
+const goalSorterSelector = createSelector(
+  extensionSelectorFactory('poi-plugin-leveling'),
+  ext => _.get(ext, ['ui', 'goalTab', 'sortMethod'])
+)
+
+const virtualConfigSelector = createStructuredSelector({
+  goalSorter: goalSorterSelector,
+  templates: templateListSelector,
+})
+
+const levelingConfigSelector = virtualConfigSelector
+
 const methodTemplateUISelector = createSelector(
   shipTypeInfoSelector,
-  levelingConfigSelector,
+  virtualConfigSelector,
   shipListSplitSelector,
   (stypeInfo,config,{goalPairs}) => {
     const purgeGoalPair = ({goal,ship}) => ({
