@@ -24,6 +24,7 @@ import { mapStrToId } from 'subtender/kc'
 import {
   getPluginDirPath, getBackupDirPath,
 } from './file-common'
+import { Method } from './structs'
 
 const fileExists = path => {
   try {
@@ -50,7 +51,36 @@ const updateMethod = method => {
   }
 }
 
-const migrateLegacyGoalTable = goalTable => {
+const migrateLegacyGoalTable = goalTableInp => {
+  const updateLegacyGoalTable = gt => {
+    const updateLegacyMethod = Method.destruct({
+      sortie: (flagship,_mvp,_rank,_baseExp,method) =>
+        (
+          // flagship used to be a bool, but it make sense to
+          // have yes/no/maybe for it.
+          ['yes','no','maybe'].includes(flagship) ?
+            method : {
+              ...method,
+              flagship: method.flagship ? 'yes' : 'no',
+            }
+        ),
+      custom: (_exp,method) => method,
+    })
+
+    const updateGoal = goal => ({
+      ...goal,
+      method: updateLegacyMethod(goal.method),
+    })
+
+    const ret = {}
+    Object.keys(gt).map(rstIdStr => {
+      ret[rstIdStr] = updateGoal(gt[rstIdStr])
+    })
+    return ret
+  }
+
+  const goalTable = updateLegacyGoalTable(goalTableInp)
+
   const newGoalTable = _.mapValues(
     goalTable,
     goal =>

@@ -1,8 +1,9 @@
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
-import { Method } from './structs'
 
 const { APPDATA_PATH } = window
+
+const latestVersion = '2.0.0'
 
 // ensures goal table path exists, and returns goal table file name
 const getGoalTablePath = admiralId => {
@@ -11,28 +12,30 @@ const getGoalTablePath = admiralId => {
   return join(goalTablePath, `goal-table-${admiralId}.json`)
 }
 
-const updateGoalTable = gt => {
-  const updateMethod = Method.destruct({
-    sortie: (flagship,_mvp,_rank,_baseExp,method) =>
-      (['yes','no','maybe'].indexOf(flagship) !== -1
-        ? method
-        : {
-          ...method,
-          flagship: method.flagship ? "yes" : "no",
-        }),
-    custom: (_exp,method) => method,
-  })
 
-  const updateGoal = goal => ({
-    ...goal,
-    method: updateMethod(goal.method),
-  })
+const saveGoalTable = (admiralId,gt) => {
+  try {
+    const filePath = getGoalTablePath(admiralId)
+    const gtWithVer = {
+      ...gt,
+      $version: latestVersion,
+    }
+    writeJsonSync(filePath,gtWithVer)
+  } catch (err) {
+    console.error('Error while writing to goal table file', err)
+  }
+}
 
-  const ret = {}
-  Object.keys(gt).map(rstIdStr => {
-    ret[rstIdStr] = updateGoal(gt[rstIdStr])
-  })
-  return ret
+const updateGoalTable = oldGT => {
+  // eslint-disable-next-line prefer-const
+  let curGT = oldGT
+
+  if (curGT.$version === latestVersion) {
+    const {$version: _ignored, ...actualGT} = curGT
+    return actualGT
+  }
+
+  throw new Error(`error while updating p-state`)
 }
 
 const loadGoalTable = admiralId => {
@@ -48,16 +51,7 @@ const loadGoalTable = admiralId => {
   return {}
 }
 
-const saveGoalTable = (admiralId,gt) => {
-  try {
-    const filePath = getGoalTablePath(admiralId)
-    writeJsonSync(filePath,gt)
-  } catch (err) {
-    console.error('Error while writing to goal table file', err)
-  }
-}
-
 export {
-  loadGoalTable,
   saveGoalTable,
+  loadGoalTable,
 }

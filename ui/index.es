@@ -17,8 +17,19 @@ import {
 
 import { GoalArea } from './goal-area'
 import { MethodTemplateArea } from './method-template-area'
+import { globalSubscribe, globalUnsubscribe } from '../observers'
 
 const { $, __ } = window
+
+extendReducer('poi-plugin-leveling', reducer)
+globalSubscribe()
+
+const handleWindowUnload = () => {
+  window.removeEventListener('unload', handleWindowUnload)
+  globalUnsubscribe()
+}
+
+window.addEventListener('unload', handleWindowUnload)
 
 /*
    TODO
@@ -83,8 +94,6 @@ class LevelingMain extends Component {
     )
   }
 }
-
-extendReducer('poi-plugin-leveling', reducer)
 
 ReactDOM.render(
   <Provider store={store}>
