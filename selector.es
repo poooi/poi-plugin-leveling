@@ -57,11 +57,6 @@ const shipsInfoSelector = createSelector(
     })
   })
 
-const admiralIdSelector = createSelector(
-  basicSelector,
-  d => parseInt(d.api_member_id,10)
-)
-
 const goalTableSelector = createSelector(
   extensionSelectorFactory('poi-plugin-leveling'),
   ext => _.get(ext, ['goals', 'goalTable']) || {}
@@ -77,6 +72,19 @@ const shipTypeInfoSelector = createSelector(
     })
     return result.sort((a,b) => a.id-b.id)
   })
+
+const admiralIdSelector = createSelector(
+  basicSelector,
+  basic => {
+    const raw = _.get(basic, 'api_member_id')
+    if (raw) {
+      const parsed = Number(raw)
+      return _.isInteger(parsed) ? parsed : null
+    } else {
+      return null
+    }
+  }
+)
 
 // split ship list into two parts:
 // 'shipsWithoutGoal' is the ship list for ships without goal
@@ -244,4 +252,5 @@ export {
   methodTemplateUISelector,
   shipListSplitSelector,
   shipStatsAtLevelFuncSelector,
+  admiralIdSelector,
 }

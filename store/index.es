@@ -1,6 +1,9 @@
 import _ from 'lodash'
 import { bindActionCreators } from 'redux'
+import { modifyObject } from 'subtender'
 import { store } from 'views/create-store'
+
+import { loadGoalTable } from '../goal-table'
 
 /*
 
@@ -104,6 +107,15 @@ const actionCreators = {
     type: '@poi-plugin-leveling@modify',
     modifier,
   }),
+  loadGoalTable: admiralId => dispatch =>
+    setTimeout(() => {
+      const goalTable = loadGoalTable(admiralId)
+      const goals = {
+        admiralId,
+        goalTable,
+      }
+      dispatch(actionCreators.modify(modifyObject('goals', () => goals)))
+    }),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>

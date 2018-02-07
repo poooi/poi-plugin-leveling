@@ -13,13 +13,14 @@ import { loadPState } from '../p-state'
 import {
   goalAreaUISelector,
   methodTemplateUISelector,
+  admiralIdSelector,
 } from '../selector'
 
 import { GoalArea } from './goal-area'
 import { MethodTemplateArea } from './method-template-area'
 import { globalSubscribe, globalUnsubscribe } from '../observers'
 
-const { $, __ } = window
+const { $, __, getStore } = window
 
 extendReducer('poi-plugin-leveling', reducer)
 globalSubscribe()
@@ -48,6 +49,10 @@ setTimeout(() => {
   migrate()
   const pStateOrNull = loadPState()
   bac.ready(pStateOrNull)
+  const admiralId = admiralIdSelector(getStore())
+  if (admiralId) {
+    bac.loadGoalTable(admiralId)
+  }
 })
 
 $('#fontawesome-css').setAttribute(
