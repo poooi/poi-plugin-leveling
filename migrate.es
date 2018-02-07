@@ -80,6 +80,14 @@ const migrateLegacyConfig = oldConf => {
     }]
   }
 
+  const newTemplates = templates.map((template, ind) => {
+    const id = template.type === 'main' ? 'main' : ind+1
+    return {
+      ...template,
+      id,
+    }
+  })
+
   const pState = {
     ui: {
       activeTab: 'goal',
@@ -87,7 +95,7 @@ const migrateLegacyConfig = oldConf => {
         sortMethod: goalSorter,
       },
     },
-    templates,
+    templates: newTemplates,
     $version: '2.0.0',
   }
   return pState
