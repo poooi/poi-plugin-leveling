@@ -40,12 +40,12 @@ class ExpValue {
 
 class BaseExp {
   static destruct = ({standard,custom}) => expectObject(obj =>
-    obj.type === 'standard' ? standard(obj.map,obj) :
+    obj.type === 'standard' ? standard(obj.mapId,obj) :
     obj.type === 'custom' ? custom(obj.value,obj) :
     reportTypeError(BaseExp,obj.type))
   static toExpValueWithGetter = mapExpGetter =>
     BaseExp.destruct({
-      standard: map => mapExpGetter(map),
+      standard: mapId => mapExpGetter(mapId),
       custom: value => value,
     })
 }

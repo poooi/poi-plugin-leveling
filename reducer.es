@@ -1,3 +1,7 @@
+/*
+   TODO: this module is no longer in use,
+   we'll start implementing corresponding actions and then remove this one.
+ */
 import {
   loadGoalTable,
   saveGoalTable,

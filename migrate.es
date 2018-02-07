@@ -16,28 +16,14 @@ import { join } from 'path-extra'
 import {
   readJsonSync,
   writeJsonSync,
-  ensureDirSync,
   statSync,
   moveSync,
 } from 'fs-extra'
 import { modifyObject } from 'subtender'
 import { mapStrToId } from 'subtender/kc'
-
-const { APPDATA_PATH } = window
-
-// TODO: file-common.es
-const getPluginDirPath = _.memoize(() => {
-  const dirPath = join(APPDATA_PATH, 'leveling')
-  ensureDirSync(dirPath)
-  return dirPath
-})
-
-const getBackupDirPath = _.memoize(() => {
-  const dirPath = getPluginDirPath()
-  const backupPath = join(dirPath, 'backup')
-  ensureDirSync(backupPath)
-  return backupPath
-})
+import {
+  getPluginDirPath, getBackupDirPath,
+} from './file-common'
 
 const fileExists = path => {
   try {

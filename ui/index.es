@@ -5,7 +5,10 @@ import { store, extendReducer } from 'views/create-store'
 import { Nav, NavItem } from 'react-bootstrap'
 
 // import { reducer, mapDispatchToProps } from '../reducer'
-import { reducer } from '../store'
+import { reducer, boundActionCreators as bac } from '../store'
+
+import { migrate } from '../migrate'
+import { loadPState } from '../p-state'
 
 import {
   goalAreaUISelector,
@@ -28,8 +31,18 @@ const { $, __ } = window
 
 window.store = store
 
-$('#fontawesome-css')
-  .setAttribute('href', require.resolve('font-awesome/css/font-awesome.css'))
+// start loading process
+setTimeout(() => {
+  // try normalizing plugin dir structure to one used in 2.0.0
+  migrate()
+  const pStateOrNull = loadPState()
+  bac.ready(pStateOrNull)
+})
+
+$('#fontawesome-css').setAttribute(
+  'href',
+  require.resolve('font-awesome/css/font-awesome.css')
+)
 
 const GoalAreaInst = connect(
   goalAreaUISelector,

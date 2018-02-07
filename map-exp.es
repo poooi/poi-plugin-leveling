@@ -1,10 +1,16 @@
 import _ from 'lodash'
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
+import { mapIdToStr } from 'subtender/kc'
 import { Ternary, ExpValue, BaseExp, Method } from './structs'
 
 const mapExpTable = readJsonSync(join(__dirname, 'assets', 'map_exp.json'))
-const getMapExpInfo = map => mapExpTable[map]
+
+// TODO: mapId only
+const getMapExpInfo = mapIdOrStr =>
+  _.isInteger(mapIdOrStr) ?
+    mapExpTable[mapIdToStr(mapIdOrStr)] :
+    mapExpTable[mapIdOrStr]
 
 const sortedMapKeys = (() => {
   const ret = Object.keys(mapExpTable)
@@ -15,7 +21,7 @@ const sortedMapKeys = (() => {
 })()
 
 const expValueFromBaseExp =
-  BaseExp.toExpValueWithGetter(map => getMapExpInfo(map).baseExp)
+  BaseExp.toExpValueWithGetter(mapId => getMapExpInfo(mapId).baseExp)
 
 const rankTable = {
   S: 1.2,

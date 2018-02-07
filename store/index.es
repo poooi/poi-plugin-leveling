@@ -1,3 +1,7 @@
+import _ from 'lodash'
+import { bindActionCreators } from 'redux'
+import { store } from 'views/create-store'
+
 /*
 
    TODO: for replacing reducer.es
@@ -13,7 +17,7 @@ const genSimpleDefaultTemplateList = () => [{
     mvp: 'maybe',
     baseExp: {
       type: 'standard',
-      map: '5-4',
+      mapId: 54,
     },
   },
   id: 'main',
@@ -40,6 +44,8 @@ const initState = {
      - <store>.templates
 
      and pReady indicates whether these two parts have been loaded properly.
+
+     note that pReady also controls whether reducer would accept actions other than 'ready'
    */
   pReady: false,
   /*
@@ -57,6 +63,58 @@ const initState = {
   },
 }
 
-const reducer = (state = initState, _action) => state
+const reducer = (state = initState, action) => {
+  if (action.type === '@poi-plugin-leveling@ready') {
+    const {pState} = action
+    return {
+      ...state,
+      ...pState,
+      pReady: true,
+    }
+  }
 
-export { initState, reducer }
+  if (!state.pReady)
+    return state
+
+  if (action.type === '@poi-plugin-leveling@modify') {
+    const {modifier} = action
+    return modifier(state)
+  }
+
+  return state
+}
+
+const actionCreators = {
+  ready: pStateOrNull => {
+    const templates = _.get(pStateOrNull, 'templates')
+    const ui = _.get(pStateOrNull, 'ui')
+
+    const pState = {}
+    if (!_.isEmpty(templates))
+      pState.templates = templates
+    if (!_.isEmpty(ui))
+      pState.ui = ui
+
+    return {
+      type: '@poi-plugin-leveling@ready',
+      pState,
+    }
+  },
+  modify: modifier => ({
+    type: '@poi-plugin-leveling@modify',
+    modifier,
+  }),
+}
+
+const mapDispatchToProps = _.memoize(dispatch =>
+  bindActionCreators(actionCreators, dispatch))
+
+const boundActionCreators = mapDispatchToProps(store.dispatch)
+
+export {
+  initState,
+  reducer,
+  actionCreators,
+  mapDispatchToProps,
+  boundActionCreators,
+}
