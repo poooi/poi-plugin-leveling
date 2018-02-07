@@ -6,6 +6,9 @@
    - pReady becomes true (which means p-state is now loaded)
    - admiralId changes
 
+   TODO: use async action to load goal-table, then we can make goal-table only worry about
+   admiralId changes.
+
  */
 import _ from 'lodash'
 import {
