@@ -22,6 +22,12 @@ const extSelector = createSelector(
   ext => _.isEmpty(ext) ? initState : ext
 )
 
+{
+  // debugging util
+  const {getStore} = window
+  window.getExt = () => extSelector(getStore())
+}
+
 const mkExtPropSelector = _.memoize(propName =>
   createSelector(extSelector, ext => ext[propName])
 )
