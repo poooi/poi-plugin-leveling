@@ -7,7 +7,7 @@ import {
 
 import { modifyArray } from 'subtender'
 import { PTyp } from '../../ptyp'
-import { loadDefaultTemplateList } from '../../config'
+import { recommended as recommendedTL } from '../../default-template-list'
 import { TemplateBox } from './template-box'
 import * as structs from '../../structs'
 
@@ -52,16 +52,14 @@ class MethodTemplateArea extends Component {
 
   handleConfirmResetDialog = () => {
     this.handleCloseResetDialog()
-
     const { onModifyConfig } = this.props
-    const defaultTemplateList = loadDefaultTemplateList()
     onModifyConfig(config => ({
       ...config,
-      templates: defaultTemplateList,
+      templates: recommendedTL,
     }))
 
     this.setState({
-      editingStates: defaultTemplateList.map(() => false),
+      editingStates: recommendedTL.map(() => false),
     })
   }
 

@@ -4,7 +4,6 @@ import { connect, Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
 import { Nav, NavItem } from 'react-bootstrap'
 
-// import { reducer, mapDispatchToProps } from '../reducer'
 import { reducer, boundActionCreators as bac } from '../store'
 
 import { migrate } from '../migrate'
@@ -35,9 +34,17 @@ window.addEventListener('unload', handleWindowUnload)
 /*
    TODO
 
-   - update config -> p-state, together with goal-table updates
    - note that ships can be identified by rosterId, but templates aren't,
      we might give it an id to make things easier
+   - use template id on UI
+   - do Tabs properly
+   - minimum width
+   - scollbar inside content
+   - derive more data with selectors
+   - Separate "Goals" to "Goals" and "Ships":
+
+     - "Ships" lists all ships including those that have goals
+     - improve UI.
 
  */
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
 
-import { mapDispatchToProps } from '../../reducer'
 import {
   recommendedGoalsSelector,
   levelingConfigSelector,
@@ -16,7 +15,7 @@ const GoalListInst = connect(
     ...recommendedGoalsSelector(state),
     ...levelingConfigSelector(state),
   }),
-  mapDispatchToProps,
+  // mapDispatchToProps,
 )(GoalList)
 
 class GoalArea extends Component {
