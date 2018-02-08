@@ -5,29 +5,27 @@
 
  */
 import {
-  createSelector,
   createStructuredSelector,
 } from 'reselect'
 import { observer } from 'redux-observers'
-import {
-  extensionSelectorFactory,
-} from 'views/utils/selectors'
 import { boundActionCreators as bac } from '../store'
-import { admiralIdSelector } from '../selectors'
-
-// TODO: move to selectors
-const extSelector = extensionSelectorFactory('poi-plugin-leveling')
-const pReadySelector = createSelector(extSelector, ext => ext.pReady)
+import {
+  admiralIdSelector,
+  pReadySelector,
+} from '../selectors'
 
 const goalTableLoader = observer(
   createStructuredSelector({
+    // whether <extStore> is loaded
     ready: pReadySelector,
     admiralId: admiralIdSelector,
   }),
   (_dispatch, cur, prev) => {
+    // ensure that we have a valid current admiral id
     if (!cur.ready || !cur.admiralId)
       return
 
+    // admiral change detection
     if (prev.admiralId !== cur.admiralId) {
       bac.loadGoalTable(cur.admiralId)
     }

@@ -8,8 +8,6 @@ import {
   shipsSelector,
   constSelector,
   fleetsSelector,
-  basicSelector,
-  extensionSelectorFactory,
   wctfSelector,
 } from 'views/utils/selectors'
 
@@ -22,6 +20,11 @@ import {
 import {
   Template,
 } from '../structs'
+
+import {
+  extSelector,
+  admiralIdSelector,
+} from './common'
 
 const shipsInfoSelector = createSelector(
   shipsSelector,
@@ -58,7 +61,7 @@ const shipsInfoSelector = createSelector(
   })
 
 const goalTableSelector = createSelector(
-  extensionSelectorFactory('poi-plugin-leveling'),
+  extSelector,
   ext => _.get(ext, ['goals', 'goalTable']) || {}
 )
 
@@ -73,18 +76,6 @@ const shipTypeInfoSelector = createSelector(
     return result.sort((a,b) => a.id-b.id)
   })
 
-const admiralIdSelector = createSelector(
-  basicSelector,
-  basic => {
-    const raw = _.get(basic, 'api_member_id')
-    if (raw) {
-      const parsed = Number(raw)
-      return _.isInteger(parsed) ? parsed : null
-    } else {
-      return null
-    }
-  }
-)
 
 // split ship list into two parts:
 // 'shipsWithoutGoal' is the ship list for ships without goal
@@ -118,7 +109,7 @@ const shipListSplitSelector = createSelector(
 )
 
 const templateListSelector = createSelector(
-  extensionSelectorFactory('poi-plugin-leveling'),
+  extSelector,
   ext => _.get(ext, ['templates'])
 )
 
@@ -183,7 +174,7 @@ const recommendedGoalsSelector = createSelector(
 )
 
 const goalSorterSelector = createSelector(
-  extensionSelectorFactory('poi-plugin-leveling'),
+  extSelector,
   ext => _.get(ext, ['ui', 'goalTab', 'sortMethod'])
 )
 
@@ -244,6 +235,8 @@ const shipStatsAtLevelFuncSelector = createSelector(
   })
 )
 
+export * from './common'
+
 export {
   goalTableSelector,
   goalAreaUISelector,
@@ -252,5 +245,4 @@ export {
   methodTemplateUISelector,
   shipListSplitSelector,
   shipStatsAtLevelFuncSelector,
-  admiralIdSelector,
 }
