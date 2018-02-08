@@ -14,7 +14,7 @@ import {
 } from '../../../map-exp'
 import { PTyp } from '../../../ptyp'
 import { Method } from '../../../structs'
-import { shipStatsAtLevelFuncSelector } from '../../../selector'
+import { shipStatsAtLevelFuncSelector } from '../../../selectors'
 
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'

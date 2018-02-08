@@ -13,7 +13,7 @@ import {
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 import { boundActionCreators as bac } from '../store'
-import { admiralIdSelector } from '../selector'
+import { admiralIdSelector } from '../selectors'
 
 // TODO: move to selectors
 const extSelector = extensionSelectorFactory('poi-plugin-leveling')

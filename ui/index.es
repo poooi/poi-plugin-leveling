@@ -14,7 +14,7 @@ import {
   goalAreaUISelector,
   methodTemplateUISelector,
   admiralIdSelector,
-} from '../selector'
+} from '../selectors'
 
 import { GoalArea } from './goal-area'
 import { MethodTemplateArea } from './method-template-area'

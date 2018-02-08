@@ -17,11 +17,11 @@ import {
   computeNextRemodelLevel,
   computeAllRemodelsFromMstId,
   remodelToRGoal,
-} from './remodel'
+} from '../remodel'
 
 import {
   Template,
-} from './structs'
+} from '../structs'
 
 const shipsInfoSelector = createSelector(
   shipsSelector,

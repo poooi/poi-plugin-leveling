@@ -7,7 +7,7 @@ import { mapDispatchToProps } from '../../reducer'
 import {
   recommendedGoalsSelector,
   levelingConfigSelector,
-} from '../../selector'
+} from '../../selectors'
 
 import { PTyp } from '../../ptyp'
 
