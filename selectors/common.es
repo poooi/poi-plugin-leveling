@@ -1,8 +1,17 @@
+/*
+   common selectors are selectors that require minimum
+   dependencies to work, this includes:
+
+   - direct store accessors
+   - data that can directly drived from store
+
+ */
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
 import {
   basicSelector,
+  wctfSelector,
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 
@@ -24,7 +33,18 @@ const templatesSelector =
 const pReadySelector =
   mkExtPropSelector('pReady')
 const goalsSelector =
-  mkExtPropSelector('goalsSelector')
+  mkExtPropSelector('goals')
+
+const goalsAdmiralIdSelector = createSelector(
+  goalsSelector,
+  g => g.admiralId
+)
+
+// internal only, please use goalTableSelector.
+const goalsGoalTableSelector = createSelector(
+  goalsSelector,
+  g => g.goalTable
+)
 
 const admiralIdSelector = createSelector(
   basicSelector,
@@ -35,6 +55,49 @@ const admiralIdSelector = createSelector(
   }
 )
 
+/*
+   check whether <extStore>.goals is ready:
+   for it to be ready, admiralId must be vaild and match current admiralId
+ */
+const goalsReadySelector = createSelector(
+  goalsAdmiralIdSelector,
+  admiralIdSelector,
+  (goalsAdmiralId, admiralId) =>
+    goalsAdmiralId && admiralId && goalsAdmiralId === admiralId
+)
+
+const goalTableSelector = createSelector(
+  goalsGoalTableSelector,
+  goalsReadySelector,
+  (goalTable, ready) => ready ? goalTable : {}
+)
+
+const shipStatsAtLevelFuncSelector = createSelector(
+  wctfSelector,
+  wctf => _.memoize(mstId => {
+    const statInfo = _.get(wctf,['ships',mstId,'stat'])
+    if (!statInfo) {
+      return _level => ({evasion: null, asw: null, los: null})
+    } else {
+      return level =>
+        _.fromPairs(
+          ['evasion', 'asw', 'los'].map(statName => {
+            const stBase = statInfo[statName]
+            const stMax = statInfo[`${statName}_max`]
+            let statVal = null
+            if (
+              _.isInteger(stBase) && stBase >= 0 &&
+              _.isInteger(stMax) && stMax >= 0
+            ) {
+              statVal = stBase + Math.floor((stMax - stBase) * level / 99)
+            }
+            return [statName, statVal]
+          })
+        )
+    }
+  })
+)
+
 export {
   extSelector,
   uiSelector,
@@ -43,4 +106,7 @@ export {
   goalsSelector,
 
   admiralIdSelector,
+  shipStatsAtLevelFuncSelector,
+  goalsReadySelector,
+  goalTableSelector,
 }

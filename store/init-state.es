@@ -49,6 +49,11 @@ const initState = {
     // null or <admiralId>
     admiralId: null,
     // null or <GoalTable>
+    /*
+       note: this part is not meant to be accessed directly,
+       it's recommended to use goalTableSelector,
+       which makes sure admiralId matches.
+     */
     goalTable: null,
   },
 }

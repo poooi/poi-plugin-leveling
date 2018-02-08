@@ -8,7 +8,6 @@ import {
   shipsSelector,
   constSelector,
   fleetsSelector,
-  wctfSelector,
 } from 'views/utils/selectors'
 
 import {
@@ -24,6 +23,7 @@ import {
 import {
   extSelector,
   admiralIdSelector,
+  goalTableSelector,
 } from './common'
 
 const shipsInfoSelector = createSelector(
@@ -59,11 +59,6 @@ const shipsInfoSelector = createSelector(
       }
     })
   })
-
-const goalTableSelector = createSelector(
-  extSelector,
-  ext => _.get(ext, ['goals', 'goalTable']) || {}
-)
 
 const shipTypeInfoSelector = createSelector(
   constSelector,
@@ -209,40 +204,13 @@ const methodTemplateUISelector = createSelector(
   }
 )
 
-const shipStatsAtLevelFuncSelector = createSelector(
-  wctfSelector,
-  wctf => _.memoize(mstId => {
-    const statInfo = _.get(wctf,['ships',mstId,'stat'])
-    if (!statInfo) {
-      return _level => ({evasion: null, asw: null, los: null})
-    } else {
-      return level =>
-        _.fromPairs(
-          ['evasion', 'asw', 'los'].map(statName => {
-            const stBase = statInfo[statName]
-            const stMax = statInfo[`${statName}_max`]
-            let statVal = null
-            if (
-              _.isInteger(stBase) && stBase >= 0 &&
-              _.isInteger(stMax) && stMax >= 0
-            ) {
-              statVal = stBase + Math.floor((stMax - stBase) * level / 99)
-            }
-            return [statName, statVal]
-          })
-        )
-    }
-  })
-)
 
 export * from './common'
 
 export {
-  goalTableSelector,
   goalAreaUISelector,
   recommendedGoalsSelector,
   levelingConfigSelector,
   methodTemplateUISelector,
   shipListSplitSelector,
-  shipStatsAtLevelFuncSelector,
 }

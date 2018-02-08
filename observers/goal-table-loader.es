@@ -12,17 +12,19 @@ import { boundActionCreators as bac } from '../store'
 import {
   admiralIdSelector,
   pReadySelector,
+  goalsReadySelector,
 } from '../selectors'
 
 const goalTableLoader = observer(
   createStructuredSelector({
     // whether <extStore> is loaded
-    ready: pReadySelector,
+    pReady: pReadySelector,
+    goalsReady: goalsReadySelector,
     admiralId: admiralIdSelector,
   }),
   (_dispatch, cur, prev) => {
-    // ensure that we have a valid current admiral id
-    if (!cur.ready || !cur.admiralId)
+    // goalsReady also ensures that admiralId is valid and correct
+    if (!cur.pReady || !cur.goalsReady)
       return
 
     // admiral change detection
