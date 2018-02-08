@@ -15,6 +15,7 @@ import {
   extensionSelectorFactory,
 } from 'views/utils/selectors'
 
+import { minimum } from '../default-template-list'
 import { initState } from '../store/init-state'
 
 const extSelector = createSelector(
@@ -104,12 +105,18 @@ const shipStatsAtLevelFuncSelector = createSelector(
   })
 )
 
+const templateListSelector = createSelector(
+  pReadySelector,
+  templatesSelector,
+  (pReady, templates) =>
+    pReady ? templates : minimum
+)
+
 export {
   extSelector,
   uiSelector,
-  templatesSelector,
+  templateListSelector,
   pReadySelector,
-  goalsSelector,
 
   admiralIdSelector,
   shipStatsAtLevelFuncSelector,

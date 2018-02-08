@@ -1,18 +1,3 @@
-const genSimpleDefaultTemplateList = () => [{
-  type: 'main',
-  method: {
-    type: 'sortie',
-    flagship: 'maybe',
-    rank: ['S','A','B'],
-    mvp: 'maybe',
-    baseExp: {
-      type: 'standard',
-      mapId: 54,
-    },
-  },
-  id: 'main',
-}]
-
 const initState = {
   ui: {
     // 'goal' or 'template'
@@ -25,8 +10,13 @@ const initState = {
       },
     },
   },
-  // <TemplateList>
-  templates: genSimpleDefaultTemplateList(),
+  /*
+     when pReady is true, this part must be <TemplateList>,
+     otherwise it's nullable.
+
+     avoid direct access to this and use templateListSelector.
+   */
+  templates: null,
   /*
      now p-state keeps the following two parts:
 

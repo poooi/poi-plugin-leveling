@@ -1,3 +1,5 @@
+/* TODO this module is no longer used, remove after done */
+
 import { ensureDirSync, readJsonSync, writeJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 

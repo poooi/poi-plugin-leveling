@@ -4,6 +4,7 @@ import { modifyObject } from 'subtender'
 import { store } from 'views/create-store'
 
 import { loadGoalTable } from '../goal-table'
+import { recommended as recommendedTL } from '../default-template-list'
 import { initState } from './init-state'
 
 const reducer = (state = initState, action) => {
@@ -33,8 +34,12 @@ const actionCreators = {
     const ui = _.get(pStateOrNull, 'ui')
 
     const pState = {}
-    if (!_.isEmpty(templates))
+    if (!_.isEmpty(templates)) {
       pState.templates = templates
+    } else {
+      pState.templates = recommendedTL
+    }
+
     if (!_.isEmpty(ui))
       pState.ui = ui
 

@@ -24,6 +24,7 @@ import {
   extSelector,
   admiralIdSelector,
   goalTableSelector,
+  templateListSelector,
 } from './common'
 
 const shipsInfoSelector = createSelector(
@@ -101,11 +102,6 @@ const shipListSplitSelector = createSelector(
       goalPairs,
     }
   }
-)
-
-const templateListSelector = createSelector(
-  extSelector,
-  ext => _.get(ext, ['templates'])
 )
 
 const enabledTemplateListSelector = createSelector(
