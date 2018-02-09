@@ -61,6 +61,29 @@ const actionCreators = {
       }
       dispatch(actionCreators.modify(modifyObject('goals', () => goals)))
     }),
+  uiModify: modifier =>
+    actionCreators.modify('ui', modifier),
+  templatesModify: modifier =>
+    actionCreators.modify('templates', templates => {
+      if (Array.isArray(templates)) {
+        return modifier(templates)
+      } else {
+        console.error(`templates not ready`, templates)
+        return templates
+      }
+    }),
+  goalsModify: modifier =>
+    actionCreators.modify('goals', goals => {
+      if (
+        goals && typeof goals === 'object' &&
+        goals.admiralId !== null && goals.goalTable !== null
+      ) {
+        return modifier(goals)
+      } else {
+        console.error(`goals not ready`, goals)
+        return goals
+      }
+    }),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>
