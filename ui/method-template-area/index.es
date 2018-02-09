@@ -4,16 +4,19 @@ import {
   Modal,
   Button,
 } from 'react-bootstrap'
-
+import { connect } from 'react-redux'
 import { modifyArray } from 'subtender'
 import { PTyp } from '../../ptyp'
 import { recommended as recommendedTL } from '../../default-template-list'
 import { TemplateBox } from './template-box'
 import * as structs from '../../structs'
+import {
+  methodTemplateUISelector,
+} from '../../selectors'
 
 const { _, __ } = window
 
-class MethodTemplateArea extends Component {
+class MethodTemplateAreaImpl extends Component {
   static propTypes = {
     visible: PTyp.bool.isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
@@ -235,5 +238,10 @@ class MethodTemplateArea extends Component {
     )
   }
 }
+
+const MethodTemplateArea = connect(
+  methodTemplateUISelector,
+  // mapDispatchToProps,
+)(MethodTemplateAreaImpl)
 
 export { MethodTemplateArea }

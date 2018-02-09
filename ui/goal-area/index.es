@@ -6,22 +6,13 @@ import { GoalList } from './goal-list'
 import {
   recommendedGoalsSelector,
   levelingConfigSelector,
+  goalAreaUISelector,
 } from '../../selectors'
 
 import { PTyp } from '../../ptyp'
 
-const GoalListInst = connect(
-  state => ({
-    ...recommendedGoalsSelector(state),
-    ...levelingConfigSelector(state),
-  }),
-  // mapDispatchToProps,
-)(GoalList)
-
-class GoalArea extends Component {
+class GoalAreaImpl extends Component {
   static propTypes = {
-    // admiral Id, could be null during initialization
-    admiralId: PTyp.number,
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
@@ -32,15 +23,6 @@ class GoalArea extends Component {
     // onInitialize: PTyp.func.isRequired,
     // onModifyGoalTable(<modifier>) where modifier :: GoalTable -> GoalTable
     onModifyGoalTable: PTyp.func.isRequired,
-  }
-
-  static defaultProps = {
-    admiralId: null,
-  }
-
-  componentWillMount() {
-    // const { onInitialize, admiralId } = this.props
-    // onInitialize(admiralId)
   }
 
   render() {
@@ -57,7 +39,7 @@ class GoalArea extends Component {
         className="goal-area"
         style={{display: visible ? 'initial' : 'none'}}
       >
-        <GoalListInst
+        <GoalList
           onModifyGoalTable={onModifyGoalTable}
           goalPairs={goalPairs} />
         <ShipPicker
@@ -69,5 +51,10 @@ class GoalArea extends Component {
     )
   }
 }
+
+const GoalArea = connect(
+  goalAreaUISelector,
+  // mapDispatchToProps,
+)(GoalAreaImpl)
 
 export { GoalArea }

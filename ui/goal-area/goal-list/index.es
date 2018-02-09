@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
 
 import { PTyp } from '../../../ptyp'
@@ -8,6 +9,11 @@ import { computeExpRange } from '../../../map-exp'
 
 import { GoalBox } from './goal-box'
 import { GoalSorterRow } from './goal-sorter-row'
+
+import {
+  recommendedGoalsSelector,
+  levelingConfigSelector,
+} from '../../../selectors'
 
 import * as SC from '../../../shiplist-ops'
 
@@ -69,7 +75,7 @@ const prepareSorter = ({method, reversed}) => {
 }
 
 // a list containing ship leveling goals
-class GoalList extends Component {
+class GoalListImpl extends Component {
   static propTypes = {
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
@@ -115,5 +121,13 @@ class GoalList extends Component {
     )
   }
 }
+
+const GoalList = connect(
+  state => ({
+    ...recommendedGoalsSelector(state),
+    ...levelingConfigSelector(state),
+  }),
+  // mapDispatchToProps,
+)(GoalListImpl)
 
 export { GoalList }

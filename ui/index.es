@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { connect, Provider } from 'react-redux'
+import { Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
 import { Nav, NavItem } from 'react-bootstrap'
 
@@ -10,8 +10,6 @@ import { migrate } from '../migrate'
 import { loadPState } from '../p-state'
 
 import {
-  goalAreaUISelector,
-  methodTemplateUISelector,
   admiralIdSelector,
 } from '../selectors'
 
@@ -78,16 +76,6 @@ $('#fontawesome-css').setAttribute(
   require.resolve('font-awesome/css/font-awesome.css')
 )
 
-const GoalAreaInst = connect(
-  goalAreaUISelector,
-  // mapDispatchToProps,
-)(GoalArea)
-
-const MethodTemplateAreaInst = connect(
-  methodTemplateUISelector,
-  // mapDispatchToProps,
-)(MethodTemplateArea)
-
 class LevelingMain extends Component {
   constructor(props) {
     super(props)
@@ -111,8 +99,8 @@ class LevelingMain extends Component {
           <NavItem eventKey="goal">{__('Top.Goals')}</NavItem>
           <NavItem eventKey="template">{__('Top.Templates')}</NavItem>
         </Nav>
-        <GoalAreaInst visible={activeTab === 'goal'} />
-        <MethodTemplateAreaInst visible={activeTab === 'template'} />
+        <GoalArea visible={activeTab === 'goal'} />
+        <MethodTemplateArea visible={activeTab === 'template'} />
       </div>
     )
   }
