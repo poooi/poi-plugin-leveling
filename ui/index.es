@@ -17,6 +17,7 @@ import {
 } from '../selectors'
 
 import { GoalArea } from './goal-area'
+import { ShipPicker } from './ship-picker'
 import { MethodTemplateArea } from './method-template-area'
 import { globalSubscribe, globalUnsubscribe } from '../observers'
 import { PTyp } from '../ptyp'
@@ -110,6 +111,9 @@ class LevelingMainImpl extends Component {
               <NavItem eventKey="goal">
                 {__('Top.Goals')}
               </NavItem>
+              <NavItem eventKey="ship">
+                Ships
+              </NavItem>
               <NavItem eventKey="template">
                 {__('Top.Templates')}
               </NavItem>
@@ -122,6 +126,9 @@ class LevelingMainImpl extends Component {
             >
               <Tab.Pane eventKey="goal" style={{height: '100%'}}>
                 <GoalArea />
+              </Tab.Pane>
+              <Tab.Pane eventKey="ship" style={{height: '100%'}}>
+                <ShipPicker />
               </Tab.Pane>
               <Tab.Pane eventKey="template" style={{height: '100%'}}>
                 <MethodTemplateArea />

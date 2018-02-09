@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
 
 import {
@@ -37,11 +36,6 @@ class GoalAreaImpl extends Component {
         <GoalList
           onModifyGoalTable={onModifyGoalTable}
           goalPairs={goalPairs} />
-        <ShipPicker
-          onModifyGoalTable={onModifyGoalTable}
-          stypeInfo={stypeInfo}
-          templates={templates}
-          ships={ships} />
       </div>
     )
   }

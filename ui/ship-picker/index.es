@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { ShipList } from './ship-list'
 import { ShipFilter } from './ship-filter'
 
-import { PTyp } from '../../../ptyp'
-import { prepareFilter, prepareSorter } from '../../../shiplist-ops'
+import { PTyp } from '../../ptyp'
+import { prepareFilter, prepareSorter } from '../../shiplist-ops'
+
+import {
+  goalAreaUISelector,
+} from '../../selectors'
+
+import { mapDispatchToProps } from '../../store'
 
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
-class ShipPicker extends Component {
+class ShipPickerImpl extends Component {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
@@ -87,5 +94,10 @@ class ShipPicker extends Component {
     )
   }
 }
+
+const ShipPicker = connect(
+  goalAreaUISelector,
+  mapDispatchToProps,
+)(ShipPickerImpl)
 
 export { ShipPicker }

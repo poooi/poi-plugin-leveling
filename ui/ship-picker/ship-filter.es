@@ -5,8 +5,8 @@ import {
   ButtonGroup,
 } from 'react-bootstrap'
 
-import { PTyp } from '../../../ptyp'
-import { describeFilterWith } from '../../../shiplist-ops'
+import { PTyp } from '../../ptyp'
+import { describeFilterWith } from '../../shiplist-ops'
 
 const { _, __ } = window
 

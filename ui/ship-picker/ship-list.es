@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Table } from 'react-bootstrap'
 
-import { PTyp } from '../../../ptyp'
-import { TemplateList } from '../../../structs'
+import { PTyp } from '../../ptyp'
+import { TemplateList } from '../../structs'
 import { ShipListRow } from './ship-list-row'
 
 const { __ } = window

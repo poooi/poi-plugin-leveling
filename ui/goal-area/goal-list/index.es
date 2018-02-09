@@ -99,10 +99,7 @@ class GoalListImpl extends Component {
     const eGoalPairs = sorter(goalPairs.map(extendGoalPair))
     return (
       <div>
-        <GoalSorterRow
-          sorter={goalSorter}
-          onModifySorter={this.handleModifySorter}
-        />
+        <GoalSorterRow />
         <ListGroup className="goal-list">
           {
             eGoalPairs.map(eGoalPair => {
