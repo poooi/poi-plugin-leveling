@@ -37,6 +37,8 @@ window.addEventListener('unload', handleWindowUnload)
    - note that ships can be identified by rosterId, but templates aren't,
      we might give it an id to make things easier
    - use template id on UI
+   - recover UI functions
+   - saving mechamism
    - do Tabs properly
    - minimum width
    - scollbar inside content
@@ -46,6 +48,15 @@ window.addEventListener('unload', handleWindowUnload)
      - "Ships" lists all ships including those that have goals
      - improve UI.
 
+   - TODO: mstId-specific templates
+   - Tab "Misc"
+     - User Manual
+     - settings (toggle ship avatar)
+     - exp table
+   - allow applying template even if ship type mismatches
+   - allow cloning goal settings
+   - save current goal setting as template
+   - template can have names
  */
 
 window.store = store
