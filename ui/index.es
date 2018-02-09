@@ -1,16 +1,18 @@
+import { createSelector, createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { connect, Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
-import { Nav, NavItem } from 'react-bootstrap'
+import { Tab, Nav, NavItem } from 'react-bootstrap'
 
-import { reducer, boundActionCreators as bac } from '../store'
+import { reducer, boundActionCreators as bac, mapDispatchToProps } from '../store'
 
 import { migrate } from '../migrate'
 import { loadPState } from '../p-state'
 
 import {
   admiralIdSelector,
+  uiSelector,
 } from '../selectors'
 
 import { GoalArea } from './goal-area'
@@ -76,7 +78,7 @@ $('#fontawesome-css').setAttribute(
   require.resolve('font-awesome/css/font-awesome.css')
 )
 
-class LevelingMain extends Component {
+class LevelingMainImpl extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -90,21 +92,54 @@ class LevelingMain extends Component {
   render() {
     const { activeTab } = this.state
     return (
-      <div className="leveling-main">
-        <Nav
-          bsStyle="tabs"
-          activeKey={activeTab}
-          onSelect={this.handleTabSwitch}
-          justified className="main-nav">
-          <NavItem eventKey="goal">{__('Top.Goals')}</NavItem>
-          <NavItem eventKey="template">{__('Top.Templates')}</NavItem>
-        </Nav>
-        <GoalArea visible={activeTab === 'goal'} />
-        <MethodTemplateArea visible={activeTab === 'template'} />
-      </div>
+      <Tab.Container
+        id="leveling-main"
+        onSelect={this.handleTabSwitch}
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+        activeKey={activeTab}
+      >
+        <div>
+          <div style={{marginBottom: 8}}>
+            <Nav
+              bsStyle="tabs"
+            >
+              <NavItem eventKey="goal">
+                {__('Top.Goals')}
+              </NavItem>
+              <NavItem eventKey="template">
+                {__('Top.Templates')}
+              </NavItem>
+            </Nav>
+          </div>
+          <div style={{flex: 1, height: 0}}>
+            <Tab.Content
+              animation={false}
+              style={{height: '100%'}}
+            >
+              <Tab.Pane eventKey="goal" style={{height: '100%'}}>
+                <GoalArea />
+              </Tab.Pane>
+              <Tab.Pane eventKey="template" style={{height: '100%'}}>
+                <MethodTemplateArea />
+              </Tab.Pane>
+            </Tab.Content>
+          </div>
+        </div>
+      </Tab.Container>
     )
   }
 }
+
+const LevelingMain = connect(
+  createStructuredSelector({
+    activeTab: createSelector(uiSelector, ui => ui.activeTab),
+  }),
+  mapDispatchToProps,
+)(LevelingMainImpl)
 
 ReactDOM.render(
   <Provider store={store}>

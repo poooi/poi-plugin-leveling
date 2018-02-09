@@ -300,3 +300,14 @@
 .method-template-area .template-top-btns > *:not(:last-child) {
     margin-right: 10px;
 }
+
+#leveling-main ul[role="tablist"].nav.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#leveling-main ul[role="tablist"].nav.nav-tabs > li {
+    flex: 1;
+    text-align: center;
+}

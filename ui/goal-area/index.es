@@ -4,8 +4,6 @@ import { ShipPicker } from './ship-picker'
 import { GoalList } from './goal-list'
 
 import {
-  recommendedGoalsSelector,
-  levelingConfigSelector,
   goalAreaUISelector,
 } from '../../selectors'
 
@@ -16,7 +14,6 @@ class GoalAreaImpl extends Component {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    visible: PTyp.bool.isRequired,
     templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
     // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
@@ -27,7 +24,6 @@ class GoalAreaImpl extends Component {
 
   render() {
     const {
-      visible,
       goalPairs,
       stypeInfo,
       ships,
@@ -37,7 +33,6 @@ class GoalAreaImpl extends Component {
     return (
       <div
         className="goal-area"
-        style={{display: visible ? 'initial' : 'none'}}
       >
         <GoalList
           onModifyGoalTable={onModifyGoalTable}

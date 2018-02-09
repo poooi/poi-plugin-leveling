@@ -18,7 +18,6 @@ const { _, __ } = window
 
 class MethodTemplateAreaImpl extends Component {
   static propTypes = {
-    visible: PTyp.bool.isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     // config: PTyp.Config.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
@@ -142,7 +141,6 @@ class MethodTemplateAreaImpl extends Component {
 
   render() {
     const {
-      visible,
       stypeInfo,
       shipTargets,
       config,
@@ -152,7 +150,6 @@ class MethodTemplateAreaImpl extends Component {
     return (
       <div
         className="method-template-area"
-        style={{display: visible?'initial':'none'}}
       >
         <div className="template-top-btns">
           <Button
