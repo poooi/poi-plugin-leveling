@@ -2,10 +2,6 @@
     font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Arial", "WenQuanYi Micro Hei", "Microsoft YaHei", "Droid Sans Fallback", sans-serif;
 }
 
-#content-root {
-    margin: 10px;
-}
-
 .fleet-id-indicator {
     font-weight: bolder;
     color: white;

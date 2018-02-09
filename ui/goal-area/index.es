@@ -10,10 +10,7 @@ import { PTyp } from '../../ptyp'
 
 class GoalAreaImpl extends Component {
   static propTypes = {
-    ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
-    stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
     // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
     // onInitialize: PTyp.func.isRequired,
@@ -24,14 +21,12 @@ class GoalAreaImpl extends Component {
   render() {
     const {
       goalPairs,
-      stypeInfo,
-      ships,
       onModifyGoalTable,
-      templates,
     } = this.props
     return (
       <div
         className="goal-area"
+        style={{height: '100%'}}
       >
         <GoalList
           onModifyGoalTable={onModifyGoalTable}

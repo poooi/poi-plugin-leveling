@@ -150,7 +150,11 @@ const LevelingMain = connect(
 
 ReactDOM.render(
   <Provider store={store}>
-    <LevelingMain />
+    <div
+      style={{margin: "0 1%", minWidth: 600}}
+    >
+      <LevelingMain />
+    </div>
   </Provider>,
   $('#content-root')
 )

@@ -98,9 +98,21 @@ class GoalListImpl extends Component {
     const sorter = prepareSorter(goalSorter)
     const eGoalPairs = sorter(goalPairs.map(extendGoalPair))
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
         <GoalSorterRow />
-        <ListGroup className="goal-list">
+        <ListGroup
+          style={{
+            height: 0,
+            flex: 1,
+            overflowY: 'auto',
+          }}
+          className="goal-list">
           {
             eGoalPairs.map(eGoalPair => {
               const { ship } = eGoalPair
