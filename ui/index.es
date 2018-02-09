@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { connect, Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
 import { Tab, Nav, NavItem } from 'react-bootstrap'
+import { modifyObject } from 'subtender'
 
 import { reducer, boundActionCreators as bac, mapDispatchToProps } from '../store'
 
@@ -18,6 +19,7 @@ import {
 import { GoalArea } from './goal-area'
 import { MethodTemplateArea } from './method-template-area'
 import { globalSubscribe, globalUnsubscribe } from '../observers'
+import { PTyp } from '../ptyp'
 
 const { $, __, getStore } = window
 
@@ -79,18 +81,16 @@ $('#fontawesome-css').setAttribute(
 )
 
 class LevelingMainImpl extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activeTab: "goal",
-    }
+  static propTypes = {
+    activeTab: PTyp.string.isRequired,
+    uiModify: PTyp.func.isRequired,
   }
 
   handleTabSwitch = activeTab =>
-    this.setState({ activeTab })
+    this.props.uiModify(modifyObject('activeTab', () => activeTab))
 
   render() {
-    const { activeTab } = this.state
+    const {activeTab} = this.props
     return (
       <Tab.Container
         id="leveling-main"
