@@ -18,6 +18,7 @@ import {
 
 import {
   Template,
+  TemplateList,
 } from '../structs'
 
 import {
@@ -200,6 +201,12 @@ const methodTemplateUISelector = createSelector(
   }
 )
 
+const findMethodFuncSelector = createSelector(
+  enabledTemplateListSelector,
+  templateList => _.memoize(stype =>
+    TemplateList.findMethod(templateList,false)(stype)
+  )
+)
 
 export * from './common'
 
@@ -209,4 +216,5 @@ export {
   levelingConfigSelector,
   methodTemplateUISelector,
   shipListSplitSelector,
+  findMethodFuncSelector,
 }

@@ -7,29 +7,29 @@ import { ShipListRow } from './ship-list-row'
 
 const { __ } = window
 
+const defineSortableHeader =
+  (name, method, asc = true /* whether it's ascending by default */) => ({
+    name, method, asc,
+  })
+
+const headerSpecs = [
+  defineSortableHeader(__('Sorter.ID'),'rid'),
+  defineSortableHeader(__('Sorter.Type'),'stype'),
+  defineSortableHeader(__('Sorter.Name'),'name'),
+  defineSortableHeader(__('Sorter.Level'),'level',false),
+  defineSortableHeader(__('Sorter.Evasion'), 'evasion'),
+  defineSortableHeader(__('Sorter.ASW'),'asw'),
+  defineSortableHeader(__('Sorter.LoS'),'los'),
+  defineSortableHeader(__('Sorter.Fleet'),'fleet'),
+  defineSortableHeader(__('Sorter.Lock'),'lock'),
+  // unsortable header don't have method and asc fields
+  { name: __('Sorter.Control') },
+]
+
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
 class ShipList extends Component {
-  static defineSortableHeader =
-    (name, method, asc = true /* whether it's ascending by default */) => ({
-      name, method, asc,
-    })
-
-  static headerSpecs = [
-    ShipList.defineSortableHeader(__('Sorter.ID'),'rid'),
-    ShipList.defineSortableHeader(__('Sorter.Type'),'stype'),
-    ShipList.defineSortableHeader(__('Sorter.Name'),'name'),
-    ShipList.defineSortableHeader(__('Sorter.Level'),'level',false),
-    ShipList.defineSortableHeader(__('Sorter.Evasion'), 'evasion'),
-    ShipList.defineSortableHeader(__('Sorter.ASW'),'asw'),
-    ShipList.defineSortableHeader(__('Sorter.LoS'),'los'),
-    ShipList.defineSortableHeader(__('Sorter.Fleet'),'fleet'),
-    ShipList.defineSortableHeader(__('Sorter.Lock'),'lock'),
-    // unsortable header don't have method and asc fields
-    { name: __('Sorter.Control') },
-  ]
-
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     sorter: PTyp.ShipPickerSorter.isRequired,
@@ -83,7 +83,7 @@ class ShipList extends Component {
         <thead>
           <tr>
             {
-              ShipList.headerSpecs.map( ({name, method, asc}) => {
+              headerSpecs.map(({name, method, asc}) => {
                 const sortable =
                   typeof method === 'string' &&
                   typeof asc === 'boolean'

@@ -164,12 +164,6 @@
     margin-bottom: 10px;
 }
 
-.filter-group {
-    display: flex;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .filter-group > * {
     margin-right: 8px;
     width: 20%;

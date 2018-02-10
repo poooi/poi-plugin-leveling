@@ -93,6 +93,10 @@ const actionCreators = {
     actionCreators.goalsModify(
       modifyObject('goalTable', modifier)
     ),
+  modifyTemplates: modifier =>
+    actionCreators.modify(
+      modifyObject('templates', modifier)
+    ),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>

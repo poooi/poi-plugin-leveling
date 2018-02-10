@@ -48,7 +48,12 @@ class ShipFilter extends Component {
     const { filters, stypes, stypeInfo } = this.props
     const describeFilter = describeFilterWith(stypeInfo,__)
     return (
-      <div className="filter-group">
+      <div
+        style={{
+          display: 'flex',
+          marginBottom: 5,
+        }}
+        className="filter-group">
         <ButtonGroup justified>
           <DropdownButton
             onSelect={this.handleSelectFilter('type')}

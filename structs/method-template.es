@@ -59,7 +59,12 @@ class TemplateList {
     return f(customs,main)
   }
 
-  // TemplateList.findMethod(<template list>[,<whether to check enabled flag])(stype) -> Method
+  /*
+     TemplateList.findMethod(<template list>[,<whether to check enabled flag])(stype) -> Method
+
+     - the purpose of checkEnabledFlag is to avoid filtering the list of templates
+       when we have known ahead of time that all list members are already enabled
+   */
   static findMethod = (allTemplates,checkEnabledFlag=true) => {
     const templates = checkEnabledFlag
       ? allTemplates.filter(Template.isEnabled)

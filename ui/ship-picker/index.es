@@ -20,7 +20,7 @@ class ShipPickerImpl extends Component {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     templates: PTyp.arrayOf(PTyp.Template).isRequired,
-    onModifyGoalTable: PTyp.func.isRequired,
+    modifyGoalTable: PTyp.func.isRequired,
   }
 
   constructor(props) {
@@ -72,7 +72,7 @@ class ShipPickerImpl extends Component {
 
     const originalShips = this.props.ships
     const stypeSet = new Set()
-    originalShips.map( s => {
+    originalShips.map(s => {
       stypeSet.add(s.stype)
     })
     const stypes = [...stypeSet].sort((x,y) => x-y)
@@ -85,7 +85,7 @@ class ShipPickerImpl extends Component {
           stypeInfo={this.props.stypeInfo}
           stypes={stypes} />
         <ShipList
-          onModifyGoalTable={this.props.onModifyGoalTable}
+          onModifyGoalTable={this.props.modifyGoalTable}
           onModifySorter={this.handleModifySorter}
           templates={this.props.templates}
           sorter={this.state.sorter}

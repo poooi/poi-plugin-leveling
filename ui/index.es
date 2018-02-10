@@ -41,6 +41,7 @@ window.addEventListener('unload', handleWindowUnload)
      we might give it an id to make things easier
    - use template id on UI
    - recover UI functions
+      - template page
    - saving mechamism
    - do Tabs properly
    - minimum width
