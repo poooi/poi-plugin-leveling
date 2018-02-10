@@ -5,23 +5,19 @@ import { GoalList } from './goal-list'
 import {
   goalAreaUISelector,
 } from '../../selectors'
-
 import { PTyp } from '../../ptyp'
+import { mapDispatchToProps } from '../../store'
 
 class GoalAreaImpl extends Component {
   static propTypes = {
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
-
-    // onInitialize(<admiralId>) call to initialize admirial id and load goalTable
-    // onInitialize: PTyp.func.isRequired,
-    // onModifyGoalTable(<modifier>) where modifier :: GoalTable -> GoalTable
-    onModifyGoalTable: PTyp.func.isRequired,
+    goalsModify: PTyp.func.isRequired,
   }
 
   render() {
     const {
       goalPairs,
-      onModifyGoalTable,
+      goalsModify,
     } = this.props
     return (
       <div
@@ -29,7 +25,7 @@ class GoalAreaImpl extends Component {
         style={{height: '100%'}}
       >
         <GoalList
-          onModifyGoalTable={onModifyGoalTable}
+          goalsModify={goalsModify}
           goalPairs={goalPairs} />
       </div>
     )
@@ -38,7 +34,7 @@ class GoalAreaImpl extends Component {
 
 const GoalArea = connect(
   goalAreaUISelector,
-  // mapDispatchToProps,
+  mapDispatchToProps,
 )(GoalAreaImpl)
 
 export { GoalArea }

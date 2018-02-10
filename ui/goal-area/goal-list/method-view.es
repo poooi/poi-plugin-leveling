@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { mapIdToStr } from 'subtender/kc'
 import { ThreeRows } from './three-rows'
 
 import { PTyp } from '../../../ptyp'
@@ -15,7 +16,7 @@ const { __ } = window
 const prepareMethodText = Method.destruct({
   sortie: (flagship, mvp, rank, baseExp) => {
     const secondRow = BaseExp.destruct({
-      standard: map => `${__('Method.Sortie')} ${map}`,
+      standard: mapId => `${__('Method.Sortie')} ${mapIdToStr(mapId)}`,
       custom: value => `${__('Method.BaseExp')}: ${ExpValue.toString(value)}`,
     })(baseExp)
     const strFS = Ternary.toString(flagship)

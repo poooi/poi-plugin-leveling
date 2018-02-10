@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
+import { mapStrToId } from 'subtender/kc'
 
 import { ExpValueEdit } from './exp-value-edit'
 import { sortedMapKeys, getMapExpInfo } from '../../../map-exp'
@@ -19,7 +20,7 @@ class MethodSortieEdit extends Component {
       mvp: PTyp.ternary,
       rank: PTyp.Rank,
       baseExpType: PTyp.oneOf(['standard','custom']),
-      expMap: PTyp.KCMapString,
+      expMapId: PTyp.number,
       expValue: PTyp.ExpValue,
     })).isRequired,
 
@@ -77,7 +78,7 @@ class MethodSortieEdit extends Component {
     const { sortieInput, onSortieInputChange } = this.props
     onSortieInputChange({
       ...sortieInput,
-      expMap: e.target.value,
+      expMapId: Number(e.target.value),
     })
   }
 
@@ -101,11 +102,12 @@ class MethodSortieEdit extends Component {
             onChange={this.handleExpMapChange}
             style={{flex: 5, display: isCustomExp ? "none" : "initial" }}
             componentClass="select"
-            value={sortieInput.expMap} >
+            value={sortieInput.expMapId}
+          >
             {
-              sortedMapKeys.map( map => (
-                <option key={map} value={map}>
-                  {`${map}: ${getMapExpInfo(map).name}`}
+              sortedMapKeys.map(mapStr => (
+                <option key={mapStr} value={mapStrToId(mapStr)}>
+                  {`${mapStr}: ${getMapExpInfo(mapStr).name}`}
                 </option>
               ))
             }

@@ -5,6 +5,7 @@ import { store } from 'views/create-store'
 
 import { loadGoalTable } from '../goal-table'
 import { recommended as recommendedTL } from '../default-template-list'
+import { goalsReadySelector } from '../selectors/common'
 import { initState } from './init-state'
 
 const reducer = (state = initState, action) => {
@@ -75,23 +76,28 @@ const actionCreators = {
       })
     ),
   goalsModify: modifier =>
-    actionCreators.modify(
-      modifyObject('goals', goals => {
-        if (
-          goals && typeof goals === 'object' &&
-          goals.admiralId !== null && goals.goalTable !== null
-        ) {
-          return modifier(goals)
-        } else {
-          console.error(`goals not ready`, goals)
-          return goals
-        }
-      })
+    // react-thunk
+    (dispatch, getState) => {
+      const ready = goalsReadySelector(getState())
+      if (ready) {
+        dispatch(actionCreators.modify(
+          modifyObject('goals', modifier)
+        ))
+      } else {
+        console.error(`<extStore>.goals is not ready`)
+      }
+    },
+  // TODO: should we handle creation here, or
+  // it works better if we impl 'add' separately?
+  modifyGoalTable: modifier =>
+    actionCreators.goalsModify(
+      modifyObject('goalTable', modifier)
     ),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>
-  bindActionCreators(actionCreators, dispatch))
+  bindActionCreators(actionCreators, dispatch)
+)
 
 const boundActionCreators = mapDispatchToProps(store.dispatch)
 

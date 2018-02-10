@@ -11,7 +11,7 @@ class GoalBox extends Component {
     eGoalPair: PTyp.EGoalPair.isRequired,
     rGoals: PTyp.arrayOf(PTyp.RGoalLevel).isRequired,
 
-    onModifyGoalTable: PTyp.func.isRequired,
+    modifyGoalTable: PTyp.func.isRequired,
   }
 
   constructor(props) {
@@ -28,7 +28,7 @@ class GoalBox extends Component {
     this.setState({editing: false})
 
   render() {
-    const { eGoalPair, rGoals, onModifyGoalTable } = this.props
+    const { eGoalPair, rGoals, modifyGoalTable } = this.props
     const { ship, goal } = eGoalPair
     return (
       <ListGroupItem className="goal-box">
@@ -42,7 +42,7 @@ class GoalBox extends Component {
           <div>
             <GoalBoxEdit
               onFinishEdit={this.handleFinishEdit}
-              onModifyGoalTable={onModifyGoalTable}
+              onModifyGoalTable={modifyGoalTable}
               ship={ship}
               goal={goal}
               rGoals={rGoals}

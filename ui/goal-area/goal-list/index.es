@@ -14,6 +14,7 @@ import {
   recommendedGoalsSelector,
   levelingConfigSelector,
 } from '../../../selectors'
+import { mapDispatchToProps } from '../../../store'
 
 import * as SC from '../../../shiplist-ops'
 
@@ -81,7 +82,7 @@ class GoalListImpl extends Component {
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
     goalSorter: PTyp.GoalListSorter.isRequired,
 
-    onModifyGoalTable: PTyp.func.isRequired,
+    modifyGoalTable: PTyp.func.isRequired,
     onModifyConfig: PTyp.func.isRequired,
   }
 
@@ -94,7 +95,7 @@ class GoalListImpl extends Component {
   }
 
   render() {
-    const { goalPairs, onModifyGoalTable, rmdGoals, goalSorter } = this.props
+    const { goalPairs, modifyGoalTable, rmdGoals, goalSorter } = this.props
     const sorter = prepareSorter(goalSorter)
     const eGoalPairs = sorter(goalPairs.map(extendGoalPair))
     return (
@@ -118,7 +119,7 @@ class GoalListImpl extends Component {
               const { ship } = eGoalPair
               return (
                 <GoalBox
-                  onModifyGoalTable={onModifyGoalTable}
+                  modifyGoalTable={modifyGoalTable}
                   key={ship.rstId}
                   rGoals={rmdGoals[ship.rstId]}
                   eGoalPair={eGoalPair} />
@@ -136,7 +137,7 @@ const GoalList = connect(
     ...recommendedGoalsSelector(state),
     ...levelingConfigSelector(state),
   }),
-  // mapDispatchToProps,
+  mapDispatchToProps,
 )(GoalListImpl)
 
 export { GoalList }

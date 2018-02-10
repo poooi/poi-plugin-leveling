@@ -32,7 +32,7 @@ const fillStates = Method.destruct({
         mvp,
         rank,
         baseExpType: baseExp.type,
-        expMap: baseExp.type === 'standard' ? baseExp.map : '1-1',
+        expMapId: baseExp.type === 'standard' ? baseExp.mapId : 11,
         expValue: expValueFromBaseExp(baseExp),
       },
       customInput:
@@ -46,7 +46,7 @@ const fillStates = Method.destruct({
       mvp: 'yes',
       rank: ['S'],
       baseExpType: 'custom',
-      expMap: '1-1',
+      expMapId: 11,
       expValue: exp,
     }
     return {
@@ -80,7 +80,7 @@ const stateToMethod = state => {
     const { sortieInput } = state
     const { flagship, mvp, rank, baseExpType } = sortieInput
     const baseExp =
-      baseExpType === 'standard' ? { type: 'standard', map: sortieInput.expMap } :
+      baseExpType === 'standard' ? { type: 'standard', mapId: sortieInput.expMapId } :
       baseExpType === 'custom' ? {
         type: 'custom',
         value: normalizeExpValue( sortieInput.expValue ),
