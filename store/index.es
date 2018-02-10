@@ -93,7 +93,9 @@ const actionCreators = {
     actionCreators.goalsModify(
       modifyObject('goalTable', modifier)
     ),
-  modifyTemplates: modifier =>
+  // this action only works after state is ready,
+  // so there is no need of making sure <extStore>.templates is valid
+  modifyTemplateList: modifier =>
     actionCreators.modify(
       modifyObject('templates', modifier)
     ),

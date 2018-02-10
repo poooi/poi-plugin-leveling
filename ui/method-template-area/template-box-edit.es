@@ -16,8 +16,6 @@ class TemplateBoxEdit extends Component {
     template: PTyp.Template.isRequired,
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    index: PTyp.number.isRequired,
-
     onModifySTypes: PTyp.func.isRequired,
     onModifyTemplateListElem: PTyp.func.isRequired,
     onRemoveTemplate: PTyp.func.isRequired,
@@ -85,13 +83,12 @@ class TemplateBoxEdit extends Component {
 
   handleRemoveTemplate = () => {
     const {
-      index,
       template,
       onRemoveTemplate,
     } = this.props
 
     Template.destruct({
-      custom: () => onRemoveTemplate(index),
+      custom: () => onRemoveTemplate(),
       main: () => console.error('Main Template cannot be removed'),
     })(template)
   }
@@ -103,7 +100,6 @@ class TemplateBoxEdit extends Component {
       customInput,
     } = this.state
     const {
-      index,
       template,
       stypes,
       stypeInfo,
@@ -115,7 +111,7 @@ class TemplateBoxEdit extends Component {
       <div className="template-box-edit">
         <div className="panels">
           <STypeEdit
-            index={index}
+            templateId={template.id}
             stypeInfo={stypeInfo}
             stypes={stypes}
             disabled={isMainTemplate}

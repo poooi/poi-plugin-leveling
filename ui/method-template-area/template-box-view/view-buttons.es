@@ -13,7 +13,7 @@ class ViewButtons extends PureComponent {
     upAction: PTyp.func,
     downAction: PTyp.func,
     editing: PTyp.bool.isRequired,
-    index: PTyp.number.isRequired,
+    template: PTyp.object.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
     isEnabled: PTyp.bool.isRequired,
     isMainTemplate: PTyp.bool.isRequired,
@@ -34,10 +34,10 @@ class ViewButtons extends PureComponent {
       // template,
       upAction, downAction,
       editing, shipTargets,
-      index,
       isEnabled, isMainTemplate,
       onStartEdit, onFinishEdit,
       onToggleTemplate, onApplyTemplate,
+      template,
     } = this.props
     return (
       <ButtonGroup className="template-controls">
@@ -50,7 +50,7 @@ class ViewButtons extends PureComponent {
         <ApplyButton
           editing={editing}
           shipTargets={shipTargets}
-          index={index}
+          templateId={template.id}
           onApplyTemplate={onApplyTemplate}
         />
         <Button

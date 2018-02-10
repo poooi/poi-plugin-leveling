@@ -39,9 +39,6 @@ window.addEventListener('unload', handleWindowUnload)
 
    - note that ships can be identified by rosterId, but templates aren't,
      we might give it an id to make things easier
-   - use template id on UI
-   - recover UI functions
-      - template page
    - saving mechamism
    - do Tabs properly
    - minimum width

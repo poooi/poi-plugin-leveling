@@ -9,6 +9,7 @@ const mainTemplate = {
     mvp: 'maybe',
     baseExp: {type: 'standard', mapId: 54},
   },
+  id: 'main',
 }
 
 /*
@@ -40,7 +41,7 @@ const recommended = [
       flagship: 'yes',
       rank: ['S','A'],
       mvp: 'yes',
-      baseExp: {type: 'standard', mapId: 4-3},
+      baseExp: {type: 'standard', mapId: 43},
     },
     [DE, CL, DD, CLT, CT]
   ),
@@ -79,6 +80,12 @@ const recommended = [
   ),
   mainTemplate,
 ]
+
+recommended.map((r, ind) => {
+  if (!(`id` in r)) {
+    recommended[ind].id = ind+1
+  }
+})
 
 export {
   mainTemplate,

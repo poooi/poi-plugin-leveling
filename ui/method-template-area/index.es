@@ -5,11 +5,14 @@ import {
   Button,
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { modifyArray } from 'subtender'
+import { modifyObject, modifyArray } from 'subtender'
 import { PTyp } from '../../ptyp'
 import { recommended as recommendedTL } from '../../default-template-list'
 import { TemplateBox } from './template-box'
 import * as structs from '../../structs'
+import {
+  mapDispatchToProps,
+} from '../../store'
 import {
   methodTemplateUISelector,
 } from '../../selectors'
@@ -21,8 +24,9 @@ class MethodTemplateAreaImpl extends Component {
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     // config: PTyp.Config.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
-    onModifyConfig: PTyp.func.isRequired,
-    onModifyGoalTable: PTyp.func.isRequired,
+    // onModifyConfig: PTyp.func.isRequired,
+    modifyTemplateList: PTyp.func.isRequired,
+    modifyGoalTable: PTyp.func.isRequired,
   }
 
   constructor(props) {
@@ -36,15 +40,23 @@ class MethodTemplateAreaImpl extends Component {
       // onModifyConfig or onModifyTemplateList, when there are changes
       // that affects array length, we need to ensure MethodTemplateArea can
       // be aware of the change and keep this array in sync.
-      editingStates: props.config.templates.map(() => false),
+      editingStates: {},
     }
   }
 
-  handleModifyEditingState = index => modifier =>
-    this.setState(state => ({
-      ...state,
-      editingStates: modifyArray(index,modifier)(state.editingStates),
-    }))
+  getEditingState = tId =>
+    (tId in this.state.editingStates) ? this.state.editingStates[tId] : false
+
+  handleModifyEditingState = templateId => modifier =>
+    this.setState(
+      modifyObject(
+        'editingStates',
+        modifyObject(
+          templateId,
+          (x = false) => modifier(x)
+        )
+      )
+    )
 
   handleCloseResetDialog = () =>
     this.setState({showModal: false})
@@ -54,97 +66,76 @@ class MethodTemplateAreaImpl extends Component {
 
   handleConfirmResetDialog = () => {
     this.handleCloseResetDialog()
-    const { onModifyConfig } = this.props
-    onModifyConfig(config => ({
-      ...config,
-      templates: recommendedTL,
-    }))
-
-    this.setState({
-      editingStates: recommendedTL.map(() => false),
-    })
+    this.props.modifyTemplateList(() => recommendedTL)
+    this.setState({editingStates: {}})
   }
 
   // despite being the most flexible modifier function,
   // usage of this function outside of this file should be eliminated.
   // this allows "state.editingStates" to be kept in sync with templates
-  handleModifyTemplateList = modifier => {
-    const { onModifyConfig } = this.props
-    onModifyConfig( config => ({
-      ...config,
-      templates: modifier(config.templates),
-    }))
-  }
+  handleModifyTemplateList = modifier =>
+    this.props.modifyTemplateList(modifier)
 
   handleCreateNewTemplate = () => {
-    const mkNew = mainTemplate => ({
-      type: 'custom',
-      method: mainTemplate.method,
-      enabled: true,
-      stypes: [],
+    let newId
+    this.handleModifyTemplateList(tl => {
+      const [customTemplates, mainTemplate] = [_.initial(tl), _.last(tl)]
+      const maxId = _.max(customTemplates.map(x => x.id))
+      newId = (_.isInteger(maxId) ? maxId : 0) + 1
+      const newTemplate = ({
+        type: 'custom',
+        method: mainTemplate.method,
+        enabled: true,
+        stypes: [],
+        id: newId,
+      })
+
+      return [newTemplate, ...tl]
     })
 
-    this.handleModifyTemplateList( tl =>
-      [mkNew(tl[tl.length-1]), ...tl])
-
-    this.setState(state => ({
-      ...state,
-      editingStates: [true, ...state.editingStates],
-    }))
+    this.setState(modifyObject('editingStates', modifyObject(newId, () => true)))
   }
 
   // remove template at index
-  handleRemoveTemplate = index => {
-    this.handleModifyTemplateList(tl => {
-      const newTl = [...tl]
-      _.pullAt(newTl,[index])
-      return newTl
-    })
+  handleRemoveTemplate = id => () =>
+    this.handleModifyTemplateList(tl =>
+      tl.filter(x => x.id !== id)
+    )
 
-    this.setState(state => {
-      const newState = {
-        ...state,
-        editingStates: [...state.editingStates],
-      }
-      _.pullAt(newState.editingStates,[index])
-      return newState
-    })
-  }
-
-  handleSwapTemplate = (i,j) => () => {
-    const l = this.props.config.templates.length
-    if (i === l-1 || j === l-1 ||
-        typeof this.state.editingStates[i] !== 'boolean' ||
-        this.state.editingStates[i] ||
-        typeof this.state.editingStates[j] !== 'boolean' ||
-        this.state.editingStates[j]) {
-      console.error(`index bound error, trying to swap elements at ${i} and ${j}`)
+  handleSwapTemplate = (idX,idY) => () => {
+    const {templates} = this.props.config
+    const indX = templates.findIndex(t => t.id === idX)
+    const indY = templates.findIndex(t => t.id === idY)
+    if (indX === -1 || indY === -1)
       return
-    }
 
-    const swapElem = xs => {
-      const newXs = [...xs]
-      const [eI,eJ] = [xs[i],xs[j]]
-      newXs[i]=eJ
-      newXs[j]=eI
-      return newXs
-    }
-    this.handleModifyTemplateList(swapElem)
+    this.handleModifyTemplateList(ts => {
+      const newTs = [...ts]
+      newTs[indX] = ts[indY]
+      newTs[indY] = ts[indX]
+      return newTs
+    })
   }
 
   // a limited version of handleModifyTemplateList
   // which makes it only possible to modify one of the elements
   // without changing the size of template list
-  handleModifyTemplateListElem = index => modifier =>
-    this.handleModifyTemplateList(
-      modifyArray(index,modifier))
+  handleModifyTemplateListElem = tId => modifier =>
+    this.handleModifyTemplateList(ts => {
+      const tInd = ts.findIndex(t => t.id === tId)
+      if (tInd !== -1) {
+        return modifyArray(tInd, modifier)(ts)
+      } else {
+        return ts
+      }
+    })
 
   render() {
     const {
       stypeInfo,
       shipTargets,
       config,
-      onModifyGoalTable,
+      modifyGoalTable,
     } = this.props
     const { templates } = config
     return (
@@ -167,29 +158,24 @@ class MethodTemplateAreaImpl extends Component {
           className="template-list"
         >
           {
-            /* eslint-disable react/no-array-index-key */
-
-            // we turn this rule off because there is nothing unique about
-            // every template except indices - one can have multiple templates
-            // that looks exactly the same, and there is nothing stopping users
-            // from doing so.
-            templates.map( (template,ind) => {
+            templates.map((template,ind) => {
               const isMainTemplate = template.type === 'main'
-              const editing = this.state.editingStates[ind]
+              const editing = this.state.editingStates[template.id]
               // INVARIANT: any template under editing state should never be moved around,
               // nor be any other template allowed of replacing its position
               // - main template is fixed at bottom and cannot be moved
               // - editing template is not allowed to move
               // - top template cannot move up, and second to last template cannot move down
+              const templatePrev = ind-1 >= 0 ? templates[ind-1] : null
+              const templateNext = ind+1 < templates.length ? templates[ind+1] : null
               const upEnabled =
                 !isMainTemplate &&
-                !editing && ind > 0 &&
-                !this.state.editingStates[ind-1]
+                !editing && ind > 0 && templatePrev &&
+                !this.state.editingStates[templatePrev.id]
               const downEnabled =
                 !isMainTemplate &&
-                !editing &&
-                ind < templates.length-2 &&
-                !this.state.editingStates[ind+1]
+                !editing && ind < templates.length-2 && templateNext &&
+                !this.state.editingStates[templateNext.id]
               const match = structs.Template.match(template)
               const applicableShips =
                 shipTargets
@@ -199,19 +185,23 @@ class MethodTemplateAreaImpl extends Component {
                 <TemplateBox
                   stypeInfo={stypeInfo}
                   shipTargets={applicableShips}
-                  key={ind}
-                  index={ind}
-                  upAction={upEnabled ? this.handleSwapTemplate(ind,ind-1) : null}
-                  downAction={downEnabled ? this.handleSwapTemplate(ind,ind+1) : null}
+                  key={template.id}
+                  upAction={
+                    upEnabled ?
+                      this.handleSwapTemplate(template.id,templatePrev.id) : null
+                  }
+                  downAction={
+                    downEnabled ?
+                      this.handleSwapTemplate(template.id,templateNext.id) : null
+                  }
                   editing={editing}
-                  onModifyGoalTable={onModifyGoalTable}
-                  onModifyTemplateListElem={this.handleModifyTemplateListElem(ind)}
-                  onModifyEditingState={this.handleModifyEditingState(ind)}
-                  onRemoveTemplate={this.handleRemoveTemplate}
+                  onModifyGoalTable={modifyGoalTable}
+                  onModifyTemplateListElem={this.handleModifyTemplateListElem(template.id)}
+                  onModifyEditingState={this.handleModifyEditingState(template.id)}
+                  onRemoveTemplate={this.handleRemoveTemplate(template.id)}
                   template={template} />
               )
             })
-            /* eslint-enable react/no-array-index-key */
           }
 
         </ListGroup>
@@ -238,7 +228,7 @@ class MethodTemplateAreaImpl extends Component {
 
 const MethodTemplateArea = connect(
   methodTemplateUISelector,
-  // mapDispatchToProps,
+  mapDispatchToProps,
 )(MethodTemplateAreaImpl)
 
 export { MethodTemplateArea }

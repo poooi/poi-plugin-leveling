@@ -11,7 +11,7 @@ const { __ } = window
 class ApplyButton extends PureComponent {
   static propTypes = {
     editing: PTyp.bool.isRequired,
-    index: PTyp.number.isRequired,
+    templateId: PTyp.number.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
     onApplyTemplate: PTyp.func.isRequired,
   }
@@ -19,7 +19,7 @@ class ApplyButton extends PureComponent {
   render() {
     const {
       editing, shipTargets,
-      index,
+      templateId,
       onApplyTemplate,
     } = this.props
     return (
@@ -28,7 +28,7 @@ class ApplyButton extends PureComponent {
         style={{flex: 4}}
         justified>
         <DropdownButton
-          id={`tb-view-dd-apply-${index}`}
+          id={`tb-view-dd-apply-${templateId}`}
           disabled={editing || shipTargets.length === 0}
           onSelect={onApplyTemplate}
           title={__('Template.ApplyTo')}>

@@ -15,7 +15,6 @@ class TemplateBoxView extends Component {
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
     editing: PTyp.bool.isRequired,
-    index: PTyp.number.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
 
     onStartEdit: PTyp.func.isRequired,
@@ -77,7 +76,7 @@ class TemplateBoxView extends Component {
       template,
       upAction, downAction,
       editing, shipTargets,
-      index, stypeInfo,
+      stypeInfo,
       onStartEdit, onFinishEdit,
     } = this.props
     const isMainTemplate = template.type === 'main'
@@ -93,7 +92,6 @@ class TemplateBoxView extends Component {
           template={template}
           upAction={upAction} downAction={downAction}
           editing={editing}
-          index={index}
           shipTargets={shipTargets}
           isMainTemplate={isMainTemplate}
           isEnabled={isEnabled}

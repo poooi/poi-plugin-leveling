@@ -15,7 +15,7 @@ class STypeEdit extends Component {
     disabled: PTyp.bool.isRequired,
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    index: PTyp.number.isRequired,
+    templateId: PTyp.number.isRequired,
     onModifySTypes: PTyp.func.isRequired,
   }
 
@@ -29,7 +29,6 @@ class STypeEdit extends Component {
         disabled,
         stypes,
         stypeInfo,
-        index,
         onModifySTypes,
       } = props
 
@@ -46,7 +45,6 @@ class STypeEdit extends Component {
         // so a quick comparison on sorted stypes
         // should give us enough clue.
         sortedSTypes,
-        index,
         onModifySTypes,
       }
     }
@@ -96,8 +94,8 @@ class STypeEdit extends Component {
 
   render() {
     const {
-      index,
       disabled,
+      templateId,
     } = this.props
     const {
       stypeInfoIncluded,
@@ -113,7 +111,7 @@ class STypeEdit extends Component {
         <Panel.Body>
           <ButtonGroup justified>
             <DropdownButton
-              id={`tb-edit-dd-add-${index}`}
+              id={`tb-edit-dd-add-${templateId}`}
               onSelect={this.handleAddOrRemoveSType('add')}
               disabled={disabled || stypeInfoMissing.length === 0}
               title={__('Template.AddType')}>
@@ -128,7 +126,7 @@ class STypeEdit extends Component {
           </ButtonGroup>
           <ButtonGroup justified>
             <DropdownButton
-              id={`tb-edit-dd-rm-${index}`}
+              id={`tb-edit-dd-rm-${templateId}`}
               onSelect={this.handleAddOrRemoveSType('remove')}
               disabled={disabled || stypeInfoIncluded.length === 0}
               title={__('Template.RemoveType')}>
