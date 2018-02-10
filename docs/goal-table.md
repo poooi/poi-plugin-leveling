@@ -90,6 +90,13 @@ and configuration of each individual goal.
 
     `mapId` must refer to one map defined in `/assets/map_exp.json`.
 
+    Justification for using `mapId` instead of `mapStr`:
+
+    - cheap to parse
+    - game API is using `mapId`, so this makes things easier
+    - even if user want to have their different templates for the same map,
+      they can always do `custom` type.
+
 - when `type` is `custom`
 
     ```
