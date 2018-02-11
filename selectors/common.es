@@ -115,6 +115,7 @@ const templateListSelector = createSelector(
 export {
   extSelector,
   uiSelector,
+  templatesSelector,
   templateListSelector,
   pReadySelector,
 
