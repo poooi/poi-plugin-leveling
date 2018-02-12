@@ -140,21 +140,43 @@ class MethodTemplateAreaImpl extends Component {
     const { templates } = config
     return (
       <div
-        className="method-template-area"
+        style={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
-        <div className="template-top-btns">
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
           <Button
-            style={{flex: 1}}
+            style={{
+              flex: 1,
+              marginTop: 0,
+              marginBottom: 8,
+              marginRight: 10,
+            }}
             onClick={this.handleOpenResetDialog}>
             {__('Template.ResetToDefault')}
           </Button>
           <Button
-            style={{flex: 3}}
+            style={{
+              flex: 3,
+              marginTop: 0,
+              marginBottom: 8,
+            }}
             onClick={this.handleCreateNewTemplate}>
             {__('Template.NewTemplate')}
           </Button>
         </div>
         <ListGroup
+          style={{
+            flex: 1,
+            height: 0,
+            overflowY: 'auto',
+          }}
           className="template-list"
         >
           {

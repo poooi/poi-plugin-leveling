@@ -32,6 +32,7 @@ class GoalBox extends Component {
     const { ship, goal } = eGoalPair
     return (
       <ListGroupItem
+        style={{padding: 6}}
         className="goal-box color-altering-row">
         <GoalBoxView
           editing={this.state.editing}

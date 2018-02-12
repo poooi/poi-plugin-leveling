@@ -14,11 +14,6 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.goal-list > .list-group-item,
-.template-list > .list-group-item {
-    padding: 6px;
-}
-
 .three-rows {
     display: flex;
     flex-direction: column;
@@ -276,19 +271,6 @@
 
 .panel.stype .panel-body > * {
     margin-bottom: 12px;
-}
-
-.method-template-area .template-top-btns {
-    display: flex;
-}
-
-.method-template-area .template-top-btns > * {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.method-template-area .template-top-btns > *:not(:last-child) {
-    margin-right: 10px;
 }
 
 #leveling-main ul[role="tablist"].nav.nav-tabs {

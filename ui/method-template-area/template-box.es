@@ -56,6 +56,7 @@ class TemplateBox extends Component {
   render() {
     return (
       <ListGroupItem
+        style={{padding: 6}}
         className="template-box color-altering-row">
         <TemplateBoxView
           stypes={this.state.stypes}
