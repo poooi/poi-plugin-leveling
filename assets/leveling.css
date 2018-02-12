@@ -301,3 +301,47 @@
     flex: 1;
     text-align: center;
 }
+
+.theme-darkly .color-altering-row:nth-of-type(odd) {
+    background-color: #3d3d3d;
+}
+
+.theme-slate .color-altering-row:nth-of-type(odd) {
+    background-color: #353a41;
+}
+
+.theme-superhero .color-altering-row:nth-of-type(odd) {
+    background-color: #4e5d6c;
+}
+
+.theme-superhero .color-altering-row:nth-of-type(even) {
+    background-color: rgba(78, 93, 108, 0.6);
+}
+
+.theme-lumendark .color-altering-row:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.theme-paperdark .color-altering-row:nth-of-type(odd) {
+    background-color: #3d3d3d;
+}
+
+.theme-papercyan .color-altering-row:nth-of-type(odd) {
+    background-color: #222222;
+}
+
+.theme-papercyan .color-altering-row:nth-of-type(even) {
+    background-color: rgba(34, 34, 34, 0.6);
+}
+
+.theme-paperblack .color-altering-row:nth-of-type(odd) {
+    background-color: #424242;
+}
+
+.theme-paperblack .color-altering-row:nth-of-type(even) {
+    background-color: rgba(66, 66, 66, 0.6);
+}
+
+.theme-darklykai .color-altering-row:nth-of-type(odd) {
+    background-color: #3d3d3d;
+}

@@ -8,6 +8,7 @@ import { mapDispatchToProps } from '../store'
 
 import {
   uiSelector,
+  themeSelector,
 } from '../selectors'
 
 import { GoalArea } from './goal-area'
@@ -20,6 +21,7 @@ const {__} = window
 class LevelingImpl extends PureComponent {
   static propTypes = {
     activeTab: PTyp.string.isRequired,
+    theme: PTyp.string.isRequired,
     uiModify: PTyp.func.isRequired,
   }
 
@@ -27,10 +29,11 @@ class LevelingImpl extends PureComponent {
     this.props.uiModify(modifyObject('activeTab', () => activeTab))
 
   render() {
-    const {activeTab} = this.props
+    const {activeTab, theme} = this.props
     return (
       <Tab.Container
         id="leveling-main"
+        className={`theme-${theme}`}
         onSelect={this.handleTabSwitch}
         style={{
           height: '100vh',
@@ -80,8 +83,9 @@ class LevelingImpl extends PureComponent {
 const Leveling = connect(
   createStructuredSelector({
     activeTab: createSelector(uiSelector, ui => ui.activeTab),
+    theme: themeSelector,
   }),
-  mapDispatchToProps,
+  mapDispatchToProps
 )(LevelingImpl)
 
 export { Leveling }

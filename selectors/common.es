@@ -13,6 +13,7 @@ import {
   basicSelector,
   wctfSelector,
   extensionSelectorFactory,
+  configSelector as poiConfSelector,
 } from 'views/utils/selectors'
 
 import { minimum } from '../default-template-list'
@@ -112,6 +113,11 @@ const templateListSelector = createSelector(
     pReady ? templates : minimum
 )
 
+const themeSelector = createSelector(
+  poiConfSelector,
+  conf => _.get(conf, 'poi.theme', 'paperdark')
+)
+
 export {
   extSelector,
   uiSelector,
@@ -125,4 +131,5 @@ export {
   goalsGoalTableSelector,
   goalsAdmiralIdSelector,
   goalTableSelector,
+  themeSelector,
 }

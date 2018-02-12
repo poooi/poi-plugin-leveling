@@ -31,7 +31,8 @@ class GoalBox extends Component {
     const { eGoalPair, rGoals, modifyGoalTable } = this.props
     const { ship, goal } = eGoalPair
     return (
-      <ListGroupItem className="goal-box">
+      <ListGroupItem
+        className="goal-box color-altering-row">
         <GoalBoxView
           editing={this.state.editing}
           onStartEdit={this.handleStartEdit}
