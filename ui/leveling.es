@@ -2,6 +2,7 @@ import { createSelector, createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Tab, Nav, NavItem } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 import { modifyObject } from 'subtender'
 
 import { mapDispatchToProps } from '../store'
@@ -14,6 +15,7 @@ import {
 import { GoalArea } from './goal-area'
 import { ShipPicker } from './ship-picker'
 import { MethodTemplateArea } from './method-template-area'
+import { MiscArea } from './misc-area'
 import { PTyp } from '../ptyp'
 
 const {__} = window
@@ -56,6 +58,30 @@ class LevelingImpl extends PureComponent {
               <NavItem eventKey="template">
                 {__('Top.Templates')}
               </NavItem>
+              <NavItem
+                id="main-tab-misc"
+                style={{
+                  flex: 0,
+                }}
+                eventKey="misc"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <FontAwesome
+                    style={{width: '1em', height: '1em', marginRight: '.4em'}}
+                    name="cog"
+                  />
+                  /
+                  <FontAwesome
+                    style={{width: '1em', height: '1em', marginLeft: '.4em'}}
+                    name="question-circle"
+                  />
+                </div>
+              </NavItem>
             </Nav>
           </div>
           <div style={{flex: 1, height: 0}}>
@@ -71,6 +97,9 @@ class LevelingImpl extends PureComponent {
               </Tab.Pane>
               <Tab.Pane eventKey="template" style={{height: '100%'}}>
                 <MethodTemplateArea />
+              </Tab.Pane>
+              <Tab.Pane eventKey="misc" style={{height: '100%'}}>
+                <MiscArea />
               </Tab.Pane>
             </Tab.Content>
           </div>

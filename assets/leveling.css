@@ -345,3 +345,9 @@
 .theme-darklykai .color-altering-row:nth-of-type(odd) {
     background-color: #3d3d3d;
 }
+
+#leveling-main-tab-misc {
+    height: 100%;
+    padding-left: 1.8em;
+    padding-right: 1.8em;
+}

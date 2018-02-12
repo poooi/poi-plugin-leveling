@@ -2,7 +2,6 @@ import { createSelector, createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { shell } from 'electron'
 import { modifyObject } from 'subtender'
 
 import { PTyp } from '../../../ptyp'
@@ -10,10 +9,6 @@ import { uiSelector } from '../../../selectors'
 import { mapDispatchToProps } from '../../../store'
 
 const { __ } = window
-
-// TODO: some really unnecessary lints are disabled for now
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 
 const makeSorterSpec = (name,method,asc=true) =>
   ({name, method, asc})
@@ -55,9 +50,6 @@ class GoalSorterRowImpl extends Component {
       )
     )
 
-  handleOpenUserManual = () =>
-    shell.openExternal(__('UserManual.Link'))
-
   render() {
     const { sortMethod } = this.props
     return (
@@ -82,15 +74,6 @@ class GoalSorterRowImpl extends Component {
             )
           })
         }
-        <a
-          onClick={this.handleOpenUserManual}
-          style={{
-            marginLeft: 'auto',
-            fontSize: '1.2em',
-          }}
-        >
-          {__('UserManual.Desc')}
-        </a>
       </div>)
   }
 }
