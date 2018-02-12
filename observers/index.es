@@ -3,6 +3,7 @@ import { store } from 'views/create-store'
 
 import { pStateSaver } from './p-state-saver'
 import { goalTableLoader } from './goal-table-loader'
+import { goalTableSaver } from './goal-table-saver'
 
 let unsubscribe = null
 
@@ -17,6 +18,7 @@ const globalSubscribe = () => {
   unsubscribe = observe(store, [
     pStateSaver,
     goalTableLoader,
+    goalTableSaver,
   ])
 }
 

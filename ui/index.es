@@ -1,28 +1,20 @@
-import { createSelector, createStructuredSelector } from 'reselect'
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { connect, Provider } from 'react-redux'
+import { Provider } from 'react-redux'
 import { store, extendReducer } from 'views/create-store'
-import { Tab, Nav, NavItem } from 'react-bootstrap'
-import { modifyObject } from 'subtender'
 
-import { reducer, boundActionCreators as bac, mapDispatchToProps } from '../store'
-
+import { reducer, boundActionCreators as bac } from '../store'
 import { migrate } from '../migrate'
 import { loadPState } from '../p-state'
 
 import {
   admiralIdSelector,
-  uiSelector,
 } from '../selectors'
 
-import { GoalArea } from './goal-area'
-import { ShipPicker } from './ship-picker'
-import { MethodTemplateArea } from './method-template-area'
+import { Leveling } from './leveling'
 import { globalSubscribe, globalUnsubscribe } from '../observers'
-import { PTyp } from '../ptyp'
 
-const { $, __, getStore } = window
+const { $, getStore } = window
 
 extendReducer('poi-plugin-leveling', reducer)
 globalSubscribe()
@@ -39,15 +31,14 @@ window.addEventListener('unload', handleWindowUnload)
 
    - note that ships can be identified by rosterId, but templates aren't,
      we might give it an id to make things easier
-   - saving mechamism
-   - do Tabs properly
-   - minimum width
+   - do Tabs properly (leveling method)
    - scollbar inside content
+     - ships
+     - templates
    - derive more data with selectors
-   - Separate "Goals" to "Goals" and "Ships":
-
-     - "Ships" lists all ships including those that have goals
-     - improve UI.
+   - "Ships" lists all ships including those that have goals
+     - confirm removal (if accidental flag has timed out)
+   - improve UI.
 
    - TODO: mstId-specific templates
    - Tab "Misc"
@@ -79,79 +70,12 @@ $('#fontawesome-css').setAttribute(
   require.resolve('font-awesome/css/font-awesome.css')
 )
 
-class LevelingMainImpl extends Component {
-  static propTypes = {
-    activeTab: PTyp.string.isRequired,
-    uiModify: PTyp.func.isRequired,
-  }
-
-  handleTabSwitch = activeTab =>
-    this.props.uiModify(modifyObject('activeTab', () => activeTab))
-
-  render() {
-    const {activeTab} = this.props
-    return (
-      <Tab.Container
-        id="leveling-main"
-        onSelect={this.handleTabSwitch}
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        activeKey={activeTab}
-      >
-        <div>
-          <div style={{marginBottom: 8}}>
-            <Nav
-              bsStyle="tabs"
-            >
-              <NavItem eventKey="goal">
-                {__('Top.Goals')}
-              </NavItem>
-              <NavItem eventKey="ship">
-                Ships
-              </NavItem>
-              <NavItem eventKey="template">
-                {__('Top.Templates')}
-              </NavItem>
-            </Nav>
-          </div>
-          <div style={{flex: 1, height: 0}}>
-            <Tab.Content
-              animation={false}
-              style={{height: '100%'}}
-            >
-              <Tab.Pane eventKey="goal" style={{height: '100%'}}>
-                <GoalArea />
-              </Tab.Pane>
-              <Tab.Pane eventKey="ship" style={{height: '100%'}}>
-                <ShipPicker />
-              </Tab.Pane>
-              <Tab.Pane eventKey="template" style={{height: '100%'}}>
-                <MethodTemplateArea />
-              </Tab.Pane>
-            </Tab.Content>
-          </div>
-        </div>
-      </Tab.Container>
-    )
-  }
-}
-
-const LevelingMain = connect(
-  createStructuredSelector({
-    activeTab: createSelector(uiSelector, ui => ui.activeTab),
-  }),
-  mapDispatchToProps,
-)(LevelingMainImpl)
-
 ReactDOM.render(
   <Provider store={store}>
     <div
       style={{margin: "0 1%", minWidth: 600}}
     >
-      <LevelingMain />
+      <Leveling />
     </div>
   </Provider>,
   $('#content-root')

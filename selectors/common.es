@@ -122,5 +122,7 @@ export {
   admiralIdSelector,
   shipStatsAtLevelFuncSelector,
   goalsReadySelector,
+  goalsGoalTableSelector,
+  goalsAdmiralIdSelector,
   goalTableSelector,
 }
