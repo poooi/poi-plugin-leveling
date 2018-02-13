@@ -23,7 +23,6 @@ import {
 
 import {
   extSelector,
-  admiralIdSelector,
   goalTableSelector,
   templateListSelector,
 } from './common'
@@ -80,9 +79,8 @@ const shipTypeInfoSelector = createSelector(
 //   in which every element has properly paired {goal,ship} together
 const shipListSplitSelector = createSelector(
   shipsInfoSelector,
-  admiralIdSelector,
   goalTableSelector,
-  (ships, _admiralId, goalTable) => {
+  (ships, goalTable) => {
     if (goalTable === null)
       return {
         shipsWithoutGoal: [],
@@ -112,13 +110,11 @@ const enabledTemplateListSelector = createSelector(
 )
 
 const goalAreaUISelector = createSelector(
-  admiralIdSelector,
   shipTypeInfoSelector,
   shipListSplitSelector,
   enabledTemplateListSelector,
-  (admiralId, stypeInfo, {shipsWithoutGoal, goalPairs}, templates) => ({
+  (stypeInfo, {shipsWithoutGoal, goalPairs}, templates) => ({
     ships: shipsWithoutGoal,
-    admiralId,
     stypeInfo,
     goalPairs,
     templates,
