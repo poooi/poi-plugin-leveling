@@ -29,12 +29,7 @@ window.addEventListener('unload', handleWindowUnload)
 /*
    TODO
 
-   - note that ships can be identified by rosterId, but templates aren't,
-     we might give it an id to make things easier
    - do Tabs properly (leveling method)
-   - scollbar inside content
-     - ships
-     - templates
    - derive more data with selectors
    - "Ships" lists all ships including those that have goals
      - confirm removal (if accidental flag has timed out)
@@ -42,7 +37,6 @@ window.addEventListener('unload', handleWindowUnload)
 
    - TODO: mstId-specific templates
    - Tab "Misc"
-     - User Manual
      - settings (toggle ship avatar)
      - exp table
    - allow applying template even if ship type mismatches

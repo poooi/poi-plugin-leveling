@@ -79,49 +79,57 @@ class ShipList extends Component {
     const { ships, sorter } = this.props
 
     return (
-      <Table striped bordered condensed hover>
-        <thead>
-          <tr>
-            {
-              headerSpecs.map(({name, method, asc}) => {
-                const sortable =
-                  typeof method === 'string' &&
-                  typeof asc === 'boolean'
-                const isActive = sorter.method === method
-                // using name instead of method, as some doesn't have the latter
-                const key = name
-                let content
-                if (isActive) {
-                  const dir = sorter.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
-                  content = `${name} ${dir}`
-                } else {
-                  content = name
-                }
+      <div
+        style={{
+          flex: 1,
+          height: 0,
+          overflowY: 'auto',
+        }}
+      >
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              {
+                headerSpecs.map(({name, method, asc}) => {
+                  const sortable =
+                    typeof method === 'string' &&
+                    typeof asc === 'boolean'
+                  const isActive = sorter.method === method
+                  // using name instead of method, as some doesn't have the latter
+                  const key = name
+                  let content
+                  if (isActive) {
+                    const dir = sorter.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
+                    content = `${name} ${dir}`
+                  } else {
+                    content = name
+                  }
 
-                return (
-                  <th
-                    className={isActive ? "text-primary" : ""}
-                    key={key}
-                    onClick={sortable ? this.handleClickHeader(method) : null}>
-                    {content}
-                  </th>
-                )
-              })
+                  return (
+                    <th
+                      className={isActive ? "text-primary" : ""}
+                      key={key}
+                      onClick={sortable ? this.handleClickHeader(method) : null}>
+                      {content}
+                    </th>
+                  )
+                })
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              ships.map(ship => (
+                <ShipListRow
+                  key={ship.rstId}
+                  ship={ship}
+                  onAddToGoalTable={this.handleAddToGoalTable(ship)}
+                />
+              ))
             }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            ships.map(ship => (
-              <ShipListRow
-                key={ship.rstId}
-                ship={ship}
-                onAddToGoalTable={this.handleAddToGoalTable(ship)}
-              />
-            ))
-          }
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      </div>
     )
   }
 }

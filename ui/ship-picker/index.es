@@ -78,7 +78,13 @@ class ShipPickerImpl extends Component {
     const stypes = [...stypeSet].sort((x,y) => x-y)
     const ships = sorter(filter(originalShips))
     return (
-      <div>
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <ShipFilter
           onModifyFilters={this.handleModifyFilters}
           filters={this.state.filters}
