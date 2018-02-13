@@ -27,6 +27,8 @@ class MethodTemplateAreaImpl extends Component {
     // onModifyConfig: PTyp.func.isRequired,
     modifyTemplateList: PTyp.func.isRequired,
     modifyGoalTable: PTyp.func.isRequired,
+    // TODO: remove
+    config: PTyp.object.isRequired,
   }
 
   constructor(props) {
