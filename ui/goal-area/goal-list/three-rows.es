@@ -15,10 +15,36 @@ class ThreeRows extends Component {
   render() {
     const { style, first, second, third } = this.props
     return (
-      <div className="three-rows" style={style}>
-        <div className="first-row">{first}</div>
-        <div className="second-row">{second}</div>
-        <div className="third-row">{third}</div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          ...style,
+        }}>
+        <div
+          style={{
+            fontSize: 12,
+          }}
+        >
+          {first}
+        </div>
+        <div
+          style={{
+            fontSize: 18,
+            fontWeight: 'bold',
+            paddingLeft: 5,
+          }}
+        >
+          {second}
+        </div>
+        <div
+          style={{
+            fontSize: 10,
+            paddingLeft: 5,
+          }}
+        >
+          {third}
+        </div>
       </div>
     )
   }

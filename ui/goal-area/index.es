@@ -26,7 +26,8 @@ class GoalAreaImpl extends Component {
       >
         <GoalList
           goalsModify={goalsModify}
-          goalPairs={goalPairs} />
+          goalPairs={goalPairs}
+        />
       </div>
     )
   }

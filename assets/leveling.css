@@ -14,29 +14,6 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.three-rows {
-    display: flex;
-    flex-direction: column;
-}
-
-.three-rows > .second-row {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.three-rows > .third-row {
-    font-size: 10px;
-}
-
-.three-rows > .second-row,
-.three-rows > .third-row {
-    padding-left: 5px;
-}
-
-.goal-box-view .first-row {
-    font-size: 12px;
-}
-
 .goal-box-edit .edit-control,
 .template-box-edit .edit-control {
     display: flex;
