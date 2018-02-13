@@ -7,8 +7,8 @@ import FontAwesome from 'react-fontawesome'
 import { PTyp } from '../../ptyp'
 import { Template } from '../../structs'
 
-import { LevelingMethodPanel } from '../goal-area/goal-list/leveling-method-panel'
-import { fillStates, stateToMethod } from '../goal-area/goal-list/goal-box-edit'
+import { LevelingMethodPanel } from '../goal-area/leveling-method-panel'
+import { fillStates, stateToMethod } from '../goal-area/goal-box-edit'
 import { STypeEdit } from './stype-edit'
 
 class TemplateBoxEdit extends Component {

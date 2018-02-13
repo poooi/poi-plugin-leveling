@@ -3,9 +3,9 @@ import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
 import { mapStrToId } from 'subtender/kc'
 
 import { ExpValueEdit } from './exp-value-edit'
-import { sortedMapKeys, getMapExpInfo } from '../../../map-exp'
+import { sortedMapKeys, getMapExpInfo } from '../../map-exp'
 
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 
 const { __ } = window
 

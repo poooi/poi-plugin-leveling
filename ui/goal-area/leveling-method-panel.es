@@ -4,7 +4,7 @@ import {
   Nav, NavItem,
 } from 'react-bootstrap'
 
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'

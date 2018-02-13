@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { modifyObject } from 'subtender'
 
-import { PTyp } from '../../../ptyp'
-import { uiSelector } from '../../../selectors'
-import { mapDispatchToProps } from '../../../store'
+import { PTyp } from '../../ptyp'
+import { uiSelector } from '../../selectors'
+import { mapDispatchToProps } from '../../store'
 
 const { __ } = window
 

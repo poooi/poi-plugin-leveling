@@ -4,8 +4,8 @@ import {
   ListGroup, ListGroupItem, Button,
 } from 'react-bootstrap'
 
-import { PTyp } from '../../../ptyp'
-import { Reason } from '../../../structs'
+import { PTyp } from '../../ptyp'
+import { Reason } from '../../structs'
 
 const { __ } = window
 

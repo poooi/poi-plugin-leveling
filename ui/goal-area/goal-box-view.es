@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome'
 import { ThreeRows } from './three-rows'
 import { MethodView } from './method-view'
 
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 
 const { __ } = window
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Checkbox, FormControl } from 'react-bootstrap'
 
 import { clamp } from 'subtender'
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 
 const { __ } = window
 

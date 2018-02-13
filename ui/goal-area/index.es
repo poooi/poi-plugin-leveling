@@ -17,8 +17,8 @@ import { computeExpRange } from '../../map-exp'
 
 import * as SC from '../../shiplist-ops'
 
-import { GoalBox } from './goal-list/goal-box'
-import { GoalSorterRow } from './goal-list/goal-sorter-row'
+import { GoalBox } from './goal-box'
+import { GoalSorterRow } from './goal-sorter-row'
 
 const {
   chainComparators,

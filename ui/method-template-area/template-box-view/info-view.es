@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { PTyp } from '../../../ptyp'
-import { prepareMethodText } from '../../goal-area/goal-list/method-view'
+import { prepareMethodText } from '../../goal-area/method-view'
 
 const { _, __ } = window
 

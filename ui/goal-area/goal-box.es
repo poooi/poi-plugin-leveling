@@ -4,7 +4,7 @@ import { ListGroupItem, Collapse } from 'react-bootstrap'
 import { GoalBoxView } from './goal-box-view'
 import { GoalBoxEdit } from './goal-box-edit'
 
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 
 class GoalBox extends Component {
   static propTypes = {

@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { mapIdToStr } from 'subtender/kc'
 import { ThreeRows } from './three-rows'
 
-import { PTyp } from '../../../ptyp'
+import { PTyp } from '../../ptyp'
 import {
   ExpValue,
   BaseExp,
   Method,
   Ternary,
   Rank,
-} from '../../../structs'
+} from '../../structs'
 
 const { __ } = window
 
