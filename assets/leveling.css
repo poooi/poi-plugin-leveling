@@ -2,18 +2,6 @@
     font-family: "Ubuntu", "Helvetica Neue", "Helvetica", "Arial", "WenQuanYi Micro Hei", "Microsoft YaHei", "Droid Sans Fallback", sans-serif;
 }
 
-.fleet-id-indicator {
-    font-weight: bolder;
-    color: white;
-    font-family: serif;
-    text-shadow:
-    -1px -1px 0 lightseagreen,
-    1px -1px 0 lightseagreen,
-    -1px 1px 0 lightseagreen,
-    1px 1px 0 lightseagreen;
-    -webkit-font-smoothing: antialiased;
-}
-
 .goal-box-edit .edit-control,
 .template-box-edit .edit-control {
     display: flex;

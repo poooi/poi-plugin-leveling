@@ -41,7 +41,23 @@ class ShipListRow extends Component {
         <td>{ship.evasion}</td>
         <td>{ship.asw}</td>
         <td>{ship.los}</td>
-        <td className="fleet-id-indicator" style={{textAlign: "center"}}>{ship.fleet}</td>
+        <td
+          style={{
+            fontWeight: 'bolder',
+            color: 'white',
+            fontFamily: 'serif',
+            textShadow: [
+              '-1px -1px 0 lightseagreen',
+              '1px -1px 0 lightseagreen',
+              '-1px 1px 0 lightseagreen',
+              '1px 1px 0 lightseagreen',
+            ].join(','),
+            WebkitFontSmoothing: 'antialiased',
+            textAlign: 'center',
+          }}
+        >
+          {ship.fleet}
+        </td>
         <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
         <td style={{textAlign: "center"}}>
           <Button
