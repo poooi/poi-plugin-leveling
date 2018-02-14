@@ -15,9 +15,12 @@ import {
 import { totalExp } from '../../exp'
 import { computeExpRange } from '../../map-exp'
 
-import SC, {
+import {
   chainComparators,
   getter2Comparator,
+  rosterIdComparator as sRosterIdComparator,
+  inGameLevelComparator as sInGameLevelComparator,
+  inGameShipTypeComparator as sInGameShipTypeComparator,
 } from '../../shiplist-ops'
 
 import {
@@ -41,11 +44,11 @@ const on = cmp => prj => (x,y) => cmp(prj(x),prj(y))
 const wrapShipComparator = cmp => on(cmp)(x => x.ship)
 
 const prepareSorter = ({method, reversed}) => {
-  const rosterIdComparator = wrapShipComparator(SC.rosterIdComparator)
+  const rosterIdComparator = wrapShipComparator(sRosterIdComparator)
   const levelComparator =
-    wrapShipComparator(SC.inGameLevelComparator)
+    wrapShipComparator(sInGameLevelComparator)
   const stypeComparator =
-    wrapShipComparator(SC.inGameShipTypeComparator)
+    wrapShipComparator(sInGameShipTypeComparator)
 
   const comparator =
     method === 'rid' ? rosterIdComparator :
