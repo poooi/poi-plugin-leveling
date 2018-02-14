@@ -1,10 +1,18 @@
+import { modifyObject } from 'subtender'
 import React, { PureComponent } from 'react'
+import {
+  createStructuredSelector,
+} from 'reselect'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
 import { ShipListRow } from './ship-list-row'
 import { mapDispatchToProps } from '../../store'
+import {
+  shipListSelector,
+  sortMethodSelector,
+} from './selectors'
 
 const { __ } = window
 
@@ -33,33 +41,42 @@ const headerSpecs = [
 class ShipListImpl extends PureComponent {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
-    sorter: PTyp.ShipPickerSorter.isRequired,
+    sortMethod: PTyp.ShipPickerSorter.isRequired,
 
-    onModifySorter: PTyp.func.isRequired,
     addShipToGoalTable: PTyp.func.isRequired,
+    uiModify: PTyp.func.isRequired,
   }
+
+  modifySortMethod = modifier =>
+    this.props.uiModify(
+      modifyObject(
+        'shipTab',
+        modifyObject('sortMethod', modifier)
+      )
+    )
 
   handleAddToGoalTable = rstId => () =>
     this.props.addShipToGoalTable(rstId)
 
-  handleClickHeader = method => () => {
-    const { onModifySorter } = this.props
-    onModifySorter( sorter => {
-      if (sorter.method === method)
-        return {
-          ...sorter,
-          reversed: !sorter.reversed,
+  handleClickHeader = method => () =>
+    this.modifySortMethod(
+      sortMethod => {
+        if (sortMethod.method === method) {
+          return {
+            ...sortMethod,
+            reversed: !sortMethod.reversed,
+          }
+        } else {
+          return {
+            method,
+            reversed: false,
+          }
         }
-      else
-        return {
-          method,
-          reversed: false,
-        }
-    })
-  }
+      }
+    )
 
   render() {
-    const {ships, sorter} = this.props
+    const {ships, sortMethod} = this.props
     return (
       <div
         style={{
@@ -76,12 +93,12 @@ class ShipListImpl extends PureComponent {
                   const sortable =
                     typeof method === 'string' &&
                     typeof asc === 'boolean'
-                  const isActive = sorter.method === method
+                  const isActive = sortMethod.method === method
                   // using name instead of method, as some doesn't have the latter
                   const key = name
                   let content
                   if (isActive) {
-                    const dir = sorter.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
+                    const dir = sortMethod.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
                     content = `${name} ${dir}`
                   } else {
                     content = name
@@ -117,7 +134,10 @@ class ShipListImpl extends PureComponent {
 }
 
 const ShipList = connect(
-  null,
+  createStructuredSelector({
+    sortMethod: sortMethodSelector,
+    ships: shipListSelector,
+  }),
   mapDispatchToProps,
 )(ShipListImpl)
 
