@@ -1,3 +1,4 @@
+import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
   ListGroup,
@@ -14,8 +15,12 @@ import {
   mapDispatchToProps,
 } from '../../store'
 import {
-  methodTemplateUISelector,
+  shipTypeInfoSelector,
+  templateListSelector,
 } from '../../selectors'
+import {
+  shipTargetsSelector,
+} from './selectors'
 
 const { _, __ } = window
 
@@ -250,7 +255,11 @@ class MethodTemplateAreaImpl extends Component {
 }
 
 const MethodTemplateArea = connect(
-  methodTemplateUISelector,
+  createStructuredSelector({
+    stypeInfo: shipTypeInfoSelector,
+    templates: templateListSelector,
+    shipTargets: shipTargetsSelector,
+  }),
   mapDispatchToProps,
 )(MethodTemplateAreaImpl)
 

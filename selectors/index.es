@@ -10,7 +10,6 @@ import {
 
 import {
   goalTableSelector,
-  templateListSelector,
   getShipInfoFuncSelector,
 } from './common'
 
@@ -64,35 +63,9 @@ const goalPairsSelector = createSelector(
   s => s.goalPairs
 )
 
-const methodTemplateUISelector = createSelector(
-  shipTypeInfoSelector,
-  templateListSelector,
-  goalPairsSelector,
-  (stypeInfo,templates,goalPairs) => {
-    const purgeGoalPair = ({goal,ship}) => ({
-      name: ship.name,
-      stype: ship.stype,
-      rstId: ship.rstId,
-      level: ship.level,
-      goalLevel: goal.goalLevel,
-    })
-    const shipTargets = goalPairs.filter(pair =>
-      pair.ship.level < pair.goal.goalLevel
-    ).map(purgeGoalPair)
-
-    return {
-      stypeInfo,
-      templates,
-      // Ship targets to be applied to
-      shipTargets,
-    }
-  }
-)
-
 export * from './common'
 
 export {
-  methodTemplateUISelector,
   shipsInfoSelector,
   splitGoalPairsSelector,
   goalPairsSelector,
