@@ -34,15 +34,15 @@ const prepareFilter = filters => {
   return _.flow([fleetFilter, typeFilter, levelFilter, lockFilter])
 }
 
-const describeFilterWith = (stypeInfo,__) => filterName => {
+const describeFilterWith = (getShipTypeInfo,__) => filterName => {
   const trAll = __('Filter.All')
   if (filterName === 'type')
     return tNum => {
       if (tNum === 'all')
         return trAll
 
-      const stInd = stypeInfo.findIndex( ({id}) => id === tNum )
-      return stInd === -1 ? tNum : `${stypeInfo[stInd].name} (${tNum})`
+      const stInfo = getShipTypeInfo(tNum)
+      return stInfo ? `${stInfo.name} (${tNum})` : String(tNum)
     }
 
   if (filterName === 'level')

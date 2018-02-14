@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import { modifyObject } from 'subtender'
+import { createStructuredSelector } from 'reselect'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import {
   DropdownButton,
   MenuItem,
@@ -7,46 +10,41 @@ import {
 
 import { PTyp } from '../../ptyp'
 import { describeFilterWith } from '../../shiplist-ops'
+import { mapDispatchToProps } from '../../store'
+import {
+  filtersSelector,
+} from './selectors'
+import {
+  getShipTypeInfoFuncSelector,
+  validShipTypeIdsSelector,
+} from '../../selectors'
 
-const { _, __ } = window
-
-class ShipFilter extends Component {
+class ShipFilterImpl extends PureComponent {
   static propTypes = {
-    stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    stypes: PTyp.arrayOf(PTyp.number).isRequired,
+    getShipTypeInfo: PTyp.func.isRequired,
+    stypeIds: PTyp.array.isRequired,
     filters: PTyp.ShipFilters.isRequired,
 
-    onModifyFilters: PTyp.func.isRequired,
+    uiModify: PTyp.func.isRequired,
   }
 
-  shouldComponentUpdate(nextProps) {
-    const simplify = props => {
-      const { stypeInfo, stypes, filters, onModifyFilters } = props
-      const sortedSTypes = stypes === null ? [] : [...stypes].sort((x,y) => x-y)
-      return {
-        stypeInfoLen: stypeInfo.length,
-        sortedSTypes,
-        filters,
-        onModifyFilters,
-      }
-    }
+  modifyFilter = modifier =>
+    this.props.uiModify(
+      modifyObject(
+        'shipTab',
+        modifyObject('filters', modifier)
+      )
+    )
 
-    return ! _.isEqual(
-      simplify(this.props),
-      simplify(nextProps))
-  }
-
-  handleSelectFilter = key => value => {
-    const { onModifyFilters } = this.props
-    onModifyFilters(filters => ({
-      ...filters,
-      [key]: value,
-    }))
-  }
+  handleSelectFilter = key => value =>
+    this.modifyFilter(
+      modifyObject(key, () => value)
+    )
 
   render() {
-    const { filters, stypes, stypeInfo } = this.props
-    const describeFilter = describeFilterWith(stypeInfo,__)
+    const {filters, getShipTypeInfo, stypeIds} = this.props
+    const { __ } = window
+    const describeFilter = describeFilterWith(getShipTypeInfo,__)
     return (
       <div
         style={{
@@ -64,13 +62,15 @@ class ShipFilter extends Component {
               {__('Filter.All')}
             </MenuItem>
             {
-              (stypeInfo || []).map( ({id, name}) =>
-                stypes.indexOf(id) !== -1 && (
+              stypeIds.map(id => {
+                const {name} = getShipTypeInfo(id)
+                return (
                   <MenuItem
                     key={id} eventKey={id}>
                     {`${name} (${id})`}
                   </MenuItem>
-                ))
+                )
+              })
             }
           </DropdownButton>
         </ButtonGroup>
@@ -132,5 +132,14 @@ class ShipFilter extends Component {
     )
   }
 }
+
+const ShipFilter = connect(
+  createStructuredSelector({
+    getShipTypeInfo: getShipTypeInfoFuncSelector,
+    stypeIds: validShipTypeIdsSelector,
+    filters: filtersSelector,
+  }),
+  mapDispatchToProps
+)(ShipFilterImpl)
 
 export { ShipFilter }

@@ -167,6 +167,28 @@ const getShipInfoFuncSelector = createSelector(
   })
 )
 
+const getShipTypeInfoFuncSelector = createSelector(
+  constSelector,
+  ({$shipTypes = null}) => _.memoize(stypeId => {
+    if (!$shipTypes || !(stypeId in $shipTypes))
+      return null
+    const $shipType = $shipTypes[stypeId]
+    return {
+      id: $shipType.api_id,
+      name: $shipType.api_name,
+    }
+  })
+)
+
+// all stypes used by friendly ships, sorted Array.
+const validShipTypeIdsSelector = createSelector(
+  constSelector,
+  ({$ships = null}) =>
+    _.uniq(
+      _.values($ships).filter(s => s.api_id <= 1500).map(s => s.api_stype)
+    ).sort((x,y) => x-y)
+)
+
 export {
   extSelector,
   uiSelector,
@@ -182,4 +204,6 @@ export {
   goalTableSelector,
   themeSelector,
   getShipInfoFuncSelector,
+  getShipTypeInfoFuncSelector,
+  validShipTypeIdsSelector,
 }
