@@ -1,4 +1,8 @@
-import React, { Component } from 'react'
+import {
+  createSelector,
+  createStructuredSelector,
+} from 'reselect'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import { ShipList } from './ship-list'
@@ -8,19 +12,17 @@ import { PTyp } from '../../ptyp'
 import { prepareFilter, prepareSorter } from '../../shiplist-ops'
 
 import {
-  goalAreaUISelector,
+  goalTableSelector,
+  shipsInfoSelector,
+  shipTypeInfoSelector,
 } from '../../selectors'
-
-import { mapDispatchToProps } from '../../store'
 
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
-class ShipPickerImpl extends Component {
+class ShipPickerImpl extends PureComponent {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    templates: PTyp.arrayOf(PTyp.Template).isRequired,
-    modifyGoalTable: PTyp.func.isRequired,
   }
 
   constructor(props) {
@@ -89,21 +91,28 @@ class ShipPickerImpl extends Component {
           onModifyFilters={this.handleModifyFilters}
           filters={this.state.filters}
           stypeInfo={this.props.stypeInfo}
-          stypes={stypes} />
+          stypes={stypes}
+        />
         <ShipList
-          onModifyGoalTable={this.props.modifyGoalTable}
           onModifySorter={this.handleModifySorter}
-          templates={this.props.templates}
           sorter={this.state.sorter}
-          ships={ships} />
+          ships={ships}
+        />
       </div>
     )
   }
 }
 
 const ShipPicker = connect(
-  goalAreaUISelector,
-  mapDispatchToProps,
+  createStructuredSelector({
+    ships: createSelector(
+      shipsInfoSelector,
+      goalTableSelector,
+      (ships, gt) => ships.filter(s => !(s.rstId in gt))
+    ),
+    stypeInfo: shipTypeInfoSelector,
+  }),
+  // goalAreaUISelector,
 )(ShipPickerImpl)
 
 export { ShipPicker }

@@ -14,10 +14,17 @@ import {
   wctfSelector,
   extensionSelectorFactory,
   configSelector as poiConfSelector,
+  fleetsSelector,
+  constSelector,
+  shipsSelector,
 } from 'views/utils/selectors'
 
 import { minimum } from '../default-template-list'
 import { initState } from '../store/init-state'
+
+import {
+  computeNextRemodelLevel,
+} from '../remodel'
 
 const extSelector = createSelector(
   extensionSelectorFactory('poi-plugin-leveling'),
@@ -118,6 +125,48 @@ const themeSelector = createSelector(
   conf => _.get(conf, 'poi.theme', 'paperdark')
 )
 
+/*
+   returns a function: rstId => ShipInfo,
+   the ShipInfo should contain most of the info needed for this plugin
+ */
+const getShipInfoFuncSelector = createSelector(
+  shipsSelector,
+  constSelector,
+  fleetsSelector,
+  (rawShips, {$ships = null, $shipTypes = null}, fleets) => _.memoize(rstId => {
+    if (_.isEmpty($ships) || _.isEmpty($shipTypes))
+      return null
+    if (!(rstId in rawShips))
+      return null
+
+    const ship = rawShips[rstId]
+    const [totalExp, expToNext] = ship.api_exp
+    const mstId = ship.api_ship_id
+    const $ship = $ships[mstId]
+    const sortNo = $ship.api_sortno
+    const name = $ship.api_name
+    const typeName = $shipTypes[$ship.api_stype].api_name
+    // TODO: stype => stypeId, make "getShipTypeInfoFuncSelector"
+    // also "validShipTypesSelector" to eliminate types that has no registered ships
+    const stype = $ship.api_stype
+    const level = ship.api_lv
+    const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]
+    const locked = ship.api_locked !== 0
+    const fleetInd = fleets.findIndex( fleet => fleet.api_ship.indexOf(rstId) !== -1)
+    const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
+
+    return {
+      rstId,
+      typeName, stype, sortNo, mstId,
+      name, level,
+      fleet,
+      evasion, asw, los, locked,
+      expToNext, totalExp,
+      nextRemodelLevel: computeNextRemodelLevel($ships,mstId,level),
+    }
+  })
+)
+
 export {
   extSelector,
   uiSelector,
@@ -132,4 +181,5 @@ export {
   goalsAdmiralIdSelector,
   goalTableSelector,
   themeSelector,
+  getShipInfoFuncSelector,
 }

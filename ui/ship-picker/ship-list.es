@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
-import { TemplateList } from '../../structs'
 import { ShipListRow } from './ship-list-row'
+import { mapDispatchToProps } from '../../store'
 
 const { __ } = window
 
@@ -29,35 +30,17 @@ const headerSpecs = [
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
-class ShipList extends Component {
+class ShipListImpl extends PureComponent {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     sorter: PTyp.ShipPickerSorter.isRequired,
-    templates: PTyp.arrayOf(PTyp.Template).isRequired,
 
-    onModifyGoalTable: PTyp.func.isRequired,
     onModifySorter: PTyp.func.isRequired,
+    addShipToGoalTable: PTyp.func.isRequired,
   }
 
-  handleAddToGoalTable = ship => () => {
-    const { onModifyGoalTable, templates } = this.props
-    const { rstId, stype } = ship
-    const goalLevel =
-        ship.nextRemodelLevel !== null ? ship.nextRemodelLevel
-      : ship.level < 99 ? 99
-      : 165
-
-    const method = TemplateList.findMethod(templates,false)(stype)
-
-    onModifyGoalTable( gt => {
-      const newGoal = {
-        rosterId: rstId,
-        goalLevel,
-        method,
-      }
-      return {...gt, [rstId]: newGoal}
-    })
-  }
+  handleAddToGoalTable = rstId => () =>
+    this.props.addShipToGoalTable(rstId)
 
   handleClickHeader = method => () => {
     const { onModifySorter } = this.props
@@ -76,8 +59,7 @@ class ShipList extends Component {
   }
 
   render() {
-    const { ships, sorter } = this.props
-
+    const {ships, sorter} = this.props
     return (
       <div
         style={{
@@ -123,7 +105,7 @@ class ShipList extends Component {
                 <ShipListRow
                   key={ship.rstId}
                   ship={ship}
-                  onAddToGoalTable={this.handleAddToGoalTable(ship)}
+                  onAddToGoalTable={this.handleAddToGoalTable(ship.rstId)}
                 />
               ))
             }
@@ -133,5 +115,10 @@ class ShipList extends Component {
     )
   }
 }
+
+const ShipList = connect(
+  null,
+  mapDispatchToProps,
+)(ShipListImpl)
 
 export { ShipList }

@@ -5,8 +5,13 @@ import { store } from 'views/create-store'
 
 import { loadGoalTable } from '../goal-table'
 import { recommended as recommendedTL } from '../default-template-list'
-import { goalsReadySelector } from '../selectors/common'
+import {
+  goalsReadySelector,
+  getShipInfoFuncSelector,
+  templateListSelector,
+} from '../selectors/common'
 import { initState } from './init-state'
+import { TemplateList } from '../structs'
 
 const reducer = (state = initState, action) => {
   if (action.type === '@poi-plugin-leveling@ready') {
@@ -99,6 +104,35 @@ const actionCreators = {
     actionCreators.modify(
       modifyObject('templates', modifier)
     ),
+  addShipToGoalTable: rstId =>
+    // react-thunk
+    (dispatch, getState) => {
+      const poiState = getState()
+      const ready = goalsReadySelector(poiState)
+      if (!ready)
+        return
+
+      const getShipInfo = getShipInfoFuncSelector(poiState)
+      const templateList = templateListSelector(poiState)
+      const ship = getShipInfo(rstId)
+      if (!ship)
+        return
+      const {stype} = ship
+      const goalLevel =
+        ship.nextRemodelLevel !== null ? ship.nextRemodelLevel :
+        ship.level < 99 ? 99 :
+        165
+
+      const method = TemplateList.findMethod(templateList,false)(stype)
+      dispatch(actionCreators.modifyGoalTable(gt => {
+        const newGoal = {
+          rosterId: rstId,
+          goalLevel,
+          method,
+        }
+        return {...gt, [rstId]: newGoal}
+      }))
+    },
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>
