@@ -27,6 +27,10 @@ import {
   templateListSelector,
 } from './common'
 
+/*
+   returns a function: rstId => ShipInfo,
+   the ShipInfo should contain most of the info needed for this plugin
+ */
 const getShipInfoFuncSelector = createSelector(
   shipsSelector,
   constSelector,
@@ -38,13 +42,14 @@ const getShipInfoFuncSelector = createSelector(
       return null
 
     const ship = rawShips[rstId]
-    const totalExp = ship.api_exp[0]
-    const expToNext = ship.api_exp[1]
+    const [totalExp, expToNext] = ship.api_exp
     const mstId = ship.api_ship_id
     const $ship = $ships[mstId]
     const sortNo = $ship.api_sortno
     const name = $ship.api_name
     const typeName = $shipTypes[$ship.api_stype].api_name
+    // TODO: stype => stypeId, make "getShipTypeInfoFuncSelector"
+    // also "validShipTypesSelector" to eliminate types that has no registered ships
     const stype = $ship.api_stype
     const level = ship.api_lv
     const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]
@@ -82,6 +87,30 @@ const shipTypeInfoSelector = createSelector(
     return result.sort((a,b) => a.id-b.id)
   })
 
+/*
+   split goal table into two parts:
+   - goalPairs is an Array of ({ship: <ShipInfo>, goal: <Goal>})
+     with unspecified order
+   - invalidShipIds is an Array of shipIds that does not have a ShipInfo
+ */
+const splitGoalPairsSelector = createSelector(
+  getShipInfoFuncSelector,
+  goalTableSelector,
+  (getShipInfo, goalTable) => {
+    const invalidShipIds = []
+    const goalPairs = []
+    _.toPairs(goalTable).map(([rstIdStr, goal]) => {
+      const rstId = Number(rstIdStr)
+      const ship = getShipInfo(rstId)
+      if (ship) {
+        goalPairs.push({ship, goal})
+      } else {
+        invalidShipIds.push(rstId)
+      }
+    })
+    return {goalPairs, invalidShipIds}
+  }
+)
 
 // split ship list into two parts:
 // 'shipsWithoutGoal' is the ship list for ships without goal
@@ -165,9 +194,7 @@ const recommendedGoalsSelector = createSelector(
       rmdGoals[rstIdStr] = rGoals
     })
 
-    return {
-      rmdGoals,
-    }
+    return rmdGoals
   }
 )
 
@@ -225,4 +252,5 @@ export {
   findMethodFuncSelector,
   shipsInfoSelector,
   getShipInfoFuncSelector,
+  splitGoalPairsSelector,
 }

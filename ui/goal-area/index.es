@@ -1,13 +1,13 @@
 import _ from 'lodash'
+import { createSelector, createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
-import { mergeMapStateToProps } from 'subtender'
 
 import {
-  goalAreaUISelector,
+  splitGoalPairsSelector,
   recommendedGoalsSelector,
-  levelingConfigSelector,
+  uiSelector,
 } from '../../selectors'
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
@@ -79,15 +79,19 @@ const prepareSorter = ({method, reversed}) => {
 
 class GoalAreaImpl extends Component {
   static propTypes = {
-    goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
+    // connected from recommendedGoalsSelector
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
-    goalSorter: PTyp.GoalListSorter.isRequired,
+    // connected from goalAreaUISelector
+    goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
+    // connected from levelingConfigSelector
+    sortMethod: PTyp.GoalListSorter.isRequired,
+
     modifyGoalTable: PTyp.func.isRequired,
   }
 
   render() {
-    const { goalPairs, modifyGoalTable, rmdGoals, goalSorter } = this.props
-    const sorter = prepareSorter(goalSorter)
+    const {goalPairs, modifyGoalTable, rmdGoals, sortMethod} = this.props
+    const sorter = prepareSorter(sortMethod)
     const eGoalPairs = sorter(goalPairs.map(extendGoalPair))
 
     return (
@@ -118,7 +122,8 @@ class GoalAreaImpl extends Component {
                     modifyGoalTable={modifyGoalTable}
                     key={ship.rstId}
                     rGoals={rmdGoals[ship.rstId]}
-                    eGoalPair={eGoalPair} />
+                    eGoalPair={eGoalPair}
+                  />
                 )
               })
             }
@@ -130,13 +135,11 @@ class GoalAreaImpl extends Component {
 }
 
 const GoalArea = connect(
-  mergeMapStateToProps(
-    goalAreaUISelector,
-    state => ({
-      ...recommendedGoalsSelector(state),
-      ...levelingConfigSelector(state),
-    }),
-  ),
+  createStructuredSelector({
+    rmdGoals: recommendedGoalsSelector,
+    goalPairs: createSelector(splitGoalPairsSelector, s => s.goalPairs),
+    sortMethod: createSelector(uiSelector, ui => _.get(ui, ['goalTab', 'sortMethod'])),
+  }),
   mapDispatchToProps,
 )(GoalAreaImpl)
 
