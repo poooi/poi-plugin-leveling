@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
 
 import {
-  splitGoalPairsSelector,
+  goalPairsSelector,
   recommendedGoalsSelector,
   uiSelector,
 } from '../../selectors'
@@ -79,13 +79,9 @@ const prepareSorter = ({method, reversed}) => {
 
 class GoalAreaImpl extends Component {
   static propTypes = {
-    // connected from recommendedGoalsSelector
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
-    // connected from goalAreaUISelector
     goalPairs: PTyp.arrayOf(PTyp.GoalPair).isRequired,
-    // connected from levelingConfigSelector
     sortMethod: PTyp.GoalListSorter.isRequired,
-
     modifyGoalTable: PTyp.func.isRequired,
   }
 
@@ -137,7 +133,7 @@ class GoalAreaImpl extends Component {
 const GoalArea = connect(
   createStructuredSelector({
     rmdGoals: recommendedGoalsSelector,
-    goalPairs: createSelector(splitGoalPairsSelector, s => s.goalPairs),
+    goalPairs: goalPairsSelector,
     sortMethod: createSelector(uiSelector, ui => _.get(ui, ['goalTab', 'sortMethod'])),
   }),
   mapDispatchToProps,

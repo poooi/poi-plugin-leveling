@@ -112,7 +112,6 @@ const ShipPicker = connect(
     ),
     stypeInfo: shipTypeInfoSelector,
   }),
-  // goalAreaUISelector,
 )(ShipPickerImpl)
 
 export { ShipPicker }

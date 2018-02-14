@@ -27,8 +27,8 @@ class MethodTemplateAreaImpl extends Component {
     // onModifyConfig: PTyp.func.isRequired,
     modifyTemplateList: PTyp.func.isRequired,
     modifyGoalTable: PTyp.func.isRequired,
-    // TODO: remove
-    config: PTyp.object.isRequired,
+    // TODO: actions into store
+    templates: PTyp.array.isRequired,
   }
 
   constructor(props) {
@@ -105,7 +105,7 @@ class MethodTemplateAreaImpl extends Component {
     )
 
   handleSwapTemplate = (idX,idY) => () => {
-    const {templates} = this.props.config
+    const {templates} = this.props
     const indX = templates.findIndex(t => t.id === idX)
     const indY = templates.findIndex(t => t.id === idY)
     if (indX === -1 || indY === -1)
@@ -136,10 +136,9 @@ class MethodTemplateAreaImpl extends Component {
     const {
       stypeInfo,
       shipTargets,
-      config,
+      templates,
       modifyGoalTable,
     } = this.props
-    const { templates } = config
     return (
       <div
         style={{

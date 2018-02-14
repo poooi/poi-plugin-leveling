@@ -26,7 +26,6 @@ import {
   getShipInfoFuncSelector,
 } from './common'
 
-
 const shipsInfoSelector = createSelector(
   shipsSelector,
   getShipInfoFuncSelector,
@@ -72,6 +71,11 @@ const splitGoalPairsSelector = createSelector(
   }
 )
 
+const goalPairsSelector = createSelector(
+  splitGoalPairsSelector,
+  s => s.goalPairs
+)
+
 // split ship list into two parts:
 // 'shipsWithoutGoal' is the ship list for ships without goal
 // 'goalPairs' is the GoalPair list for ships that has a goal,
@@ -106,18 +110,6 @@ const enabledTemplateListSelector = createSelector(
   templateListSelector,
   templates =>
     templates.filter(Template.isEnabled),
-)
-
-const goalAreaUISelector = createSelector(
-  shipTypeInfoSelector,
-  shipListSplitSelector,
-  enabledTemplateListSelector,
-  (stypeInfo, {shipsWithoutGoal, goalPairs}, templates) => ({
-    ships: shipsWithoutGoal,
-    stypeInfo,
-    goalPairs,
-    templates,
-  })
 )
 
 const rGoalMaxUnmarried = {
@@ -158,23 +150,11 @@ const recommendedGoalsSelector = createSelector(
   }
 )
 
-const goalSorterSelector = createSelector(
-  extSelector,
-  ext => _.get(ext, ['ui', 'goalTab', 'sortMethod'])
-)
-
-const virtualConfigSelector = createStructuredSelector({
-  goalSorter: goalSorterSelector,
-  templates: templateListSelector,
-})
-
-const levelingConfigSelector = virtualConfigSelector
-
 const methodTemplateUISelector = createSelector(
   shipTypeInfoSelector,
-  virtualConfigSelector,
-  shipListSplitSelector,
-  (stypeInfo,config,{goalPairs}) => {
+  templateListSelector,
+  goalPairsSelector,
+  (stypeInfo,templates,goalPairs) => {
     const purgeGoalPair = ({goal,ship}) => ({
       name: ship.name,
       stype: ship.stype,
@@ -182,12 +162,13 @@ const methodTemplateUISelector = createSelector(
       level: ship.level,
       goalLevel: goal.goalLevel,
     })
-    const shipTargets = goalPairs
-      .map(purgeGoalPair)
-      .filter(x => x.level < x.goalLevel)
+    const shipTargets = goalPairs.filter(pair =>
+      pair.ship.level < pair.goal.goalLevel
+    ).map(purgeGoalPair)
+
     return {
       stypeInfo,
-      config,
+      templates,
       // Ship targets to be applied to
       shipTargets,
     }
@@ -204,13 +185,12 @@ const findMethodFuncSelector = createSelector(
 export * from './common'
 
 export {
-  goalAreaUISelector,
   recommendedGoalsSelector,
-  levelingConfigSelector,
   methodTemplateUISelector,
   shipListSplitSelector,
   findMethodFuncSelector,
   shipsInfoSelector,
   splitGoalPairsSelector,
+  goalPairsSelector,
   shipTypeInfoSelector,
 }
