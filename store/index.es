@@ -123,7 +123,7 @@ const actionCreators = {
         ship.level < 99 ? 99 :
         165
 
-      const method = TemplateList.findMethod(templateList,false)(stype)
+      const method = TemplateList.findMethod(templateList)(stype)
       dispatch(actionCreators.modifyGoalTable(gt => {
         const newGoal = {
           rosterId: rstId,
