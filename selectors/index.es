@@ -27,39 +27,49 @@ import {
   templateListSelector,
 } from './common'
 
-const shipsInfoSelector = createSelector(
+const getShipInfoFuncSelector = createSelector(
   shipsSelector,
   constSelector,
   fleetsSelector,
-  (rawShips, rawConst, fleets) => {
-    const { $ships, $shipTypes } = rawConst
-    return Object.keys(rawShips).map( rstIdStr => {
-      const rstId = parseInt(rstIdStr,10)
-      const ship = rawShips[rstIdStr]
-      const totalExp = ship.api_exp[0]
-      const expToNext = ship.api_exp[1]
-      const mstId = ship.api_ship_id
-      const $ship = $ships[mstId]
-      const sortNo = $ship.api_sortno
-      const name = $ship.api_name
-      const typeName = $shipTypes[$ship.api_stype].api_name
-      const stype = $ship.api_stype
-      const level = ship.api_lv
-      const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]
-      const locked = ship.api_locked !== 0
-      const fleetInd = fleets.findIndex( fleet => fleet.api_ship.indexOf(rstId) !== -1)
-      const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
-      return {
-        rstId,
-        typeName, stype, sortNo, mstId,
-        name, level,
-        fleet,
-        evasion, asw, los, locked,
-        expToNext, totalExp,
-        nextRemodelLevel: computeNextRemodelLevel($ships,mstId,level),
-      }
-    })
+  (rawShips, {$ships = null, $shipTypes = null}, fleets) => _.memoize(rstId => {
+    if (_.isEmpty($ships) || _.isEmpty($shipTypes))
+      return null
+    if (!(rstId in rawShips))
+      return null
+
+    const ship = rawShips[rstId]
+    const totalExp = ship.api_exp[0]
+    const expToNext = ship.api_exp[1]
+    const mstId = ship.api_ship_id
+    const $ship = $ships[mstId]
+    const sortNo = $ship.api_sortno
+    const name = $ship.api_name
+    const typeName = $shipTypes[$ship.api_stype].api_name
+    const stype = $ship.api_stype
+    const level = ship.api_lv
+    const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]
+    const locked = ship.api_locked !== 0
+    const fleetInd = fleets.findIndex( fleet => fleet.api_ship.indexOf(rstId) !== -1)
+    const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
+
+    return {
+      rstId,
+      typeName, stype, sortNo, mstId,
+      name, level,
+      fleet,
+      evasion, asw, los, locked,
+      expToNext, totalExp,
+      nextRemodelLevel: computeNextRemodelLevel($ships,mstId,level),
+    }
   })
+)
+
+const shipsInfoSelector = createSelector(
+  shipsSelector,
+  getShipInfoFuncSelector,
+  (rawShips, getShipInfo) =>
+    _.values(rawShips).map(x => getShipInfo(x.api_id))
+)
 
 const shipTypeInfoSelector = createSelector(
   constSelector,
@@ -213,4 +223,6 @@ export {
   methodTemplateUISelector,
   shipListSplitSelector,
   findMethodFuncSelector,
+  shipsInfoSelector,
+  getShipInfoFuncSelector,
 }
