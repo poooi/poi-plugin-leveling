@@ -136,6 +136,18 @@ const migrateLegacyConfig = oldConf => {
       goalTab: {
         sortMethod: goalSorter,
       },
+      shipTab: {
+        filters: {
+          fleet: 'all',
+          type: 'all',
+          level: 'all',
+          lock: 'all',
+        },
+        sortMethod: {
+          method: 'level',
+          reversed: false,
+        },
+      },
     },
     templates: newTemplates,
     $version: '2.0.0',

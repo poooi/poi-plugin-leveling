@@ -9,6 +9,33 @@ const initState = {
         reversed: false,
       },
     },
+    shipTab: {
+      filters: {
+        fleet: 'all', // or 1,2,3,4 (number)
+        type: 'all', // or stype (number)
+        level: 'all', // or 'ge-100', 'lt-99', 'under-final'
+        lock: 'all', // or true / false
+      },
+      sortMethod: {
+        // every sorting method would have a "natural" order
+        // which can either be ascending or descending,
+        // we let the sorting method itself to decide which one
+        // is more natural, and mark "reversed" as true only when
+        // clicking on the same method twice
+        // methods (all ascending unless explicitly says otherwise)
+        // - rid
+        // - stype
+        // - name
+        // - level, descending
+        // - evasion
+        // - asw
+        // - los
+        // - fleet
+        // - lock
+        method: 'level',
+        reversed: false,
+      },
+    },
   },
   /*
      when pReady is true, this part must be <TemplateList>,

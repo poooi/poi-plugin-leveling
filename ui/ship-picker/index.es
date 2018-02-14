@@ -1,3 +1,4 @@
+import { modifyObject } from 'subtender'
 import {
   createSelector,
   createStructuredSelector,
@@ -12,10 +13,13 @@ import { PTyp } from '../../ptyp'
 import { prepareFilter, prepareSorter } from '../../shiplist-ops'
 
 import {
+  uiSelector,
   goalTableSelector,
   shipsInfoSelector,
   shipTypeInfoSelector,
 } from '../../selectors'
+
+import { mapDispatchToProps } from '../../store'
 
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
@@ -23,54 +27,29 @@ class ShipPickerImpl extends PureComponent {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
+    uiModify: PTyp.func.isRequired,
+    shipTab: PTyp.object.isRequired,
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      filters: {
-        fleet: 'all', // or 1,2,3,4 (number)
-        type: 'all', // or stype (number)
-        level: 'all', // or 'ge-100', 'lt-99', 'under-final'
-        lock: 'all', // or true / false
-      },
-      sorter: {
-        // every sorting method would have a "natural" order
-        // which can either be ascending or descending,
-        // we let the sorting method itself to decide which one
-        // is more natural, and mark "reversed" as true only when
-        // clicking on the same method twice
-        // methods (all ascending unless explicitly says otherwise)
-        // - rid
-        // - stype
-        // - name
-        // - level, descending
-        // - evasion
-        // - asw
-        // - los
-        // - fleet
-        // - lock
-        method: 'level',
-        reversed: false,
-      },
-    }
-  }
+  modifyShipTab = modifier =>
+    this.props.uiModify(
+      modifyObject('shipTab', modifier)
+    )
 
   handleModifyFilters = modifier =>
-    this.setState(state => ({
-      ...state,
-      filters: modifier(state.filters),
-    }))
+    this.modifyShipTab(
+      modifyObject('filters', modifier)
+    )
 
   handleModifySorter = modifier =>
-    this.setState(state => ({
-      ...state,
-      sorter: modifier(state.sorter),
-    }))
+    this.modifyShipTab(
+      modifyObject('sortMethod', modifier)
+    )
 
   render() {
-    const filter = prepareFilter(this.state.filters)
-    const sorter = prepareSorter(this.state.sorter)
+    const {shipTab: {filters, sortMethod}} = this.props
+    const filter = prepareFilter(filters)
+    const sorter = prepareSorter(sortMethod)
 
     const originalShips = this.props.ships
     const stypeSet = new Set()
@@ -89,13 +68,13 @@ class ShipPickerImpl extends PureComponent {
       >
         <ShipFilter
           onModifyFilters={this.handleModifyFilters}
-          filters={this.state.filters}
+          filters={filters}
           stypeInfo={this.props.stypeInfo}
           stypes={stypes}
         />
         <ShipList
           onModifySorter={this.handleModifySorter}
-          sorter={this.state.sorter}
+          sorter={sortMethod}
           ships={ships}
         />
       </div>
@@ -105,6 +84,7 @@ class ShipPickerImpl extends PureComponent {
 
 const ShipPicker = connect(
   createStructuredSelector({
+    shipTab: createSelector(uiSelector, ui => ui.shipTab),
     ships: createSelector(
       shipsInfoSelector,
       goalTableSelector,
@@ -112,6 +92,7 @@ const ShipPicker = connect(
     ),
     stypeInfo: shipTypeInfoSelector,
   }),
+  mapDispatchToProps
 )(ShipPickerImpl)
 
 export { ShipPicker }
