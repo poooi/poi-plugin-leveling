@@ -9,7 +9,8 @@ import {
   goalsReadySelector,
   getShipInfoFuncSelector,
   templateListSelector,
-} from '../selectors/common'
+  splitGoalPairsSelector,
+} from '../selectors'
 import { initState } from './init-state'
 import { TemplateList } from '../structs'
 
@@ -58,15 +59,28 @@ const actionCreators = {
     type: '@poi-plugin-leveling@modify',
     modifier,
   }),
-  loadGoalTable: admiralId => dispatch =>
-    setTimeout(() => {
-      const goalTable = loadGoalTable(admiralId)
-      const goals = {
-        admiralId,
-        goalTable,
-      }
-      dispatch(actionCreators.modify(modifyObject('goals', () => goals)))
-    }),
+  loadGoalTable: admiralId =>
+    (dispatch, getState) =>
+      setTimeout(() => {
+        const goalTable = loadGoalTable(admiralId)
+        const goals = {
+          admiralId,
+          goalTable,
+        }
+        dispatch(actionCreators.modify(modifyObject('goals', () => goals)))
+        const {invalidShipIds} = splitGoalPairsSelector(getState())
+        // remove invalid ship ids
+        if (invalidShipIds.length > 0) {
+          dispatch(actionCreators.modifyGoalTable(gt =>
+            _.fromPairs(
+              _.toPairs(gt).filter(([curRstIdStr, _goal]) => {
+                const curRstId = Number(curRstIdStr)
+                return !invalidShipIds.includes(curRstId)
+              })
+            )
+          ))
+        }
+      }),
   uiModify: modifier =>
     actionCreators.modify(modifyObject('ui', modifier)),
   templatesModify: modifier =>
