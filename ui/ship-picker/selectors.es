@@ -12,10 +12,9 @@ const shipTabSelector = createSelector(
   ui => ui.shipTab
 )
 
-const shipListStage1Selector = createSelector(
-  shipsInfoSelector,
+const hasGoalFuncSelector = createSelector(
   goalTableSelector,
-  (ships, gt) => ships.filter(s => !(s.rstId in gt))
+  gt => rstId => rstId in gt
 )
 
 const filtersSelector = createSelector(
@@ -29,7 +28,7 @@ const sortMethodSelector = createSelector(
 )
 
 const shipListSelector = createSelector(
-  shipListStage1Selector,
+  shipsInfoSelector,
   filtersSelector,
   sortMethodSelector,
   (ships, filters, sortMethod) => {
@@ -44,4 +43,5 @@ export {
   shipListSelector,
   filtersSelector,
   sortMethodSelector,
+  hasGoalFuncSelector,
 }

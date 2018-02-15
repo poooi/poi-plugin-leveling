@@ -146,8 +146,6 @@ const getShipInfoFuncSelector = createSelector(
     const sortNo = $ship.api_sortno
     const name = $ship.api_name
     const typeName = $shipTypes[$ship.api_stype].api_name
-    // TODO: stype => stypeId, make "getShipTypeInfoFuncSelector"
-    // also "validShipTypesSelector" to eliminate types that has no registered ships
     const stype = $ship.api_stype
     const level = ship.api_lv
     const [evasion, asw, los] = [ship.api_kaihi[0],ship.api_taisen[0],ship.api_sakuteki[0]]

@@ -5,33 +5,34 @@ import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../ptyp'
 
+const simplifyProps = props => {
+  // things to be appeared on UI:
+  // - rstId
+  // - typeName name (depending on mstId)
+  // - evasion asw los (depending on mstId and level)
+  // - fleet
+  // - locked
+
+  const {ship, hasGoal} = props
+  const {rstId, mstId, level, fleet, locked } = ship
+  // we just need to check following part of props
+  // hopefully each of them are primitives so there is no deep equal involved
+  return {rstId, mstId, level, fleet, locked, hasGoal}
+}
+
 class ShipListRow extends Component {
   static propTypes = {
     ship: PTyp.Ship.isRequired,
+    hasGoal: PTyp.bool.isRequired,
     onAddToGoalTable: PTyp.func.isRequired,
   }
 
   shouldComponentUpdate(nextProps) {
-    // things to be appeared on UI:
-    // - rstId
-    // - typeName name (depending on mstId)
-    // - evasion asw los (depending on mstId and level)
-    // - fleet
-    // - locked
-
-    const simplified = props => {
-      const { ship } = props
-      const { rstId, mstId, level, fleet, locked } = ship
-      // we just need to check following part of props
-      // hopefully each of them are primitives so there is no deep equal involved
-      return {rstId, mstId, level, fleet, locked}
-    }
-
-    return ! _.isEqual(simplified(this.props),simplified(nextProps))
+    return !_.isEqual(simplifyProps(this.props),simplifyProps(nextProps))
   }
 
   render() {
-    const { ship, onAddToGoalTable } = this.props
+    const {ship, onAddToGoalTable, hasGoal} = this.props
     return (
       <tr>
         <td>{ship.rstId}</td>
@@ -61,8 +62,10 @@ class ShipListRow extends Component {
         <td style={{textAlign: "center"}}>{ship.locked && <FontAwesome name="lock" />}</td>
         <td style={{textAlign: "center"}}>
           <Button
+            disabled={hasGoal}
             onClick={onAddToGoalTable}
-            style={{width: "80%", height: "18px", padding: "0"}} >
+            style={{width: "80%", height: "18px", padding: "0"}}
+          >
             +
           </Button>
         </td>

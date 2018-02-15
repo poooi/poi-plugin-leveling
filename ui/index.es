@@ -30,7 +30,6 @@ window.addEventListener('unload', handleWindowUnload)
    TODO
 
    - do Tabs properly (leveling method)
-   - derive more data with selectors
    - "Ships" lists all ships including those that have goals
      - confirm removal (if accidental flag has timed out)
    - improve UI.

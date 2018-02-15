@@ -10,6 +10,7 @@ import { PTyp } from '../../ptyp'
 import { ShipListRow } from './ship-list-row'
 import { mapDispatchToProps } from '../../store'
 import {
+  hasGoalFuncSelector,
   shipListSelector,
   sortMethodSelector,
 } from './selectors'
@@ -42,6 +43,7 @@ class ShipListImpl extends PureComponent {
   static propTypes = {
     ships: PTyp.arrayOf(PTyp.Ship).isRequired,
     sortMethod: PTyp.ShipPickerSorter.isRequired,
+    hasGoal: PTyp.func.isRequired,
 
     addShipToGoalTable: PTyp.func.isRequired,
     uiModify: PTyp.func.isRequired,
@@ -76,7 +78,7 @@ class ShipListImpl extends PureComponent {
     )
 
   render() {
-    const {ships, sortMethod} = this.props
+    const {ships, sortMethod, hasGoal} = this.props
     return (
       <div
         style={{
@@ -122,6 +124,7 @@ class ShipListImpl extends PureComponent {
                 <ShipListRow
                   key={ship.rstId}
                   ship={ship}
+                  hasGoal={hasGoal(ship.rstId)}
                   onAddToGoalTable={this.handleAddToGoalTable(ship.rstId)}
                 />
               ))
@@ -135,6 +138,7 @@ class ShipListImpl extends PureComponent {
 
 const ShipList = connect(
   createStructuredSelector({
+    hasGoal: hasGoalFuncSelector,
     sortMethod: sortMethodSelector,
     ships: shipListSelector,
   }),
