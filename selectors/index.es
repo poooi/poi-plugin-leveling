@@ -36,8 +36,9 @@ const shipTypeInfoSelector = createSelector(
    - goalPairs is an Array of ({ship: <ShipInfo>, goal: <Goal>})
    with unspecified order
    - invalidShipIds is an Array of shipIds that does not have a ShipInfo
-
-   TODO: removing invalid ships using observers
+   - invalidShipIds will be removed right after loading is done,
+     it's also possible to have an observer that does that,
+     but it's not necessary to keep an observer around just for this purpose.
  */
 const splitGoalPairsSelector = createSelector(
   getShipInfoFuncSelector,

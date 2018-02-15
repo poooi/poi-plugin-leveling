@@ -106,8 +106,6 @@ const actionCreators = {
         console.error(`<extStore>.goals is not ready`)
       }
     },
-  // TODO: should we handle creation here, or
-  // it works better if we impl 'add' separately?
   modifyGoalTable: modifier =>
     actionCreators.goalsModify(
       modifyObject('goalTable', modifier)
