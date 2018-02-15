@@ -4,7 +4,7 @@
   "description": "Ship Leveling Planner",
   "main": "index.es",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --recursive",
+    "test": "mocha -r babel-core/register --recursive",
     "lint": "eslint '**/*.es' || true"
   },
   "repository": {
