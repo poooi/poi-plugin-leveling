@@ -11,7 +11,7 @@ const spec = it
 describe('mapExp', () => {
   spec('getMapExpInfo', () => {
     assert.deepEqual(
-      getMapExpInfo('3-2'),
+      getMapExpInfo(32),
       {
         name: "キス島沖",
         baseExp: {
@@ -21,7 +21,7 @@ describe('mapExp', () => {
       })
 
     assert.deepEqual(
-      getMapExpInfo('4-5'),
+      getMapExpInfo(45),
       {
         name: "[Extra] カレー洋リランカ島沖",
         baseExp: {
@@ -56,7 +56,7 @@ describe('mapExp', () => {
         mvp: 'maybe',
         baseExp: {
           type: 'standard',
-          map: '3-2',
+          mapId: 32,
         },
       }
 
@@ -67,7 +67,7 @@ describe('mapExp', () => {
         mvp: 'maybe',
         baseExp: {
           type: 'standard',
-          map: '6-5',
+          mapId: 65,
         },
       }
 
