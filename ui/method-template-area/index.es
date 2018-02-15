@@ -27,12 +27,9 @@ const { _, __ } = window
 class MethodTemplateAreaImpl extends Component {
   static propTypes = {
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    // config: PTyp.Config.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
-    // onModifyConfig: PTyp.func.isRequired,
     modifyTemplateList: PTyp.func.isRequired,
     modifyGoalTable: PTyp.func.isRequired,
-    // TODO: actions into store
     templates: PTyp.array.isRequired,
   }
 
@@ -77,9 +74,6 @@ class MethodTemplateAreaImpl extends Component {
     this.setState({editingStates: {}})
   }
 
-  // despite being the most flexible modifier function,
-  // usage of this function outside of this file should be eliminated.
-  // this allows "state.editingStates" to be kept in sync with templates
   handleModifyTemplateList = modifier =>
     this.props.modifyTemplateList(modifier)
 
@@ -103,12 +97,14 @@ class MethodTemplateAreaImpl extends Component {
     this.setState(modifyObject('editingStates', modifyObject(newId, () => true)))
   }
 
-  // remove template at index
+  // remove template of given id
   handleRemoveTemplate = id => () =>
     this.handleModifyTemplateList(tl =>
       tl.filter(x => x.id !== id)
     )
 
+  // swap two templates given their ids
+  // assuming idX !== idY.
   handleSwapTemplate = (idX,idY) => () => {
     const {templates} = this.props
     const indX = templates.findIndex(t => t.id === idX)
@@ -124,9 +120,6 @@ class MethodTemplateAreaImpl extends Component {
     })
   }
 
-  // a limited version of handleModifyTemplateList
-  // which makes it only possible to modify one of the elements
-  // without changing the size of template list
   handleModifyTemplateListElem = tId => modifier =>
     this.handleModifyTemplateList(ts => {
       const tInd = ts.findIndex(t => t.id === tId)
