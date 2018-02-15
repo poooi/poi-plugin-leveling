@@ -1,12 +1,12 @@
-import { createSelector, createStructuredSelector } from 'reselect'
+import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { modifyObject } from 'subtender'
 
 import { PTyp } from '../../ptyp'
-import { uiSelector } from '../../selectors'
 import { mapDispatchToProps } from '../../store'
+import { sortMethodSelector } from './selectors'
 
 const { __ } = window
 
@@ -80,8 +80,7 @@ class GoalSorterRowImpl extends Component {
 
 const GoalSorterRow = connect(
   createStructuredSelector({
-    // TODO: finer selectors
-    sortMethod: createSelector(uiSelector, ui => ui.goalTab.sortMethod),
+    sortMethod: sortMethodSelector,
   }),
   mapDispatchToProps,
 )(GoalSorterRowImpl)

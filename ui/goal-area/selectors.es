@@ -142,6 +142,7 @@ const recommendedGoalsSelector = createSelector(
 )
 
 export {
+  sortMethodSelector,
   extendedGoalPairsSelector,
   recommendedGoalsSelector,
 }
