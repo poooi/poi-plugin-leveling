@@ -39,29 +39,44 @@ class GoalBoxView extends Component {
     return (
       <div className="goal-box-view" style={{display: "flex", alignItems: "center"}}>
         <ThreeRows
-          style={{flex: 3}}
+          style={{
+            flex: 3,
+            width: 0,
+          }}
           first={ship.typeName}
-          second={ship.name}
+          second={
+            (
+              <div
+                style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {ship.name}
+              </div>
+            )
+          }
           third={`Id: ${ship.rstId}`}
         />
         <ThreeRows
-          style={{flex: 2}}
+          style={{flex: 2, width: 0}}
           first={__('GoalBox.Level')}
           second={ship.level}
           third={`Next: ${ship.expToNext}`}
         />
         <ThreeRows
-          style={{flex: 2}}
+          style={{flex: 2, width: 0}}
           first={__('GoalBox.Goal')}
           second={goal.goalLevel}
           third={remainingExpText}
         />
         <MethodView
-          style={{flex: 5}}
+          style={{flex: 5, width: 0}}
           method={method}
         />
         <ThreeRows
-          style={{flex: 3}}
+          style={{flex: 3, width: 0}}
           first={__('GoalBox.Result')}
           second={goalAchieved ? "-" : computeResultText()}
           third={__('GoalBox.ResultBattles')}
