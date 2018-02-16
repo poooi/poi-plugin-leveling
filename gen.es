@@ -1,4 +1,4 @@
-import { sortedMapKeys } from './map-exp'
+import { sortedMapIds } from './map-exp'
 
 // generate some random instance of structures (mainly for testing)
 
@@ -12,7 +12,7 @@ const getRandomInt = (minR, maxR) => {
 }
 
 const getOneOf = xs => xs[getRandomInt(0,xs.length)]
-const genMap = () => getOneOf(sortedMapKeys)
+const genMapId = () => getOneOf(sortedMapIds)
 const genTernary = () => getOneOf(['yes','no','maybe'])
 const genRank = () => {
   const ret = [];
@@ -39,7 +39,7 @@ const genBaseExp = () => {
   const type = getOneOf(['standard','custom'])
   if (type === 'standard') {
     return {
-      type, map: genMap(),
+      type, mapId: genMapId(),
     }
   }
 

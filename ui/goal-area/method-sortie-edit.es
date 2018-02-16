@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
-import { mapStrToId } from 'subtender/kc'
+import { mapIdToStr } from 'subtender/kc'
 
 import { ExpValueEdit } from './exp-value-edit'
-import { sortedMapKeys, getMapExpInfo } from '../../map-exp'
+import { sortedMapIds, getMapExpInfo } from '../../map-exp'
 
 import { PTyp } from '../../ptyp'
 
@@ -105,9 +105,9 @@ class MethodSortieEdit extends Component {
             value={sortieInput.expMapId}
           >
             {
-              sortedMapKeys.map(mapStr => (
-                <option key={mapStr} value={mapStrToId(mapStr)}>
-                  {`${mapStr}: ${getMapExpInfo(mapStr).name}`}
+              sortedMapIds.map(mapId => (
+                <option key={mapId} value={mapId}>
+                  {`${mapIdToStr(mapId)}: ${getMapExpInfo(mapId).name}`}
                 </option>
               ))
             }
