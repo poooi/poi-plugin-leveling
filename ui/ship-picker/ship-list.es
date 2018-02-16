@@ -1,10 +1,16 @@
+import _ from 'lodash'
 import { modifyObject } from 'subtender'
 import React, { PureComponent } from 'react'
 import {
   createStructuredSelector,
 } from 'reselect'
 import { connect } from 'react-redux'
-import { Table } from 'react-bootstrap'
+import { Table as BSTable } from 'react-bootstrap'
+import {
+  AutoSizer,
+  Table,
+  Column,
+} from 'react-virtualized'
 
 import { PTyp } from '../../ptyp'
 import { ShipListRow } from './ship-list-row'
@@ -77,7 +83,7 @@ class ShipListImpl extends PureComponent {
       }
     )
 
-  render() {
+  renderAlt() {
     const {ships, sortMethod, hasGoal} = this.props
     return (
       <div
@@ -87,7 +93,7 @@ class ShipListImpl extends PureComponent {
           overflowY: 'auto',
         }}
       >
-        <Table striped bordered condensed hover>
+        <BSTable striped bordered condensed hover>
           <thead>
             <tr>
               {
@@ -130,9 +136,61 @@ class ShipListImpl extends PureComponent {
               ))
             }
           </tbody>
-        </Table>
+        </BSTable>
       </div>
     )
+  }
+
+  renderRV() {
+    const {ships} = this.props
+    const fakeRenderer = propName => props => (<div>{props[propName]}</div>)
+    const cd = ({cellData}) => (
+      <div>
+        {cellData}
+      </div>
+    )
+    return (
+      <div
+        style={{
+          flex: 1,
+          height: 0,
+        }}
+      >
+        <AutoSizer>
+          {
+            ({width, height}) => (
+              <Table
+                width={width}
+                height={height}
+                headerHeight={20}
+                rowCount={ships.length}
+                rowGetter={({index}) => ships[index]}
+                rowHeight={20}
+              >
+                <Column
+                  label="ID"
+                  disableSort={true}
+                  dataKey="rstId"
+                  cellRenderer={cd}
+                  width={200}
+                />
+                <Column
+                  label="Name"
+                  disableSort={true}
+                  dataKey="name"
+                  cellRenderer={fakeRenderer('cellData')}
+                  width={200}
+                />
+              </Table>
+            )
+          }
+        </AutoSizer>
+      </div>
+    )
+  }
+
+  render() {
+    return this.renderAlt()
   }
 }
 
