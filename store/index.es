@@ -145,6 +145,16 @@ const actionCreators = {
         return {...gt, [rstId]: newGoal}
       }))
     },
+  removeShipFromGoalTable: rstId =>
+    actionCreators.modifyGoalTable(gt => {
+      if (rstId in gt) {
+        const newGt = {...gt}
+        delete newGt[rstId]
+        return newGt
+      } else {
+        return gt
+      }
+    }),
 }
 
 const mapDispatchToProps = _.memoize(dispatch =>
