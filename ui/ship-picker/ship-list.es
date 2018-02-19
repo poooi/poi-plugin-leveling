@@ -5,7 +5,11 @@ import {
   createStructuredSelector,
 } from 'reselect'
 import { connect } from 'react-redux'
-import { Table as BSTable } from 'react-bootstrap'
+import {
+  Table as BSTable,
+  Button,
+} from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 import {
   AutoSizer,
   Table,
@@ -52,8 +56,33 @@ class ShipListImpl extends PureComponent {
     hasGoal: PTyp.func.isRequired,
 
     addShipToGoalTable: PTyp.func.isRequired,
+    removeShipFromGoalTable: PTyp.func.isRequired,
     uiModify: PTyp.func.isRequired,
   }
+
+  state = {rmConfirmFlags: {}}
+
+  componentWillReceiveProps = nextProps => {
+    // on goal table change
+    if (nextProps.hasGoal !== this.props.hasGoal) {
+      // removing a goal from anywhere should cause 'rmConfirmFlags' to reset
+      const rmConfirmFlags = {...this.state.rmConfirmFlags}
+      let modified = false
+      _.keys(rmConfirmFlags).map(rstIdStr => {
+        const rstId = Number(rstIdStr)
+        if (!nextProps.hasGoal(rstId)) {
+          delete rmConfirmFlags[rstId]
+          modified = true
+        }
+      })
+      if (modified) {
+        this.setState({rmConfirmFlags})
+      }
+    }
+  }
+
+  getRmConfirmFlag = rstId =>
+    _.get(this.state.rmConfirmFlags, rstId, false)
 
   modifySortMethod = modifier =>
     this.props.uiModify(
@@ -65,6 +94,9 @@ class ShipListImpl extends PureComponent {
 
   handleAddToGoalTable = rstId => () =>
     this.props.addShipToGoalTable(rstId)
+
+  handleRemoveFromGoalTable = rstId => () =>
+    this.props.removeShipFromGoalTable(rstId)
 
   handleClickHeader = method => () =>
     this.modifySortMethod(
@@ -142,7 +174,7 @@ class ShipListImpl extends PureComponent {
   }
 
   renderRV() {
-    const {ships} = this.props
+    const {ships, hasGoal} = this.props
     return (
       <div
         className="shiplist"
@@ -157,10 +189,10 @@ class ShipListImpl extends PureComponent {
               <Table
                 width={width}
                 height={height}
-                headerHeight={20}
+                headerHeight={24}
                 rowCount={ships.length}
                 rowGetter={({index}) => ships[index]}
-                rowHeight={24}
+                rowHeight={28}
                 rowClassName={({index}) => (index === -1) ? '' : 'color-altering-row'}
               >
                 <Column
@@ -183,6 +215,8 @@ class ShipListImpl extends PureComponent {
                   dataKey="level"
                   width={50}
                   flexGrow={2}
+                  headerStyle={{textAlign: 'center'}}
+                  style={{textAlign: 'center'}}
                 />
                 <Column
                   label="ASW"
@@ -190,6 +224,8 @@ class ShipListImpl extends PureComponent {
                   dataKey="asw"
                   width={40}
                   flexGrow={2}
+                  headerStyle={{textAlign: 'center'}}
+                  style={{textAlign: 'center'}}
                 />
                 <Column
                   label="Evasion"
@@ -197,6 +233,8 @@ class ShipListImpl extends PureComponent {
                   dataKey="evasion"
                   width={40}
                   flexGrow={2}
+                  headerStyle={{textAlign: 'center'}}
+                  style={{textAlign: 'center'}}
                 />
                 <Column
                   label="LoS"
@@ -204,6 +242,8 @@ class ShipListImpl extends PureComponent {
                   dataKey="los"
                   width={40}
                   flexGrow={2}
+                  headerStyle={{textAlign: 'center'}}
+                  style={{textAlign: 'center'}}
                 />
                 <Column
                   label="Control"
@@ -211,6 +251,85 @@ class ShipListImpl extends PureComponent {
                   dataKey="control"
                   width={100}
                   flexGrow={3}
+                  headerStyle={{textAlign: 'center'}}
+                  style={{textAlign: 'center'}}
+                  cellDataGetter={
+                    ({rowData: {rstId}}) => ({
+                      mode:
+                        // depending on whether it exists in goals
+                        // the set of control button can be in 'add' / 'remove' mode
+                        // additionally we have 'remove-confirm'.
+                        this.getRmConfirmFlag(rstId) ?
+                          'remove-confirm' :
+                          hasGoal(rstId) ? 'remove' : 'add',
+                      rstId,
+                    })
+                  }
+                  cellRenderer={({cellData}) => {
+                    const btnStyle = {
+                      marginTop: 0, marginBottom: 0,
+                      height: 22,
+                      maxWidth: '5em',
+                      width: '80%',
+                    }
+
+                    const {mode, rstId} = cellData
+                    if (mode === 'add' || mode === 'remove') {
+                      return (
+                        <Button
+                          bsSize="xsmall"
+                          onClick={
+                            mode === 'add' ? (
+                              /* add to goal table */
+                              this.handleAddToGoalTable(rstId)
+                            ) : (
+                              /* switch to removal confirm */
+                              () => this.setState(
+                                modifyObject(
+                                  'rmConfirmFlags',
+                                  modifyObject(rstId, () => true)
+                                )
+                              )
+                            )
+                          }
+                          style={btnStyle}
+                        >
+                          <FontAwesome name={mode === 'add' ? 'plus' : 'minus'} />
+                        </Button>
+                      )
+                    }
+                    if (mode === 'remove-confirm') {
+                      return (
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                          }}>
+                          <Button
+                            bsSize="xsmall"
+                            bsStyle="danger"
+                            style={{
+                              ...btnStyle,
+                              marginRight: 5,
+                            }}
+                            onClick={this.handleRemoveFromGoalTable(rstId)}
+                          >
+                            <FontAwesome name="trash" />
+                          </Button>
+                          <Button
+                            bsSize="xsmall"
+                            style={btnStyle}
+                            onClick={() => this.setState(
+                              modifyObject('rmConfirmFlags', modifyObject(rstId, () => false))
+                            )}
+                          >
+                            <FontAwesome name="undo" />
+                          </Button>
+                        </div>
+                      )
+                    }
+                    return (<div />)
+                  }}
                 />
               </Table>
             )
