@@ -298,3 +298,7 @@
     padding-left: 1.8em;
     padding-right: 1.8em;
 }
+
+#leveling-main .ReactVirtualized__Table__headerRow {
+    text-transform: none;
+}
