@@ -46,6 +46,18 @@ const headerSpecs = [
   { name: __('Sorter.Control') },
 ]
 
+/*
+
+   TODO for RVTable:
+
+   - ship name in primary text for those having goals
+   - fleet & lock indicator in ship name cell
+   - ship type row
+   - sorters
+   - filters
+
+ */
+
 // this part allows picking ships for leveling
 // would include some filters in header and a table
 // for showing ship-related info in detail
@@ -207,7 +219,7 @@ class ShipListImpl extends PureComponent {
                   disableSort={true}
                   dataKey="name"
                   width={140}
-                  flexGrow={5}
+                  flexGrow={4}
                 />
                 <Column
                   label="Level"
@@ -250,7 +262,7 @@ class ShipListImpl extends PureComponent {
                   disableSort={true}
                   dataKey="control"
                   width={100}
-                  flexGrow={3}
+                  flexGrow={1}
                   headerStyle={{textAlign: 'center'}}
                   style={{textAlign: 'center'}}
                   cellDataGetter={
