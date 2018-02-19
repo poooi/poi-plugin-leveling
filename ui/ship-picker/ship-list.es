@@ -143,12 +143,6 @@ class ShipListImpl extends PureComponent {
 
   renderRV() {
     const {ships} = this.props
-    const fakeRenderer = propName => props => (<div>{props[propName]}</div>)
-    const cd = ({cellData}) => (
-      <div>
-        {cellData}
-      </div>
-    )
     return (
       <div
         className="shiplist"
@@ -173,7 +167,6 @@ class ShipListImpl extends PureComponent {
                   label="ID"
                   disableSort={true}
                   dataKey="rstId"
-                  cellRenderer={cd}
                   width={40}
                   flexGrow={1}
                 />
@@ -181,7 +174,6 @@ class ShipListImpl extends PureComponent {
                   label="Name"
                   disableSort={true}
                   dataKey="name"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={140}
                   flexGrow={5}
                 />
@@ -189,7 +181,6 @@ class ShipListImpl extends PureComponent {
                   label="Level"
                   disableSort={true}
                   dataKey="level"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={50}
                   flexGrow={2}
                 />
@@ -197,7 +188,6 @@ class ShipListImpl extends PureComponent {
                   label="ASW"
                   disableSort={true}
                   dataKey="asw"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={40}
                   flexGrow={2}
                 />
@@ -205,7 +195,6 @@ class ShipListImpl extends PureComponent {
                   label="Evasion"
                   disableSort={true}
                   dataKey="evasion"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={40}
                   flexGrow={2}
                 />
@@ -213,7 +202,6 @@ class ShipListImpl extends PureComponent {
                   label="LoS"
                   disableSort={true}
                   dataKey="los"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={40}
                   flexGrow={2}
                 />
@@ -221,7 +209,6 @@ class ShipListImpl extends PureComponent {
                   label="Control"
                   disableSort={true}
                   dataKey="control"
-                  cellRenderer={fakeRenderer('cellData')}
                   width={100}
                   flexGrow={3}
                 />
