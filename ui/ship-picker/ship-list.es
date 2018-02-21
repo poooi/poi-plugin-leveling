@@ -52,7 +52,6 @@ const headerSpecs = [
 
    - ship name in primary text for those having goals
    - fleet & lock indicator in ship name cell
-   - ship type row
    - sorters
    - filters
 
@@ -212,6 +211,13 @@ class ShipListImpl extends PureComponent {
                   disableSort={true}
                   dataKey="rstId"
                   width={40}
+                  flexGrow={1}
+                />
+                <Column
+                  label="Type"
+                  disableSort={true}
+                  dataKey="typeName"
+                  width={60}
                   flexGrow={1}
                 />
                 <Column
