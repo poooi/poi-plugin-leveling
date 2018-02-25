@@ -16,13 +16,13 @@ import {
   SortDirection,
 } from 'react-virtualized'
 
-import { PTyp } from '../../ptyp'
-import { mapDispatchToProps } from '../../store'
+import { PTyp } from '../../../ptyp'
+import { mapDispatchToProps } from '../../../store'
 import {
   hasGoalFuncSelector,
   shipListSelector,
   sortMethodSelector,
-} from './selectors'
+} from '../selectors'
 
 /*
 
