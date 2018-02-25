@@ -6,10 +6,6 @@ import {
 } from 'reselect'
 import { connect } from 'react-redux'
 import {
-  Button,
-} from 'react-bootstrap'
-import FontAwesome from 'react-fontawesome'
-import {
   AutoSizer,
   Table,
   Column,
@@ -23,6 +19,8 @@ import {
   shipListSelector,
   sortMethodSelector,
 } from '../selectors'
+
+import { RowControls } from './row-controls'
 
 /*
 
@@ -106,6 +104,23 @@ class ShipListImpl extends PureComponent {
         }
       }
     )
+
+  renderRowControls = ({cellData}) => {
+    const {mode, rstId} = cellData
+    return (
+      <RowControls
+        mode={mode}
+        onAddToGoalTable={this.handleAddToGoalTable(rstId)}
+        onRemoveFromGoalTable={this.handleRemoveFromGoalTable(rstId)}
+        onSwitchToRemovalConfirm={() =>
+          this.setState(modifyObject('rmConfirmFlags', modifyObject(rstId, () => true)))
+        }
+        onCancelRemovalConfirm={() =>
+          this.setState(modifyObject('rmConfirmFlags', modifyObject(rstId, () => false)))
+        }
+      />
+    )
+  }
 
   render() {
     const {ships, hasGoal, sortMethod} = this.props
@@ -214,71 +229,7 @@ class ShipListImpl extends PureComponent {
                       rstId,
                     })
                   }
-                  cellRenderer={({cellData}) => {
-                    const btnStyle = {
-                      marginTop: 0, marginBottom: 0,
-                      height: 22,
-                      maxWidth: '5em',
-                      width: '80%',
-                    }
-
-                    const {mode, rstId} = cellData
-                    if (mode === 'add' || mode === 'remove') {
-                      return (
-                        <Button
-                          bsSize="xsmall"
-                          onClick={
-                            mode === 'add' ? (
-                              /* add to goal table */
-                              this.handleAddToGoalTable(rstId)
-                            ) : (
-                              /* switch to removal confirm */
-                              () => this.setState(
-                                modifyObject(
-                                  'rmConfirmFlags',
-                                  modifyObject(rstId, () => true)
-                                )
-                              )
-                            )
-                          }
-                          style={btnStyle}
-                        >
-                          <FontAwesome name={mode === 'add' ? 'plus' : 'minus'} />
-                        </Button>
-                      )
-                    }
-                    if (mode === 'remove-confirm') {
-                      return (
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                          }}>
-                          <Button
-                            bsSize="xsmall"
-                            bsStyle="danger"
-                            style={{
-                              ...btnStyle,
-                              marginRight: 5,
-                            }}
-                            onClick={this.handleRemoveFromGoalTable(rstId)}
-                          >
-                            <FontAwesome name="trash" />
-                          </Button>
-                          <Button
-                            bsSize="xsmall"
-                            style={btnStyle}
-                            onClick={() => this.setState(
-                              modifyObject('rmConfirmFlags', modifyObject(rstId, () => false))
-                            )}
-                          >
-                            <FontAwesome name="undo" />
-                          </Button>
-                        </div>
-                      )
-                    }
-                    return (<div />)
-                  }}
+                  cellRenderer={this.renderRowControls}
                 />
               </Table>
             )
