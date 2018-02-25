@@ -11,7 +11,6 @@ import {
   Column,
   SortDirection,
 } from 'react-virtualized'
-import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../../ptyp'
 import { mapDispatchToProps } from '../../../store'
@@ -22,6 +21,7 @@ import {
 } from '../selectors'
 
 import { RowControls } from './row-controls'
+import { NameCell } from './name-cell'
 
 /*
 
@@ -101,45 +101,6 @@ class ShipListImpl extends PureComponent {
     )
   }
 
-  renderNameCell = ({cellData}) => {
-    const {name, fleet, locked, goalFlag} = cellData
-    return (
-      <div
-        className={goalFlag ? 'text-primary' : ''}
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            flex: '1 0 0',
-            whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
-          }}>
-          {name+name+name+name}
-        </div>
-        <div>
-          {JSON.stringify(fleet)}
-        </div>
-        {
-          locked && (
-            <FontAwesome
-              style={{
-                marginLeft: 2,
-                width: 24, height: 24,
-                lineHeight: '24px',
-              }}
-              name="lock"
-            />
-          )
-        }
-      </div>
-    )
-  }
-
   render() {
     const {ships, hasGoal, sortMethod} = this.props
     return (
@@ -201,7 +162,7 @@ class ShipListImpl extends PureComponent {
                       return {name, fleet, locked, goalFlag}
                     }
                   }
-                  cellRenderer={this.renderNameCell}
+                  cellRenderer={({cellData}) => (<NameCell {...cellData} />)}
                 />
                 <Column
                   label="Level"
