@@ -27,8 +27,6 @@ import { NameCell } from './name-cell'
 
    TODO for RVTable:
 
-   - ship name in primary text for those having goals
-   - fleet & lock indicator in ship name cell
    - filters
    - i18n
 
