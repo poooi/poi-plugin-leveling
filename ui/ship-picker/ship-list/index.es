@@ -11,6 +11,7 @@ import {
   Column,
   SortDirection,
 } from 'react-virtualized'
+import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../../ptyp'
 import { mapDispatchToProps } from '../../../store'
@@ -82,36 +83,14 @@ class ShipListImpl extends PureComponent {
       )
     )
 
-  handleAddToGoalTable = rstId => () =>
-    this.props.addShipToGoalTable(rstId)
-
-  handleRemoveFromGoalTable = rstId => () =>
-    this.props.removeShipFromGoalTable(rstId)
-
-  handleClickHeader = method => () =>
-    this.modifySortMethod(
-      sortMethod => {
-        if (sortMethod.method === method) {
-          return {
-            ...sortMethod,
-            reversed: !sortMethod.reversed,
-          }
-        } else {
-          return {
-            method,
-            reversed: false,
-          }
-        }
-      }
-    )
-
   renderRowControls = ({cellData}) => {
     const {mode, rstId} = cellData
+    const {addShipToGoalTable, removeShipFromGoalTable} = this.props
     return (
       <RowControls
         mode={mode}
-        onAddToGoalTable={this.handleAddToGoalTable(rstId)}
-        onRemoveFromGoalTable={this.handleRemoveFromGoalTable(rstId)}
+        onAddToGoalTable={() => addShipToGoalTable(rstId)}
+        onRemoveFromGoalTable={() => removeShipFromGoalTable(rstId)}
         onSwitchToRemovalConfirm={() =>
           this.setState(modifyObject('rmConfirmFlags', modifyObject(rstId, () => true)))
         }
@@ -119,6 +98,45 @@ class ShipListImpl extends PureComponent {
           this.setState(modifyObject('rmConfirmFlags', modifyObject(rstId, () => false)))
         }
       />
+    )
+  }
+
+  renderNameCell = ({cellData}) => {
+    const {name, fleet, locked, goalFlag} = cellData
+    return (
+      <div
+        className={goalFlag ? 'text-primary' : ''}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            flex: '1 0 0',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+          }}>
+          {name+name+name+name}
+        </div>
+        <div>
+          {JSON.stringify(fleet)}
+        </div>
+        {
+          locked && (
+            <FontAwesome
+              style={{
+                marginLeft: 2,
+                width: 24, height: 24,
+                lineHeight: '24px',
+              }}
+              name="lock"
+            />
+          )
+        }
+      </div>
     )
   }
 
@@ -176,6 +194,14 @@ class ShipListImpl extends PureComponent {
                   dataKey="name"
                   width={140}
                   flexGrow={4}
+                  cellDataGetter={
+                    ({rowData}) => {
+                      const {name, fleet, locked, rstId} = rowData
+                      const goalFlag = hasGoal(rstId)
+                      return {name, fleet, locked, goalFlag}
+                    }
+                  }
+                  cellRenderer={this.renderNameCell}
                 />
                 <Column
                   label="Level"
