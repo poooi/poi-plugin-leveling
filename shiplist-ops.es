@@ -2,6 +2,11 @@
    This module contains functions and structures related to ship lists
  */
 import _ from 'lodash'
+import {
+  chainComparators,
+  projectorToComparator,
+  flipComparator,
+} from 'subtender'
 
 const prepareFilter = filters => {
   const { fleet, type, level, lock } = filters
@@ -61,54 +66,36 @@ const describeFilterWith = (getShipTypeInfo,__) => filterName => {
   return x => x
 }
 
-// composing multiple comparators into one by
-// trying comparators from left to right, and return first non-zero value.
-// if no comparator is provided or all comparator has return 0
-// the resulting comparator returns 0 as well.
-const chainComparators = (...cmps) => (x,y) => {
-  for (let i=0; i<cmps.length; ++i) {
-    const result = cmps[i](x,y)
-    if (result !== 0)
-      return result
-  }
-  return 0
-}
-
-const flipComparator = cmp => (x,y) => cmp(y,x)
-
-// create a comparator assuming the getter projects a numeric value from elements
-const getter2Comparator = getter => (x,y) => getter(x)-getter(y)
-
-const rosterIdComparator = getter2Comparator(x => x.rstId)
+const rosterIdComparator = projectorToComparator(x => x.rstId)
 
 // when supplied to sort function, the result will be like
 // sorting by ship levels in game.
 const inGameLevelComparator =
   chainComparators(
-    flipComparator(getter2Comparator(x => x.level)),
-    getter2Comparator(x => x.sortNo),
+    flipComparator(projectorToComparator(x => x.level)),
+    projectorToComparator(x => x.sortNo),
     rosterIdComparator)
 
 // when supplied to sort function, the result will be like
 // sorting by ship types in game.
 const inGameShipTypeComparator =
   chainComparators(
-    flipComparator(getter2Comparator(x => x.stype)),
-    getter2Comparator(x => x.sortNo),
-    flipComparator(getter2Comparator(x => x.level)),
+    flipComparator(projectorToComparator(x => x.stype)),
+    projectorToComparator(x => x.sortNo),
+    flipComparator(projectorToComparator(x => x.level)),
     rosterIdComparator)
 
 const prepareSorter = ({method,reversed}) => {
   const comparator =
       method === 'rid' ? rosterIdComparator
     : method === 'stype' ? inGameShipTypeComparator
-    : method === 'name' ? getter2Comparator(x => x.name)
+    : method === 'name' ? projectorToComparator(x => x.name)
     : method === 'level' ? inGameLevelComparator
-    : method === 'evasion' ? getter2Comparator(x => x.evasion)
-    : method === 'asw' ? getter2Comparator(x => x.asw)
-    : method === 'los' ? getter2Comparator(x => x.los)
-    : method === 'fleet' ? getter2Comparator(x => x.fleet === null ? 0 : x.fleet)
-    : method === 'lock' ? getter2Comparator(x => x.lock ? 1 : 0)
+    : method === 'evasion' ? projectorToComparator(x => x.evasion)
+    : method === 'asw' ? projectorToComparator(x => x.asw)
+    : method === 'los' ? projectorToComparator(x => x.los)
+    : method === 'fleet' ? projectorToComparator(x => x.fleet === null ? 0 : x.fleet)
+    : method === 'lock' ? projectorToComparator(x => x.lock ? 1 : 0)
     : console.error(`Unknown sorting method: ${method}`)
 
   // as every ship has a unique rosterId
@@ -127,7 +114,7 @@ export {
 
   chainComparators,
   flipComparator,
-  getter2Comparator,
+  projectorToComparator,
 
   rosterIdComparator,
   inGameLevelComparator,

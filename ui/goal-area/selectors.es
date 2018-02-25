@@ -1,5 +1,9 @@
 import _ from 'lodash'
 import { createSelector } from 'reselect'
+import {
+  projectorToComparator,
+  chainComparators,
+} from 'subtender'
 
 import {
   shipsSelector,
@@ -16,8 +20,6 @@ import { totalExp } from '../../exp'
 import { computeExpRange } from '../../map-exp'
 
 import {
-  chainComparators,
-  getter2Comparator,
   rosterIdComparator as sRosterIdComparator,
   inGameLevelComparator as sInGameLevelComparator,
   inGameShipTypeComparator as sInGameShipTypeComparator,
@@ -54,8 +56,8 @@ const prepareSorter = ({method, reversed}) => {
     method === 'rid' ? rosterIdComparator :
     method === 'stype' ? stypeComparator :
     method === 'level' ? levelComparator :
-    method === 'remaining-exp' ? getter2Comparator(x => x.extra.remainingExp) :
-    method === 'remaining-battles-lb' ? getter2Comparator(x => x.extra.remainingBattles[0]) :
+    method === 'remaining-exp' ? projectorToComparator(x => x.extra.remainingExp) :
+    method === 'remaining-battles-lb' ? projectorToComparator(x => x.extra.remainingBattles[0]) :
     console.error(`Unknown sorting method: ${method}`)
 
   // as every ship has a unique rosterId
