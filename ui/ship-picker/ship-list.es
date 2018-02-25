@@ -6,7 +6,6 @@ import {
 } from 'reselect'
 import { connect } from 'react-redux'
 import {
-  Table as BSTable,
   Button,
 } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
@@ -17,34 +16,12 @@ import {
 } from 'react-virtualized'
 
 import { PTyp } from '../../ptyp'
-import { ShipListRow } from './ship-list-row'
 import { mapDispatchToProps } from '../../store'
 import {
   hasGoalFuncSelector,
   shipListSelector,
   sortMethodSelector,
 } from './selectors'
-
-const { __ } = window
-
-const defineSortableHeader =
-  (name, method, asc = true /* whether it's ascending by default */) => ({
-    name, method, asc,
-  })
-
-const headerSpecs = [
-  defineSortableHeader(__('Sorter.ID'),'rid'),
-  defineSortableHeader(__('Sorter.Type'),'stype'),
-  defineSortableHeader(__('Sorter.Name'),'name'),
-  defineSortableHeader(__('Sorter.Level'),'level',false),
-  defineSortableHeader(__('Sorter.Evasion'), 'evasion'),
-  defineSortableHeader(__('Sorter.ASW'),'asw'),
-  defineSortableHeader(__('Sorter.LoS'),'los'),
-  defineSortableHeader(__('Sorter.Fleet'),'fleet'),
-  defineSortableHeader(__('Sorter.Lock'),'lock'),
-  // unsortable header don't have method and asc fields
-  { name: __('Sorter.Control') },
-]
 
 /*
 
@@ -56,6 +33,9 @@ const headerSpecs = [
    - filters
 
  */
+
+const mkCellDataGetter = propName =>
+  ({rowData}) => rowData[propName]
 
 // this part allows picking ships for leveling
 // would include some filters in header and a table
@@ -126,66 +106,8 @@ class ShipListImpl extends PureComponent {
       }
     )
 
-  renderAlt() {
-    const {ships, sortMethod, hasGoal} = this.props
-    return (
-      <div
-        style={{
-          flex: 1,
-          height: 0,
-          overflowY: 'auto',
-        }}
-      >
-        <BSTable striped bordered condensed hover>
-          <thead>
-            <tr>
-              {
-                headerSpecs.map(({name, method, asc}) => {
-                  const sortable =
-                    typeof method === 'string' &&
-                    typeof asc === 'boolean'
-                  const isActive = sortMethod.method === method
-                  // using name instead of method, as some doesn't have the latter
-                  const key = name
-                  let content
-                  if (isActive) {
-                    const dir = sortMethod.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
-                    content = `${name} ${dir}`
-                  } else {
-                    content = name
-                  }
-
-                  return (
-                    <th
-                      className={isActive ? "text-primary" : ""}
-                      key={key}
-                      onClick={sortable ? this.handleClickHeader(method) : null}>
-                      {content}
-                    </th>
-                  )
-                })
-              }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              ships.map(ship => (
-                <ShipListRow
-                  key={ship.rstId}
-                  ship={ship}
-                  hasGoal={hasGoal(ship.rstId)}
-                  onAddToGoalTable={this.handleAddToGoalTable(ship.rstId)}
-                />
-              ))
-            }
-          </tbody>
-        </BSTable>
-      </div>
-    )
-  }
-
-  renderRV() {
-    const {ships, hasGoal} = this.props
+  render() {
+    const {ships, hasGoal, sortMethod} = this.props
     return (
       <div
         className="shiplist"
@@ -205,17 +127,19 @@ class ShipListImpl extends PureComponent {
                 rowGetter={({index}) => ships[index]}
                 rowHeight={28}
                 rowClassName={({index}) => (index === -1) ? '' : 'color-altering-row'}
+                sortBy={sortMethod.method}
               >
                 <Column
                   label="ID"
                   dataKey="rid"
-                  cellDataGetter={({rowData}) => rowData.rstId}
+                  cellDataGetter={mkCellDataGetter('rstId')}
                   width={40}
                   flexGrow={1}
                 />
                 <Column
                   label="Type"
-                  dataKey="typeName"
+                  dataKey="stype"
+                  cellDataGetter={mkCellDataGetter('typeName')}
                   width={60}
                   flexGrow={1}
                 />
@@ -349,11 +273,6 @@ class ShipListImpl extends PureComponent {
         </AutoSizer>
       </div>
     )
-  }
-
-  render() {
-    return this.renderRV()
-    // return this.renderAlt()
   }
 }
 
