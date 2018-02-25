@@ -208,28 +208,25 @@ class ShipListImpl extends PureComponent {
               >
                 <Column
                   label="ID"
-                  disableSort={true}
-                  dataKey="rstId"
+                  dataKey="rid"
+                  cellDataGetter={({rowData}) => rowData.rstId}
                   width={40}
                   flexGrow={1}
                 />
                 <Column
                   label="Type"
-                  disableSort={true}
                   dataKey="typeName"
                   width={60}
                   flexGrow={1}
                 />
                 <Column
                   label="Name"
-                  disableSort={true}
                   dataKey="name"
                   width={140}
                   flexGrow={4}
                 />
                 <Column
                   label="Level"
-                  disableSort={true}
                   dataKey="level"
                   width={50}
                   flexGrow={2}
@@ -238,7 +235,6 @@ class ShipListImpl extends PureComponent {
                 />
                 <Column
                   label="ASW"
-                  disableSort={true}
                   dataKey="asw"
                   width={40}
                   flexGrow={2}
@@ -247,7 +243,6 @@ class ShipListImpl extends PureComponent {
                 />
                 <Column
                   label="Evasion"
-                  disableSort={true}
                   dataKey="evasion"
                   width={40}
                   flexGrow={2}
@@ -256,7 +251,6 @@ class ShipListImpl extends PureComponent {
                 />
                 <Column
                   label="LoS"
-                  disableSort={true}
                   dataKey="los"
                   width={40}
                   flexGrow={2}
