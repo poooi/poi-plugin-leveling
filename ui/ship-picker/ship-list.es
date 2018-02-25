@@ -13,6 +13,7 @@ import {
   AutoSizer,
   Table,
   Column,
+  SortDirection,
 } from 'react-virtualized'
 
 import { PTyp } from '../../ptyp'
@@ -127,7 +128,18 @@ class ShipListImpl extends PureComponent {
                 rowGetter={({index}) => ships[index]}
                 rowHeight={28}
                 rowClassName={({index}) => (index === -1) ? '' : 'color-altering-row'}
+                sort={({sortBy, sortDirection}) =>
+                  this.modifySortMethod(
+                    _oldM => ({
+                      method: sortBy,
+                      reversed: sortDirection === SortDirection.DESC,
+                    })
+                  )
+                }
                 sortBy={sortMethod.method}
+                sortDirection={
+                  sortMethod.reversed ? SortDirection.DESC : SortDirection.ASC
+                }
               >
                 <Column
                   label="ID"
@@ -135,6 +147,7 @@ class ShipListImpl extends PureComponent {
                   cellDataGetter={mkCellDataGetter('rstId')}
                   width={40}
                   flexGrow={1}
+                  defaultSortDirection={SortDirection.DESC}
                 />
                 <Column
                   label="Type"
