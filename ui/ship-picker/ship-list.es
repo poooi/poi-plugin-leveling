@@ -30,8 +30,8 @@ import {
 
    - ship name in primary text for those having goals
    - fleet & lock indicator in ship name cell
-   - sorters
    - filters
+   - i18n
 
  */
 
