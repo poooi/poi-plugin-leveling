@@ -185,30 +185,22 @@ class ShipListImpl extends PureComponent {
                   headerStyle={{textAlign: 'center'}}
                   style={{textAlign: 'center'}}
                 />
-                <Column
-                  label="ASW"
-                  dataKey="asw"
-                  width={40}
-                  flexGrow={2}
-                  headerStyle={{textAlign: 'center'}}
-                  style={{textAlign: 'center'}}
-                />
-                <Column
-                  label="Evasion"
-                  dataKey="evasion"
-                  width={40}
-                  flexGrow={2}
-                  headerStyle={{textAlign: 'center'}}
-                  style={{textAlign: 'center'}}
-                />
-                <Column
-                  label="LoS"
-                  dataKey="los"
-                  width={40}
-                  flexGrow={2}
-                  headerStyle={{textAlign: 'center'}}
-                  style={{textAlign: 'center'}}
-                />
+                {
+                  [
+                    {label: 'ASW', dataKey: 'asw'},
+                    {label: 'Evasion', dataKey: 'evasion'},
+                    {label: 'LoS', dataKey: 'los'},
+                  ].map(props => (
+                    <Column
+                      key={props.dataKey}
+                      {...props}
+                      width={40}
+                      flexGrow={2}
+                      headerStyle={{textAlign: 'center'}}
+                      style={{textAlign: 'center'}}
+                    />
+                  ))
+                }
                 <Column
                   label="Control"
                   disableSort={true}
