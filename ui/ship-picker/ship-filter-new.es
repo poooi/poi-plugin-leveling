@@ -1,83 +1,76 @@
 import React, { PureComponent } from 'react'
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
 class ShipFilterNew extends PureComponent {
+  renderLabelToggleGroups = ({
+    label, labelText,
+    style, values, renderValueToggle,
+  }) => (
+    <div
+      style={{
+        display: 'flex', alignItems: 'center',
+        ...style,
+      }}>
+      <div style={{marginRight: '1em'}}>{labelText}</div>
+      <ToggleButtonGroup type="radio" name={label} defaultValue="all">
+        {
+          values.map(value => (
+            <ToggleButton
+              style={{marginTop: 0}}
+              value={value}>
+              {renderValueToggle(value)}
+            </ToggleButton>
+          ))
+        }
+      </ToggleButtonGroup>
+    </div>
+  )
+
   render() {
     const {__} = window
     return (
       <div
-        style={{marginBottom: 5}}
+        style={{marginBottom: 5, marginLeft: 5}}
       >
         <div>Placeholder: stype</div>
-        <div style={{display: 'flex', alignItems: 'center'}}>
-          <div style={{marginRight: '1em'}}>Level</div>
-          <ToggleButtonGroup type="radio" name="level" defaultValue="all">
-            <ToggleButton
-              style={{marginTop: 0}}
-              value="all">
-              {__('Filter.All')}
-            </ToggleButton>
-            <ToggleButton
-              style={{marginTop: 0}}
-              value="ge-100">
-              Lv. ≥ 100
-            </ToggleButton>
-            <ToggleButton
-              style={{marginTop: 0}}
-              value="lt-99">
-              {"Lv. < 99"}
-            </ToggleButton>
-            <ToggleButton
-              style={{marginTop: 0}}
-              value="under-final">
-              {__('Filter.UnderFinalRemodelLevel')}
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
+        {
+          this.renderLabelToggleGroups({
+            label: 'level', labelText: 'Level', style: {marginBottom: 5},
+            values: ['all', 'ge-100', 'lt-99', 'under-final'],
+            renderValueToggle: value => (
+              value === 'all' ? __('Filter.All') :
+              value === 'ge-100' ? 'Lv. ≥ 100' :
+              value === 'lt-99' ? 'Lv. < 99' :
+              value === 'under-final' ? __('Filter.UnderFinalRemodelLevel') :
+              '???'
+            ),
+          })
+        }
         <div
           style={{display: 'flex'}}
         >
-          <div style={{display: 'flex', alignItems: 'center'}}>
-            <div style={{marginRight: '1em'}}>Fleet</div>
-            <ToggleButtonGroup type="radio" name="fleet" defaultValue="all">
-              <ToggleButton
-                style={{marginTop: 0}}
-                value="all">
-                {__('Filter.All')}
-              </ToggleButton>
-              {
-                [1,2,3,4].map(fleetId => (
-                  <ToggleButton
-                    key={fleetId}
-                    style={{marginTop: 0}}
-                    value={fleetId}>
-                    {fleetId}
-                  </ToggleButton>
-                ))
-              }
-            </ToggleButtonGroup>
-          </div>
-          <div style={{display: 'flex', alignItems: 'center'}}>
-            <div style={{marginRight: '1em'}}>Lock</div>
-            <ToggleButtonGroup type="radio" name="lock" defaultValue="all">
-              <ToggleButton
-                style={{marginTop: 0}}
-                value="all">
-                {__('Filter.All')}
-              </ToggleButton>
-              <ToggleButton
-                style={{marginTop: 0}}
-                value={true}>
-                Locked
-              </ToggleButton>
-              <ToggleButton
-                style={{marginTop: 0}}
-                value={false}>
-                Unlocked
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-
+          {
+            this.renderLabelToggleGroups({
+              label: 'fleet', labelText: 'Fleet', style: {},
+              values: ['all', 1, 2, 3, 4],
+              renderValueToggle: value => (
+                value === 'all' ? __('Filter.All') : value
+              ),
+            })
+          }
+          {
+            this.renderLabelToggleGroups({
+              label: 'lock', labelText: 'Lock', style: {marginLeft: 10},
+              values: ['all', true, false],
+              renderValueToggle: value => (
+                value === 'all' ? __('Filter.All') :
+                typeof value === 'boolean' ? (
+                  <FontAwesome name={value ? 'lock' : 'unlock'} />
+                ) : '???'
+              ),
+            })
+          }
         </div>
       </div>
     )
