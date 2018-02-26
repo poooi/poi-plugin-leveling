@@ -10,18 +10,26 @@ class ShipFilterNew extends PureComponent {
       >
         <div>Placeholder: stype</div>
         <div style={{display: 'flex', alignItems: 'center'}}>
-          <div>Level</div>
+          <div style={{marginRight: '1em'}}>Level</div>
           <ToggleButtonGroup type="radio" name="level" defaultValue="all">
-            <ToggleButton value="all">
+            <ToggleButton
+              style={{marginTop: 0}}
+              value="all">
               {__('Filter.All')}
             </ToggleButton>
-            <ToggleButton value="ge-100">
+            <ToggleButton
+              style={{marginTop: 0}}
+              value="ge-100">
               Lv. ≥ 100
             </ToggleButton>
-            <ToggleButton value="lt-99">
+            <ToggleButton
+              style={{marginTop: 0}}
+              value="lt-99">
               {"Lv. < 99"}
             </ToggleButton>
-            <ToggleButton value="under-final">
+            <ToggleButton
+              style={{marginTop: 0}}
+              value="under-final">
               {__('Filter.UnderFinalRemodelLevel')}
             </ToggleButton>
           </ToggleButtonGroup>
@@ -29,8 +37,47 @@ class ShipFilterNew extends PureComponent {
         <div
           style={{display: 'flex'}}
         >
-          <div style={{flex: 3}}>Placeholder: fleet</div>
-          <div style={{flex: 2}}>Placeholder: lock</div>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{marginRight: '1em'}}>Fleet</div>
+            <ToggleButtonGroup type="radio" name="fleet" defaultValue="all">
+              <ToggleButton
+                style={{marginTop: 0}}
+                value="all">
+                {__('Filter.All')}
+              </ToggleButton>
+              {
+                [1,2,3,4].map(fleetId => (
+                  <ToggleButton
+                    key={fleetId}
+                    style={{marginTop: 0}}
+                    value={fleetId}>
+                    {fleetId}
+                  </ToggleButton>
+                ))
+              }
+            </ToggleButtonGroup>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{marginRight: '1em'}}>Lock</div>
+            <ToggleButtonGroup type="radio" name="lock" defaultValue="all">
+              <ToggleButton
+                style={{marginTop: 0}}
+                value="all">
+                {__('Filter.All')}
+              </ToggleButton>
+              <ToggleButton
+                style={{marginTop: 0}}
+                value={true}>
+                Locked
+              </ToggleButton>
+              <ToggleButton
+                style={{marginTop: 0}}
+                value={false}>
+                Unlocked
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+
         </div>
       </div>
     )
