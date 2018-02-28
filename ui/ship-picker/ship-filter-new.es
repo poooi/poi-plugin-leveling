@@ -1,11 +1,18 @@
+import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 
-class ShipFilterNew extends PureComponent {
+import {
+  filtersSelector,
+} from './selectors'
+
+class ShipFilterNewImpl extends PureComponent {
   renderLabelToggleGroups = ({
     label, labelText,
     style, values, renderValueToggle,
+    curValue,
   }) => (
     <div
       style={{
@@ -13,7 +20,11 @@ class ShipFilterNew extends PureComponent {
         ...style,
       }}>
       <div style={{marginRight: '1em'}}>{labelText}</div>
-      <ToggleButtonGroup type="radio" name={label} defaultValue="all">
+      <ToggleButtonGroup
+        value={curValue}
+        type="radio"
+        name={label}
+      >
         {
           values.map(value => (
             <ToggleButton
@@ -29,6 +40,7 @@ class ShipFilterNew extends PureComponent {
 
   render() {
     const {__} = window
+    const {filters} = this.props
     return (
       <div
         style={{marginBottom: 5, marginLeft: 5}}
@@ -38,6 +50,7 @@ class ShipFilterNew extends PureComponent {
           this.renderLabelToggleGroups({
             label: 'level', labelText: 'Level', style: {marginBottom: 5},
             values: ['all', 'ge-100', 'lt-99', 'under-final'],
+            curValue: filters.level,
             renderValueToggle: value => (
               value === 'all' ? __('Filter.All') :
               value === 'ge-100' ? 'Lv. ≥ 100' :
@@ -54,6 +67,7 @@ class ShipFilterNew extends PureComponent {
             this.renderLabelToggleGroups({
               label: 'fleet', labelText: 'Fleet', style: {},
               values: ['all', 1, 2, 3, 4],
+              curValue: filters.fleet,
               renderValueToggle: value => (
                 value === 'all' ? __('Filter.All') : value
               ),
@@ -63,6 +77,7 @@ class ShipFilterNew extends PureComponent {
             this.renderLabelToggleGroups({
               label: 'lock', labelText: 'Lock', style: {marginLeft: 10},
               values: ['all', true, false],
+              curValue: filters.lock,
               renderValueToggle: value => (
                 value === 'all' ? __('Filter.All') :
                 typeof value === 'boolean' ? (
@@ -76,5 +91,11 @@ class ShipFilterNew extends PureComponent {
     )
   }
 }
+
+const ShipFilterNew = connect(
+  createStructuredSelector({
+    filters: filtersSelector,
+  })
+)(ShipFilterNewImpl)
 
 export { ShipFilterNew }
