@@ -110,8 +110,8 @@ class ShipFilterNewImpl extends PureComponent {
                       marginRight: 2,
                       marginTop: 0,
                       marginBottom: 2,
+                      padding: '5px 10px',
                       ...styleExtra,
-                      padding: '.5em 1em',
                     }}
                     key={stypeIdOrAll}
                     onClick={() => this.handleSelectFilter('type')(stypeIdOrAll)}

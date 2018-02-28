@@ -1,6 +1,5 @@
 import React from 'react'
 import { ShipList } from './ship-list'
-import { ShipFilter } from './ship-filter'
 import { ShipFilterNew } from './ship-filter-new'
 
 // a standalone part that allows user to do simple filtering and sorting
@@ -13,7 +12,6 @@ const ShipPicker = _props => (
       flexDirection: 'column',
     }}
   >
-    <ShipFilter />
     <ShipFilterNew />
     <ShipList />
   </div>
