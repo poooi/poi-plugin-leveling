@@ -7,8 +7,13 @@ import FontAwesome from 'react-fontawesome'
 import {
   filtersSelector,
 } from './selectors'
+import { PTyp } from '../../ptyp'
 
 class ShipFilterNewImpl extends PureComponent {
+  static propTypes = {
+    filters: PTyp.ShipFilters.isRequired,
+  }
+
   renderLabelToggleGroups = ({
     label, labelText,
     style, values, renderValueToggle,
