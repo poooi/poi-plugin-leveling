@@ -104,14 +104,17 @@ class ShipFilterNewImpl extends PureComponent {
                 }
                 return (
                   <Button
+                    active={filters.type === stypeIdOrAll}
                     bsSize="small"
                     style={{
-                      marginRight: 5,
+                      marginRight: 2,
                       marginTop: 0,
                       marginBottom: 2,
                       ...styleExtra,
+                      padding: '.5em 1em',
                     }}
                     key={stypeIdOrAll}
+                    onClick={() => this.handleSelectFilter('type')(stypeIdOrAll)}
                   >
                     {content}
                   </Button>
