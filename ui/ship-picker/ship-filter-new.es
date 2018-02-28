@@ -1,3 +1,4 @@
+import { modifyObject } from 'subtender'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
@@ -8,16 +9,32 @@ import {
   filtersSelector,
 } from './selectors'
 import { PTyp } from '../../ptyp'
+import { mapDispatchToProps } from '../../store'
 
 class ShipFilterNewImpl extends PureComponent {
   static propTypes = {
     filters: PTyp.ShipFilters.isRequired,
+    uiModify: PTyp.func.isRequired,
   }
+
+  modifyFilter = modifier =>
+    this.props.uiModify(
+      modifyObject(
+        'shipTab',
+        modifyObject('filters', modifier)
+      )
+    )
+
+  handleSelectFilter = key => value =>
+    this.modifyFilter(
+      modifyObject(key, () => value)
+    )
 
   renderLabelToggleGroups = ({
     label, labelText,
     style, values, renderValueToggle,
     curValue,
+    onChange,
   }) => (
     <div
       style={{
@@ -29,6 +46,7 @@ class ShipFilterNewImpl extends PureComponent {
         value={curValue}
         type="radio"
         name={label}
+        onChange={onChange}
       >
         {
           values.map(value => (
@@ -63,6 +81,7 @@ class ShipFilterNewImpl extends PureComponent {
               value === 'under-final' ? __('Filter.UnderFinalRemodelLevel') :
               '???'
             ),
+            onChange: this.handleSelectFilter('level'),
           })
         }
         <div
@@ -76,6 +95,7 @@ class ShipFilterNewImpl extends PureComponent {
               renderValueToggle: value => (
                 value === 'all' ? __('Filter.All') : value
               ),
+              onChange: this.handleSelectFilter('fleet'),
             })
           }
           {
@@ -89,6 +109,7 @@ class ShipFilterNewImpl extends PureComponent {
                   <FontAwesome name={value ? 'lock' : 'unlock'} />
                 ) : '???'
               ),
+              onChange: this.handleSelectFilter('lock'),
             })
           }
         </div>
@@ -100,7 +121,8 @@ class ShipFilterNewImpl extends PureComponent {
 const ShipFilterNew = connect(
   createStructuredSelector({
     filters: filtersSelector,
-  })
+  }),
+  mapDispatchToProps
 )(ShipFilterNewImpl)
 
 export { ShipFilterNew }
