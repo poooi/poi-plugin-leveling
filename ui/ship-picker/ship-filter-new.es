@@ -2,7 +2,7 @@ import { modifyObject } from 'subtender'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
+import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 
 import {
@@ -11,9 +11,17 @@ import {
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
 
+import {
+  getShipTypeInfoFuncSelector,
+  validShipTypeIdsSelector,
+} from '../../selectors'
+
 class ShipFilterNewImpl extends PureComponent {
   static propTypes = {
+    getShipTypeInfo: PTyp.func.isRequired,
+    stypeIds: PTyp.array.isRequired,
     filters: PTyp.ShipFilters.isRequired,
+
     uiModify: PTyp.func.isRequired,
   }
 
@@ -63,12 +71,55 @@ class ShipFilterNewImpl extends PureComponent {
 
   render() {
     const {__} = window
-    const {filters} = this.props
+    const {filters, stypeIds, getShipTypeInfo} = this.props
     return (
       <div
-        style={{marginBottom: 5, marginLeft: 5}}
+        style={{
+          marginBottom: 5,
+          marginLeft: 5,
+          marginRight: 5,
+        }}
       >
-        <div>Placeholder: stype</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: 5,
+          }}>
+          <div style={{marginRight: '1em'}}>
+            {__('Sorter.Type')}
+          </div>
+          <div>
+            {
+              ['all', ...stypeIds].map(stypeIdOrAll => {
+                let content
+                let styleExtra
+                if (stypeIdOrAll === 'all') {
+                  content = __('Filter.All')
+                  styleExtra = {minWidth: '4em'}
+                } else {
+                  const {name} = getShipTypeInfo(stypeIdOrAll)
+                  content = `${name} (${stypeIdOrAll})`
+                  styleExtra = {}
+                }
+                return (
+                  <Button
+                    bsSize="small"
+                    style={{
+                      marginRight: 5,
+                      marginTop: 0,
+                      marginBottom: 2,
+                      ...styleExtra,
+                    }}
+                    key={stypeIdOrAll}
+                  >
+                    {content}
+                  </Button>
+                )
+              })
+            }
+          </div>
+        </div>
         {
           this.renderLabelToggleGroups({
             label: 'level', labelText: 'Level', style: {marginBottom: 5},
@@ -120,6 +171,8 @@ class ShipFilterNewImpl extends PureComponent {
 
 const ShipFilterNew = connect(
   createStructuredSelector({
+    getShipTypeInfo: getShipTypeInfoFuncSelector,
+    stypeIds: validShipTypeIdsSelector,
     filters: filtersSelector,
   }),
   mapDispatchToProps
