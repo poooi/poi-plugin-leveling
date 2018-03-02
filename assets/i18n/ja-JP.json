@@ -30,11 +30,7 @@
 
   "Filter": {
     "All": "All",
-    "UnderFinalRemodelLevel": "Under Final Remodel Level",
-    "UnderFinalRemodelLevelShort": "< F. Rmdl.",
-    "FleetX": "Fleet %s",
-    "Locked": "Locked",
-    "Unlocked": "Unlocked"
+    "UnderFinalRemodelLevel": "Under Final Remodel Level"
   },
 
   "GoalBox": {

@@ -39,33 +39,6 @@ const prepareFilter = filters => {
   return _.flow([fleetFilter, typeFilter, levelFilter, lockFilter])
 }
 
-const describeFilterWith = (getShipTypeInfo,__) => filterName => {
-  const trAll = __('Filter.All')
-  if (filterName === 'type')
-    return tNum => {
-      if (tNum === 'all')
-        return trAll
-
-      const stInfo = getShipTypeInfo(tNum)
-      return stInfo ? `${stInfo.name} (${tNum})` : String(tNum)
-    }
-
-  if (filterName === 'level')
-    return l =>
-      l === 'all' ? trAll :
-      l === 'ge-100' ? '≥ 100' :
-      l === 'lt-99' ? '< 99' :
-      l === 'under-final' ? __('Filter.UnderFinalRemodelLevelShort') :
-      l
-
-  if (filterName === 'fleet')
-    return fNum => fNum === 'all' ? trAll : __('Filter.FleetX',fNum)
-
-  if (filterName === 'lock')
-    return v => v === 'all' ? trAll : (v ? __('Filter.Locked') : __('Filter.Unlocked'))
-  return x => x
-}
-
 const rosterIdComparator = projectorToComparator(x => x.rstId)
 
 // when supplied to sort function, the result will be like
@@ -110,8 +83,6 @@ const prepareSorter = ({method,reversed}) => {
 
 export {
   prepareFilter,
-  describeFilterWith,
-
   chainComparators,
   flipComparator,
   projectorToComparator,

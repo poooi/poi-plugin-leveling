@@ -31,11 +31,7 @@
 
   "Filter": {
     "All": "全部",
-    "UnderFinalRemodelLevel": "低於最終改造等級",
-    "UnderFinalRemodelLevelShort": "< 終改等級",
-    "FleetX": "第%s艦隊",
-    "Locked": "已鎖",
-    "Unlocked": "未鎖"
+    "UnderFinalRemodelLevel": "低於最終改造等級"
   },
 
   "GoalBox": {
