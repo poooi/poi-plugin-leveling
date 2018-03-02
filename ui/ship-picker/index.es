@@ -1,6 +1,6 @@
 import React from 'react'
 import { ShipList } from './ship-list'
-import { ShipFilterNew } from './ship-filter-new'
+import { ShipFilter } from './ship-filter'
 
 // a standalone part that allows user to do simple filtering and sorting
 // on ships and picking ships for leveling.
@@ -12,7 +12,7 @@ const ShipPicker = _props => (
       flexDirection: 'column',
     }}
   >
-    <ShipFilterNew />
+    <ShipFilter />
     <ShipList />
   </div>
 )

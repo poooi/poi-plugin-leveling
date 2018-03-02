@@ -2,18 +2,15 @@ import { modifyObject } from 'subtender'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import {
-  DropdownButton,
-  MenuItem,
-  ButtonGroup,
-} from 'react-bootstrap'
+import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
+import FontAwesome from 'react-fontawesome'
 
-import { PTyp } from '../../ptyp'
-import { describeFilterWith } from '../../shiplist-ops'
-import { mapDispatchToProps } from '../../store'
 import {
   filtersSelector,
 } from './selectors'
+import { PTyp } from '../../ptyp'
+import { mapDispatchToProps } from '../../store'
+
 import {
   getShipTypeInfoFuncSelector,
   validShipTypeIdsSelector,
@@ -41,93 +38,135 @@ class ShipFilterImpl extends PureComponent {
       modifyObject(key, () => value)
     )
 
+  renderLabelToggleGroups = ({
+    label, labelText,
+    style, values, renderValueToggle,
+    curValue,
+    onChange,
+  }) => (
+    <div
+      style={{
+        display: 'flex', alignItems: 'center',
+        ...style,
+      }}>
+      <div style={{marginRight: '1em'}}>{labelText}</div>
+      <ToggleButtonGroup
+        value={curValue}
+        type="radio"
+        name={label}
+        onChange={onChange}
+      >
+        {
+          values.map(value => (
+            <ToggleButton
+              style={{marginTop: 0}}
+              value={value}>
+              {renderValueToggle(value)}
+            </ToggleButton>
+          ))
+        }
+      </ToggleButtonGroup>
+    </div>
+  )
+
   render() {
-    const {filters, getShipTypeInfo, stypeIds} = this.props
-    const { __ } = window
-    const describeFilter = describeFilterWith(getShipTypeInfo,__)
+    const {__} = window
+    const {filters, stypeIds, getShipTypeInfo} = this.props
     return (
       <div
         style={{
-          display: 'flex',
           marginBottom: 5,
+          marginLeft: 5,
+          marginRight: 5,
         }}
-        className="filter-group">
-        <ButtonGroup justified>
-          <DropdownButton
-            onSelect={this.handleSelectFilter('type')}
-            id="ship-filter-type"
-            title={`${__('Sorter.Type')}: ${describeFilter('type')(filters.type)}`}>
-            <MenuItem
-              key="all" eventKey="all">
-              {__('Filter.All')}
-            </MenuItem>
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: 5,
+          }}>
+          <div style={{marginRight: '1em'}}>
+            {__('Sorter.Type')}
+          </div>
+          <div>
             {
-              stypeIds.map(id => {
-                const {name} = getShipTypeInfo(id)
+              ['all', ...stypeIds].map(stypeIdOrAll => {
+                let content
+                let styleExtra
+                if (stypeIdOrAll === 'all') {
+                  content = __('Filter.All')
+                  styleExtra = {minWidth: '4em'}
+                } else {
+                  const {name} = getShipTypeInfo(stypeIdOrAll)
+                  content = `${name} (${stypeIdOrAll})`
+                  styleExtra = {}
+                }
                 return (
-                  <MenuItem
-                    key={id} eventKey={id}>
-                    {`${name} (${id})`}
-                  </MenuItem>
+                  <Button
+                    active={filters.type === stypeIdOrAll}
+                    bsSize="small"
+                    style={{
+                      marginRight: 2,
+                      marginTop: 0,
+                      marginBottom: 2,
+                      padding: '5px 10px',
+                      ...styleExtra,
+                    }}
+                    key={stypeIdOrAll}
+                    onClick={() => this.handleSelectFilter('type')(stypeIdOrAll)}
+                  >
+                    {content}
+                  </Button>
                 )
               })
             }
-          </DropdownButton>
-        </ButtonGroup>
-        <ButtonGroup
-          className="ship-filter-bg-level"
-          justified>
-          <DropdownButton
-            onSelect={this.handleSelectFilter('level')}
-            id="ship-filter-level"
-            title={`${__('Sorter.Level')}: ${describeFilter('level')(filters.level)}`}>
-            <MenuItem key="all" eventKey="all">
-              {__('Filter.All')}
-            </MenuItem>
-            <MenuItem key="ge-100" eventKey="ge-100">
-              Lv. ≥ 100
-            </MenuItem>
-            <MenuItem key="lt-99" eventKey="lt-99">
-              {"Lv. < 99"}
-            </MenuItem>
-            <MenuItem key="under-final" eventKey="under-final">
-              {__('Filter.UnderFinalRemodelLevel')}
-            </MenuItem>
-          </DropdownButton>
-        </ButtonGroup>
-        <ButtonGroup justified>
-          <DropdownButton
-            onSelect={this.handleSelectFilter('fleet')}
-            id="ship-filter-fleet"
-            title={`${__('Sorter.Fleet')}: ${describeFilter('fleet')(filters.fleet)}`}>
-            <MenuItem key="all" eventKey="all">
-              {__('Filter.All')}
-            </MenuItem>
-            {
-              [1,2,3,4].map( fleet => (
-                <MenuItem key={fleet} eventKey={fleet}>
-                  {__(`Filter.FleetX`,fleet)}
-                </MenuItem>
-              ))
-            }
-          </DropdownButton>
-        </ButtonGroup>
-        <ButtonGroup justified>
-          <DropdownButton
-            onSelect={this.handleSelectFilter('lock')}
-            id="ship-filter-lock"
-            title={`${__('Sorter.Lock')}: ${describeFilter('lock')(filters.lock)}`}>
-            <MenuItem key="all" eventKey="all">
-              {__('Filter.All')}
-            </MenuItem>
-            <MenuItem key={true} eventKey={true}>
-              {__('Filter.Locked')}
-            </MenuItem>
-            <MenuItem key={false} eventKey={false}>
-              {__('Filter.Unlocked')}
-            </MenuItem>
-          </DropdownButton>
-        </ButtonGroup>
+          </div>
+        </div>
+        {
+          this.renderLabelToggleGroups({
+            label: 'level', labelText: 'Level', style: {marginBottom: 5},
+            values: ['all', 'ge-100', 'lt-99', 'under-final'],
+            curValue: filters.level,
+            renderValueToggle: value => (
+              value === 'all' ? __('Filter.All') :
+              value === 'ge-100' ? 'Lv. ≥ 100' :
+              value === 'lt-99' ? 'Lv. < 99' :
+              value === 'under-final' ? __('Filter.UnderFinalRemodelLevel') :
+              '???'
+            ),
+            onChange: this.handleSelectFilter('level'),
+          })
+        }
+        <div
+          style={{display: 'flex'}}
+        >
+          {
+            this.renderLabelToggleGroups({
+              label: 'fleet', labelText: 'Fleet', style: {},
+              values: ['all', 1, 2, 3, 4],
+              curValue: filters.fleet,
+              renderValueToggle: value => (
+                value === 'all' ? __('Filter.All') : value
+              ),
+              onChange: this.handleSelectFilter('fleet'),
+            })
+          }
+          {
+            this.renderLabelToggleGroups({
+              label: 'lock', labelText: 'Lock', style: {marginLeft: 10},
+              values: ['all', true, false],
+              curValue: filters.lock,
+              renderValueToggle: value => (
+                value === 'all' ? __('Filter.All') :
+                typeof value === 'boolean' ? (
+                  <FontAwesome name={value ? 'lock' : 'unlock'} />
+                ) : '???'
+              ),
+              onChange: this.handleSelectFilter('lock'),
+            })
+          }
+        </div>
       </div>
     )
   }
