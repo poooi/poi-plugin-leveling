@@ -166,6 +166,12 @@ class ShipFilterImpl extends PureComponent {
               onChange: this.handleSelectFilter('lock'),
             })
           }
+          <span style={{flex: 1}} />
+          <Button
+            style={{marginTop: 0}}
+          >
+            <FontAwesome name="undo" />
+          </Button>
         </div>
       </div>
     )
