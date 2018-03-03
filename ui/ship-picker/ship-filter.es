@@ -38,6 +38,14 @@ class ShipFilterImpl extends PureComponent {
       modifyObject(key, () => value)
     )
 
+  handleResetAllFilters = () =>
+    this.modifyFilter(_oldFilters => ({
+      type: 'all',
+      level: 'all',
+      fleet: 'all',
+      lock: 'all',
+    }))
+
   renderLabelToggleGroups = ({
     label, labelText,
     style, values, renderValueToggle,
@@ -169,6 +177,7 @@ class ShipFilterImpl extends PureComponent {
           <span style={{flex: 1}} />
           <Button
             style={{marginTop: 0}}
+            onClick={this.handleResetAllFilters}
           >
             <FontAwesome name="undo" />
           </Button>
