@@ -9,7 +9,7 @@ import {
   filtersSelector,
 } from './selectors'
 import { PTyp } from '../../ptyp'
-import { mapDispatchToProps } from '../../store'
+import { mapDispatchToProps, initState } from '../../store'
 
 import {
   getShipTypeInfoFuncSelector,
@@ -39,12 +39,7 @@ class ShipFilterImpl extends PureComponent {
     )
 
   handleResetAllFilters = () =>
-    this.modifyFilter(_oldFilters => ({
-      type: 'all',
-      level: 'all',
-      fleet: 'all',
-      lock: 'all',
-    }))
+    this.modifyFilter(_oldFilters => initState.ui.shipTab.filters)
 
   renderLabelToggleGroups = ({
     label, labelText,
