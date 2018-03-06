@@ -85,9 +85,6 @@ const prepareSorter = ({method,reversed}) => {
 
 export {
   prepareFilter,
-  chainComparators,
-  flipComparator,
-  projectorToComparator,
 
   rosterIdComparator,
   inGameLevelComparator,
