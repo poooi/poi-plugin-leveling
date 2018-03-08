@@ -1,6 +1,7 @@
 import { shell } from 'electron'
 import React, { PureComponent } from 'react'
 import { Button } from 'react-bootstrap'
+import { ExpTable } from './exp-table'
 
 const {__} = window
 
@@ -26,7 +27,7 @@ class MiscArea extends PureComponent {
         <h4>Settings</h4>
         TODO
         <h4>Experience Table</h4>
-        TODO
+        <ExpTable />
       </div>
     )
   }

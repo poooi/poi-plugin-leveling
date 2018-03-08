@@ -1,9 +1,12 @@
 import _ from 'lodash'
+import { generalComparator } from 'subtender'
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 import { Ternary, ExpValue, BaseExp, Method } from './structs'
 
 const mapExpTable = readJsonSync(join(__dirname, 'assets', 'map_exp.json'))
+
+const availableMapIds = _.keys(mapExpTable).map(Number).sort(generalComparator)
 
 const getMapExpInfo = mapId => mapExpTable[mapId]
 
@@ -63,6 +66,7 @@ const computeExpRange = method =>
   purgeNonEmpty(computePossibleExps(method))
 
 export {
+  availableMapIds,
   getMapExpInfo,
   expValueFromBaseExp,
   computeExp,
