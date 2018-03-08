@@ -36,11 +36,14 @@ window.addEventListener('unload', handleWindowUnload)
    - TODO: mstId-specific templates
    - Tab "Misc"
      - settings (toggle ship avatar)
-     - exp table
    - allow applying template even if ship type mismatches
    - allow cloning goal settings
    - save current goal setting as template
    - template can have names
+   - highlight ship type to indicate the template to be used.
+   - setting: OASW threshold for DD/CL/CLT/ etc.
+       - 3 slots threshold: 64, 72, etc.
+       - 4 slots threshold: ...
  */
 
 window.store = store
