@@ -68,9 +68,9 @@ const normalizeExpValue = expValue => {
   if (expValue.type === 'range') {
     const [a,b] = [expValue.min,expValue.max]
     const [min,max] = a <= b ? [a,b] : [b,a]
-    return min === max
-      ? { type: 'single', value: min }
-      : { type: 'range', min, max }
+    return min === max ?
+      { type: 'single', value: min } :
+      { type: 'range', min, max }
   }
 }
 
