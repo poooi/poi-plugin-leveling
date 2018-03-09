@@ -4,25 +4,15 @@
     -webkit-user-drag: none;
 }
 
-.goal-box-edit .edit-control,
 .template-box-edit .edit-control {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.goal-box-edit .edit-control button,
 .template-box-edit .edit-control button {
     margin-left: 5px;
     margin-top: 5px;
-}
-
-.goal-box-edit .edit-control button {
-    width: 8%;
-}
-
-.goal-box-edit .edit-control .ship-stat-preview {
-    font-size: 15px;
 }
 
 .template-box-edit .edit-control button {

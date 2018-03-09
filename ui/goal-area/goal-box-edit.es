@@ -228,10 +228,21 @@ class GoalBoxEditImpl extends Component {
             onCustomInputChange={this.handleCustomInputChange}
           />
         </div>
-        <div className="edit-control">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
           {
             hasStatEst && (
-              <div className="ship-stat-preview" style={{flex: 1}}>
+              <div
+                style={{
+                  flex: 1,
+                  fontSize: 15,
+                }}
+              >
                 {
                   [
                     `${__('GoalBox.ShipStatsAtLv',this.state.goalLevel)}:`,
@@ -243,10 +254,22 @@ class GoalBoxEditImpl extends Component {
               </div>
             )
           }
-          <Button onClick={this.handleRemoveGoal}>
+          <Button
+            style={{
+              marginLeft: 5, marginRight: 5,
+              width: '8%',
+            }}
+            onClick={this.handleRemoveGoal}
+          >
             <FontAwesome name="trash" />
           </Button>
-          <Button onClick={this.handleSaveGoal} >
+          <Button
+            style={{
+              marginLeft: 5, marginRight: 5,
+              width: '8%',
+            }}
+            onClick={this.handleSaveGoal}
+          >
             <FontAwesome name="save" />
           </Button>
         </div>
