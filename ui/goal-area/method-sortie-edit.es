@@ -90,8 +90,18 @@ class MethodSortieEdit extends Component {
     return (
       <div
         className="sortie-edit"
-        style={{display: visible ? "flex" : "none"}}>
-        <div className="base-exp-row">
+        style={{
+          display: visible ? 'flex' : 'none',
+          height: '100%',
+          flexDirection: 'column',
+          padding: 10,
+        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+          }}
+        >
           <Checkbox
             style={{flex: 2}}
             onChange={this.handleBaseExpTypeToggle}
@@ -119,7 +129,13 @@ class MethodSortieEdit extends Component {
             />
           </div>
         </div>
-        <div className="sortie-misc">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+          }}
+        >
           <FormControl
             onChange={this.handleFlagshipChange}
             style={{flex: 1}}
@@ -139,7 +155,13 @@ class MethodSortieEdit extends Component {
             <option value="no">MVP: ❌</option>
           </FormControl>
         </div>
-        <div className="rank-row">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+          className="rank-row"
+        >
           <div>{__('Method.Rank')}:</div>
           <ButtonGroup className="bg-rank" style={{flex: 1}}>
             {

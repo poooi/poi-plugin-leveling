@@ -51,7 +51,9 @@ class LevelingMethodPanel extends Component {
           {__('EditMethod.Title')}
         </Panel.Heading>
         <Panel.Body>
-          <div className="lvl-method-input">
+          <div
+            style={{display: 'flex'}}
+          >
             <Nav
               onSelect={onMethodTypeSelect}
               bsStyle="tabs" stacked activeKey={methodType}>

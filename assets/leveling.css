@@ -4,71 +4,8 @@
     -webkit-user-drag: none;
 }
 
-.panel.lvl-method .lvl-method-input {
-    display: flex;
-}
-
-.checkbox, .table th {
-    user-select: none;
-}
-
-.panel.lvl-method .exp-value-edit {
-    padding-left: 5px;
-    padding-right: 5px;
-    align-items: center;
-}
-
-.panel.lvl-method .exp-value-edit > * {
-    margin: 5px;
-}
-
-.panel.lvl-method .sortie-edit,
-.panel.lvl-method .custom-edit {
-    height: 100%;
-}
-
-.panel.lvl-method .custom-edit > .exp-value-edit {
-    height: 100%;
-}
-
-.panel.lvl-method .sortie-edit {
-    flex-direction: column;
-    padding: 10px;
-}
-
-.panel.lvl-method .sortie-edit .sortie-misc {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-}
-
-.panel.lvl-method .sortie-edit .base-exp-row > * ,
-.panel.lvl-method .sortie-edit .sortie-misc > * ,
-.panel.lvl-method .sortie-edit .rank-row > *{
-    margin: 5px;
-}
-
-.panel.lvl-method .sortie-edit .sortie-misc > select {
-    width: auto;
-}
-
-.panel.lvl-method .sortie-edit .rank-row {
-    display: flex;
-    align-items: center;
-}
-
-.panel.lvl-method .sortie-edit .base-exp-row {
-    display: flex;
-    align-items: baseline;
-}
-
 .goal-list.list-group {
     margin-bottom: 10px;
-}
-
-.filter-group > * {
-    margin-right: 8px;
-    width: 20%;
 }
 
 .lvl-goal.panel .goal-inp-row {
@@ -169,15 +106,6 @@
 
 .template-box .template-view .template-info-view .stype-content > .stype-element {
     width: 18%;
-}
-
-.panel.stype .panel-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.panel.stype .panel-body > * {
-    margin-bottom: 12px;
 }
 
 #leveling-main ul[role="tablist"].nav.nav-tabs {

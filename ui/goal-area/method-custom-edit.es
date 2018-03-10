@@ -17,7 +17,13 @@ class MethodCustomEdit extends Component {
   render() {
     const { visible, customInput } = this.props
     return (
-      <div className="custom-edit" style={{display: visible ? "initial" : "none"}}>
+      <div
+        className="custom-edit"
+        style={{
+          display: visible ? 'initial' : 'none',
+          height: '100%',
+        }}
+      >
         <ExpValueEdit
           expValue={customInput}
           onValueChange={this.handleValueChange}

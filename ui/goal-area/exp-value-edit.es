@@ -63,7 +63,15 @@ class ExpValueEdit extends Component {
   render() {
     const isRanged = this.isRanged()
     return (
-      <div className="exp-value-edit" style={{display: "flex"}}>
+      <div
+        style={{
+          display: 'flex',
+          paddingLeft: 5,
+          paddingRight: 5,
+          alignItems: 'center',
+          height: '100%',
+        }}
+      >
         <Checkbox
           onChange={this.handleRangeToggle}
           checked={isRanged}>{__('EditMethod.Ranged')}
