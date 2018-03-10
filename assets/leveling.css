@@ -4,24 +4,6 @@
     -webkit-user-drag: none;
 }
 
-.goal-box-edit .panels {
-    margin-top: 5px;
-    display: flex;
-}
-
-.goal-box-edit .panels > .panel.lvl-goal {
-    flex: 1;
-}
-
-.goal-box-edit .panels > .panel.lvl-method {
-    flex: 3;
-}
-
-.goal-box-edit .panels > .panel .panel-heading,
-.template-box-edit .panels > .panel .panel-heading {
-    padding: 2px 5px;
-}
-
 .panel.lvl-method .lvl-method-input {
     display: flex;
 }

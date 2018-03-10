@@ -105,7 +105,9 @@ class STypeEdit extends Component {
       <Panel
         style={{margin: 5, flex: 1}}
       >
-        <Panel.Heading>
+        <Panel.Heading
+          style={{padding: '2px 5px'}}
+        >
           {__('Template.Types')}
         </Panel.Heading>
         <Panel.Body>

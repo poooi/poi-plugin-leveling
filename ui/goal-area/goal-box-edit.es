@@ -188,12 +188,17 @@ class GoalBoxEditImpl extends Component {
 
     return (
       <div className="goal-box-edit">
-        <div className="panels">
+        <div
+          style={{marginTop: 5, display: 'flex'}}
+          className="panels"
+        >
           <Panel
-            style={{margin: 5}}
+            style={{margin: 5, flex: 1}}
             className="lvl-goal"
           >
-            <Panel.Heading>
+            <Panel.Heading
+              style={{padding: '2px 5px'}}
+            >
               {__('EditLevel.Title')}
             </Panel.Heading>
             <Panel.Body>
@@ -221,7 +226,7 @@ class GoalBoxEditImpl extends Component {
             </Panel.Body>
           </Panel>
           <LevelingMethodPanel
-            style={{margin: 5}}
+            style={{margin: 5, flex: 3}}
             methodType={this.state.methodType}
             sortieInput={this.state.sortieInput}
             customInput={this.state.customInput}

@@ -45,7 +45,9 @@ class LevelingMethodPanel extends Component {
         style={style}
         className="lvl-method"
       >
-        <Panel.Heading>
+        <Panel.Heading
+          style={{padding: '2px 5px'}}
+        >
           {__('EditMethod.Title')}
         </Panel.Heading>
         <Panel.Body>
