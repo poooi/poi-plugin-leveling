@@ -22,10 +22,17 @@ class LevelingMethodPanel extends Component {
     onMethodTypeSelect: PTyp.func.isRequired,
     onSortieInputChange: PTyp.func.isRequired,
     onCustomInputChange: PTyp.func.isRequired,
+
+    style: PTyp.object,
+  }
+
+  static defaultProps = {
+    style: {},
   }
 
   render() {
     const {
+      style,
       methodType,
       sortieInput,
       customInput,
@@ -35,6 +42,7 @@ class LevelingMethodPanel extends Component {
     } = this.props
     return (
       <Panel
+        style={style}
         className="lvl-method"
       >
         <Panel.Heading>

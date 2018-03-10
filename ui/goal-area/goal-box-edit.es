@@ -190,6 +190,7 @@ class GoalBoxEditImpl extends Component {
       <div className="goal-box-edit">
         <div className="panels">
           <Panel
+            style={{margin: 5}}
             className="lvl-goal"
           >
             <Panel.Heading>
@@ -220,6 +221,7 @@ class GoalBoxEditImpl extends Component {
             </Panel.Body>
           </Panel>
           <LevelingMethodPanel
+            style={{margin: 5}}
             methodType={this.state.methodType}
             sortieInput={this.state.sortieInput}
             customInput={this.state.customInput}

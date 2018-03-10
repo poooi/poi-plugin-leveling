@@ -103,7 +103,7 @@ class STypeEdit extends Component {
     } = this.splitSTypes()
     return (
       <Panel
-        className="stype"
+        style={{margin: 5, flex: 1}}
       >
         <Panel.Heading>
           {__('Template.Types')}

@@ -4,30 +4,9 @@
     -webkit-user-drag: none;
 }
 
-.template-box-edit .edit-control {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.template-box-edit .edit-control button {
-    margin-left: 5px;
-    margin-top: 5px;
-}
-
-.template-box-edit .edit-control button {
-    width: 12%;
-}
-
-.goal-box-edit .panels,
-.template-box-edit .panels {
+.goal-box-edit .panels {
     margin-top: 5px;
     display: flex;
-}
-
-.goal-box-edit .panels > .panel,
-.template-box-edit .panels > .panel {
-    margin: 5px;
 }
 
 .goal-box-edit .panels > .panel.lvl-goal {
@@ -38,20 +17,9 @@
     flex: 3;
 }
 
-.template-box-edit .panels > .panel.stype {
-    flex: 1;
-}
-
-.template-box-edit .panels > .panel.lvl-method {
-    flex: 3;
-}
-
 .goal-box-edit .panels > .panel .panel-heading,
 .template-box-edit .panels > .panel .panel-heading {
     padding: 2px 5px;
-}
-
-.goal-box-edit .panels > .panel.lvl-goal .lvl-goal-input {
 }
 
 .panel.lvl-method .lvl-method-input {

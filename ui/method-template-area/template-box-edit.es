@@ -106,10 +106,17 @@ class TemplateBoxEdit extends Component {
       onModifySTypes,
     } = this.props
     const isMainTemplate = template.type === 'main'
+    const editCtrlBtnStyle = {
+      marginLeft: 5,
+      marginRight: 5,
+      width: '12%',
+    }
 
     return (
       <div className="template-box-edit">
-        <div className="panels">
+        <div
+          style={{marginTop: 5, display: 'flex'}}
+        >
           <STypeEdit
             templateId={template.id}
             stypeInfo={stypeInfo}
@@ -118,6 +125,7 @@ class TemplateBoxEdit extends Component {
             onModifySTypes={onModifySTypes}
           />
           <LevelingMethodPanel
+            style={{flex: 3, margin: 5}}
             methodType={methodType}
             sortieInput={sortieInput}
             customInput={customInput}
@@ -126,13 +134,22 @@ class TemplateBoxEdit extends Component {
             onCustomInputChange={this.handleCustomInputChange}
           />
         </div>
-        <div className="edit-control">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
           <Button
+            style={editCtrlBtnStyle}
             onClick={this.handleRemoveTemplate}
             disabled={isMainTemplate}>
             <FontAwesome name="trash" />
           </Button>
-          <Button onClick={this.handleSaveTemplate} >
+          <Button
+            style={editCtrlBtnStyle}
+            onClick={this.handleSaveTemplate} >
             <FontAwesome name="save" />
           </Button>
         </div>
