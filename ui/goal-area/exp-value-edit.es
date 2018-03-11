@@ -77,14 +77,18 @@ class ExpValueEdit extends Component {
           checked={isRanged}>{__('EditMethod.Ranged')}
         </Checkbox>
         <FormControl
-          style={{flex: 1}}
+          style={{flex: 1, marginLeft: '.4em'}}
           type="number"
           onChange={this.handleFirstValueChange}
           value={
             isRanged ? this.props.expValue.min : this.props.expValue.value
           }
         />
-        ~
+        <span
+          style={{marginLeft: '.4em', marginRight: '.4em'}}
+        >
+          ~
+        </span>
         <FormControl
           style={{flex: 1}}
           type="number"

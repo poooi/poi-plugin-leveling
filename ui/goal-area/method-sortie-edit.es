@@ -110,7 +110,10 @@ class MethodSortieEdit extends Component {
           </Checkbox>
           <FormControl
             onChange={this.handleExpMapChange}
-            style={{flex: 5, display: isCustomExp ? "none" : "initial" }}
+            style={{
+              flex: 5,
+              display: isCustomExp ? 'none' : 'initial',
+            }}
             componentClass="select"
             value={sortieInput.expMapId}
           >
@@ -122,7 +125,12 @@ class MethodSortieEdit extends Component {
               ))
             }
           </FormControl>
-          <div style={{flex: 5, display: isCustomExp ? "initial" : "none" }}>
+          <div
+            style={{
+              flex: 5,
+              display: isCustomExp ? 'initial' : 'none',
+            }}
+          >
             <ExpValueEdit
               expValue={sortieInput.expValue}
               onValueChange={this.handleExpValueChange}
