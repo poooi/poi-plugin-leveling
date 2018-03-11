@@ -159,16 +159,21 @@ class MethodSortieEdit extends Component {
           style={{
             display: 'flex',
             alignItems: 'center',
+            marginTop: 5,
           }}
-          className="rank-row"
         >
-          <div>{__('Method.Rank')}:</div>
-          <ButtonGroup className="bg-rank" style={{flex: 1}}>
+          <div style={{marginRight: '.4em'}}>
+            {__('Method.Rank')}:
+          </div>
+          <ButtonGroup
+            style={{flex: 1}}
+          >
             {
-              ['S','A','B','C','D','E'].map( rank => {
+              ['S','A','B','C','D','E'].map(rank => {
                 const selected = sortieInput.rank.indexOf(rank) !== -1
                 return (
                   <Button
+                    style={{marginTop: 0}}
                     onClick={this.handleRankButtoToggle(rank,selected)}
                     bsStyle={selected ? "primary" : "default"}
                     key={rank}>
