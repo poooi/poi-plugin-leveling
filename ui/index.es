@@ -44,7 +44,6 @@ window.addEventListener('unload', handleWindowUnload)
    - setting: OASW threshold for DD/CL/CLT/ etc.
        - 3 slots threshold: 64, 72, etc.
        - 4 slots threshold: ...
-   - reduce CSS assets
  */
 
 window.store = store

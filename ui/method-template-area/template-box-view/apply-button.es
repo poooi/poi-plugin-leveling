@@ -27,7 +27,11 @@ class ApplyButton extends PureComponent {
     return (
       <ButtonGroup
         className="dropdown-apply-to"
-        style={{flex: 4, ...style}}
+        style={{
+          display: 'block',
+          flex: 4,
+          ...style,
+        }}
         justified>
         <DropdownButton
           id={`tb-view-dd-apply-${templateId}`}
