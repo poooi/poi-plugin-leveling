@@ -28,12 +28,25 @@ class QuickGoalLevelEdit extends Component {
   render() {
     const { rGoals, goalLevel, onRGoalLevelClick } = this.props
     return (
-      <ListGroup className="rgoal-list">
+      <ListGroup
+        style={{
+          marginTop: 10,
+          marginBottom: 0,
+        }}
+      >
         {
           rGoals.map( rGoal => (
             <ListGroupItem
-              key={`${rGoal.goalLevel}-${rGoal.reason.type}`}>
-              <div className="qg-item">
+              style={{padding: 5}}
+              key={`${rGoal.goalLevel}-${rGoal.reason.type}`}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
                 <div style={{flex: 5}}>Lv. {rGoal.goalLevel}</div>
                 <Button
                   title={interpReason(rGoal.reason)}

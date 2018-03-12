@@ -43,8 +43,9 @@ class GoalAreaImpl extends Component {
               height: 0,
               flex: 1,
               overflowY: 'auto',
+              marginBottom: 10,
             }}
-            className="goal-list">
+          >
             {
               eGoalPairs.map(eGoalPair => {
                 const {ship} = eGoalPair

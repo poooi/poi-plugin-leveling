@@ -4,10 +4,6 @@
     -webkit-user-drag: none;
 }
 
-.goal-list.list-group {
-    margin-bottom: 10px;
-}
-
 .lvl-goal.panel .goal-inp-row {
     display: flex;
     align-items: baseline;
@@ -15,21 +11,6 @@
 
 .lvl-goal.panel .goal-inp-row > * {
     margin-right: 8px;
-}
-
-.lvl-goal.panel .list-group.rgoal-list {
-    margin-top: 10px;
-    margin-bottom: 0;
-}
-
-.lvl-goal.panel .list-group.rgoal-list .list-group-item {
-    padding: 5px;
-}
-
-.lvl-goal.panel .list-group.rgoal-list .qg-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .ship-filter-bg-level .dropdown-menu {
