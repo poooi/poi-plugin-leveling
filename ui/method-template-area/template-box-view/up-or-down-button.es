@@ -10,6 +10,7 @@ class UpOrDownButton extends PureComponent {
   static propTypes = {
     action: PTyp.func,
     dir: PTyp.oneOf(['up','down']).isRequired,
+    style: PTyp.object.isRequired,
   }
 
   static defaultProps = {
@@ -17,12 +18,12 @@ class UpOrDownButton extends PureComponent {
   }
 
   render() {
-    const { action, dir } = this.props
+    const {action, dir, style} = this.props
     return (
       <Button
         disabled={typeof action !== 'function'}
         onClick={action}
-        style={{flex: 1}} >
+        style={{flex: 1, ...style}} >
         <FontAwesome name={`angle-${dir}`} />
       </Button>
     )

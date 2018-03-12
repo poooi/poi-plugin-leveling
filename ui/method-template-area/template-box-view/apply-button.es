@@ -14,6 +14,7 @@ class ApplyButton extends PureComponent {
     templateId: PTyp.number.isRequired,
     shipTargets: PTyp.arrayOf(PTyp.TemplateAreaShipTarget).isRequired,
     onApplyTemplate: PTyp.func.isRequired,
+    style: PTyp.object.isRequired,
   }
 
   render() {
@@ -21,15 +22,17 @@ class ApplyButton extends PureComponent {
       editing, shipTargets,
       templateId,
       onApplyTemplate,
+      style,
     } = this.props
     return (
       <ButtonGroup
         className="dropdown-apply-to"
-        style={{flex: 4}}
+        style={{flex: 4, ...style}}
         justified>
         <DropdownButton
           id={`tb-view-dd-apply-${templateId}`}
           disabled={editing || shipTargets.length === 0}
+          style={{marginTop: 0}}
           onSelect={onApplyTemplate}
           title={__('Template.ApplyTo')}>
           {

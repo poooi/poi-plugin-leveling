@@ -39,30 +39,48 @@ class ViewButtons extends PureComponent {
       onToggleTemplate, onApplyTemplate,
       template,
     } = this.props
+    const btnStyle = {marginTop: 0, marginRight: '1%'}
     return (
-      <ButtonGroup className="template-controls">
+      <ButtonGroup
+        className="template-controls"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <UpOrDownButton
+          style={btnStyle}
           action={upAction}
-          dir="up" />
+          dir="up"
+        />
         <UpOrDownButton
+          style={btnStyle}
           action={downAction}
-          dir="down" />
+          dir="down"
+        />
         <ApplyButton
+          style={btnStyle}
           editing={editing}
           shipTargets={shipTargets}
           templateId={template.id}
           onApplyTemplate={onApplyTemplate}
         />
         <Button
-          bsStyle={isEnabled ? "success" : "danger"}
+          bsStyle={isEnabled ? 'success' : 'danger'}
           onClick={onToggleTemplate}
           disabled={isMainTemplate || editing}
-          style={{flex: 2}}
+          style={{
+            ...btnStyle,
+            flex: 2,
+          }}
         >
-          <FontAwesome name={isEnabled ? "check-square-o" : "square-o"} />
+          <FontAwesome name={isEnabled ? 'check-square-o' : 'square-o'} />
         </Button>
-        <Button onClick={editing ? onFinishEdit : onStartEdit} style={{flex: 1}}>
-          <FontAwesome name={editing ? "undo" : "pencil"} />
+        <Button
+          onClick={editing ? onFinishEdit : onStartEdit}
+          style={{marginTop: 0, flex: 1}}
+        >
+          <FontAwesome name={editing ? 'undo' : 'pencil'} />
         </Button>
       </ButtonGroup>
     )
