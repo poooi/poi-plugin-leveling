@@ -53,7 +53,14 @@ class GoalSorterRowImpl extends Component {
   render() {
     const { sortMethod } = this.props
     return (
-      <div className="goal-sorter-row">
+      <div
+        style={{
+          marginBottom: 8,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+        className="goal-sorter-row"
+      >
         {
           sorterSpecs.map( ({name,method,asc}) => {
             const isActive = sortMethod.method === method
@@ -67,6 +74,11 @@ class GoalSorterRowImpl extends Component {
             }
             return (
               <Button
+                style={{
+                  marginTop: 0,
+                  marginRight: 5,
+                  minWidth: '10%',
+                }}
                 onClick={this.handleClickSorter(method)}
                 bsStyle={isActive ? "primary" : "default"}
                 key={method}>{content}

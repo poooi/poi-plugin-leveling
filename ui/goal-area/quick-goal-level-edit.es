@@ -35,7 +35,7 @@ class QuickGoalLevelEdit extends Component {
         }}
       >
         {
-          rGoals.map( rGoal => (
+          rGoals.map(rGoal => (
             <ListGroupItem
               style={{padding: 5}}
               key={`${rGoal.goalLevel}-${rGoal.reason.type}`}
@@ -55,7 +55,7 @@ class QuickGoalLevelEdit extends Component {
                 >
                   <FontAwesome
                     name={
-                      rGoal.goalLevel === goalLevel ? "dot-circle-o" : "circle-o"
+                      rGoal.goalLevel === goalLevel ? 'dot-circle-o' : 'circle-o'
                     }
                   />
                 </Button>

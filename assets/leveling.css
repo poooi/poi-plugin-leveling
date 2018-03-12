@@ -4,31 +4,6 @@
     -webkit-user-drag: none;
 }
 
-.lvl-goal.panel .goal-inp-row {
-    display: flex;
-    align-items: baseline;
-}
-
-.lvl-goal.panel .goal-inp-row > * {
-    margin-right: 8px;
-}
-
-.ship-filter-bg-level .dropdown-menu {
-    min-width: 200px;
-}
-
-.goal-sorter-row {
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.goal-sorter-row > * {
-    margin-top: 0;
-    margin-right: 5px;
-    min-width: 10%;
-}
-
 .main-nav {
     margin-bottom: 10px;
 }

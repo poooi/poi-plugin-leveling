@@ -202,9 +202,16 @@ class GoalBoxEditImpl extends Component {
               {__('EditLevel.Title')}
             </Panel.Heading>
             <Panel.Body>
-              <div className="lvl-goal-input">
-                <div className="goal-inp-row">
-                  <div style={{flex: 1}}>{`${__('EditLevel.Goal')}:`}</div>
+              <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                  }}
+                >
+                  <div style={{flex: 1, marginRight: '.4em'}}>
+                    {`${__('EditLevel.Goal')}:`}
+                  </div>
                   <FormControl
                     type="number"
                     style={{flex: 4}}
