@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { modifyObject } from 'subtender'
+import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
@@ -62,26 +63,41 @@ class GoalSorterRowImpl extends Component {
         className="goal-sorter-row"
       >
         {
-          sorterSpecs.map( ({name,method,asc}) => {
+          sorterSpecs.map(({name,method,asc}) => {
             const isActive = sortMethod.method === method
-            let content
-            if (isActive) {
-              // TODO: use FA, also make width stable
-              const dir = sortMethod.reversed ? (asc ? '▼' : '▲') : (asc ? '▲' : '▼')
-              content = `${name} ${dir}`
-            } else {
-              content = name
-            }
             return (
               <Button
                 style={{
                   marginTop: 0,
                   marginRight: 5,
                   minWidth: '10%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 onClick={this.handleClickSorter(method)}
-                bsStyle={isActive ? "primary" : "default"}
-                key={method}>{content}
+                bsStyle={isActive ? 'primary' : 'default'}
+                key={method}
+              >
+                <span>
+                  {name}
+                </span>
+                {
+                  isActive ? (
+                    <FontAwesome
+                      style={{width: '1.2em'}}
+                      name={
+                        sortMethod.reversed ? (
+                          asc ? 'sort-desc' : 'sort-asc'
+                        ) : (
+                          asc ? 'sort-asc' : 'sort-desc'
+                        )
+                      }
+                    />
+                  ) : (
+                    <span style={{width: '1.2em'}} />
+                  )
+                }
               </Button>
             )
           })

@@ -13,8 +13,6 @@ import {
   recommendedGoalsSelector,
 } from './selectors'
 
-// TODO: goal sorter stable width
-
 class GoalAreaImpl extends Component {
   static propTypes = {
     rmdGoals: PTyp.objectOf(PTyp.arrayOf(PTyp.RGoalLevel)).isRequired,
