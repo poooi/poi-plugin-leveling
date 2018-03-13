@@ -43,7 +43,6 @@ class LevelingMethodPanel extends Component {
     return (
       <Panel
         style={style}
-        className="lvl-method"
       >
         <Panel.Heading
           style={{padding: '2px 5px'}}

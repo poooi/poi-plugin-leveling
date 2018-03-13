@@ -60,7 +60,6 @@ class GoalSorterRowImpl extends Component {
           display: 'flex',
           alignItems: 'center',
         }}
-        className="goal-sorter-row"
       >
         {
           sorterSpecs.map(({name,method,asc}) => {

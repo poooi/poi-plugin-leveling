@@ -82,7 +82,7 @@ class TemplateBoxView extends Component {
     const isMainTemplate = template.type === 'main'
     const isEnabled = Template.isEnabled(template)
     return (
-      <div className="template-view">
+      <div>
         <InfoView
           method={template.method}
           stypeInfo={stypeInfo}

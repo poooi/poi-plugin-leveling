@@ -42,7 +42,6 @@ class ViewButtons extends PureComponent {
     const btnStyle = {marginTop: 0, marginRight: '1%'}
     return (
       <ButtonGroup
-        className="template-controls"
         style={{
           display: 'flex',
           justifyContent: 'space-between',

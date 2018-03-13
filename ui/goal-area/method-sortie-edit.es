@@ -89,7 +89,6 @@ class MethodSortieEdit extends Component {
     // const checkEmoji = (<span role="img" aria-label="check">❌</span>)
     return (
       <div
-        className="sortie-edit"
         style={{
           display: visible ? 'flex' : 'none',
           height: '100%',

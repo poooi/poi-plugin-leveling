@@ -37,7 +37,8 @@ class GoalBoxView extends Component {
     }
 
     return (
-      <div className="goal-box-view" style={{display: "flex", alignItems: "center"}}>
+      <div
+        style={{display: 'flex', alignItems: 'center'}}>
         <ThreeRows
           style={{
             flex: 3,

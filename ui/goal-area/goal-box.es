@@ -33,7 +33,7 @@ class GoalBox extends Component {
     return (
       <ListGroupItem
         style={{padding: 6}}
-        className="goal-box color-altering-row">
+        className="color-altering-row">
         <GoalBoxView
           editing={this.state.editing}
           onStartEdit={this.handleStartEdit}

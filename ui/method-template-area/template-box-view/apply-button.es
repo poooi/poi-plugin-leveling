@@ -26,7 +26,6 @@ class ApplyButton extends PureComponent {
     } = this.props
     return (
       <ButtonGroup
-        className="dropdown-apply-to"
         style={{
           display: 'block',
           flex: 4,

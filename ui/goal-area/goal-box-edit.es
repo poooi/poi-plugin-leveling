@@ -187,14 +187,12 @@ class GoalBoxEditImpl extends Component {
       statEst.los !== null
 
     return (
-      <div className="goal-box-edit">
+      <div>
         <div
           style={{marginTop: 5, display: 'flex'}}
-          className="panels"
         >
           <Panel
             style={{margin: 5, flex: 1}}
-            className="lvl-goal"
           >
             <Panel.Heading
               style={{padding: '2px 5px'}}

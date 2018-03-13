@@ -22,10 +22,8 @@ class GoalAreaImpl extends Component {
 
   render() {
     const {modifyGoalTable, rmdGoals, eGoalPairs} = this.props
-
     return (
       <div
-        className="goal-area"
         style={{height: '100%'}}
       >
         <div

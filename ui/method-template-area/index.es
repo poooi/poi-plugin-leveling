@@ -176,7 +176,6 @@ class MethodTemplateAreaImpl extends Component {
             height: 0,
             overflowY: 'auto',
           }}
-          className="template-list"
         >
           {
             templates.map((template,ind) => {

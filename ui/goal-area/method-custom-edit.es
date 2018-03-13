@@ -18,7 +18,6 @@ class MethodCustomEdit extends Component {
     const { visible, customInput } = this.props
     return (
       <div
-        className="custom-edit"
         style={{
           display: visible ? 'initial' : 'none',
           height: '100%',

@@ -103,7 +103,6 @@ class ShipListImpl extends PureComponent {
     const {ships, hasGoal, sortMethod} = this.props
     return (
       <div
-        className="shiplist"
         style={{
           flex: 1,
           height: 0,

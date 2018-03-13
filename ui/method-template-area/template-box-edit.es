@@ -113,9 +113,8 @@ class TemplateBoxEdit extends Component {
     }
 
     return (
-      <div className="template-box-edit">
+      <div>
         <div
-          className="panels"
           style={{marginTop: 5, display: 'flex'}}
         >
           <STypeEdit
