@@ -19,21 +19,21 @@ class GoalBoxView extends Component {
   }
 
   render() {
-    const { eGoalPair, onStartEdit, onFinishEdit, editing } = this.props
-    const { ship, goal, extra } = eGoalPair
-    const { method } = goal
+    const {eGoalPair, onStartEdit, onFinishEdit, editing} = this.props
+    const {ship, goal, extra} = eGoalPair
+    const {method} = goal
 
     const {remainingExp} = extra
     const goalAchieved = remainingExp <= 0
-    const remainingExpText = goalAchieved
-      ? "+Exp. 0"
-      : `+Exp. ${remainingExp}`
+    const remainingExpText = goalAchieved ?
+      '+Exp. 0' :
+      `+Exp. ${remainingExp}`
 
     const computeResultText = () => {
       const {remainingBattles} = extra
-      return remainingBattles.length === 1
-        ? String(remainingBattles[0])
-        : `${remainingBattles[0]} ~ ${remainingBattles[1]}`
+      return remainingBattles.length === 1 ?
+        String(remainingBattles[0]) :
+        `${remainingBattles[0]} ~ ${remainingBattles[1]}`
     }
 
     return (
@@ -82,7 +82,13 @@ class GoalBoxView extends Component {
           second={goalAchieved ? "-" : computeResultText()}
           third={__('GoalBox.ResultBattles')}
         />
-        <div style={{width: "8%", display: "flex", flexDirection: "column"}}>
+        <div
+          style={{
+            width: '8%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <Button onClick={editing ? onFinishEdit : onStartEdit} >
             <FontAwesome name={editing ? "undo" : "pencil"} />
           </Button>
