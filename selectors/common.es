@@ -153,12 +153,20 @@ const getShipInfoFuncSelector = createSelector(
     const fleetInd = fleets.findIndex( fleet => fleet.api_ship.indexOf(rstId) !== -1)
     const fleet = fleetInd === -1 ? null : fleets[fleetInd].api_id
 
+    // modernization
+    const modern = {
+      luck: ship.api_kyouka[4],
+      hp: ship.api_kyouka[5],
+      asw: ship.api_kyouka[6],
+    }
+
     return {
       rstId,
       typeName, stype, sortNo, mstId,
       name, level,
       fleet,
       evasion, asw, los, locked,
+      modern,
       expToNext, totalExp,
       nextRemodelLevel: computeNextRemodelLevel($ships,mstId,level),
     }
