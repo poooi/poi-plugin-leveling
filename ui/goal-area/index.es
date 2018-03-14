@@ -7,6 +7,7 @@ import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
 
 import { GoalBox } from './goal-box'
+import { GoalBoxNew } from './goal-box-new'
 import { GoalSorterRow } from './goal-sorter-row'
 import {
   extendedGoalPairsSelector,
@@ -46,7 +47,7 @@ class GoalAreaImpl extends Component {
               eGoalPairs.map(eGoalPair => {
                 const {ship} = eGoalPair
                 return (
-                  <GoalBox
+                  <GoalBoxNew
                     modifyGoalTable={modifyGoalTable}
                     key={ship.rstId}
                     rGoals={rmdGoals[ship.rstId]}
