@@ -4,23 +4,28 @@ Code for retrieving exp table for [here](http://wikiwiki.jp/kancolle/?%B7%D0%B8%
 
 ```javascript
 
-  const process = outputArr => function() {
+var process = outputArr => function() {
     const jq = $("td", this)
-    const [a,b,c] = [0,1,2].map( ind => jq.get(ind) )
-    const getInt = a => parseInt($(a).text().replace(/\,/g,''),10)
-    outputArr.push([getInt(a),getInt(b),getInt(c)])
-  }
+    const [a,b,c] = [0,1,2].map(ind => jq.get(ind))
+    const getInt = a => Number($(a).text().replace(/\,/g,''))
+    const ret = [getInt(a),getInt(b),getInt(c)]
+    outputArr.push(ret)
+}
 
-  const expTable1 = []
-  const expTable2 = []
 
-  $("#rgn_content2 div.ie5 tbody tr")
-    .each( process(expTable1) )
-
-  $("#rgn_content3 div.ie5 tbody tr")
-    .each( process(expTable2) )
-
-  console.log( JSON.stringify(expTable1) )
-  console.log( JSON.stringify(expTable2) )
+$("td > div.ie5").each((_i,x) => {
+    const jq = $(x)
+    let found = false
+    $("table > thead > tr td", jq).each((_i1, y) => {
+        if ($(y).text() === 'LV') {
+            found = true
+        }
+    })
+    if (found) {
+        var expTable = []
+        $("tbody tr", jq).each( process(expTable) )
+        console.log(JSON.stringify(expTable))
+    }
+})
 
 ```

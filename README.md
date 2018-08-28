@@ -12,6 +12,8 @@ your ship girl leveling plans.
 
 ### 2.0.0 (pending)
 
+- Updated exp-related data to support current max level (Lv. 175)
+
 ### 1.2.3
 
 - WhoCallsTheFleet data now comes from fcd

@@ -47,7 +47,7 @@ class GoalAreaImpl extends Component {
               eGoalPairs.map(eGoalPair => {
                 const {ship} = eGoalPair
                 return (
-                  <GoalBoxNew
+                  <GoalBox
                     modifyGoalTable={modifyGoalTable}
                     key={ship.rstId}
                     rGoals={rmdGoals[ship.rstId]}

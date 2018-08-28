@@ -133,7 +133,7 @@ const actionCreators = {
       const goalLevel =
         ship.nextRemodelLevel !== null ? ship.nextRemodelLevel :
         ship.level < 99 ? 99 :
-        165
+        175
 
       const method = TemplateList.findMethod(templateList)(stype)
       dispatch(actionCreators.modifyGoalTable(gt => {
