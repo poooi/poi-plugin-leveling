@@ -9,7 +9,7 @@ import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
 import { sortMethodSelector } from './selectors'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 const makeSorterSpec = (name,method,asc=true) =>
   ({name, method, asc})

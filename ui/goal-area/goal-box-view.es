@@ -7,7 +7,7 @@ import { MethodView } from './method-view'
 
 import { PTyp } from '../../ptyp'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class GoalBoxView extends Component {
   static propTypes = {

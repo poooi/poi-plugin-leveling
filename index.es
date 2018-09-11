@@ -1,24 +1,35 @@
-const {config} = window
+import { reducer, boundActionCreators as bac } from './store'
+import { migrate } from './migrate'
+import { loadPState } from './p-state'
+import { LevelingRoot as reactClass } from './ui'
+import {
+  admiralIdSelector,
+} from './selectors'
 
-const windowURL = `file://${__dirname}/index.html`
+const { getStore } = window
 
-const bounds = config.get('plugin.Leveling.bounds') || {
-  x: config.get('poi.window.x', 0),
-  y: config.get('poi.window.y', 0),
-  width: 800,
-  height: 600,
+const windowMode = true
+
+const pluginDidLoad = () => {
+  setTimeout(() => {
+    // try normalizing plugin dir structure to one used in 2.0.0
+    migrate()
+    const pStateOrNull = loadPState()
+    bac.ready(pStateOrNull)
+    const admiralId = admiralIdSelector(getStore())
+    if (admiralId) {
+      bac.loadGoalTable(admiralId)
+    }
+  })
 }
 
-const windowOptions = {
-  ...bounds,
+const pluginWillUnload = () => {
 }
-
-const useEnv = true
-const realClose = true
 
 export {
-  windowOptions,
-  windowURL,
-  useEnv,
-  realClose,
+  reducer,
+  pluginDidLoad,
+  pluginWillUnload,
+  reactClass,
+  windowMode,
 }

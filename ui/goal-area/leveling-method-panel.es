@@ -9,7 +9,7 @@ import { PTyp } from '../../ptyp'
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class LevelingMethodPanel extends Component {
   // eslint fails to see that it's already been required.

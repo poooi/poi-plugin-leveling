@@ -4,7 +4,7 @@ import { Checkbox, FormControl } from 'react-bootstrap'
 import { clamp } from 'subtender'
 import { PTyp } from '../../ptyp'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 // note that this component does not guarantee to always return valid ExpValue
 class ExpValueEdit extends Component {

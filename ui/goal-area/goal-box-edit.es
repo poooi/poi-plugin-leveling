@@ -19,7 +19,7 @@ import { shipStatsAtLevelFuncSelector } from '../../selectors'
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 // to generate sensible initial values
 // we use one method as a source to guess another

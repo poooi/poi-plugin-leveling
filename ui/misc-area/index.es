@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { Button } from 'react-bootstrap'
 import { ExpTable } from './exp-table'
 
-const {__} = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class MiscArea extends PureComponent {
   handleOpenUserManual = () =>

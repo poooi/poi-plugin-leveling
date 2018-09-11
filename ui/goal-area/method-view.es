@@ -11,7 +11,7 @@ import {
   Rank,
 } from '../../structs'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 const prepareMethodText = Method.destruct({
   sortie: (flagship, mvp, rank, baseExp) => {

@@ -1,9 +1,11 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 
 import { PTyp } from '../../../ptyp'
 import { prepareMethodText } from '../../goal-area/method-view'
 
-const { _, __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
+
 
 class InfoView extends Component {
   static propTypes = {

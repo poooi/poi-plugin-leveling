@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import {
   Panel,
@@ -8,7 +9,7 @@ import {
 
 import { PTyp } from '../../ptyp'
 
-const { _, __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class STypeEdit extends Component {
   static propTypes = {

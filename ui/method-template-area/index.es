@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
@@ -22,7 +23,7 @@ import {
   shipTargetsSelector,
 } from './selectors'
 
-const { _, __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class MethodTemplateAreaImpl extends Component {
   static propTypes = {

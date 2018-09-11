@@ -73,7 +73,8 @@ class ShipFilterImpl extends PureComponent {
   )
 
   render() {
-    const {__} = window
+    const { __ } = window.i18n["poi-plugin-leveling"]
+
     const {filters, stypeIds, getShipTypeInfo} = this.props
     return (
       <div

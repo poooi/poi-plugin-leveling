@@ -7,7 +7,7 @@ import {
 import { PTyp } from '../../ptyp'
 import { Reason } from '../../structs'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 const interpReason = Reason.destruct({
   remodel: (name,typeName) =>

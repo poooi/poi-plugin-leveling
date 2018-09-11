@@ -7,7 +7,7 @@ import { sortedMapIds, getMapExpInfo } from '../../map-exp'
 
 import { PTyp } from '../../ptyp'
 
-const { __ } = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 // TODO: have to disable this for now
 /* eslint-disable jsx-a11y/accessible-emoji */

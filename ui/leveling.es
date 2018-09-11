@@ -18,7 +18,7 @@ import { MethodTemplateArea } from './method-template-area'
 import { MiscArea } from './misc-area'
 import { PTyp } from '../ptyp'
 
-const {__} = window
+const { __ } = window.i18n["poi-plugin-leveling"]
 
 class LevelingImpl extends PureComponent {
   static propTypes = {

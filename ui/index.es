@@ -1,31 +1,36 @@
-import 'react-virtualized/styles.css'
+// TODO import 'react-virtualized/styles.css'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { store, extendReducer } from 'views/create-store'
+import { join } from 'path-extra'
+// import ReactDOM from 'react-dom'
+// import { Provider } from 'react-redux'
+// import { store, extendReducer } from 'views/create-store'
 
-import { reducer, boundActionCreators as bac } from '../store'
-import { migrate } from '../migrate'
-import { loadPState } from '../p-state'
+// import { reducer, boundActionCreators as bac } from '../store'
+// import { migrate } from '../migrate'
+// import { loadPState } from '../p-state'
 
+/*
 import {
   admiralIdSelector,
 } from '../selectors'
+*/
 
 import { Leveling } from './leveling'
-import { globalSubscribe, globalUnsubscribe } from '../observers'
+// import { globalSubscribe, globalUnsubscribe } from '../observers'
 
 const { $, getStore } = window
 
-extendReducer('poi-plugin-leveling', reducer)
-globalSubscribe()
+// extendReducer('poi-plugin-leveling', reducer)
+// globalSubscribe()
 
+/*
 const handleWindowUnload = () => {
   window.removeEventListener('unload', handleWindowUnload)
   globalUnsubscribe()
 }
 
 window.addEventListener('unload', handleWindowUnload)
+*/
 
 /*
    TODO
@@ -46,32 +51,28 @@ window.addEventListener('unload', handleWindowUnload)
        - 4 slots threshold: ...
  */
 
-window.store = store
+// <link rel="stylesheet" id="bootstrap-css" />
 
-// start loading process
-setTimeout(() => {
-  // try normalizing plugin dir structure to one used in 2.0.0
-  migrate()
-  const pStateOrNull = loadPState()
-  bac.ready(pStateOrNull)
-  const admiralId = admiralIdSelector(getStore())
-  if (admiralId) {
-    bac.loadGoalTable(admiralId)
-  }
-})
-
-$('#fontawesome-css').setAttribute(
-  'href',
-  require.resolve('font-awesome/css/font-awesome.css')
+const LevelingRoot = _props => (
+  <div
+    style={{margin: "0 1%", minWidth: 600}}
+    className="leveling-root"
+    id="leveing-root"
+  >
+    <link
+      rel="stylesheet"
+      href={require.resolve('font-awesome/css/font-awesome.css')}
+    />
+    <link
+      rel="stylesheet"
+      href={require.resolve('react-virtualized/styles.css')}
+    />
+    <link
+      rel="stylesheet"
+      href={join(__dirname, '..', 'assets', 'leveling.css')}
+    />
+    <Leveling />
+  </div>
 )
 
-ReactDOM.render(
-  <Provider store={store}>
-    <div
-      style={{margin: "0 1%", minWidth: 600}}
-    >
-      <Leveling />
-    </div>
-  </Provider>,
-  $('#content-root')
-)
+export { LevelingRoot }
