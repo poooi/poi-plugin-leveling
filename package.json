@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-leveling",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Ship Leveling Planner",
   "main": "index.es",
   "scripts": {
