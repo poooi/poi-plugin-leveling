@@ -19,8 +19,7 @@ class NameCell extends PureComponent {
     const {name, fleet, locked, goalFlag} = this.props
     const iconStyle = {
       marginLeft: 2,
-      width: 24, height: 24,
-      lineHeight: '24px',
+      width: 16, height: 16,
     }
 
     return (
