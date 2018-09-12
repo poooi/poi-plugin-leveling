@@ -18,7 +18,7 @@ import {
 import { Leveling } from './leveling'
 // import { globalSubscribe, globalUnsubscribe } from '../observers'
 
-const { $, getStore } = window
+// const { $, getStore } = window
 
 // extendReducer('poi-plugin-leveling', reducer)
 // globalSubscribe()

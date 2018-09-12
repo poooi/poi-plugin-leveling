@@ -10,9 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
-### 2.0.0 (pending)
+### 2.0.0
 
 - Updated exp-related data to support current max level (Lv. 175)
+- Rework on some UI stuff
 
 ### 1.2.3
 

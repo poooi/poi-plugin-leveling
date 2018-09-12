@@ -27,8 +27,7 @@ const rankTable = {
 
 const computeExp = (base,flagship,mvpFlag,rank) => {
   const mvpFactor =
-      rank === 'E' ? 1
-    : (mvpFlag ? 2 : 1)
+    rank === 'E' ? 1 : (mvpFlag ? 2 : 1)
 
   const rankFactor = rankTable[rank]
   const flagshipFactor = flagship ? 1.5 : 1

@@ -37,7 +37,7 @@ const fillStates = Method.destruct({
       },
       customInput:
         expRange.length === 1 ? { type: 'single', value: expRange[0] } :
-      { type: 'range', min: expRange[0], max: expRange[1] },
+        { type: 'range', min: expRange[0], max: expRange[1] },
     }
   },
   custom: exp => {

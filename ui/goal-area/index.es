@@ -7,7 +7,7 @@ import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
 
 import { GoalBox } from './goal-box'
-import { GoalBoxNew } from './goal-box-new'
+// import { GoalBoxNew } from './goal-box-new'
 import { GoalSorterRow } from './goal-sorter-row'
 import {
   extendedGoalPairsSelector,
