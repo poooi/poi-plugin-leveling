@@ -5,12 +5,15 @@ import { LevelingRoot as reactClass } from './ui'
 import {
   admiralIdSelector,
 } from './selectors'
+import { globalSubscribe, globalUnsubscribe } from './observers'
 
 const { getStore } = window
 
 const windowMode = true
 
 const pluginDidLoad = () => {
+  globalSubscribe()
+
   setTimeout(() => {
     // try normalizing plugin dir structure to one used in 2.0.0
     migrate()
@@ -24,6 +27,7 @@ const pluginDidLoad = () => {
 }
 
 const pluginWillUnload = () => {
+  globalUnsubscribe()
 }
 
 export {
