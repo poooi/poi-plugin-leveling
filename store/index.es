@@ -62,6 +62,8 @@ const actionCreators = {
   loadGoalTable: admiralId =>
     (dispatch, getState) =>
       setTimeout(() => {
+        // invalidate the structure in case the subsequent loading takes time
+        dispatch(actionCreators.modify(modifyObject('goals', () => initState.goals)))
         const goalTable = loadGoalTable(admiralId)
         const goals = {
           admiralId,

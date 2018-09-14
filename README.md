@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 2.1.0 (pending)
+
+- Nothing has changed really
+
 ### 2.0.1
 
 - Fix a problem that prevents saving.
