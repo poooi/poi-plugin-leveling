@@ -50,4 +50,4 @@ This structure is used for showing user possible leveling goals together with a 
     ```
 
     This means the goal level is recommended because it's the maximum level
-    one married ship can reach, which is currently level 175.
+    one married ship can reach, which is currently level 180.
