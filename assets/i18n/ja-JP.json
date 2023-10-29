@@ -1,81 +1,81 @@
 {
   "Plugin": {
-    "Leveling": "Leveling",
-    "Desc": "Ship Leveling Planner (ship stat info extracted from [WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet))"
+    "Leveling": "レベリング",
+    "Desc": "艦娘レベリングプランナー(艦娘の情報は[WhoCallsTheFleet](https://github.com/Diablohu/WhoCallsTheFleet)から取得しています)"
   },
   "Top": {
-    "Goals": "Goals",
-    "Templates": "Templates"
+    "Goals": "目標",
+    "Templates": "テンプレート"
   },
 
   "UserManual": {
-    "Desc": "User Manual",
+    "Desc": "使い方",
     "Link": "https://github.com/poooi/poi-plugin-leveling/wiki/User-Manual-(English)"
   },
 
   "Sorter": {
     "ID": "ID",
-    "Type": "Type",
-    "Name": "Name",
-    "Level": "Level",
-    "RemainingExp": "Remaining Exp",
-    "RemainingBattles": "Remaining Battles",
-    "Evasion": "Evasion",
-    "ASW": "ASW",
-    "LoS": "LoS",
-    "Fleet": "Fleet",
-    "Lock": "Lock",
-    "Control": "Control"
+    "Type": "艦種",
+    "Name": "艦名",
+    "Level": "レベル",
+    "RemainingExp": "残り経験値",
+    "RemainingBattles": "残り戦闘数",
+    "Evasion": "回避",
+    "ASW": "対潜",
+    "LoS": "索敵",
+    "Fleet": "艦隊",
+    "Lock": "ロック",
+    "Control": "レベリング対象"
   },
 
   "Filter": {
-    "All": "All",
-    "UnderFinalRemodelLevel": "Under Final Remodel Level"
+    "All": "全て",
+    "UnderFinalRemodelLevel": "最終改造レベル未満"
   },
 
   "GoalBox": {
-    "Level": "Level",
-    "Goal": "Goal",
-    "Method": "Method",
-    "Result": "Result",
-    "ResultBattles": "Battles",
-    "ShipStatsAtLv": "Ship Stats at Lv. %s"
+    "Level": "レベル",
+    "Goal": "目標",
+    "Method": "方法",
+    "Result": "計算結果",
+    "ResultBattles": "戦",
+    "ShipStatsAtLv": "Lv. %s の際のステータス"
   },
 
   "Method": {
-    "Sortie": "Sortie",
-    "BaseExp": "Base Exp",
-    "ExpPerSortie": "Exp/sortie",
-    "Flagship": "Flagship",
-    "Rank": "Rank"
+    "Sortie": "海域",
+    "BaseExp": "基礎経験値",
+    "ExpPerSortie": "海域ごとの経験値",
+    "Flagship": "旗艦",
+    "Rank": "ランク"
   },
 
   "EditLevel": {
-    "Title": "Leveling Goal",
-    "Goal": "Goal",
-    "Remodel": "Possible to remodel to: %s",
-    "MaxUnmarried": "Maximum level that unmarried ship can reach",
-    "MaxMarried": "Maximum level that married ship can reach"
+    "Title": "目標レベル",
+    "Goal": "目標",
+    "Remodel": "%sへの改造レベル",
+    "MaxUnmarried": "未ケッコン時最高レベル",
+    "MaxMarried": "ケッコン時最高レベル"
   },
 
   "EditMethod": {
-    "Title": "Leveling Method",
-    "Custom": "Custom",
-    "CustomBaseExp": "Custom Base Exp",
-    "Ranged": "Ranged"
+    "Title": "レベリング方法",
+    "Custom": "カスタム",
+    "CustomBaseExp": "カスタム基礎経験値",
+    "Ranged": "振れ幅あり"
   },
 
   "Template": {
-    "ResetToDefault": "Reset To Default",
-    "NewTemplate": "New Template",
-    "ConfirmResetting": "Confirm Resetting",
-    "AreYouSureContent": "Are you sure to reset? All your templates will be overwritten.",
-    "Cancel": "Cancel",
-    "Confirm": "Confirm",
-    "Types": "Types",
-    "AddType": "Add Type",
-    "RemoveType": "Remove Type",
-    "ApplyTo": "Apply to",
-    "AllGoalsAbove": "All Goals Above"
+    "ResetToDefault": "既定値にリセットする",
+    "NewTemplate": "新しいテンプレート",
+    "ConfirmResetting": "リセットの確認",
+    "AreYouSureContent": "本当にリセットしますか? 全てのテンプレートが上書きされます。",
+    "Cancel": "キャンセル",
+    "Confirm": "リセットする",
+    "Types": "艦種",
+    "AddType": "艦種を追加する",
+    "RemoveType": "艦種を削除する",
+    "ApplyTo": "適用する",
+    "AllGoalsAbove": "全ての適用可能な艦娘"
   }
 }
