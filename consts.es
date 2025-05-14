@@ -1,3 +1,3 @@
-const MAX_LEVEL = 180
+const MAX_LEVEL = 185
 
 export { MAX_LEVEL }

@@ -12,7 +12,7 @@ your ship girl leveling plans.
 
 ### Pending
 
-- Update exp-related data.
+- Update exp-related data up to current max level (Lv.185)
 
 ### 2.0.3
 
