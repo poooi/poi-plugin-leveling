@@ -15,7 +15,7 @@ import {
 import { PTyp } from '../../ptyp'
 import { Method } from '../../structs'
 import { shipStatsAtLevelFuncSelector } from '../../selectors'
-
+import { MAX_LEVEL } from '../../consts'
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 
@@ -57,7 +57,7 @@ const fillStates = Method.destruct({
 })
 
 const toValidLevel = inp =>
-  inp < 1 ? 1 : inp > 180 ? 180 : Math.floor(inp)
+  inp < 1 ? 1 : inp > MAX_LEVEL ? MAX_LEVEL : Math.floor(inp)
 
 const normalizeExpValue = expValue => {
   if (expValue.type === 'single') {

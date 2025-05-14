@@ -13,6 +13,7 @@ import {
 } from '../selectors'
 import { initState } from './init-state'
 import { TemplateList } from '../structs'
+import { MAX_LEVEL } from '../consts'
 
 const reducer = (state = initState, action) => {
   if (action.type === '@poi-plugin-leveling@ready') {
@@ -133,7 +134,7 @@ const actionCreators = {
       const goalLevel =
         ship.nextRemodelLevel !== null ? ship.nextRemodelLevel :
         ship.level < 99 ? 99 :
-        180
+        MAX_LEVEL
 
       const method = TemplateList.findMethod(templateList)(stype)
       dispatch(actionCreators.modifyGoalTable(gt => {

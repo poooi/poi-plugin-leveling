@@ -4,31 +4,27 @@ import {
   projectorToComparator,
   chainComparators,
 } from 'subtender'
-
 import {
   shipsSelector,
   constSelector,
 } from 'views/utils/selectors'
-
 import {
   uiSelector,
   goalPairsSelector,
   goalTableSelector,
 } from '../../selectors'
-
 import { totalExp } from '../../exp'
 import { computeExpRange } from '../../map-exp'
-
 import {
   rosterIdComparator as sRosterIdComparator,
   inGameLevelComparator as sInGameLevelComparator,
   inGameShipTypeComparator as sInGameShipTypeComparator,
 } from '../../shiplist-ops'
-
 import {
   computeAllRemodelsFromMstId,
   remodelToRGoal,
 } from '../../remodel'
+import { MAX_LEVEL } from '../../consts'
 
 const goalTabSelector = createSelector(
   uiSelector,
@@ -111,7 +107,7 @@ const rGoalMaxUnmarried = {
 }
 
 const rGoalMaxMarried = {
-  goalLevel: 180,
+  goalLevel: MAX_LEVEL,
   reason: { type: 'max-married' },
 }
 
