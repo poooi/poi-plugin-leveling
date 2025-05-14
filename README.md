@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### Pending
+
+- Update exp-related data.
+
 ### 2.0.3
 
 - Translation to JP (Thanks to [isso0424](https://github.com/isso0424))
