@@ -10,6 +10,10 @@ your ship girl leveling plans.
 
 ## Changelog
 
+### 2.0.5
+
+- Update exp table up to Lv.188
+
 ### 2.0.4
 
 - Update exp-related data up to current max level (Lv.185)
