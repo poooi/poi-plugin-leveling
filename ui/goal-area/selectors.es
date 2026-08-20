@@ -13,7 +13,7 @@ import {
   goalPairsSelector,
   goalTableSelector,
 } from '../../selectors'
-import { totalExp } from '../../exp'
+import { totalExp, MAX_LEVEL } from '../../exp'
 import { computeExpRange } from '../../map-exp'
 import {
   rosterIdComparator as sRosterIdComparator,
@@ -24,7 +24,6 @@ import {
   computeAllRemodelsFromMstId,
   remodelToRGoal,
 } from '../../remodel'
-import { MAX_LEVEL } from '../../consts'
 
 const goalTabSelector = createSelector(
   uiSelector,

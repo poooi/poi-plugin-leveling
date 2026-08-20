@@ -15,7 +15,7 @@ import {
 import { PTyp } from '../../ptyp'
 import { Method } from '../../structs'
 import { shipStatsAtLevelFuncSelector } from '../../selectors'
-import { MAX_LEVEL } from '../../consts'
+import { MAX_LEVEL } from '../../exp'
 import { LevelingMethodPanel } from './leveling-method-panel'
 import { QuickGoalLevelEdit } from './quick-goal-level-edit'
 

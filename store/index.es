@@ -13,7 +13,7 @@ import {
 } from '../selectors'
 import { initState } from './init-state'
 import { TemplateList } from '../structs'
-import { MAX_LEVEL } from '../consts'
+import { MAX_LEVEL } from '../exp'
 
 const reducer = (state = initState, action) => {
   if (action.type === '@poi-plugin-leveling@ready') {
