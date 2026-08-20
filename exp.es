@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { readJsonSync } from 'fs-extra'
 import { join } from 'path-extra'
 
@@ -48,31 +47,6 @@ const totalExpTable = (() => {
 
 // total experience required for a ship to reach certain level
 const totalExp = lvl => totalExpTable[lvl]
-
-// TODO: fix tests instead of running this manually.
-
-/* eslint-disable no-console */
-window.levelingVerifyData = (() => {
-  const assertObj = (tt, reason = null) => {
-    console.assert(tt, reason)
-  }
-
-  assertObj.deepEqual = (x, y) => {
-    const result = _.isEqual(x, y)
-    console.assert(result, 'asserted deepEqual')
-    if (!result) {
-      console.error('left', x)
-      console.error('right', y)
-    }
-  }
-
-  return () => {
-    console.log('Will now verify ...')
-    verifyData(assertObj)
-    console.log('Verification executed.')
-  }
-})()
-/* eslint-enable no-console */
 
 export {
   verifyData,
