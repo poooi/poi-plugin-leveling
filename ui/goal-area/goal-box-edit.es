@@ -1,12 +1,13 @@
 import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
-  Panel,
   FormControl,
 } from 'react-bootstrap'
 import { Button } from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
+
+import { Section } from '../section'
 
 import {
   expValueFromBaseExp,
@@ -191,45 +192,39 @@ class GoalBoxEditImpl extends Component {
         <div
           style={{marginTop: 5, display: 'flex'}}
         >
-          <Panel
+          <Section
+            title={__('EditLevel.Title')}
             style={{margin: 5, flex: 1}}
           >
-            <Panel.Heading
-              style={{padding: '2px 5px'}}
-            >
-              {__('EditLevel.Title')}
-            </Panel.Heading>
-            <Panel.Body>
-              <div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                  }}
-                >
-                  <div style={{flex: 1, marginRight: '.4em'}}>
-                    {`${__('EditLevel.Goal')}:`}
-                  </div>
-                  <FormControl
-                    type="number"
-                    style={{flex: 4}}
-                    value={this.state.goalLevel}
-                    onChange={this.handleGoalLevelChange}
-                  />
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                }}
+              >
+                <div style={{flex: 1, marginRight: '.4em'}}>
+                  {`${__('EditLevel.Goal')}:`}
                 </div>
-                {
-                  this.props.rGoals.length > 0 && (
-                    <QuickGoalLevelEdit
-                      rstId={this.props.ship.rstId}
-                      onRGoalLevelClick={this.handleRGoalLevelClick}
-                      goalLevel={this.state.goalLevel}
-                      rGoals={this.props.rGoals}
-                    />
-                  )
-                }
+                <FormControl
+                  type="number"
+                  style={{flex: 4}}
+                  value={this.state.goalLevel}
+                  onChange={this.handleGoalLevelChange}
+                />
               </div>
-            </Panel.Body>
-          </Panel>
+              {
+                this.props.rGoals.length > 0 && (
+                  <QuickGoalLevelEdit
+                    rstId={this.props.ship.rstId}
+                    onRGoalLevelClick={this.handleRGoalLevelClick}
+                    goalLevel={this.state.goalLevel}
+                    rGoals={this.props.rGoals}
+                  />
+                )
+              }
+            </div>
+          </Section>
           <LevelingMethodPanel
             style={{margin: 5, flex: 3}}
             methodType={this.state.methodType}

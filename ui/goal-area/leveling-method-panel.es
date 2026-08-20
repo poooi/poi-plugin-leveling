@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {
-  Panel,
   Nav, NavItem,
 } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
+import { Section } from '../section'
 
 import { MethodSortieEdit } from './method-sortie-edit'
 import { MethodCustomEdit } from './method-custom-edit'
@@ -41,37 +41,31 @@ class LevelingMethodPanel extends Component {
       onCustomInputChange,
     } = this.props
     return (
-      <Panel
+      <Section
+        title={__('EditMethod.Title')}
         style={style}
       >
-        <Panel.Heading
-          style={{padding: '2px 5px'}}
+        <div
+          style={{display: 'flex'}}
         >
-          {__('EditMethod.Title')}
-        </Panel.Heading>
-        <Panel.Body>
-          <div
-            style={{display: 'flex'}}
-          >
-            <Nav
-              onSelect={onMethodTypeSelect}
-              bsStyle="tabs" stacked activeKey={methodType}>
-              <NavItem eventKey="sortie">{__('Method.Sortie')}</NavItem>
-              <NavItem eventKey="custom">{__('EditMethod.Custom')}</NavItem>
-            </Nav>
-            <div style={{flex: 1}}>
-              <MethodSortieEdit
-                sortieInput={sortieInput}
-                onSortieInputChange={onSortieInputChange}
-                visible={methodType === 'sortie'} />
-              <MethodCustomEdit
-                customInput={customInput}
-                onCustomInputChange={onCustomInputChange}
-                visible={methodType === 'custom'} />
-            </div>
+          <Nav
+            onSelect={onMethodTypeSelect}
+            bsStyle="tabs" stacked activeKey={methodType}>
+            <NavItem eventKey="sortie">{__('Method.Sortie')}</NavItem>
+            <NavItem eventKey="custom">{__('EditMethod.Custom')}</NavItem>
+          </Nav>
+          <div style={{flex: 1}}>
+            <MethodSortieEdit
+              sortieInput={sortieInput}
+              onSortieInputChange={onSortieInputChange}
+              visible={methodType === 'sortie'} />
+            <MethodCustomEdit
+              customInput={customInput}
+              onCustomInputChange={onCustomInputChange}
+              visible={methodType === 'custom'} />
           </div>
-        </Panel.Body>
-      </Panel>
+        </div>
+      </Section>
     )
   }
 }

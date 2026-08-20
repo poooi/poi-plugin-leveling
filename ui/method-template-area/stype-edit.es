@@ -1,14 +1,12 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import {
-  Panel,
-} from 'react-bootstrap'
-import {
   Button,
   Popover, Menu, MenuItem,
 } from '@blueprintjs/core'
 
 import { PTyp } from '../../ptyp'
+import { Section } from '../section'
 
 const { __ } = window.i18n["poi-plugin-leveling"]
 
@@ -104,61 +102,55 @@ class STypeEdit extends Component {
     const addDisabled = disabled || stypeInfoMissing.length === 0
     const removeDisabled = disabled || stypeInfoIncluded.length === 0
     return (
-      <Panel
+      <Section
+        title={__('Template.Types')}
         style={{margin: 5, flex: 1}}
       >
-        <Panel.Heading
-          style={{padding: '2px 5px'}}
+        <Popover
+          fill
+          placement="bottom-start"
+          disabled={addDisabled}
+          content={
+            <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
+              {
+                stypeInfoMissing.map( ({id,name}) => (
+                  <MenuItem
+                    key={id}
+                    text={`${name} (${id})`}
+                    onClick={() => this.handleAddOrRemoveSType('add')(id)}
+                  />
+                ))
+              }
+            </Menu>
+          }
         >
-          {__('Template.Types')}
-        </Panel.Heading>
-        <Panel.Body>
-          <Popover
-            fill
-            placement="bottom-start"
-            disabled={addDisabled}
-            content={
-              <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
-                {
-                  stypeInfoMissing.map( ({id,name}) => (
-                    <MenuItem
-                      key={id}
-                      text={`${name} (${id})`}
-                      onClick={() => this.handleAddOrRemoveSType('add')(id)}
-                    />
-                  ))
-                }
-              </Menu>
-            }
-          >
-            <Button fill disabled={addDisabled} rightIcon="caret-down">
-              {__('Template.AddType')}
-            </Button>
-          </Popover>
-          <Popover
-            fill
-            placement="bottom-start"
-            disabled={removeDisabled}
-            content={
-              <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
-                {
-                  stypeInfoIncluded.map( ({id,name}) => (
-                    <MenuItem
-                      key={id}
-                      text={`${name} (${id})`}
-                      onClick={() => this.handleAddOrRemoveSType('remove')(id)}
-                    />
-                  ))
-                }
-              </Menu>
-            }
-          >
-            <Button fill disabled={removeDisabled} rightIcon="caret-down">
-              {__('Template.RemoveType')}
-            </Button>
-          </Popover>
-        </Panel.Body>
-      </Panel>
+          <Button fill disabled={addDisabled} rightIcon="caret-down">
+            {__('Template.AddType')}
+          </Button>
+        </Popover>
+        <Popover
+          fill
+          placement="bottom-start"
+          disabled={removeDisabled}
+          content={
+            <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
+              {
+                stypeInfoIncluded.map( ({id,name}) => (
+                  <MenuItem
+                    key={id}
+                    text={`${name} (${id})`}
+                    onClick={() => this.handleAddOrRemoveSType('remove')(id)}
+                  />
+                ))
+              }
+            </Menu>
+          }
+        >
+          <Button fill disabled={removeDisabled} rightIcon="caret-down">
+            {__('Template.RemoveType')}
+          </Button>
+        </Popover>
+      </Section>
     )
   }
 }
