@@ -1,6 +1,6 @@
 import { shell } from 'electron'
 import React, { PureComponent } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 import { ExpTable } from './exp-table'
 
 const { __ } = window.i18n["poi-plugin-leveling"]

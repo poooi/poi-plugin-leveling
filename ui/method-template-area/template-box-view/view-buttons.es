@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import {
   Button,
   ButtonGroup,
-} from 'react-bootstrap'
+} from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 import { PTyp } from '../../../ptyp'
 import { UpOrDownButton } from './up-or-down-button'
@@ -65,7 +65,7 @@ class ViewButtons extends PureComponent {
           onApplyTemplate={onApplyTemplate}
         />
         <Button
-          bsStyle={isEnabled ? 'success' : 'danger'}
+          intent={isEnabled ? 'success' : 'danger'}
           onClick={onToggleTemplate}
           disabled={isMainTemplate || editing}
           style={{

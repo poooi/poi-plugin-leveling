@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import {
   ListGroup,
   Modal,
-  Button,
 } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import { modifyObject, modifyArray } from 'subtender'
 import { PTyp } from '../../ptyp'
@@ -237,7 +237,7 @@ class MethodTemplateAreaImpl extends Component {
             <Button onClick={this.handleCloseResetDialog}>
               {__('Template.Cancel')}
             </Button>
-            <Button bsStyle="danger" onClick={this.handleConfirmResetDialog}>
+            <Button intent="danger" onClick={this.handleConfirmResetDialog}>
               {__('Template.Confirm')}
             </Button>
           </Modal.Footer>

@@ -1,7 +1,7 @@
 import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 import { modifyObject } from 'subtender'
 import FontAwesome from 'react-fontawesome'
 
@@ -75,7 +75,7 @@ class GoalSorterRowImpl extends Component {
                   justifyContent: 'center',
                 }}
                 onClick={this.handleClickSorter(method)}
-                bsStyle={isActive ? 'primary' : 'default'}
+                intent={isActive ? 'primary' : 'none'}
                 key={method}
               >
                 <span>

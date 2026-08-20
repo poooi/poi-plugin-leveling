@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   Button,
-} from 'react-bootstrap'
+} from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 
 import { PTyp } from '../../ptyp'

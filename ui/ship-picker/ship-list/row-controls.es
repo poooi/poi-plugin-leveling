@@ -2,7 +2,7 @@
    controls for ship list rows
  */
 import React, { PureComponent } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 import { PTyp } from '../../../ptyp'
 
@@ -33,7 +33,7 @@ class RowControls extends PureComponent {
     if (mode === 'add' || mode === 'remove') {
       return (
         <Button
-          bsSize="xsmall"
+          size="small"
           onClick={
             mode === 'add' ? (
               /* add to goal table */
@@ -57,8 +57,8 @@ class RowControls extends PureComponent {
             justifyContent: 'center',
           }}>
           <Button
-            bsSize="xsmall"
-            bsStyle="danger"
+            size="small"
+            intent="danger"
             style={{
               ...btnStyle,
               marginRight: 5,
@@ -68,7 +68,7 @@ class RowControls extends PureComponent {
             <FontAwesome name="trash" />
           </Button>
           <Button
-            bsSize="xsmall"
+            size="small"
             style={btnStyle}
             onClick={onCancelRemovalConfirm}
           >

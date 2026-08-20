@@ -2,7 +2,7 @@ import { modifyObject } from 'subtender'
 import { createStructuredSelector } from 'reselect'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
+import { ButtonGroup, Button } from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 
 import {
@@ -53,22 +53,19 @@ class ShipFilterImpl extends PureComponent {
         ...style,
       }}>
       <div style={{marginRight: '1em'}}>{labelText}</div>
-      <ToggleButtonGroup
-        value={curValue}
-        type="radio"
-        name={label}
-        onChange={onChange}
-      >
+      <ButtonGroup>
         {
           values.map(value => (
-            <ToggleButton
+            <Button
               style={{marginTop: 0}}
-              value={value}>
+              active={curValue === value}
+              key={String(value)}
+              onClick={() => onChange(value)}>
               {renderValueToggle(value)}
-            </ToggleButton>
+            </Button>
           ))
         }
-      </ToggleButtonGroup>
+      </ButtonGroup>
     </div>
   )
 
@@ -109,7 +106,7 @@ class ShipFilterImpl extends PureComponent {
                 return (
                   <Button
                     active={filters.type === stypeIdOrAll}
-                    bsSize="small"
+                    size="small"
                     style={{
                       marginRight: 2,
                       marginTop: 0,

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Checkbox, FormControl, ButtonGroup, Button } from 'react-bootstrap'
+import { Checkbox, FormControl } from 'react-bootstrap'
+import { ButtonGroup, Button } from '@blueprintjs/core'
 import { mapIdToStr } from 'subtender/kc'
 
 import { ExpValueEdit } from './exp-value-edit'
@@ -182,7 +183,7 @@ class MethodSortieEdit extends Component {
                   <Button
                     style={{marginTop: 0}}
                     onClick={this.handleRankButtoToggle(rank,selected)}
-                    bsStyle={selected ? "primary" : "default"}
+                    intent={selected ? "primary" : "none"}
                     key={rank}>
                     {rank}
                   </Button>

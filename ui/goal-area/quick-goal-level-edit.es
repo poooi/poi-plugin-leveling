@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import {
-  ListGroup, ListGroupItem, Button,
+  ListGroup, ListGroupItem,
 } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 
 import { PTyp } from '../../ptyp'
 import { Reason } from '../../structs'

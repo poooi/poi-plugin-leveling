@@ -2,9 +2,9 @@ import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
   Panel,
-  Button,
   FormControl,
 } from 'react-bootstrap'
+import { Button } from '@blueprintjs/core'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 
