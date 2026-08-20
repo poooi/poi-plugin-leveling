@@ -118,7 +118,6 @@ class TemplateBoxEdit extends Component {
           style={{marginTop: 5, display: 'flex'}}
         >
           <STypeEdit
-            templateId={template.id}
             stypeInfo={stypeInfo}
             stypes={stypes}
             disabled={isMainTemplate}

@@ -31,13 +31,11 @@ class ViewButtons extends PureComponent {
 
   render() {
     const {
-      // template,
       upAction, downAction,
       editing, shipTargets,
       isEnabled, isMainTemplate,
       onStartEdit, onFinishEdit,
       onToggleTemplate, onApplyTemplate,
-      template,
     } = this.props
     const btnStyle = {marginTop: 0, marginRight: '1%'}
     return (
@@ -61,7 +59,6 @@ class ViewButtons extends PureComponent {
           style={btnStyle}
           editing={editing}
           shipTargets={shipTargets}
-          templateId={template.id}
           onApplyTemplate={onApplyTemplate}
         />
         <Button

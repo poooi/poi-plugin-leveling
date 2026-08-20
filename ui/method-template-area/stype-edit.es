@@ -2,10 +2,11 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import {
   Panel,
-  ButtonGroup,
-  DropdownButton,
-  MenuItem,
 } from 'react-bootstrap'
+import {
+  Button,
+  Popover, Menu, MenuItem,
+} from '@blueprintjs/core'
 
 import { PTyp } from '../../ptyp'
 
@@ -16,7 +17,6 @@ class STypeEdit extends Component {
     disabled: PTyp.bool.isRequired,
     stypes: PTyp.arrayOf(PTyp.number),
     stypeInfo: PTyp.ShipTypeInfo.isRequired,
-    templateId: PTyp.number.isRequired,
     onModifySTypes: PTyp.func.isRequired,
   }
 
@@ -96,12 +96,13 @@ class STypeEdit extends Component {
   render() {
     const {
       disabled,
-      templateId,
     } = this.props
     const {
       stypeInfoIncluded,
       stypeInfoMissing,
     } = this.splitSTypes()
+    const addDisabled = disabled || stypeInfoMissing.length === 0
+    const removeDisabled = disabled || stypeInfoIncluded.length === 0
     return (
       <Panel
         style={{margin: 5, flex: 1}}
@@ -112,36 +113,50 @@ class STypeEdit extends Component {
           {__('Template.Types')}
         </Panel.Heading>
         <Panel.Body>
-          <ButtonGroup justified>
-            <DropdownButton
-              id={`tb-edit-dd-add-${templateId}`}
-              onSelect={this.handleAddOrRemoveSType('add')}
-              disabled={disabled || stypeInfoMissing.length === 0}
-              title={__('Template.AddType')}>
-              {
-                stypeInfoMissing.map( ({id,name}) => (
-                  <MenuItem key={id} eventKey={id}>
-                    {`${name} (${id})`}
-                  </MenuItem>
-                ))
-              }
-            </DropdownButton>
-          </ButtonGroup>
-          <ButtonGroup justified>
-            <DropdownButton
-              id={`tb-edit-dd-rm-${templateId}`}
-              onSelect={this.handleAddOrRemoveSType('remove')}
-              disabled={disabled || stypeInfoIncluded.length === 0}
-              title={__('Template.RemoveType')}>
-              {
-                stypeInfoIncluded.map( ({id,name}) => (
-                  <MenuItem key={id} eventKey={id}>
-                    {`${name} (${id})`}
-                  </MenuItem>
-                ))
-              }
-            </DropdownButton>
-          </ButtonGroup>
+          <Popover
+            fill
+            placement="bottom-start"
+            disabled={addDisabled}
+            content={
+              <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
+                {
+                  stypeInfoMissing.map( ({id,name}) => (
+                    <MenuItem
+                      key={id}
+                      text={`${name} (${id})`}
+                      onClick={() => this.handleAddOrRemoveSType('add')(id)}
+                    />
+                  ))
+                }
+              </Menu>
+            }
+          >
+            <Button fill disabled={addDisabled} rightIcon="caret-down">
+              {__('Template.AddType')}
+            </Button>
+          </Popover>
+          <Popover
+            fill
+            placement="bottom-start"
+            disabled={removeDisabled}
+            content={
+              <Menu className="leveling-scrollable-menu" style={{maxHeight: 300, overflowY: 'auto'}}>
+                {
+                  stypeInfoIncluded.map( ({id,name}) => (
+                    <MenuItem
+                      key={id}
+                      text={`${name} (${id})`}
+                      onClick={() => this.handleAddOrRemoveSType('remove')(id)}
+                    />
+                  ))
+                }
+              </Menu>
+            }
+          >
+            <Button fill disabled={removeDisabled} rightIcon="caret-down">
+              {__('Template.RemoveType')}
+            </Button>
+          </Popover>
         </Panel.Body>
       </Panel>
     )

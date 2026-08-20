@@ -62,3 +62,13 @@
 #leveling-main .ReactVirtualized__Table__headerRow {
     text-transform: none;
 }
+
+/* height-capped dropdown menus: force a visible scrollbar so a long list doesn't look cut off */
+.leveling-scrollable-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.leveling-scrollable-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.5);
+    border-radius: 3px;
+}
