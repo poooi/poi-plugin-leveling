@@ -2,7 +2,6 @@ import _ from 'lodash'
 import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import {
-  ListGroup,
   Modal,
 } from 'react-bootstrap'
 import { Button } from '@blueprintjs/core'
@@ -171,7 +170,7 @@ class MethodTemplateAreaImpl extends Component {
             {__('Template.NewTemplate')}
           </Button>
         </div>
-        <ListGroup
+        <div
           style={{
             flex: 1,
             height: 0,
@@ -225,7 +224,7 @@ class MethodTemplateAreaImpl extends Component {
             })
           }
 
-        </ListGroup>
+        </div>
         <Modal show={this.state.showModal} onHide={this.handleCloseResetDialog}>
           <Modal.Header closeButton>
             <Modal.Title>{__('Template.ConfirmResetting')}</Modal.Title>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ListGroupItem, Collapse } from 'react-bootstrap'
+import { Collapse } from 'react-bootstrap'
 
 import { GoalBoxView } from './goal-box-view'
 import { GoalBoxEdit } from './goal-box-edit'
@@ -31,7 +31,7 @@ class GoalBox extends Component {
     const { eGoalPair, rGoals, modifyGoalTable } = this.props
     const { ship, goal } = eGoalPair
     return (
-      <ListGroupItem
+      <div
         style={{padding: 6}}
         className="color-altering-row">
         <GoalBoxView
@@ -51,7 +51,7 @@ class GoalBox extends Component {
             />
           </div>
         </Collapse>
-      </ListGroupItem>
+      </div>
     )
   }
 }

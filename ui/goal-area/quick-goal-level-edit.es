@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
-import {
-  ListGroup, ListGroupItem,
-} from 'react-bootstrap'
 import { Button } from '@blueprintjs/core'
 
 import { PTyp } from '../../ptyp'
@@ -29,7 +26,7 @@ class QuickGoalLevelEdit extends Component {
   render() {
     const { rGoals, goalLevel, onRGoalLevelClick } = this.props
     return (
-      <ListGroup
+      <div
         style={{
           marginTop: 10,
           marginBottom: 0,
@@ -37,7 +34,7 @@ class QuickGoalLevelEdit extends Component {
       >
         {
           rGoals.map(rGoal => (
-            <ListGroupItem
+            <div
               style={{padding: 5}}
               key={`${rGoal.goalLevel}-${rGoal.reason.type}`}
             >
@@ -61,9 +58,9 @@ class QuickGoalLevelEdit extends Component {
                   />
                 </Button>
               </div>
-            </ListGroupItem>))
+            </div>))
         }
-      </ListGroup>)
+      </div>)
   }
 }
 

@@ -1,7 +1,6 @@
 import { createStructuredSelector } from 'reselect'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ListGroup } from 'react-bootstrap'
 
 import { PTyp } from '../../ptyp'
 import { mapDispatchToProps } from '../../store'
@@ -35,7 +34,7 @@ class GoalAreaImpl extends Component {
           }}
         >
           <GoalSorterRow />
-          <ListGroup
+          <div
             style={{
               height: 0,
               flex: 1,
@@ -56,7 +55,7 @@ class GoalAreaImpl extends Component {
                 )
               })
             }
-          </ListGroup>
+          </div>
         </div>
       </div>
     )

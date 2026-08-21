@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  ListGroupItem,
   Collapse,
 } from 'react-bootstrap'
 
@@ -55,7 +54,7 @@ class TemplateBox extends Component {
 
   render() {
     return (
-      <ListGroupItem
+      <div
         style={{padding: 6}}
         className="color-altering-row">
         <TemplateBoxView
@@ -76,7 +75,7 @@ class TemplateBox extends Component {
             />
           </div>
         </Collapse>
-      </ListGroupItem>
+      </div>
     )
   }
 }
